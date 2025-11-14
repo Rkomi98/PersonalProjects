@@ -1,2 +1,5 @@
 pdf/
 *.pdf
+*.env
+Slide Generator/slide/
+Slide Generator/output/
