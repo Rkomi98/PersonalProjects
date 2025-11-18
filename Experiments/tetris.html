@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GSK: Molecular Synthesis</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #0b0c10; /* Dark Lab Grey */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: white;
+            user-select: none;
+        }
+
+        #ui-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .hud-panel {
+            background: rgba(20, 20, 30, 0.85);
+            border-left: 4px solid #F36633; /* GSK Orange */
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            width: 250px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .right-panel {
+            border-left: none;
+            border-right: 4px solid #F36633;
+            border-radius: 10px 0 0 10px;
+            text-align: right;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            letter-spacing: 1px;
+            color: #F36633;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 2px;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #start-screen, #game-over-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 12, 16, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            pointer-events: auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        button {
+            background: #F36633;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(243, 102, 51, 0.6);
+        }
+
+        .logo {
+            font-size: 60px;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: -webkit-linear-gradient(#F36633, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            margin-bottom: 40px;
+            font-size: 16px;
+            color: #aaa;
+        }
+
+        /* Controls Hint */
+        .controls {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+    <!-- Import Three.js from CDN -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- UI Overlay -->
+    <div id="ui-container">
+        <div class="hud-panel">
+            <h1>GSK <span style="color:white; font-size:0.6em;">SYNTHESIS</span></h1>
+
+            <h2>Fase R&D (Livello)</h2>
+            <div id="level-display" class="stat-value">1</div>
+
+            <h2>Composti Sintetizzati</h2>
+            <div id="lines-display" class="stat-value">0</div>
+        </div>
+
+        <div class="hud-panel right-panel">
+            <h2>Impatto Totale</h2>
+            <div id="score-display" class="stat-value" style="color: #F36633">0</div>
+            <div style="font-size: 10px; color: #666;">VITE MIGLIORATE</div>
+        </div>
+    </div>
+
+    <!-- Start Screen -->
+    <div id="start-screen">
+        <div class="logo">GSK</div>
+        <div class="tagline">ADVANCING THERAPEUTICS</div>
+        <button id="start-btn">Avvia Sintesi</button>
+        <div class="controls">FRECCE per Muovere/Ruotare &bull; SPAZIO per Rilasciare</div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="hidden">
+        <div class="logo">TRIAL TERMINATO</div>
+        <div class="tagline">DATI CLINICI FINALI</div>
+        <h2 style="color: white; margin-bottom: 10px;">VITE MIGLIORATE</h2>
+        <div id="final-score" class="stat-value" style="color: #F36633; font-size: 48px;">0</div>
+        <button id="restart-btn">Nuovo Trial</button>
+    </div>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- CONFIGURAZIONE ---
+        const BOARD_WIDTH = 10;
+        const BOARD_HEIGHT = 20;
+        const COLORS = {
+            gskOrange: 0xF36633,
+            teal: 0x00A9AB,
+            white: 0xFFFFFF,
+            grey: 0x555555,
+            yellow: 0xFFD700,
+            purple: 0x800080,
+            green: 0x4CAF50
+        };
+
+        const PALETTE = [
+            COLORS.gskOrange,
+            COLORS.teal,
+            COLORS.white,
+            COLORS.yellow,
+            COLORS.purple,
+            COLORS.green,
+            0xE91E63 // Pink
+        ];
+
+        const SHAPES = [
+            [[1, 1, 1, 1]], // I
+            [[1, 1], [1, 1]], // O
+            [[0, 1, 0], [1, 1, 1]], // T
+            [[1, 0, 0], [1, 1, 1]], // L
+            [[0, 0, 1], [1, 1, 1]], // J
+            [[0, 1, 1], [1, 1, 0]], // S
+            [[1, 1, 0], [0, 1, 1]]  // Z
+        ];
+
+        // --- THREE.JS SETUP ---
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x050508); // Deep dark background
+        scene.fog = new THREE.FogExp2(0x050508, 0.025);
+
+        const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 8, 24); // Slightly further back
+        camera.lookAt(0, 9, 0); // Look at center of board height (approx)
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        document.body.appendChild(renderer.domElement);
+
+        // --- LUCI ---
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+
+        const dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+        dirLight.position.set(10, 20, 10);
+        dirLight.castShadow = true;
+        scene.add(dirLight);
+
+        const spotLight = new THREE.SpotLight(COLORS.gskOrange, 2.5);
+        spotLight.position.set(-15, 15, 10);
+        spotLight.lookAt(0, 10, 0);
+        spotLight.penumbra = 0.5;
+        scene.add(spotLight);
+
+        // --- AMBIENTE DI GIOCO (IL CONTENITORE) ---
+        const gameGroup = new THREE.Group();
+        scene.add(gameGroup);
+
+        // 1. Il Pannello Posteriore (Vetrino)
+        // Sostituisce la griglia volante con una lastra solida semitrasparente
+        const backPanelGeo = new THREE.BoxGeometry(BOARD_WIDTH, BOARD_HEIGHT, 0.2);
+        const backPanelMat = new THREE.MeshPhysicalMaterial({
+            color: 0x111116,
+            metalness: 0.1,
+            roughness: 0.2,
+            transmission: 0.2, // Glass effect
+            opacity: 0.8,
+            transparent: true,
+            side: THREE.DoubleSide
+        });
+        const backPanel = new THREE.Mesh(backPanelGeo, backPanelMat);
+        backPanel.position.set(0, 9.5, -0.6); // Center is (0, 9.5) because height is 20 (0-19)
+        backPanel.receiveShadow = true;
+        gameGroup.add(backPanel);
+
+        // 2. Bordo/Cornice del reattore
+        // Creiamo un bordo sottile attorno all'area 10x20
+        function createBorder() {
+            const borderMat = new THREE.MeshStandardMaterial({ color: 0x444444, roughness: 0.3, metalness: 0.8 });
+            const thickness = 0.2;
+            const width = BOARD_WIDTH + thickness * 2;
+            const height = BOARD_HEIGHT + thickness * 2;
+
+            // Frame geometry logic
+            const shape = new THREE.Shape();
+            shape.moveTo(-width/2, -height/2);
+            shape.lineTo(width/2, -height/2);
+            shape.lineTo(width/2, height/2);
+            shape.lineTo(-width/2, height/2);
+            shape.lineTo(-width/2, -height/2);
+
+            const hole = new THREE.Path();
+            hole.moveTo(-BOARD_WIDTH/2, -BOARD_HEIGHT/2);
+            hole.lineTo(BOARD_WIDTH/2, -BOARD_HEIGHT/2);
+            hole.lineTo(BOARD_WIDTH/2, BOARD_HEIGHT/2);
+            hole.lineTo(-BOARD_WIDTH/2, BOARD_HEIGHT/2);
+            hole.lineTo(-BOARD_WIDTH/2, -BOARD_HEIGHT/2);
+            shape.holes.push(hole);
+
+            const extrudeSettings = { depth: 0.5, bevelEnabled: true, bevelSegments: 2, steps: 1, bevelSize: 0.1, bevelThickness: 0.1 };
+            const geometry = new THREE.ExtrudeGeometry(shape, extrudeSettings);
+            geometry.center();
+
+            const mesh = new THREE.Mesh(geometry, borderMat);
+            mesh.position.set(0, 9.5, -0.5);
+            gameGroup.add(mesh);
+        }
+        createBorder();
+
+
+        // 3. Container per i blocchi (Offset corretto)
+        // L'area di gioco logica va da x=0 a x=10, y=0 a y=20.
+        // Visivamente, vogliamo che (0,0) sia in basso a sinistra del pannello.
+        // Il pannello è centrato a (0, 9.5).
+        // Quindi dobbiamo spostare il gruppo dei blocchi in modo che 0,0 coincida con l'angolo in basso a sinistra del pannello.
+        const blockContainer = new THREE.Group();
+        blockContainer.position.set(-BOARD_WIDTH/2 + 0.5, 0, 0); // Center horizontal, align bottom
+        gameGroup.add(blockContainer);
+
+
+        // --- PARTICELLE MOLECOLARI (Sfondo) ---
+        const particlesGeo = new THREE.BufferGeometry();
+        const particleCount = 300;
+        const posArray = new Float32Array(particleCount * 3);
+        for(let i = 0; i < particleCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 60; // Wider spread
+        }
+        particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMat = new THREE.PointsMaterial({
+            size: 0.15,
+            color: COLORS.gskOrange,
+            transparent: true,
+            opacity: 0.4,
+            blending: THREE.AdditiveBlending
+        });
+        const particlesMesh = new THREE.Points(particlesGeo, particlesMat);
+        scene.add(particlesMesh);
+
+
+        // --- LOGICA DI GIOCO ---
+
+        let grid = [];
+        let activePiece = null;
+        let score = 0;
+        let lines = 0;
+        let level = 1;
+        let dropCounter = 0;
+        let dropInterval = 1000;
+        let lastTime = 0;
+        let isPaused = true;
+        let isGameOver = false;
+
+        // Geometria dei blocchi (Capsule arrotondate)
+        const blockGeometry = new THREE.BoxGeometry(0.9, 0.9, 0.9);
+        const chamferGeo = new THREE.BoxGeometry(0.9, 0.9, 0.9); // Placeholder for simpler geo
+
+        function createBlockMesh(color) {
+            const mat = new THREE.MeshPhysicalMaterial({
+                color: color,
+                roughness: 0.1,
+                metalness: 0.1,
+                clearcoat: 1.0,
+                clearcoatRoughness: 0.1,
+                transmission: 0.1,
+                opacity: 1
+            });
+            const mesh = new THREE.Mesh(blockGeometry, mat);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+
+            // Inner glow core (optional stylistic choice for "active" molecule feel)
+            // const coreGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+            // const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 });
+            // const core = new THREE.Mesh(coreGeo, coreMat);
+            // mesh.add(core);
+
+            return mesh;
+        }
+
+        function initGame() {
+            // Pulisci visivamente
+            while(blockContainer.children.length > 0){
+                blockContainer.remove(blockContainer.children[0]);
+            }
+
+            // Reset Dati
+            grid = Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null));
+            score = 0;
+            lines = 0;
+            level = 1;
+            dropInterval = 1000;
+            isGameOver = false;
+            isPaused = false;
+
+            updateUI();
+            spawnPiece();
+            requestAnimationFrame(update);
+        }
+
+        function spawnPiece() {
+            const typeId = Math.floor(Math.random() * SHAPES.length);
+            const shape = SHAPES[typeId];
+            const color = PALETTE[typeId];
+
+            activePiece = {
+                x: Math.floor(BOARD_WIDTH / 2) - Math.floor(shape[0].length / 2),
+                y: BOARD_HEIGHT - shape.length,
+                shape: shape,
+                color: color,
+                meshGroup: new THREE.Group()
+            };
+
+            drawActivePiece();
+            blockContainer.add(activePiece.meshGroup);
+
+            if (collide(0, 0)) {
+                endGame();
+            }
+        }
+
+        function drawActivePiece() {
+            activePiece.meshGroup.clear();
+            activePiece.shape.forEach((row, dy) => {
+                row.forEach((value, dx) => {
+                    if (value) {
+                        const mesh = createBlockMesh(activePiece.color);
+                        // Posizionamento relativo nel gruppo
+                        mesh.position.set(activePiece.x + dx, activePiece.y + dy, 0);
+                        activePiece.meshGroup.add(mesh);
+                    }
+                });
+            });
+        }
+
+        function collide(offsetX, offsetY, newShape = null) {
+            const shape = newShape || activePiece.shape;
+            const px = activePiece.x + offsetX;
+            const py = activePiece.y + offsetY;
+
+            for (let y = 0; y < shape.length; y++) {
+                for (let x = 0; x < shape[y].length; x++) {
+                    if (shape[y][x]) {
+                        const boardX = px + x;
+                        const boardY = py + y;
+
+                        if (boardX < 0 || boardX >= BOARD_WIDTH || boardY < 0) return true;
+                        if (boardY < BOARD_HEIGHT && grid[boardY][boardX]) return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        function lockPiece() {
+            activePiece.shape.forEach((row, dy) => {
+                row.forEach((value, dx) => {
+                    if (value) {
+                        const boardX = activePiece.x + dx;
+                        const boardY = activePiece.y + dy;
+                        if(boardY >= 0 && boardY < BOARD_HEIGHT) {
+                            const mesh = createBlockMesh(activePiece.color);
+                            mesh.position.set(boardX, boardY, 0);
+                            blockContainer.add(mesh);
+                            grid[boardY][boardX] = mesh;
+                        }
+                    }
+                });
+            });
+            blockContainer.remove(activePiece.meshGroup);
+            activePiece = null;
+            checkLines();
+            spawnPiece();
+        }
+
+        function checkLines() {
+            let linesCleared = 0;
+            for (let y = 0; y < BOARD_HEIGHT; y++) {
+                if (grid[y].every(cell => cell !== null)) {
+                    grid[y].forEach(mesh => blockContainer.remove(mesh));
+                    grid.splice(y, 1);
+                    grid.push(Array(BOARD_WIDTH).fill(null));
+                    linesCleared++;
+                    y--;
+                }
+            }
+
+            if (linesCleared > 0) {
+                // Update visual positions
+                for (let y = 0; y < BOARD_HEIGHT; y++) {
+                    for (let x = 0; x < BOARD_WIDTH; x++) {
+                        if (grid[y][x]) {
+                            grid[y][x].position.set(x, y, 0);
+                        }
+                    }
+                }
+                lines += linesCleared;
+                score += [0, 100, 300, 500, 800][linesCleared] * level;
+                level = Math.floor(lines / 10) + 1;
+                dropInterval = Math.max(100, 1000 - (level * 50));
+                updateUI();
+            }
+        }
+
+        function rotate() {
+            const matrix = activePiece.shape;
+            const newShape = matrix[0].map((val, index) => matrix.map(row => row[index]).reverse());
+
+            if (!collide(0, 0, newShape)) {
+                activePiece.shape = newShape;
+                drawActivePiece();
+            } else {
+                // Wall kick semplice
+                if(!collide(-1, 0, newShape)) {
+                    activePiece.x -= 1;
+                    activePiece.shape = newShape;
+                    drawActivePiece();
+                } else if(!collide(1, 0, newShape)) {
+                    activePiece.x += 1;
+                    activePiece.shape = newShape;
+                    drawActivePiece();
+                }
+            }
+        }
+
+        function update(time = 0) {
+            if (isPaused || isGameOver) return;
+
+            const deltaTime = time - lastTime;
+            lastTime = time;
+
+            dropCounter += deltaTime;
+            if (dropCounter > dropInterval) {
+                if (!collide(0, -1)) {
+                    activePiece.y--;
+                    drawActivePiece();
+                } else {
+                    lockPiece();
+                }
+                dropCounter = 0;
+            }
+
+            // Rotate backdrop particles
+            particlesMesh.rotation.y += 0.0005;
+
+            // Gentle sway of the whole container for immersive effect (very subtle)
+            gameGroup.rotation.z = Math.sin(time * 0.0005) * 0.01;
+
+            renderer.render(scene, camera);
+            requestAnimationFrame(update);
+        }
+
+        function endGame() {
+            isGameOver = true;
+            document.getElementById('game-over-screen').classList.remove('hidden');
+            document.getElementById('final-score').innerText = score;
+        }
+
+        function updateUI() {
+            document.getElementById('score-display').innerText = score.toLocaleString();
+            document.getElementById('lines-display').innerText = lines;
+            document.getElementById('level-display').innerText = level;
+        }
+
+        // --- INPUTS ---
+        document.addEventListener('keydown', (event) => {
+            if (isGameOver || isPaused) return;
+
+            switch (event.key) {
+                case 'ArrowLeft':
+                    if (!collide(-1, 0)) { activePiece.x--; drawActivePiece(); }
+                    break;
+                case 'ArrowRight':
+                    if (!collide(1, 0)) { activePiece.x++; drawActivePiece(); }
+                    break;
+                case 'ArrowDown':
+                    if (!collide(0, -1)) { activePiece.y--; drawActivePiece(); score+=1; updateUI(); }
+                    break;
+                case 'ArrowUp':
+                    rotate();
+                    break;
+                case ' ':
+                    while(!collide(0, -1)){ activePiece.y--; score+=2; }
+                    drawActivePiece(); lockPiece(); updateUI();
+                    break;
+            }
+        });
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        document.getElementById('start-btn').addEventListener('click', () => {
+            document.getElementById('start-screen').classList.add('hidden');
+            initGame();
+        });
+
+        document.getElementById('restart-btn').addEventListener('click', () => {
+            document.getElementById('game-over-screen').classList.add('hidden');
+            initGame();
+        });
+
+    </script>
+</body>
+</html>
