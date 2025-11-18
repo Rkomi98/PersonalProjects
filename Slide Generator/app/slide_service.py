@@ -46,16 +46,28 @@ class SlideGenerationService:
             "I titoli devono essere phrasing "
             "da consultivo e in sentence case. Usa numeri e metriche dove possibili."
         )
+        layout_rules = (
+            "Scegli il layout dinamicamente: usa 'text_only' quando i punti sono lunghi o numerosi, "
+            "'split' per testi brevi accompagnati da uno schema SVG coerente e 'visual_full' "
+            "quando lo storytelling è quasi solo visivo." 
+        )
         visual_rules = (
             "Per ogni slide scegli il layout migliore impostando il campo layout tra "
             "'text_only', 'split' oppure 'visual_full'. "
             "Quando il visual è rilevante genera un SVG inline completo in stile Datapizza "
             "all'interno di visual.svg_markup e descrivilo con type/description/caption. "
-            "Se il visual non è necessario lascia visual null. L'SVG non è obbligatorio."
+            "Lo SVG deve essere un singolo blocco <svg>...</svg> valido, senza ``` markdown, "
+            "né testo extra o commenti esterni: chiudi sempre i tag, includi viewBox/width/height coerenti e non aggiungere prologhi `<?xml ...?>`. "
+            "Se il visual non è necessario lascia visual null."
+        )
+        icon_rules = (
+            "Per ogni bullet inserisci un prefisso [icon:NOME] con un nome valido delle Material Symbols "
+            "(es. chevron_right, check_circle, warning) così che il renderer possa mostrare l'icona corretta."
         )
 
         return (
             f"{guide}{tone_rules}\n\n"
+            f"LAYOUT E ICONE\n---------------\n{layout_rules}\n{icon_rules}\n\n"
             f"VISUAL E SVG\n-------------\n{visual_rules}\n\n"
             f"STILE\n-----\n{self.config.style_prompt}\n\n"
             f"REQUISITI\n---------\n"

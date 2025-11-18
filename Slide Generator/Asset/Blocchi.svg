@@ -1,0 +1,33 @@
+<svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Blocco 1 -->
+    <rect x="50" y="60" width="140" height="80" rx="8" fill="#FEF2F2" stroke="#C12A22" stroke-width="3"/>
+    <text x="120" y="95" text-anchor="middle" font-family="system-ui" font-size="15" font-weight="bold" fill="#1E293B">Input</text>
+    <text x="120" y="115" text-anchor="middle" font-family="system-ui" font-size="12" fill="#475569">Dati grezzi</text>
+
+    <!-- Freccia 1 -->
+    <path d="M 190 100 L 230 100" stroke="#C12A22" stroke-width="3" fill="none"/>
+    <path d="M 225 95 L 235 100 L 225 105" fill="#C12A22"/>
+
+    <!-- Blocco 2 -->
+    <rect x="235" y="60" width="140" height="80" rx="8" fill="#C12A22"/>
+    <text x="305" y="95" text-anchor="middle" font-family="system-ui" font-size="15" font-weight="bold" fill="#FFFFFF">Processing</text>
+    <text x="305" y="115" text-anchor="middle" font-family="system-ui" font-size="12" fill="#FFFFFF">Trasformazione</text>
+
+    <!-- Freccia 2 -->
+    <path d="M 375 100 L 415 100" stroke="#C12A22" stroke-width="3" fill="none"/>
+    <path d="M 410 95 L 420 100 L 410 105" fill="#C12A22"/>
+
+    <!-- Blocco 3 -->
+    <rect x="420" y="60" width="140" height="80" rx="8" fill="#FEF2F2" stroke="#C12A22" stroke-width="3"/>
+    <text x="490" y="95" text-anchor="middle" font-family="system-ui" font-size="15" font-weight="bold" fill="#1E293B">Analysis</text>
+    <text x="490" y="115" text-anchor="middle" font-family="system-ui" font-size="12" fill="#475569">Insights</text>
+
+    <!-- Freccia 3 -->
+    <path d="M 560 100 L 600 100" stroke="#C12A22" stroke-width="3" fill="none"/>
+    <path d="M 595 95 L 605 100 L 595 105" fill="#C12A22"/>
+
+    <!-- Blocco 4 -->
+    <rect x="605" y="60" width="140" height="80" rx="8" fill="#FEF2F2" stroke="#C12A22" stroke-width="3"/>
+    <text x="675" y="95" text-anchor="middle" font-family="system-ui" font-size="15" font-weight="bold" fill="#1E293B">Output</text>
+    <text x="675" y="115" text-anchor="middle" font-family="system-ui" font-size="12" fill="#475569">Report finale</text>
+</svg>

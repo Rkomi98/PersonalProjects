@@ -17,7 +17,9 @@ class AppSettings:
     asset_dir: Path
     topic_dir: Path
     prompt_path: Path
+    layout_plan_path: Path
     logo_path: Path
+    cover_logo_path: Path
     output_dir: Path
     svg_output_dir: Path
     openai_api_key: str
@@ -50,7 +52,9 @@ def load_settings(
     asset_dir = base_dir / "Asset"
     topic_dir = base_dir / "Topic"
     prompt_path = asset_dir / "prompt.md"
+    layout_plan_path = asset_dir / "layouts.json"
     logo_path = asset_dir / "datapizzaLogo.png"
+    cover_logo_path = asset_dir / "datapizza.png"
     resolved_output_dir = output_dir or (base_dir / "output")
     resolved_output_dir.mkdir(parents=True, exist_ok=True)
     svg_output_dir = resolved_output_dir / "svg"
@@ -61,7 +65,9 @@ def load_settings(
         asset_dir=asset_dir,
         topic_dir=topic_dir,
         prompt_path=prompt_path,
+        layout_plan_path=layout_plan_path,
         logo_path=logo_path,
+        cover_logo_path=cover_logo_path,
         output_dir=resolved_output_dir,
         svg_output_dir=svg_output_dir,
         openai_api_key=api_key,

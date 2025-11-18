@@ -1,0 +1,53 @@
+<svg viewBox="0 0 1200 250" xmlns="http://www.w3.org/2000/svg">
+    <!-- Linea principale -->
+    <line x1="100" y1="80" x2="1100" y2="80" stroke="#C12A22" stroke-width="4"/>
+
+    <!-- Step 1: Ingest -->
+    <circle cx="150" cy="80" r="20" fill="#C12A22"/>
+    <circle cx="150" cy="80" r="14" fill="#FFFFFF"/>
+    <text x="150" y="130" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="bold" fill="#1E293B">1. Ingest</text>
+    <text x="150" y="155" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">Lettura e</text>
+    <text x="150" y="175" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">standardizzazione</text>
+
+    <!-- Step 2: Clean -->
+    <circle cx="300" cy="80" r="20" fill="#C12A22"/>
+    <circle cx="300" cy="80" r="14" fill="#FFFFFF"/>
+    <text x="300" y="130" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="bold" fill="#1E293B">2. Clean</text>
+    <text x="300" y="155" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">Pulizia risposte</text>
+    <text x="300" y="175" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">aperte (null)</text>
+
+    <!-- Step 3: Features -->
+    <circle cx="450" cy="80" r="20" fill="#C12A22"/>
+    <circle cx="450" cy="80" r="14" fill="#FFFFFF"/>
+    <text x="450" y="130" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="bold" fill="#1E293B">3. Features</text>
+    <text x="450" y="155" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">Calcolo K/S,</text>
+    <text x="450" y="175" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">clustering</text>
+
+    <!-- Step 4: EDA -->
+    <circle cx="600" cy="80" r="20" fill="#C12A22"/>
+    <circle cx="600" cy="80" r="14" fill="#FFFFFF"/>
+    <text x="600" y="130" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="bold" fill="#1E293B">4. EDA</text>
+    <text x="600" y="155" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">Grafici e tabelle</text>
+    <text x="600" y="175" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">quantitative</text>
+
+    <!-- Step 5: Qual (LLM) -->
+    <circle cx="750" cy="80" r="20" fill="#C12A22"/>
+    <circle cx="750" cy="80" r="14" fill="#FFFFFF"/>
+    <text x="750" y="130" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="bold" fill="#1E293B">5. Qual (LLM)</text>
+    <text x="750" y="155" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">Estrazione temi,</text>
+    <text x="750" y="175" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">needs, concerns</text>
+
+    <!-- Step 6: Synthesis -->
+    <circle cx="900" cy="80" r="20" fill="#C12A22"/>
+    <circle cx="900" cy="80" r="14" fill="#FFFFFF"/>
+    <text x="900" y="130" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="bold" fill="#1E293B">6. Synthesis</text>
+    <text x="900" y="155" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">Sintesi e</text>
+    <text x="900" y="175" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">raccomandazioni</text>
+
+    <!-- Step 7: Report -->
+    <circle cx="1050" cy="80" r="20" fill="#C12A22"/>
+    <circle cx="1050" cy="80" r="14" fill="#FFFFFF"/>
+    <text x="1050" y="130" text-anchor="middle" font-family="system-ui" font-size="16" font-weight="bold" fill="#1E293B">7. Report</text>
+    <text x="1050" y="155" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">Assemblaggio finale</text>
+    <text x="1050" y="175" text-anchor="middle" font-family="system-ui" font-size="13" fill="#475569">(PDF/DOCX)</text>
+</svg>

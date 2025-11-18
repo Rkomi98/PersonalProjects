@@ -1,6 +1,7 @@
 """Slide generation package wiring datapizza-AI with custom PPT output."""
 
 from .settings import AppSettings, load_settings
+from .layouts import load_layout_plan
 from .slide_models import SlideContent, SlideDeck, SlideVisual
 from .slide_service import SlideGenerationService
 from .ppt_builder import SlideDeckWriter, SlideStyle
@@ -16,4 +17,5 @@ __all__ = [
     "SlideVisual",
     "load_settings",
     "load_style_prompt",
+    "load_layout_plan",
 ]

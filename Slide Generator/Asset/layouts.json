@@ -1,0 +1,132 @@
+{
+  "templates": {
+    "split_story": {
+      "description": "Bullets a sinistra e visual a destra, come nelle slide Datapizza.",
+      "aliases": [
+        "split",
+        "split_left"
+      ],
+      "decorations": {
+        "circle": "bottom_right",
+        "underline": true,
+        "key_box": true
+      },
+      "blocks": [
+        {
+          "type": "bullets",
+          "x": 0.8,
+          "y": 3.0,
+          "width": 6.3,
+          "style": "badges",
+          "max_items": 5
+        },
+        {
+          "type": "visual",
+          "x": 7.8,
+          "y": 2.8,
+          "width": 4.6,
+          "height": 3.8
+        },
+        {
+          "type": "insights",
+          "x": 0.8,
+          "y": 6.5,
+          "width": 6.3,
+          "height": 1.6
+        }
+      ]
+    },
+    "text_story": {
+      "description": "Slide narrativa solo testo con bullets e note finali.",
+      "aliases": [
+        "text_only",
+        "text"
+      ],
+      "decorations": {
+        "circle": "top_left",
+        "underline": true,
+        "key_box": true
+      },
+      "blocks": [
+        {
+          "type": "bullets",
+          "x": 0.8,
+          "y": 3.0,
+          "width": 11.0,
+          "style": "simple",
+          "max_items": 6
+        },
+        {
+          "type": "insights",
+          "x": 0.8,
+          "y": 6.8,
+          "width": 11.0,
+          "height": 1.5
+        }
+      ]
+    },
+    "visual_showcase": {
+      "description": "Slide focalizzata sul visual SVG con caption e micro bullets.",
+      "aliases": [
+        "visual_full",
+        "visual",
+        "svg_only"
+      ],
+      "decorations": {
+        "circle": "bottom_left",
+        "underline": true,
+        "key_box": false
+      },
+      "blocks": [
+        {
+          "type": "visual",
+          "x": 0.8,
+          "y": 2.2,
+          "width": 11.5,
+          "height": 4.5
+        },
+        {
+          "type": "bullets",
+          "x": 0.8,
+          "y": 6.9,
+          "width": 11.5,
+          "style": "simple",
+          "max_items": 3
+        }
+      ]
+    },
+    "card_grid": {
+      "description": "Matrice di card con icona per raccontare componenti o fasi.",
+      "aliases": [
+        "cards",
+        "highlights"
+      ],
+      "decorations": {
+        "circle": "bottom_right",
+        "underline": true,
+        "key_box": true
+      },
+      "blocks": [
+        {
+          "type": "cards",
+          "x": 0.8,
+          "y": 3.0,
+          "width": 11.0,
+          "columns": 2,
+          "card_height": 2.1,
+          "max_items": 4
+        }
+      ]
+    }
+  },
+  "slide_plan": {
+    "default": "split_story",
+    "overrides": {
+      "2": "visual_showcase",
+      "3": "card_grid",
+      "4": "text_story"
+    },
+    "notes": "La sequenza di slide è progettata per presentare in modo chiaro e coinvolgente le funzionalità e i vantaggi di Kinetica.",
+    "plan_title": "Kinetica Presentation Layout"
+  }
+}
