@@ -65,6 +65,12 @@
             margin-bottom: 20px;
         }
 
+        .highscore-section {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #333;
+        }
+
         #start-screen, #game-over-screen {
             position: absolute;
             top: 0;
@@ -151,7 +157,12 @@
         <div class="hud-panel right-panel">
             <h2>Impatto Totale</h2>
             <div id="score-display" class="stat-value" style="color: #F36633">0</div>
-            <div style="font-size: 10px; color: #666;">VITE MIGLIORATE</div>
+            <div style="font-size: 10px; color: #666; margin-bottom: 20px;">VITE MIGLIORATE</div>
+
+            <div class="highscore-section">
+                <h2>Record Laboratorio</h2>
+                <div id="highscore-display" class="stat-value" style="color: #00A9AB">0</div>
+            </div>
         </div>
     </div>
 
@@ -214,8 +225,8 @@
         scene.fog = new THREE.FogExp2(0x050508, 0.025);
 
         const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
-        camera.position.set(0, 8, 24); // Slightly further back
-        camera.lookAt(0, 9, 0); // Look at center of board height (approx)
+        camera.position.set(0, 8, 24);
+        camera.lookAt(0, 9, 0);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -242,7 +253,6 @@
         scene.add(gameGroup);
 
         // 1. Il Pannello Posteriore (Vetrino)
-        // Sostituisce la griglia volante con una lastra solida semitrasparente
         const backPanelGeo = new THREE.BoxGeometry(BOARD_WIDTH, BOARD_HEIGHT, 0.2);
         const backPanelMat = new THREE.MeshPhysicalMaterial({
             color: 0x111116,
@@ -254,19 +264,17 @@
             side: THREE.DoubleSide
         });
         const backPanel = new THREE.Mesh(backPanelGeo, backPanelMat);
-        backPanel.position.set(0, 9.5, -0.6); // Center is (0, 9.5) because height is 20 (0-19)
+        backPanel.position.set(0, 9.5, -0.6);
         backPanel.receiveShadow = true;
         gameGroup.add(backPanel);
 
         // 2. Bordo/Cornice del reattore
-        // Creiamo un bordo sottile attorno all'area 10x20
         function createBorder() {
             const borderMat = new THREE.MeshStandardMaterial({ color: 0x444444, roughness: 0.3, metalness: 0.8 });
             const thickness = 0.2;
             const width = BOARD_WIDTH + thickness * 2;
             const height = BOARD_HEIGHT + thickness * 2;
 
-            // Frame geometry logic
             const shape = new THREE.Shape();
             shape.moveTo(-width/2, -height/2);
             shape.lineTo(width/2, -height/2);
@@ -292,23 +300,17 @@
         }
         createBorder();
 
-
-        // 3. Container per i blocchi (Offset corretto)
-        // L'area di gioco logica va da x=0 a x=10, y=0 a y=20.
-        // Visivamente, vogliamo che (0,0) sia in basso a sinistra del pannello.
-        // Il pannello è centrato a (0, 9.5).
-        // Quindi dobbiamo spostare il gruppo dei blocchi in modo che 0,0 coincida con l'angolo in basso a sinistra del pannello.
+        // 3. Container per i blocchi
         const blockContainer = new THREE.Group();
-        blockContainer.position.set(-BOARD_WIDTH/2 + 0.5, 0, 0); // Center horizontal, align bottom
+        blockContainer.position.set(-BOARD_WIDTH/2 + 0.5, 0, 0);
         gameGroup.add(blockContainer);
-
 
         // --- PARTICELLE MOLECOLARI (Sfondo) ---
         const particlesGeo = new THREE.BufferGeometry();
         const particleCount = 300;
         const posArray = new Float32Array(particleCount * 3);
         for(let i = 0; i < particleCount * 3; i++) {
-            posArray[i] = (Math.random() - 0.5) * 60; // Wider spread
+            posArray[i] = (Math.random() - 0.5) * 60;
         }
         particlesGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
         const particlesMat = new THREE.PointsMaterial({
@@ -335,9 +337,12 @@
         let isPaused = true;
         let isGameOver = false;
 
-        // Geometria dei blocchi (Capsule arrotondate)
+        // Gestione High Score
+        let highScore = localStorage.getItem('gsk_tetris_highscore') || 0;
+        document.getElementById('highscore-display').innerText = parseInt(highScore).toLocaleString();
+
+        // Geometria dei blocchi
         const blockGeometry = new THREE.BoxGeometry(0.9, 0.9, 0.9);
-        const chamferGeo = new THREE.BoxGeometry(0.9, 0.9, 0.9); // Placeholder for simpler geo
 
         function createBlockMesh(color) {
             const mat = new THREE.MeshPhysicalMaterial({
@@ -352,23 +357,14 @@
             const mesh = new THREE.Mesh(blockGeometry, mat);
             mesh.castShadow = true;
             mesh.receiveShadow = true;
-
-            // Inner glow core (optional stylistic choice for "active" molecule feel)
-            // const coreGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
-            // const coreMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.2 });
-            // const core = new THREE.Mesh(coreGeo, coreMat);
-            // mesh.add(core);
-
             return mesh;
         }
 
         function initGame() {
-            // Pulisci visivamente
             while(blockContainer.children.length > 0){
                 blockContainer.remove(blockContainer.children[0]);
             }
 
-            // Reset Dati
             grid = Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null));
             score = 0;
             lines = 0;
@@ -409,7 +405,6 @@
                 row.forEach((value, dx) => {
                     if (value) {
                         const mesh = createBlockMesh(activePiece.color);
-                        // Posizionamento relativo nel gruppo
                         mesh.position.set(activePiece.x + dx, activePiece.y + dy, 0);
                         activePiece.meshGroup.add(mesh);
                     }
@@ -470,7 +465,6 @@
             }
 
             if (linesCleared > 0) {
-                // Update visual positions
                 for (let y = 0; y < BOARD_HEIGHT; y++) {
                     for (let x = 0; x < BOARD_WIDTH; x++) {
                         if (grid[y][x]) {
@@ -494,7 +488,6 @@
                 activePiece.shape = newShape;
                 drawActivePiece();
             } else {
-                // Wall kick semplice
                 if(!collide(-1, 0, newShape)) {
                     activePiece.x -= 1;
                     activePiece.shape = newShape;
@@ -524,10 +517,7 @@
                 dropCounter = 0;
             }
 
-            // Rotate backdrop particles
             particlesMesh.rotation.y += 0.0005;
-
-            // Gentle sway of the whole container for immersive effect (very subtle)
             gameGroup.rotation.z = Math.sin(time * 0.0005) * 0.01;
 
             renderer.render(scene, camera);
@@ -544,6 +534,13 @@
             document.getElementById('score-display').innerText = score.toLocaleString();
             document.getElementById('lines-display').innerText = lines;
             document.getElementById('level-display').innerText = level;
+
+            // Controllo e aggiornamento High Score
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('gsk_tetris_highscore', highScore);
+                document.getElementById('highscore-display').innerText = highScore.toLocaleString();
+            }
         }
 
         // --- INPUTS ---
