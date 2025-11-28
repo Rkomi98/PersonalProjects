@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discesa del Gradiente 3D - Stile 3B1B</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #111; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        #canvas-container { width: 100vw; height: 100vh; display: block; }
+
+        #ui-layer {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #ece6e2;
+            pointer-events: none; /* Lascia passare i click al canvas */
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 24px;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
+        }
+
+        p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #88ceeb;
+        }
+
+        #controls {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            pointer-events: auto;
+        }
+
+        button {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #88ceeb;
+            color: #88ceeb;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        button:hover {
+            background: #88ceeb;
+            color: #000;
+            box-shadow: 0 0 15px #88ceeb;
+        }
+
+        #math-label {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Times New Roman', serif;
+            font-style: italic;
+            font-size: 20px;
+            color: #ffd700;
+        }
+    </style>
+    <!-- Importiamo Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+
+    <div id="ui-layer">
+        <h1>Discesa del Gradiente</h1>
+        <p>L'algoritmo cerca il punto più basso della valle (Errore Minimo).</p>
+        <p>Tieni premuto e trascina per ruotare la vista.</p>
+    </div>
+
+    <div id="math-label">
+        Cost = x² + z²
+    </div>
+
+    <div id="controls">
+        <button onclick="startDescent()">Lancia Sfera</button>
+        <button onclick="resetScene()">Reset Random</button>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <script>
+        // --- CONFIGURAZIONE SCENA ---
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x111111); // Nero morbido
+        scene.fog = new THREE.FogExp2(0x111111, 0.02);
+
+        // Camera
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(20, 15, 20);
+        camera.lookAt(0, 0, 0);
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // Luci
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        pointLight.position.set(10, 20, 10);
+        scene.add(pointLight);
+
+        // --- OGGETTI MATEMATICI ---
+
+        // 1. La Superficie (Grafico 3D)
+        // Funzione: y = (x^2 + z^2) / 10
+        const geometry = new THREE.PlaneGeometry(20, 20, 40, 40);
+
+        // Modifichiamo i vertici per creare la parabola
+        const count = geometry.attributes.position.count;
+        for (let i = 0; i < count; i++) {
+            const x = geometry.attributes.position.getX(i);
+            const z = geometry.attributes.position.getY(i); // PlaneGeometry usa x,y per il piano 2D, noi lo ruoteremo
+
+            // La nostra funzione di costo (Height)
+            const y = (x * x + z * z) / 8;
+
+            geometry.attributes.position.setZ(i, y); // ThreeJS PlaneGeometry è verticale inizialmente
+        }
+
+        geometry.computeVertexNormals();
+
+        // Materiale Wireframe "Tron-style"
+        const material = new THREE.MeshPhongMaterial({
+            color: 0x0088ff,
+            emissive: 0x001133,
+            side: THREE.DoubleSide,
+            flatShading: true,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.5
+        });
+
+        const surface = new THREE.Mesh(geometry, material);
+        surface.rotation.x = -Math.PI / 2; // Ruota per renderlo un pavimento
+        scene.add(surface);
+
+        // Griglia di base per riferimento
+        const gridHelper = new THREE.GridHelper(30, 30, 0x333333, 0x222222);
+        gridHelper.position.y = -0.1;
+        scene.add(gridHelper);
+
+        // 2. La Sfera (L'Agente/Algoritmo)
+        const ballGeometry = new THREE.SphereGeometry(0.5, 32, 32);
+        const ballMaterial = new THREE.MeshPhongMaterial({
+            color: 0xffd700, // Oro
+            emissive: 0xaa4400,
+            shininess: 100
+        });
+        const ball = new THREE.Mesh(ballGeometry, ballMaterial);
+        scene.add(ball);
+
+        // Scia della pallina (Traccia del percorso)
+        const trailMaterial = new THREE.LineBasicMaterial({ color: 0xff0000 });
+        const trailGeometry = new THREE.BufferGeometry();
+        // Pre-allochiamo spazio per 1000 punti
+        const trailPositions = new Float32Array(3000);
+        trailGeometry.setAttribute('position', new THREE.BufferAttribute(trailPositions, 3));
+        const trail = new THREE.Line(trailGeometry, trailMaterial);
+        trail.frustumCulled = false; // Evita che sparisca quando la bounding box è strana
+        scene.add(trail);
+
+        let trailCount = 0;
+
+        // --- LOGICA DI SIMULAZIONE ---
+
+        let isDescending = false;
+        let ballPos = { x: 8, z: 8 }; // Posizione logica (y calcolata dalla funzione)
+        let velocity = { x: 0, z: 0 };
+        const learningRate = 0.05; // Quanto è grande il passo
+        const momentum = 0.9; // Inerzia (per renderlo fisicamente piacevole)
+
+        function updateBallY() {
+            // Calcola l'altezza y basata sulla funzione y = (x^2 + z^2) / 8
+            const y = (ballPos.x * ballPos.x + ballPos.z * ballPos.z) / 8;
+            ball.position.set(ballPos.x, y + 0.5, ballPos.z); // +0.5 è il raggio della sfera
+
+            // Aggiorna scia
+            if (isDescending && trailCount < 1000) {
+                const index = trailCount * 3;
+                const positions = trail.geometry.attributes.position.array;
+                positions[index] = ballPos.x;
+                positions[index + 1] = y + 0.1; // Leggermente sopra la superficie
+                positions[index + 2] = ballPos.z;
+
+                // Imposta tutti i punti futuri alla posizione corrente per evitare linee che vanno a zero
+                if (trailCount === 0) {
+                     for(let j=0; j<3000; j+=3) {
+                         positions[j] = ballPos.x;
+                         positions[j+1] = y + 0.1;
+                         positions[j+2] = ballPos.z;
+                     }
+                }
+
+                trailCount++;
+                trail.geometry.setDrawRange(0, trailCount);
+                trail.geometry.attributes.position.needsUpdate = true;
+            }
+        }
+
+        function calculateGradient(x, z) {
+            // Derivata parziale rispetto a x di (x^2 + z^2)/8  => 2x/8 => x/4
+            const dx = x / 4;
+            // Derivata parziale rispetto a z
+            const dz = z / 4;
+            return { x: dx, z: dz };
+        }
+
+        function resetScene() {
+            isDescending = false;
+            trailCount = 0;
+            trail.geometry.setDrawRange(0, 0);
+
+            // Posizione casuale sul bordo
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 6 + Math.random() * 3; // Tra 6 e 9 unità dal centro
+            ballPos.x = Math.cos(angle) * radius;
+            ballPos.z = Math.sin(angle) * radius;
+
+            velocity = { x: 0, z: 0 };
+            updateBallY();
+        }
+
+        function startDescent() {
+            if (isDescending) return;
+            // Resetta la scia solo se siamo già al centro
+            if (Math.abs(ballPos.x) < 0.1 && Math.abs(ballPos.z) < 0.1) resetScene();
+            isDescending = true;
+        }
+
+        // --- INTERAZIONE MOUSE (CAMERA ORBITALE) ---
+        let isDragging = false;
+        let previousMousePosition = { x: 0, y: 0 };
+        let cameraAngle = { theta: Math.PI / 4, phi: Math.PI / 6 }; // Coordinate sferiche
+        const radius = 30; // Distanza camera
+
+        document.addEventListener('mousedown', (e) => {
+            if (e.target.tagName !== 'BUTTON') isDragging = true;
+            previousMousePosition = { x: e.clientX, y: e.clientY };
+        });
+
+        document.addEventListener('mouseup', () => { isDragging = false; });
+
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                const deltaMove = {
+                    x: e.clientX - previousMousePosition.x,
+                    y: e.clientY - previousMousePosition.y
+                };
+
+                cameraAngle.theta -= deltaMove.x * 0.01;
+                cameraAngle.phi -= deltaMove.y * 0.01;
+
+                // Limita l'angolo verticale per non andare sottoterra o capovolgersi
+                cameraAngle.phi = Math.max(0.1, Math.min(Math.PI / 2 - 0.1, cameraAngle.phi));
+
+                updateCameraPosition();
+                previousMousePosition = { x: e.clientX, y: e.clientY };
+            }
+        });
+
+        function updateCameraPosition() {
+            camera.position.x = radius * Math.sin(cameraAngle.theta) * Math.cos(cameraAngle.phi);
+            camera.position.y = radius * Math.sin(cameraAngle.phi);
+            camera.position.z = radius * Math.cos(cameraAngle.theta) * Math.cos(cameraAngle.phi);
+            camera.lookAt(0, 0, 0);
+        }
+
+        // --- ANIMATION LOOP ---
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (isDescending) {
+                // Calcola Gradiente (la pendenza)
+                const grad = calculateGradient(ballPos.x, ballPos.z);
+
+                // Aggiorna posizione
+                // Gradient Descent semplice: x_new = x - learning_rate * gradient
+                ballPos.x -= grad.x * learningRate;
+                ballPos.z -= grad.z * learningRate;
+
+                // Fermati se siamo vicini al centro
+                if (Math.abs(ballPos.x) < 0.05 && Math.abs(ballPos.z) < 0.05) {
+                    isDescending = false;
+                }
+
+                updateBallY();
+            }
+
+            // Animazione "respiro" della superficie
+            surface.rotation.z += 0.001; // Leggera rotazione della mesh per effetto scenico
+
+            renderer.render(scene, camera);
+        }
+
+        // Gestione ridimensionamento finestra
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Inizializzazione
+        resetScene();
+        updateCameraPosition();
+        animate();
+
+    </script>
+</body>
+</html>
