@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizzazione Concetto Machine Learning</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Sfondo scuro stile 3b1b */
+            color: #ece6e2; /* Colore testo chiaro */
+            font-family: 'Times New Roman', serif; /* Simile a LaTeX */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #canvas-container {
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        canvas {
+            background-color: #000000;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        #controls {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            border: 1px solid #555;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            font-family: sans-serif;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background-color: #444;
+            border-color: #88ceeb; /* Azzurro stile Manim */
+        }
+
+        #status-text {
+            font-size: 24px;
+            margin-bottom: 15px;
+            height: 30px;
+            text-align: center;
+            color: #88ceeb;
+        }
+
+        .math-overlay {
+            position: absolute;
+            color: white;
+            font-size: 18px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="status-text">Clicca "Inizia Demo" per partire</div>
+
+    <div id="canvas-container">
+        <canvas id="mlCanvas" width="800" height="500"></canvas>
+    </div>
+
+    <div id="controls">
+        <button onclick="startSimulation()">Inizia Demo</button>
+        <button onclick="resetSimulation()">Reset</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('mlCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Configurazione Assi
+        const padding = 50;
+        const width = canvas.width;
+        const height = canvas.height;
+        const originX = 50;
+        const originY = height - 50;
+        const scaleX = (width - 100) / 10; // 10 unità sull'asse x
+        const scaleY = (height - 100) / 10; // 10 unità sull'asse y
+
+        // Stato della simulazione
+        let points = [];
+        let m = 0.1; // pendenza corrente
+        let b = 5.0; // intercetta corrente
+        let targetM = 0.8;
+        let targetB = 1.0;
+        let phase = 0; // 0: Idle, 1: Show Points, 2: Show Bad Line, 3: Training, 4: Prediction
+        let animationFrameId;
+
+        // Colori stile Manim
+        const C_YELLOW = "#FFFF00";
+        const C_RED = "#FF0000";
+        const C_GREEN = "#00FF00";
+        const C_BLUE = "#88CEEB";
+        const C_AXIS = "#FFFFFF";
+
+        function setup() {
+            // Genera punti casuali attorno a y = 0.8x + 1
+            points = [];
+            for (let x = 1; x <= 8; x++) {
+                let noise = (Math.random() - 0.5) * 1.5;
+                let y = 0.8 * x + 1 + noise;
+                points.push({x, y});
+            }
+            drawScene();
+        }
+
+        // Converte coordinate cartesiane in coordinate canvas
+        function toCanvas(x, y) {
+            return {
+                x: originX + x * scaleX,
+                y: originY - y * scaleY
+            };
+        }
+
+        function drawAxes() {
+            ctx.strokeStyle = C_AXIS;
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+
+            // Asse Y
+            ctx.moveTo(originX, originY);
+            ctx.lineTo(originX, 20);
+
+            // Asse X
+            ctx.moveTo(originX, originY);
+            ctx.lineTo(width - 20, originY);
+            ctx.stroke();
+
+            // Etichette
+            ctx.fillStyle = C_AXIS;
+            ctx.font = "16px Times New Roman";
+            ctx.fillText("Input (x)", width - 80, originY + 30);
+            ctx.fillText("Output (y)", originX - 30, 30);
+
+            // Tacche
+            ctx.font = "12px sans-serif";
+            for(let i=1; i<=10; i++) {
+                let pos = toCanvas(i, 0);
+                ctx.fillText(i, pos.x - 3, pos.y + 20);
+
+                pos = toCanvas(0, i);
+                ctx.fillText(i, pos.x - 20, pos.y + 5);
+            }
+        }
+
+        function drawPoints(opacity = 1) {
+            ctx.fillStyle = C_YELLOW;
+            points.forEach(p => {
+                let pos = toCanvas(p.x, p.y);
+                ctx.beginPath();
+                ctx.arc(pos.x, pos.y, 6, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        }
+
+        function drawLine(currentM, currentB, color) {
+            ctx.strokeStyle = color;
+            ctx.lineWidth = 4;
+            ctx.beginPath();
+            let start = toCanvas(0, currentB);
+            let endX = 10;
+            let endY = currentM * 10 + currentB;
+            let end = toCanvas(endX, endY);
+
+            ctx.moveTo(start.x, start.y);
+            ctx.lineTo(end.x, end.y);
+            ctx.stroke();
+
+            // Mostra equazione
+            ctx.fillStyle = color;
+            ctx.font = "20px Consolas";
+            ctx.fillText(`y = ${currentM.toFixed(2)}x + ${currentB.toFixed(2)}`, width - 250, 100);
+        }
+
+        function drawPrediction() {
+            let newX = 9;
+            let predY = m * newX + b;
+            let pos = toCanvas(newX, predY);
+            let axisX = toCanvas(newX, 0);
+            let axisY = toCanvas(0, predY);
+
+            ctx.setLineDash([5, 5]);
+            ctx.strokeStyle = "white";
+            ctx.lineWidth = 1;
+
+            // Linea verticale
+            ctx.beginPath();
+            ctx.moveTo(axisX.x, axisX.y);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.stroke();
+
+            // Linea orizzontale
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            ctx.lineTo(axisY.x, axisY.y);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // Punto predizione
+            ctx.fillStyle = C_BLUE;
+            ctx.beginPath();
+            ctx.arc(pos.x, pos.y, 8, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Testo
+            ctx.fillStyle = C_BLUE;
+            ctx.font = "bold 18px sans-serif";
+            ctx.fillText("Nuovo Dato?", axisX.x - 30, axisX.y + 40);
+            ctx.fillText(`Previsione: ${predY.toFixed(1)}`, axisY.x + 10, axisY.y - 10);
+        }
+
+        function drawScene() {
+            ctx.clearRect(0, 0, width, height);
+            drawAxes();
+
+            if (phase >= 1) drawPoints();
+            if (phase >= 2) {
+                let color = (phase >= 4) ? C_GREEN : (phase === 3 ? blendColors(C_RED, C_GREEN, trainingProgress) : C_RED);
+                drawLine(m, b, color);
+            }
+            if (phase === 4) drawPrediction();
+        }
+
+        // Utility per mischiare i colori durante l'animazione
+        let trainingProgress = 0;
+        function blendColors(color1, color2, percentage) {
+            // Semplificazione: ritorna uno o l'altro o giallo a metà
+            // Una vera interpolazione hex è complessa, qui usiamo un trucco visivo
+            if (percentage > 0.8) return C_GREEN;
+            if (percentage > 0.4) return "#FFFF00"; // Giallo transizione
+            return C_RED;
+        }
+
+        // LOGICA ANIMAZIONE
+        async function startSimulation() {
+            if(phase > 0) return; // Già in corso
+
+            const status = document.getElementById("status-text");
+
+            // Fase 1: Mostra dati
+            phase = 1;
+            status.innerText = "1. Raccogliamo i dati (punti gialli)";
+            drawScene();
+            await wait(1500);
+
+            // Fase 2: Modello Iniziale
+            phase = 2;
+            status.innerText = "2. Il modello inizia con parametri casuali (Errore alto)";
+            drawScene();
+            await wait(1500);
+
+            // Fase 3: Training
+            phase = 3;
+            status.innerText = "3. Training: Minimizzazione dell'errore...";
+            let startM = m;
+            let startB = b;
+            let startTime = null;
+            const duration = 3000; // 3 secondi
+
+            function animateTraining(timestamp) {
+                if (!startTime) startTime = timestamp;
+                let progress = (timestamp - startTime) / duration;
+
+                if (progress < 1) {
+                    // Easing smooth
+                    let ease = 1 - Math.pow(1 - progress, 3);
+
+                    m = startM + (targetM - startM) * ease;
+                    b = startB + (targetB - startB) * ease;
+                    trainingProgress = progress;
+
+                    drawScene();
+                    animationFrameId = requestAnimationFrame(animateTraining);
+                } else {
+                    m = targetM;
+                    b = targetB;
+                    phase = 4;
+                    status.innerText = "4. Predizione su nuovi dati";
+                    status.style.color = C_GREEN;
+                    drawScene();
+                }
+            }
+            requestAnimationFrame(animateTraining);
+        }
+
+        function resetSimulation() {
+            cancelAnimationFrame(animationFrameId);
+            phase = 0;
+            m = 0.1;
+            b = 5.0;
+            trainingProgress = 0;
+            document.getElementById("status-text").innerText = "Clicca 'Inizia Demo' per partire";
+            document.getElementById("status-text").style.color = C_BLUE;
+            setup();
+        }
+
+        function wait(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Avvio iniziale
+        setup();
+
+    </script>
+</body>
+</html>
