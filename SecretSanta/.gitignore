@@ -1,0 +1,5 @@
+#
+# Override ignore rules from the repo root so the Secret Santa assets stay versioned.
+#
+!assets/Copertina libro.pdf
+!media/*.pdf

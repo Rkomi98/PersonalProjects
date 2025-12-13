@@ -9,17 +9,16 @@ Quando l'utente completa tutte le tappe, si sbloccano i pulsanti di download.
 - `styles.css` — stile
 - `game.js` — logica gioco + neve + sblocco
 - `assets/cover.webp` / `assets/cover.jpg` — copertina (sostituiscila liberamente)
-- `downloads/` — metti qui EPUB/PDF
-- `media/` — metti qui la musica (MP3)
+- `media/` — metti qui EPUB/PDF/musica
 
 ## Dove mettere i tuoi file
 
 Sostituisci questi (nomi consigliati):
 
-- `downloads/romanzo-sud-america.epub`
-- `downloads/romanzo-sud-america.pdf`
-- `downloads/copertina-libro.pdf`
+- `media/Romanzo Sud America_ Itinerario a _C_.epub`
+- `media/Romanzo Sud America_ Itinerario a _C_.pdf`
 - `media/colonna-sonora.mp3`
+- `media/Copertina libro.pdf` (opzionale, se vuoi conservarla anche lì)
 
 Poi i pulsanti in pagina funzionano senza modifiche.
 
@@ -27,9 +26,8 @@ Poi i pulsanti in pagina funzionano senza modifiche.
 
 In `index.html` cerca:
 
-- `id="dlCover"` → `href="./downloads/copertina-libro.pdf"`
-- `id="dlEpub"` → `href="./downloads/romanzo-sud-america.epub"`
-- `id="dlPdf"` → `href="./downloads/romanzo-sud-america.pdf"`
+- `id="dlEpub"` → `href="./media/Romanzo%20Sud%20America_%20Itinerario%20a%20_C_.epub"`
+- `id="dlPdf"` → `href="./media/Romanzo%20Sud%20America_%20Itinerario%20a%20_C_.pdf"`
 - `id="dlMusic"` → `href="./media/colonna-sonora.mp3"`
 
 Puoi metterci anche URL esterni.

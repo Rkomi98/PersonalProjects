@@ -5,9 +5,9 @@
    - I pulsanti .lockable vengono sbloccati quando completi tutte le tappe.
 
    Sostituisci i file:
-   - downloads/romanzo-sud-america.epub
-   - downloads/romanzo-sud-america.pdf
-   - downloads/copertina-libro.pdf
+   - media/Romanzo Sud America_ Itinerario a _C_.epub
+   - media/Romanzo Sud America_ Itinerario a _C_.pdf
+   - media/Copertina libro.pdf (solo se vuoi riutilizzarla)
    - media/colonna-sonora.mp3
 */
 
