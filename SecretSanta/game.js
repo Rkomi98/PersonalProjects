@@ -5,8 +5,9 @@
    - I pulsanti .lockable vengono sbloccati quando completi tutte le tappe.
 
    Sostituisci i file:
-   - downloads/la-grande-c.epub
-   - downloads/la-grande-c.pdf
+   - downloads/romanzo-sud-america.epub
+   - downloads/romanzo-sud-america.pdf
+   - downloads/copertina-libro.pdf
    - media/colonna-sonora.mp3
 */
 

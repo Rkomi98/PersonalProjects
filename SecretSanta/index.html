@@ -162,28 +162,38 @@
         <header class="section__head">
           <h2>Download</h2>
           <p class="muted">
-            Qui trovi i pulsanti per scaricare <strong>EPUB</strong> e <strong>PDF</strong>.
-            I link sono predisposti: puoi sostituire i file in <code>downloads/</code> o cambiare gli URL.
+            Qui trovi la <strong>copertina</strong>, il romanzo (<strong>EPUB</strong> e <strong>PDF</strong>) e la
+            <strong>colonna sonora</strong>. I link puntano ai file presenti nel repository: basta
+            mantenerli nelle cartelle indicate o aggiornare gli URL.
           </p>
         </header>
 
         <div class="cards">
           <article class="card">
+            <h3>🖼️ Copertina</h3>
+            <p class="muted">Scarica il PDF con l'artwork completo.</p>
+            <a class="btn primary lockable" id="dlCover" href="./downloads/copertina-libro.pdf" download>
+              Scarica copertina
+            </a>
+            <p class="tiny muted">File atteso: <code>downloads/copertina-libro.pdf</code></p>
+          </article>
+
+          <article class="card">
             <h3>📖 Libro (EPUB)</h3>
             <p class="muted">Formato comodo per e-reader / telefono.</p>
-            <a class="btn primary lockable" id="dlEpub" href="./downloads/la-grande-c.epub" download>
+            <a class="btn primary lockable" id="dlEpub" href="./downloads/romanzo-sud-america.epub" download>
               Scarica EPUB
             </a>
-            <p class="tiny muted">File atteso: <code>downloads/la-grande-c.epub</code></p>
+            <p class="tiny muted">File atteso: <code>downloads/romanzo-sud-america.epub</code></p>
           </article>
 
           <article class="card">
             <h3>📄 Libro (PDF)</h3>
             <p class="muted">Formato stampabile e condivisibile.</p>
-            <a class="btn primary lockable" id="dlPdf" href="./downloads/la-grande-c.pdf" download>
+            <a class="btn primary lockable" id="dlPdf" href="./downloads/romanzo-sud-america.pdf" download>
               Scarica PDF
             </a>
-            <p class="tiny muted">File atteso: <code>downloads/la-grande-c.pdf</code></p>
+            <p class="tiny muted">File atteso: <code>downloads/romanzo-sud-america.pdf</code></p>
           </article>
 
           <article class="card">

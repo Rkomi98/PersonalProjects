@@ -16,8 +16,9 @@ Quando l'utente completa tutte le tappe, si sbloccano i pulsanti di download.
 
 Sostituisci questi (nomi consigliati):
 
-- `downloads/la-grande-c.epub`
-- `downloads/la-grande-c.pdf`
+- `downloads/romanzo-sud-america.epub`
+- `downloads/romanzo-sud-america.pdf`
+- `downloads/copertina-libro.pdf`
 - `media/colonna-sonora.mp3`
 
 Poi i pulsanti in pagina funzionano senza modifiche.
@@ -26,8 +27,9 @@ Poi i pulsanti in pagina funzionano senza modifiche.
 
 In `index.html` cerca:
 
-- `id="dlEpub"` → `href="./downloads/la-grande-c.epub"`
-- `id="dlPdf"` → `href="./downloads/la-grande-c.pdf"`
+- `id="dlCover"` → `href="./downloads/copertina-libro.pdf"`
+- `id="dlEpub"` → `href="./downloads/romanzo-sud-america.epub"`
+- `id="dlPdf"` → `href="./downloads/romanzo-sud-america.pdf"`
 - `id="dlMusic"` → `href="./media/colonna-sonora.mp3"`
 
 Puoi metterci anche URL esterni.
