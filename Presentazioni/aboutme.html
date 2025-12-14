@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anomaly Detection su Telemetria Geospaziale</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/theme/white.css">
+    
+    <style>
+        :root {
+            --primary: #C12A22;
+            --text-dark: #1E293B;
+            --text-gray: #475569;
+            --text-light: #64748B;
+            --bg-slide: #FFFFFF;
+            --bg-card: #F8FAFC;
+            --card-red-bg: #FEF2F2;
+            --card-red-border: #FEE2E2;
+            --card-blue-bg: #EFF6FF;
+            --card-blue-border: #DBEAFE;
+            --card-green-bg: #ECFDF5;
+            --card-green-border: #D1FAE5;
+            --card-yellow-bg: #FEF3C7;
+            --card-yellow-border: #F59E0B;
+        }
+        
+        .reveal {
+            font-family: 'Lato', sans-serif;
+            font-weight: 400;
+            color: var(--text-gray);
+        }
+        
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: -0.02em;
+        }
+        
+        .reveal h1 {
+            font-size: 2.2em;
+            color: var(--primary);
+        }
+        
+        .reveal h2 {
+            font-size: 1.6em;
+            color: var(--text-dark);
+            margin-bottom: 0.5em;
+        }
+        
+        .reveal p, .reveal li {
+            font-size: 0.7em;
+            color: var(--text-gray);
+            line-height: 1.6;
+        }
+        
+        .reveal section {
+            text-align: left;
+            padding: 40px 50px;
+        }
+        
+        /* Logo fisso */
+        .logo-fixed {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            z-index: 100;
+        }
+        
+        /* Watermark */
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 30px;
+            width: 120px;
+            height: 120px;
+            opacity: 0.04;
+            z-index: 1;
+        }
+        
+        /* Badge numero slide */
+        .slide-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary);
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 0.55em;
+            padding: 6px 14px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+        
+        /* Header con badge e titolo allineati */
+        .slide-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .slide-header h2 {
+            margin: 0;
+        }
+        
+        /* Subtitle */
+        .subtitle {
+            font-size: 0.65em;
+            color: var(--text-light);
+            margin-top: -10px;
+            margin-bottom: 25px;
+        }
+        
+        /* Cards */
+        .card {
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            text-align: left;
+        }
+        
+        .card-accent {
+            background: var(--card-red-bg);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .card-blue {
+            background: var(--card-blue-bg);
+            border-left: 4px solid #1D4ED8;
+        }
+        
+        .card-green {
+            background: var(--card-green-bg);
+            border-left: 4px solid #059669;
+        }
+        
+        .card-yellow {
+            background: var(--card-yellow-bg);
+            border-left: 4px solid #B45309;
+        }
+        
+        .card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.55em;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+        }
+        
+        .card-title.gray { color: var(--text-light); }
+        .card-title.blue { color: #1D4ED8; }
+        .card-title.green { color: #059669; }
+        .card-title.yellow { color: #B45309; }
+        
+        .card p {
+            margin: 0;
+            font-size: 0.65em;
+        }
+        
+        /* Tags */
+        .tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background: #F1F5F9;
+            border-radius: 6px;
+            font-size: 0.55em;
+            color: var(--text-dark);
+            margin: 3px;
+            font-weight: 600;
+        }
+        
+        .tag.red { background: var(--card-red-bg); color: var(--primary); }
+        .tag.blue { background: var(--card-blue-bg); color: #1D4ED8; }
+        .tag.green { background: var(--card-green-bg); color: #059669; }
+        .tag.yellow { background: var(--card-yellow-bg); color: #B45309; }
+        
+        /* Formula box */
+        .formula-box {
+            background: white;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 12px 0;
+            text-align: center;
+        }
+        
+        .formula-box.red {
+            border-color: var(--card-red-border);
+            background: #FFFBFB;
+        }
+        
+        .formula-note {
+            font-size: 0.5em;
+            color: #94A3B8;
+            margin-top: 8px;
+        }
+        
+        /* Layout columns */
+        .two-columns {
+            display: flex;
+            gap: 30px;
+            text-align: left;
+        }
+        
+        .two-columns > div {
+            flex: 1;
+        }
+        
+        .three-columns {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .three-columns > div {
+            flex: 1;
+        }
+        
+        /* Metric card */
+        .metric-card {
+            background: linear-gradient(135deg, var(--card-red-bg) 0%, #FFFFFF 100%);
+            border: 1px solid var(--card-red-border);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .metric-card .number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2em;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .metric-card .label {
+            font-size: 0.6em;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+        
+        /* Source */
+        .source {
+            position: absolute;
+            bottom: 20px;
+            left: 30px;
+            font-size: 0.4em;
+            color: #94A3B8;
+            font-style: italic;
+        }
+        
+        /* Cover slide */
+        .cover-slide {
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .cover-logo {
+            width: 100px;
+            height: 100px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+        
+        .cover-logo svg {
+            width: 60px;
+            height: 60px;
+        }
+        
+        .cover-slide h1 {
+            font-size: 2.4em;
+            margin-bottom: 10px;
+        }
+        
+        .cover-subtitle {
+            font-size: 0.8em;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+        
+        .cover-line {
+            width: 120px;
+            height: 4px;
+            background: var(--primary);
+            margin: 0 auto 30px;
+            border-radius: 2px;
+        }
+        
+        .cover-footer {
+            font-size: 0.55em;
+            color: var(--text-light);
+        }
+        
+        /* Pipeline boxes */
+        .pipeline {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .pipeline-step {
+            flex: 1;
+            background: var(--bg-card);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .pipeline-step.active {
+            background: var(--card-red-bg);
+            border: 2px solid var(--primary);
+        }
+        
+        .pipeline-arrow {
+            font-size: 1.2em;
+            color: var(--primary);
+            flex-shrink: 0;
+        }
+        
+        .pipeline-num {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.5em;
+            font-weight: 700;
+            color: white;
+            background: var(--primary);
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 8px;
+        }
+        
+        .pipeline-step p {
+            font-size: 0.55em;
+            margin: 0;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+        
+        /* Highlight box */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--card-red-bg) 0%, #FFF5F5 100%);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        
+        .highlight-box p {
+            font-size: 0.7em;
+            font-style: italic;
+            color: var(--text-dark);
+            margin: 0;
+        }
+        
+        /* Table styles */
+        .reveal table {
+            font-size: 0.6em;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        .reveal table th {
+            background: var(--text-dark);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .reveal table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        .reveal table tr:nth-child(even) {
+            background: #FAFAFA;
+        }
+        
+        /* Lista stilizzata */
+        .styled-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .styled-list li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+            font-size: 0.65em;
+        }
+        
+        .styled-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 14px;
+            width: 8px;
+            height: 8px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+        
+        /* Workflow step */
+        .workflow-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin: 12px 0;
+        }
+        
+        .workflow-num {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.6em;
+            font-weight: 700;
+            color: white;
+            background: var(--primary);
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .workflow-content {
+            flex: 1;
+        }
+        
+        .workflow-content strong {
+            font-size: 0.65em;
+            color: var(--text-dark);
+        }
+        
+        .workflow-content p {
+            font-size: 0.55em;
+            margin: 3px 0 0;
+            color: var(--text-gray);
+        }
+        
+        /* Takeaway grid */
+        .takeaway-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .takeaway-item {
+            text-align: center;
+            padding: 25px 15px;
+        }
+        
+        .takeaway-icon {
+            font-size: 2em;
+            margin-bottom: 15px;
+        }
+        
+        .takeaway-item h4 {
+            font-size: 0.7em;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+        
+        .takeaway-item p {
+            font-size: 0.55em;
+        }
+
+        /* Q&A slide */
+        .qna-slide {
+            text-align: center !important;
+            display: flex !important;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+        
+        .qna-slide h1 {
+            font-size: 3em;
+        }
+        
+        /* MathJax adjustments */
+        .MathJax {
+            font-size: 0.9em !important;
+        }
+        
+        .formula-box .MathJax {
+            font-size: 1em !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Logo fisso -->
+    <div class="logo-fixed">
+        <svg viewBox="0 0 100 100" fill="none">
+            <path d="M10 90 L50 10 L90 90 Z" stroke="#C12A22" stroke-width="10" fill="none"/>
+            <path d="M30 60 Q50 40 70 60" stroke="#C12A22" stroke-width="7" fill="none"/>
+        </svg>
+    </div>
+    
+    <!-- Watermark -->
+    <div class="watermark">
+        <svg viewBox="0 0 100 100" fill="none">
+            <path d="M10 90 L50 10 L90 90 Z" stroke="#C12A22" stroke-width="10" fill="none"/>
+            <path d="M30 60 Q50 40 70 60" stroke="#C12A22" stroke-width="7" fill="none"/>
+        </svg>
+    </div>
+
+    <div class="reveal">
+        <div class="slides">
+            
+            <!-- SLIDE 1: COVER -->
+            <section class="cover-slide">
+                <div class="cover-logo">
+                    <svg viewBox="0 0 100 100" fill="none">
+                        <path d="M10 90 L50 10 L90 90 Z" stroke="white" stroke-width="10" fill="none"/>
+                        <path d="M30 60 Q50 40 70 60" stroke="white" stroke-width="7" fill="none"/>
+                    </svg>
+                </div>
+                <h1>Anomaly Detection su<br>Telemetria Geospaziale</h1>
+                <p class="cover-subtitle">6D Point Clouds & SAR Flood Mapping</p>
+                <div class="cover-line"></div>
+                <p class="cover-footer">Mirko Calcaterra · Geoinformatics Engineer</p>
+            </section>
+
+            <!-- SLIDE 2: CHI SONO -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">01</span>
+                    <h2>Chi sono</h2>
+                </div>
+                <p class="subtitle">Background e competenze</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Profilo</div>
+                            <p><strong>Mirko Calcaterra</strong><br>
+                            Geoinformatics Engineer con focus su Machine Learning e Deep Learning applicati a dati di telemetria geospaziale.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-title gray">Competenze chiave</div>
+                            <div style="margin-top: 10px;">
+                                <span class="tag red">Point Cloud Processing</span>
+                                <span class="tag blue">SAR Analysis</span>
+                                <span class="tag green">Deep Learning</span>
+                                <span class="tag">Satellite Data</span>
+                                <span class="tag yellow">Anomaly Detection</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-blue">
+                            <div class="card-title blue">Cosa presento oggi</div>
+                            <p>Due progetti di <strong>anomaly detection su telemetria</strong>:</p>
+                            <ul class="styled-list" style="margin-top: 10px;">
+                                <li>Tesi: 6D Point Clouds per rilevamento discariche illegali</li>
+                                <li>Workflow: Flood mapping da immagini SAR</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card card-green">
+                            <div class="card-title green">Connessione</div>
+                            <p>Telemetria · Dati satellite · Ambiente · ML/DL</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: PROBLEMA TESI -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">02</span>
+                    <h2>Il Problema: Discariche Illegali</h2>
+                </div>
+                <p class="subtitle">Rilevamento automatico da nuvole di punti 6D</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Obiettivo</div>
+                            <p>Migliorare il rilevamento di <strong>discariche illegali</strong> da nuvole di punti 6D (XYZRGB) acquisite tramite LiDAR + fotogrammetria.</p>
+                        </div>
+                        
+                        <div class="card card-yellow">
+                            <div class="card-title yellow">Sfida principale</div>
+                            <p>La nuvola grezza contiene:</p>
+                            <ul class="styled-list" style="margin-top: 8px;">
+                                <li>Rumore e outlier geometrici</li>
+                                <li>Occlusioni da vegetazione</li>
+                                <li>Artefatti di ricostruzione</li>
+                            </ul>
+                            <p style="margin-top: 10px;"><em>→ Se data "as is" a un modello, esplodono i falsi positivi!</em></p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-blue">
+                            <div class="card-title blue">Scelta progettuale</div>
+                            <p>Approccio a due fasi:</p>
+                        </div>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+                            <div class="card" style="display: flex; align-items: center; gap: 15px;">
+                                <div class="workflow-num">1</div>
+                                <div>
+                                    <strong style="font-size: 0.6em; color: var(--text-dark);">Unsupervised</strong>
+                                    <p style="margin: 0; font-size: 0.55em;">Anomaly/noise removal (SOR, DBSCAN, ROR, denoising)</p>
+                                </div>
+                            </div>
+                            <div class="card" style="display: flex; align-items: center; gap: 15px;">
+                                <div class="workflow-num">2</div>
+                                <div>
+                                    <strong style="font-size: 0.6em; color: var(--text-dark);">Supervised</strong>
+                                    <p style="margin: 0; font-size: 0.55em;">Semantic segmentation con PointNeXt</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: DATI E TELEMETRIA -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">03</span>
+                    <h2>Dati & Natura della Telemetria</h2>
+                </div>
+                <p class="subtitle">Caratteristiche dei dati geospaziali multi-sensore</p>
+                
+                <div class="three-columns">
+                    <div class="metric-card">
+                        <div class="number">6D</div>
+                        <div class="label">Dimensioni (XYZRGB)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="number">10M+</div>
+                        <div class="label">Punti per scena</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="number">2</div>
+                        <div class="label">Sensori (LiDAR + Camera)</div>
+                    </div>
+                </div>
+                
+                <div class="two-columns" style="margin-top: 25px;">
+                    <div>
+                        <div class="card">
+                            <div class="card-title gray">Classi presenti</div>
+                            <div style="margin-top: 10px;">
+                                <span class="tag">Terreno</span>
+                                <span class="tag">Vegetazione</span>
+                                <span class="tag">Edifici</span>
+                                <span class="tag red">Rifiuti</span>
+                                <span class="tag">Auto</span>
+                                <span class="tag">Strade</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Definizione di "Anomalia"</div>
+                            <p>Nel mio contesto, le anomalie sono:</p>
+                            <ul class="styled-list" style="margin-top: 8px;">
+                                <li><strong>Geometriche:</strong> punti isolati, artefatti, returns sbagliati</li>
+                                <li><strong>Semantiche:</strong> rifiuti in aree inaspettate</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 5: PIPELINE -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">04</span>
+                    <h2>Pipeline ad Alto Livello</h2>
+                </div>
+                <p class="subtitle">Dal dato grezzo alla mappa delle anomalie</p>
+                
+                <div class="pipeline" style="margin-top: 30px;">
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">1</div>
+                        <p>Input<br><span style="font-weight: 400; font-size: 0.9em;">6D Point Clouds</span></p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step active">
+                        <div class="pipeline-num">2</div>
+                        <p>Outlier Removal<br><span style="font-weight: 400; font-size: 0.9em;">SOR, DBSCAN, ROR</span></p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">3</div>
+                        <p>Denoising<br><span style="font-weight: 400; font-size: 0.9em;">Bilateral, Mean-shift</span></p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">4</div>
+                        <p>Segmentation<br><span style="font-weight: 400; font-size: 0.9em;">PointNeXt</span></p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step">
+                        <div class="pipeline-num">5</div>
+                        <p>Output<br><span style="font-weight: 400; font-size: 0.9em;">Mappa Anomalie</span></p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <p>"Uso l'<strong>unsupervised</strong> per ripulire il segnale e togliere le anomalie puramente geometriche/statistiche, così il modello <strong>supervised</strong> può concentrarsi sulle anomalie semantiche (rifiuti vs vegetazione)."</p>
+                </div>
+            </section>
+
+            <!-- SLIDE 6: SOR -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">05</span>
+                    <h2>Statistical Outlier Removal (SOR)</h2>
+                </div>
+                <p class="subtitle">Rimozione outlier basata su distanza ai vicini</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Principio</div>
+                            <p>Per ogni punto, calcola la <strong>distanza media</strong> ai suoi k vicini più prossimi. I punti con distanza anomalmente alta sono outlier.</p>
+                        </div>
+                        
+                        <div class="formula-box red">
+                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">Distanza media ai k vicini</p>
+                            \[ \bar{d}_i = \frac{1}{k}\sum_{j=1}^{k} \|p_i - p_j\| \]
+                        </div>
+                        
+                        <div class="formula-box red">
+                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">Criterio di outlier</p>
+                            \[ \bar{d}_i > \mu_d + \alpha \cdot \sigma_d \implies \text{outlier} \]
+                            <p class="formula-note">dove μ<sub>d</sub> e σ<sub>d</sub> sono media e dev. std. globali</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-blue">
+                            <div class="card-title blue">Parametri</div>
+                            <ul class="styled-list">
+                                <li><strong>k</strong> = numero di vicini (tipicamente 30-50)</li>
+                                <li><strong>α</strong> = moltiplicatore soglia (tipicamente 1.0-2.0)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card card-green">
+                            <div class="card-title green">Vantaggi</div>
+                            <ul class="styled-list">
+                                <li>Metodo puramente statistico/unsupervised</li>
+                                <li>Efficiente computazionalmente</li>
+                                <li>Buono per artefatti sparsi e isolati</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card card-yellow">
+                            <div class="card-title yellow">Quando usarlo</div>
+                            <p>Prima fase di pulizia per rimuovere punti chiaramente fuori distribuzione.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 7: ROR -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">06</span>
+                    <h2>Radius Outlier Removal (ROR)</h2>
+                </div>
+                <p class="subtitle">Rimozione outlier basata su densità locale</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Principio</div>
+                            <p>Per ogni punto, conta quanti vicini ha entro un certo <strong>raggio r</strong>. Se troppo pochi → il punto è outlier perché viola la densità minima locale.</p>
+                        </div>
+                        
+                        <div class="formula-box red">
+                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">Conteggio vicini in raggio r</p>
+                            \[ N_r(p_i) = |\{p_j \in P : \|p_i - p_j\| < r\}| \]
+                        </div>
+                        
+                        <div class="formula-box red">
+                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">Criterio di outlier</p>
+                            \[ N_r(p_i) < n_{min} \implies \text{outlier} \]
+                            <p class="formula-note">dove n<sub>min</sub> è il numero minimo di punti richiesto</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-blue">
+                            <div class="card-title blue">Parametri</div>
+                            <ul class="styled-list">
+                                <li><strong>r</strong> = raggio di ricerca (in metri)</li>
+                                <li><strong>n<sub>min</sub></strong> = minimo punti richiesti nel raggio</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card card-green">
+                            <div class="card-title green">Differenza da SOR</div>
+                            <p>ROR impone un <strong>vincolo di densità assoluto</strong>, mentre SOR usa una soglia statistica relativa.</p>
+                        </div>
+                        
+                        <div class="card card-yellow">
+                            <div class="card-title yellow">Quando usarlo</div>
+                            <p>Per rimuovere punti in regioni a bassa densità, dopo SOR come secondo filtro.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 8: DBSCAN -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">07</span>
+                    <h2>DBSCAN</h2>
+                </div>
+                <p class="subtitle">Density-Based Spatial Clustering of Applications with Noise</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Principio</div>
+                            <p>Algoritmo di <strong>clustering basato su densità</strong>. Identifica cluster di forma arbitraria e classifica come rumore i punti che non appartengono a nessun cluster.</p>
+                        </div>
+                        
+                        <div class="formula-box red">
+                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">ε-neighborhood di un punto</p>
+                            \[ N_\epsilon(p) = \{q \in D : \|p - q\| \leq \epsilon\} \]
+                        </div>
+                        
+                        <div class="formula-box red">
+                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">Definizione di Core Point</p>
+                            \[ |N_\epsilon(p)| \geq MinPts \]
+                            <p class="formula-note">Un punto è "core" se ha almeno MinPts vicini entro ε</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-blue">
+                            <div class="card-title blue">Tipi di punti</div>
+                            <ul class="styled-list">
+                                <li><strong>Core point:</strong> ≥ MinPts vicini entro ε</li>
+                                <li><strong>Border point:</strong> vicino di un core, ma < MinPts</li>
+                                <li><strong>Noise point:</strong> né core né border → <span class="tag red" style="margin: 0;">OUTLIER</span></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card card-green">
+                            <div class="card-title green">Vantaggi chiave</div>
+                            <ul class="styled-list">
+                                <li>Trova cluster di forma non convessa</li>
+                                <li>Non richiede numero cluster a priori</li>
+                                <li>Robusto rispetto a outlier</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 9: COMBINAZIONE METODI -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">08</span>
+                    <h2>Combinare i Metodi</h2>
+                </div>
+                <p class="subtitle">Strategia multi-step per anomaly detection robusto</p>
+                
+                <div class="pipeline" style="margin: 25px 0;">
+                    <div class="pipeline-step">
+                        <p>Raw Point Cloud</p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step active">
+                        <p><strong>SOR</strong><br><span style="font-weight: 400;">Artefatti sparsi</span></p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step active">
+                        <p><strong>ROR</strong><br><span style="font-weight: 400;">Zone a bassa densità</span></p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step active">
+                        <p><strong>DBSCAN</strong><br><span style="font-weight: 400;">Rumore residuo</span></p>
+                    </div>
+                    <div class="pipeline-arrow">→</div>
+                    <div class="pipeline-step">
+                        <p>Clean Point Cloud</p>
+                    </div>
+                </div>
+                
+                <div class="two-columns" style="margin-top: 20px;">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Ordine e razionale</div>
+                            <ol style="font-size: 0.6em; margin: 10px 0; padding-left: 20px;">
+                                <li style="margin-bottom: 8px;"><strong>SOR first:</strong> rimuove outlier statisticamente evidenti (punti molto lontani dai vicini)</li>
+                                <li style="margin-bottom: 8px;"><strong>ROR second:</strong> filtra regioni con densità insufficiente</li>
+                                <li><strong>DBSCAN last:</strong> separa cluster "reali" da rumore residuo sparso</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-green">
+                            <div class="card-title green">Risultato</div>
+                            <p>Una nuvola di punti <strong>pulita</strong> dove le uniche "anomalie" rimaste sono quelle <strong>semantiche</strong> (rifiuti, oggetti fuori posto) che il modello supervised può classificare.</p>
+                        </div>
+                        
+                        <div class="card card-blue">
+                            <div class="card-title blue">Considerazione</div>
+                            <p>I parametri (k, α, r, ε, MinPts) vanno <strong>calibrati</strong> sulla densità e caratteristiche del dataset specifico.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 10: DENOISING -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">09</span>
+                    <h2>Denoising & Occlusioni</h2>
+                </div>
+                <p class="subtitle">Filtraggio per preservare i bordi delle strutture</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card">
+                            <div class="card-title gray">Problema residuo</div>
+                            <p>Dopo l'outlier removal, rimane <strong>rumore ad alta frequenza</strong> (jitter sui punti) che può confondere la segmentazione.</p>
+                        </div>
+                        
+                        <div class="card card-accent">
+                            <div class="card-title">Bilateral Filter</div>
+                            <p>Smoothing che preserva i bordi pesando sia la <strong>distanza spaziale</strong> che la <strong>differenza di feature</strong> (es. normale, colore).</p>
+                            <div class="formula-box red" style="margin-top: 15px;">
+                                \[ p'_i = \frac{\sum_j w_s(i,j) \cdot w_f(i,j) \cdot p_j}{\sum_j w_s(i,j) \cdot w_f(i,j)} \]
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-blue">
+                            <div class="card-title blue">Anisotropic Mean-Shift</div>
+                            <p>Sposta iterativamente i punti verso zone ad alta densità locale, preservando le <strong>discontinuità strutturali</strong> (bordi edifici, limiti discariche).</p>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <p>"È come su <strong>SAR</strong>: prima togli speckle e rumore, poi fai detection. Stesso pattern!"</p>
+                        </div>
+                        
+                        <div class="card card-green">
+                            <div class="card-title green">Obiettivo finale</div>
+                            <p>Ridurre jitter senza <strong>fondere</strong> strutture separate → confini delle anomalie più netti e segmentabili.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 11: POINTNEXT -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">10</span>
+                    <h2>Parte Supervised: PointNeXt</h2>
+                </div>
+                <p class="subtitle">Semantic segmentation 3D per anomalie semantiche</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Il modello</div>
+                            <p><strong>PointNeXt</strong>: architettura moderna per semantic segmentation su point cloud. Evoluzione di PointNet++ con residual connections e improved sampling.</p>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-title gray">Classi semantiche</div>
+                            <div style="margin-top: 10px;">
+                                <span class="tag">Terreno</span>
+                                <span class="tag">Vegetazione</span>
+                                <span class="tag">Edifici</span>
+                                <span class="tag red">Rifiuti</span>
+                                <span class="tag">Veicoli</span>
+                                <span class="tag">Altro</span>
+                            </div>
+                        </div>
+                        
+                        <div class="card card-blue">
+                            <div class="card-title blue">Training data</div>
+                            <p>Mix di dati reali annotati + <strong>scenari sintetici</strong> per aumentare la variabilità delle anomalie.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-green">
+                            <div class="card-title green">Risultati qualitativi</div>
+                            <table style="width: 100%; margin-top: 10px;">
+                                <tr>
+                                    <th style="padding: 8px;">Metrica</th>
+                                    <th style="padding: 8px;">Senza cleaning</th>
+                                    <th style="padding: 8px;">Con cleaning</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px;">Falsi positivi</td>
+                                    <td style="padding: 8px; color: #DC2626;">Alto</td>
+                                    <td style="padding: 8px; color: #059669;">Basso</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px;">Stabilità</td>
+                                    <td style="padding: 8px; color: #DC2626;">Variabile</td>
+                                    <td style="padding: 8px; color: #059669;">Consistente</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px;">Bordi anomalie</td>
+                                    <td style="padding: 8px; color: #DC2626;">Sfumati</td>
+                                    <td style="padding: 8px; color: #059669;">Definiti</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div class="card card-yellow">
+                            <div class="card-title yellow">Key insight</div>
+                            <p>Il pre-cleaning permette al modello di <strong>focalizzarsi</strong> sulle anomalie semantiche invece di "sprecare" capacità su artefatti geometrici.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 12: SAR INTRO -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">11</span>
+                    <h2>Earth Observation: Flood Mapping da SAR</h2>
+                </div>
+                <p class="subtitle">Secondo caso studio: alluvione Emilia-Romagna 2023</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Caso studio</div>
+                            <p><strong>Alluvione Emilia-Romagna, Maggio 2023</strong><br>
+                            Dati: Sentinel-1 (immagini SAR)</p>
+                        </div>
+                        
+                        <div class="card card-blue">
+                            <div class="card-title blue">Telemetria SAR</div>
+                            <p>Serie temporale di immagini <strong>backscatter</strong> (VV/VH polarization) prima e dopo l'evento. Il SAR vede attraverso le nuvole!</p>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-title gray">Principio fisico</div>
+                            <p>L'acqua è un <strong>riflettore speculare</strong>: il segnale radar "rimbalza via" → forte caduta di backscatter nelle aree allagate.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-green">
+                            <div class="card-title green">Viewpoint Anomaly Detection</div>
+                            <ul class="styled-list">
+                                <li>Scena <strong>pre-evento</strong> = baseline "normale"</li>
+                                <li>Scena <strong>post-evento</strong> = stato alterato</li>
+                                <li>Pixel con <strong>forte caduta</strong> di backscatter = <span class="tag red" style="margin: 0;">ANOMALIE</span> (nuove superfici d'acqua)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="metric-card" style="margin-top: 15px;">
+                            <div class="number" style="font-size: 1.5em;">Δσ° < -3dB</div>
+                            <div class="label">Soglia tipica per flood detection</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 13: SAR WORKFLOW DETTAGLIATO -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">12</span>
+                    <h2>Workflow SAR: Step by Step</h2>
+                </div>
+                <p class="subtitle">Pipeline di pre-processing e detection</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="workflow-step">
+                            <div class="workflow-num">1</div>
+                            <div class="workflow-content">
+                                <strong>Clipping</strong>
+                                <p>Ritaglio dell'Area di Interesse (AOI) per ridurre il volume dati</p>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-step">
+                            <div class="workflow-num">2</div>
+                            <div class="workflow-content">
+                                <strong>Multi-looking</strong>
+                                <p>Riduzione speckle tramite averaging di look multipli (es. 4x1)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-step">
+                            <div class="workflow-num">3</div>
+                            <div class="workflow-content">
+                                <strong>Thermal Noise Removal</strong>
+                                <p>Rimozione rumore termico del sensore (correzione nota)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-step">
+                            <div class="workflow-num">4</div>
+                            <div class="workflow-content">
+                                <strong>Edge Noise Masking</strong>
+                                <p>Mascheramento artefatti ai bordi della scena</p>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-step">
+                            <div class="workflow-num">5</div>
+                            <div class="workflow-content">
+                                <strong>Radiometric Calibration</strong>
+                                <p>Conversione a σ° (coefficiente di backscatter calibrato)</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="workflow-step">
+                            <div class="workflow-num">6</div>
+                            <div class="workflow-content">
+                                <strong>Terrain Correction</strong>
+                                <p>Ortorettifica con DEM per correggere distorsioni topografiche</p>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-step">
+                            <div class="workflow-num">7</div>
+                            <div class="workflow-content">
+                                <strong>Band Math (dB conversion)</strong>
+                                <p>Conversione VH in decibel: σ°<sub>dB</sub> = 10 · log₁₀(σ°)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="workflow-step">
+                            <div class="workflow-num">8</div>
+                            <div class="workflow-content">
+                                <strong>Thresholding</strong>
+                                <p>Classificazione binaria: σ°<sub>dB</sub> < soglia → flood</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-box" style="margin-top: 20px;">
+                            <p><strong>Pattern chiave:</strong> Denoising (step 2-4) prima della detection (step 8) → meno falsi positivi!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 14: SAR RISULTATI -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">13</span>
+                    <h2>SAR: Risultati e Validazione</h2>
+                </div>
+                <p class="subtitle">Confronto con Copernicus Emergency Management Service</p>
+                
+                <div class="two-columns">
+                    <div>
+                        <div class="card card-green">
+                            <div class="card-title green">Risultati</div>
+                            <ul class="styled-list">
+                                <li>Workflow con denoising: <strong>meno falsi positivi</strong></li>
+                                <li>Coerente con mappe Copernicus EMS</li>
+                                <li>Approccio più <strong>conservativo</strong> (meno over-detection)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="card card-yellow">
+                            <div class="card-title yellow">Confronto: Dummy vs Full Pipeline</div>
+                            <table style="width: 100%; margin-top: 10px; font-size: 0.9em;">
+                                <tr>
+                                    <th style="padding: 6px;">Approccio</th>
+                                    <th style="padding: 6px;">FP</th>
+                                    <th style="padding: 6px;">Qualità</th>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 6px;">Senza denoising</td>
+                                    <td style="padding: 6px; color: #DC2626;">Alto</td>
+                                    <td style="padding: 6px; color: #DC2626;">Rumoroso</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 6px;">Con pipeline completa</td>
+                                    <td style="padding: 6px; color: #059669;">Basso</td>
+                                    <td style="padding: 6px; color: #059669;">Pulito</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Parallelo con Point Cloud</div>
+                            <p>Stesso pattern in entrambi i progetti:</p>
+                            <ol style="font-size: 0.6em; margin: 10px 0; padding-left: 20px;">
+                                <li style="margin-bottom: 5px;">Dati grezzi con rumore</li>
+                                <li style="margin-bottom: 5px;">Pre-processing per pulire il segnale</li>
+                                <li>Detection su dati puliti</li>
+                            </ol>
+                        </div>
+                        
+                        <div class="card card-blue">
+                            <div class="card-title blue">Formula chiave</div>
+                            <div class="formula-box" style="margin-top: 10px;">
+                                \[ \Delta\sigma^\circ_{dB} = \sigma^\circ_{post} - \sigma^\circ_{pre} \]
+                                <p class="formula-note">Variazione negativa → potenziale area allagata</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 15: COSA HO IMPARATO -->
+            <section>
+                <div class="slide-header">
+                    <span class="slide-badge">14</span>
+                    <h2>Cosa Ho Imparato</h2>
+                </div>
+                <p class="subtitle">Pattern comune e competenze trasferibili</p>
+                
+                <div class="takeaway-grid">
+                    <div class="card takeaway-item">
+                        <div class="takeaway-icon">🔬</div>
+                        <h4>Capire la Fisica del Sensore</h4>
+                        <p>Conoscere le sorgenti di rumore specifiche (speckle SAR, outlier LiDAR) è fondamentale per scegliere il pre-processing corretto.</p>
+                    </div>
+                    <div class="card takeaway-item">
+                        <div class="takeaway-icon">📊</div>
+                        <h4>Unsupervised per Pulire</h4>
+                        <p>Metodi statistici (SOR, ROR, DBSCAN) per rimuovere anomalie geometriche/rumore prima del modello semantico.</p>
+                    </div>
+                    <div class="card takeaway-item">
+                        <div class="takeaway-icon">🧠</div>
+                        <h4>ML/DL per Interpretare</h4>
+                        <p>Deep Learning (PointNeXt) o thresholding per portare l'anomalia a livello semantico (discarica, area allagata).</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 25px;">
+                    <p style="font-size: 0.8em;"><strong>Pattern universale:</strong> Capire il sensore → Pulire con unsupervised → Classificare con supervised/rule-based</p>
+                </div>
+                
+                <div class="two-columns" style="margin-top: 20px;">
+                    <div>
+                        <div class="card card-accent">
+                            <div class="card-title">Trasferibilità</div>
+                            <p>Questo approccio si applica a <strong>qualsiasi telemetria</strong>: satellite, droni, IoT, sensori ambientali...</p>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card card-green">
+                            <div class="card-title green">Interesse per Intella</div>
+                            <p>Competenze in: telemetria, satellite, ambiente, ML/DL, pipeline di processing robuste.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 16: Q&A -->
+            <section class="qna-slide">
+                <div class="cover-logo">
+                    <svg viewBox="0 0 100 100" fill="none">
+                        <path d="M10 90 L50 10 L90 90 Z" stroke="white" stroke-width="10" fill="none"/>
+                        <path d="M30 60 Q50 40 70 60" stroke="white" stroke-width="7" fill="none"/>
+                    </svg>
+                </div>
+                <h1>Q&A</h1>
+                <p class="cover-subtitle">Domande?</p>
+                <div class="cover-line"></div>
+                <p class="cover-footer">Grazie per l'attenzione!</p>
+            </section>
+
+        </div>
+    </div>
+
+    <!-- Reveal.js -->
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.6.0/plugin/math/math.js"></script>
+    
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: false,
+            controls: true,
+            progress: true,
+            center: false,
+            transition: 'slide',
+            width: 1280,
+            height: 720,
+            margin: 0.04,
+            math: {
+                mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js',
+                config: 'TeX-AMS_HTML-full'
+            },
+            plugins: [RevealMath.MathJax3]
+        });
+    </script>
+</body>
+</html>
