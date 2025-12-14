@@ -122,27 +122,68 @@
         .markdown-rendered pre {
             background: #1a202c;
             color: #f7fafc;
-            padding: 16px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 12px;
             overflow-x: auto;
-            font-size: 0.92em;
+            font-size: 0.90em;
+            line-height: 1.6;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            border: 1px solid #2d3748;
+        }
+
+        .markdown-rendered pre code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-size: inherit;
+            font-family: 'Fira Code', 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', 'Courier New', monospace;
+            font-variant-ligatures: common-ligatures;
         }
 
         .markdown-rendered table {
             border-collapse: collapse;
             width: 100%;
-            margin: 18px 0;
+            margin: 25px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .markdown-rendered table th,
         .markdown-rendered table td {
-            border: 1px solid #cbd5e0;
-            padding: 8px;
+            border: 1px solid #dee2e6;
+            padding: 12px 16px;
             text-align: left;
         }
 
         .markdown-rendered table th {
-            background: #edf2f7;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85em;
+            letter-spacing: 0.5px;
+        }
+
+        .markdown-rendered table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .markdown-rendered table tr:hover {
+            background: #e7f5ff;
+            transition: background 0.2s ease;
+        }
+
+        .diagram-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 6px rgba(102, 126, 234, 0.3);
         }
 
         .markdown-rendered blockquote {
@@ -154,12 +195,24 @@
         }
 
         .markdown-rendered .mermaid {
-            background: #fff;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 12px;
-            margin: 25px 0;
-            box-shadow: inset 0 1px 4px rgba(0,0,0,0.08);
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 16px;
+            padding: 30px 20px;
+            margin: 35px 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+            overflow-x: auto;
+            transition: all 0.3s ease;
+        }
+
+        .markdown-rendered .mermaid:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+            transform: translateY(-2px);
+        }
+
+        .markdown-rendered .mermaid svg {
+            max-width: 100%;
+            height: auto;
         }
 
         footer {
@@ -1672,8 +1725,31 @@ Questo documento fornisce **tutto il necessario** per:
             if (window.mermaid) {
                 mermaid.initialize({
                     startOnLoad: false,
-                    theme: 'forest',
-                    securityLevel: 'loose'
+                    theme: 'default',
+                    securityLevel: 'loose',
+                    flowchart: {
+                        htmlLabels: true,
+                        curve: 'basis',
+                        padding: 20,
+                        nodeSpacing: 60,
+                        rankSpacing: 80,
+                        diagramPadding: 20,
+                        useMaxWidth: true
+                    },
+                    themeVariables: {
+                        fontSize: '16px',
+                        fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+                        primaryColor: '#e7f5ff',
+                        primaryTextColor: '#1a202c',
+                        primaryBorderColor: '#339af0',
+                        lineColor: '#495057',
+                        secondaryColor: '#fff3bf',
+                        tertiaryColor: '#d0bfff',
+                        clusterBkg: '#f1f3f5',
+                        clusterBorder: '#adb5bd',
+                        edgeLabelBackground: '#ffffff',
+                        nodeTextColor: '#1a202c'
+                    }
                 });
             }
             loadGuide();
@@ -1721,65 +1797,385 @@ Questo documento fornisce **tutto il necessario** per:
         }
 
         function applyCustomTransforms(text) {
-            const architectureRegex = /```[\s\S]*?ALIMENTAZIONE 230V AC[\s\S]*?```/;
+            // Architettura Generale Completa - MOLTO MIGLIORATA
+            const architectureRegex = /```[\s\S]*?┌─────────────────────────────────────────────────────────────────┐[\s\S]*?FLUSSO LOGICO[\s\S]*?```/;
             const architectureMermaid = [
                 '```mermaid',
-                'flowchart TD',
-                '    AC["ALIMENTAZIONE 230V AC<br/>(presa giardino)"] --> DEV{"Deviatore Manuale 2×16A"}',
-                '    DEV -->|Hunter| H["Centralina Hunter Eco-Logic"]',
-                '    DEV -->|Arduino| SUB',
-                '    AC --> T["Trasformatore 24VAC 40VA"]',
-                '    H --> T',
-                '    subgraph SUB ["Arduino Box — modalità Arduino"]',
-                '        UNO["Arduino Uno / ESP32"]',
-                '        REL["Modulo Relè 2ch opto"]',
-                '        SENS["Sensori umidità x2"]',
-                '        LOG["Seriale / WiFi Monitor"]',
-                '        UNO -->|GPIO 8/9| REL',
-                '        UNO -->|ADC A0/A1| SENS',
-                '        UNO --> LOG',
+                'flowchart TB',
+                '    style AC fill:#ff6b6b,stroke:#c92a2a,stroke-width:3px,color:#fff',
+                '    style DEV fill:#fab005,stroke:#e67700,stroke-width:2px',
+                '    style HUNTER fill:#51cf66,stroke:#2f9e44,stroke-width:2px',
+                '    style TRASF fill:#748ffc,stroke:#4c6ef5,stroke-width:2px',
+                '    style ARDUINO fill:#ff8787,stroke:#fa5252,stroke-width:2px',
+                '    style RELE fill:#ffd43b,stroke:#fab005,stroke-width:2px',
+                '    style SENS fill:#69db7c,stroke:#37b24d,stroke-width:2px',
+                '    ',
+                '    AC["⚡ ALIMENTAZIONE 230V AC<br/>(Presa Giardino)<br/>⚠️ PERICOLO FOLGORAZIONE"]',
+                '    ',
+                '    AC --> DEV',
+                '    DEV{"🔀 DEVIATORE MANUALE<br/>2×16A 250VAC<br/><br/>Posizione?"}',
+                '    ',
+                '    DEV -->|"🟢 HUNTER MODE"| HUNTER["🎮 Hunter Eco-Logic<br/>Centralina Originale<br/>4-8 Zone<br/>Timer Programmabile"]',
+                '    DEV -->|"🔵 ARDUINO MODE"| ARDUINO_BOX',
+                '    ',
+                '    HUNTER --> TRASF',
+                '    ARDUINO_BOX --> TRASF',
+                '    ',
+                '    TRASF["🔌 TRASFORMATORE<br/>230V → 24VAC<br/>40VA (1.67A)<br/>Doppio Isolamento"]',
+                '    ',
+                '    subgraph ARDUINO_BOX ["📦 ARDUINO BOX IP65 - Controllo Smart"]',
+                '        direction TB',
+                '        ARDUINO["🧠 Arduino Uno R3<br/>o ESP32 DevKit<br/><br/>ATmega328P @ 16MHz<br/>Flash: 32KB | SRAM: 2KB"]',
+                '        RELE["⚙️ Modulo Relè 2CH<br/>Optoisolato 5V<br/><br/>IN1: GPIO 8 → Zona 1<br/>IN2: GPIO 9 → Zona 2<br/>Isolamento: 2kV"]',
+                '        SENS["🌱 Sensori Umidità<br/>Capacitivi x2<br/><br/>ADC A0: Zona 1<br/>ADC A1: Zona 2<br/>Range: 0-100%"]',
+                '        DEBUG["🖥️ Monitor Debug<br/><br/>Serial 9600 baud<br/>o WiFi 192.168.x.x"]',
+                '        ',
+                '        ARDUINO -->|"GPIO 8,9<br/>5V Digital"| RELE',
+                '        ARDUINO -->|"ADC 10-bit<br/>0-1023"| SENS',
+                '        ARDUINO -->|"UART/WiFi"| DEBUG',
                 '    end',
-                '    REL --> V1["Valvola Zona 1"]',
-                '    REL --> V2["Valvola Zona 2"]',
-                '    T --> V1',
-                '    T --> V2',
-                '    LOG --> USER[(Debug / Monitoraggio)]',
+                '    ',
+                '    TRASF -->|"24VAC L"| RELE',
+                '    RELE -->|"NO1 Chiuso"| V1["💧 VALVOLA ZONA 1<br/>Hunter 24VAC 6-8W<br/>Solenoid"]',
+                '    RELE -->|"NO2 Chiuso"| V2["💧 VALVOLA ZONA 2<br/>Hunter 24VAC 6-8W<br/>Solenoid"]',
+                '    V1 -->|"Ritorno COM"| TRASF_N["24VAC N<br/>(Comune)"]',
+                '    V2 -->|"Ritorno COM"| TRASF_N',
+                '    TRASF -->|"24VAC N"| TRASF_N',
+                '    ',
+                '    SENS -.->|"Terreno Zona 1"| SOIL1["🌿 Suolo Giardino<br/>Zona 1"]',
+                '    SENS -.->|"Terreno Zona 2"| SOIL2["🌿 Suolo Giardino<br/>Zona 2"]',
+                '    ',
+                '    DEBUG -.->|"Letture Real-time"| USER["👤 UTENTE<br/><br/>Serial Monitor<br/>o Browser Web"]',
+                '    ',
+                '    subgraph LOGIC ["⚡ LOGICA CONTROLLO (ogni 60s)"]',
+                '        direction LR',
+                '        L1["1️⃣ Leggi ADC<br/>Sensori"] --> L2["2️⃣ Converti<br/>0-100%"]',
+                '        L2 --> L3["3️⃣ Confronta<br/>Soglie"]',
+                '        L3 --> L4["4️⃣ Attiva/Spegni<br/>Relè"]',
+                '        L4 --> L5["5️⃣ Log Dati"]',
+                '        L5 --> L6["6️⃣ Attendi 60s"]',
+                '        L6 -.-> L1',
+                '    end',
                 '```'
             ].join('\n');
 
-            const terminaliRegex = /```[\s\S]*?Pannello frontale:[\s\S]*?```/;
+            // Schema Hunter Pannello
+            const terminaliRegex = /```[\s\S]*?Pannello frontale:[\s\S]*?Morsetti INGRESSO[\s\S]*?```/;
             const terminaliMermaid = [
                 '```mermaid',
-                'flowchart LR',
-                '    subgraph PANEL ["Pannello frontale"]',
-                '        LCD["LCD Display"]',
-                '        BTN["Menu Buttons"]',
-                '        Z1["Zona 1"]',
-                '        Z2["Zona 2"]',
-                '        Z3["Zona 3"]',
-                '        Z4["Zona 4"]',
-                '        COM["COM (Comune)"]',
+                'flowchart TB',
+                '    style PANEL fill:#e7f5ff,stroke:#339af0,stroke-width:2px',
+                '    style INPUT fill:#fff3bf,stroke:#fab005,stroke-width:2px',
+                '    ',
+                '    subgraph PANEL ["🎮 Hunter Eco-Logic 4 - Pannello Frontale"]',
+                '        direction TB',
+                '        LCD["📟 LCD Display<br/>Menu Programmazione"]',
+                '        BTN["🔘 Pulsanti Menu<br/>(Up/Down/Select)"]',
+                '        ',
+                '        subgraph ZONES ["Morsetti Uscita 24VAC"]',
+                '            Z1["Z1<br/>●"]',
+                '            Z2["Z2<br/>●"]',
+                '            Z3["Z3<br/>●"]',
+                '            Z4["Z4<br/>●"]',
+                '            COM["COM<br/>●"]',
+                '        end',
                 '    end',
-                '    subgraph INPUT ["Ingresso 24VAC (dietro/lato)"]',
-                '        A["A (L)"]',
-                '        B["B (N)"]',
+                '    ',
+                '    subgraph INPUT ["🔌 Ingresso (dietro/lato pannello)"]',
+                '        IN_L["AC IN (L)<br/>24VAC Fase"]',
+                '        IN_N["AC IN (N)<br/>24VAC Neutro"]',
                 '    end',
-                '    A --> PANEL',
-                '    B --> PANEL',
-                '    Z1 --> VAL1["Morsetto Zona 1"]',
-                '    Z2 --> VAL2["Morsetto Zona 2"]',
-                '    Z3 --> VAL3["Morsetto Zona 3"]',
-                '    Z4 --> VAL4["Morsetto Zona 4"]',
-                '    COM --> ALLZ["Comune valvole"]',
+                '    ',
+                '    IN_L --> PANEL',
+                '    IN_N --> PANEL',
+                '    ',
+                '    Z1 -->|"Se attivo: L a morsetto"| VALV1["Valvola 1"]',
+                '    Z2 -->|"Se attivo: L a morsetto"| VALV2["Valvola 2"]',
+                '    Z3 -->|"Se attivo: L a morsetto"| VALV3["Valvola 3"]',
+                '    Z4 -->|"Se attivo: L a morsetto"| VALV4["Valvola 4"]',
+                '    COM -->|"Ritorno comune"| RTN["N Trasformatore"]',
+                '    ',
+                '    VALV1 --> RTN',
+                '    VALV2 --> RTN',
+                '    VALV3 --> RTN',
+                '    VALV4 --> RTN',
                 '```'
             ].join('\n');
 
+            // Modalità Connessione Hunter Standard
+            const hunterConnRegex = /```[\s\S]*?Trasformatore 24VAC output:[\s\S]*?Logica Hunter nativa[\s\S]*?```/;
+            const hunterConnMermaid = [
+                '```mermaid',
+                'flowchart TD',
+                '    style TRASF fill:#748ffc,stroke:#4c6ef5,stroke-width:2px',
+                '    style HUNTER fill:#51cf66,stroke:#2f9e44,stroke-width:2px',
+                '    ',
+                '    TRASF["🔌 Trasformatore 24VAC"]',
+                '    TRASF_L["L (Fase 24VAC)"] --> TRASF',
+                '    TRASF_N["N (Neutro 24VAC)"] --> TRASF',
+                '    ',
+                '    TRASF --> INPUT_H',
+                '    ',
+                '    subgraph HUNTER ["🎮 Hunter Eco-Logic"]',
+                '        direction TB',
+                '        INPUT_H["Input AC IN"]',
+                '        Z1_H["Morsetto ZONA1"]',
+                '        Z2_H["Morsetto ZONA2"]',
+                '        COM_H["Morsetto COM"]',
+                '        ',
+                '        INPUT_H -.->|"Logica interna<br/>Timer ON"| Z1_H',
+                '        INPUT_H -.->|"Logica interna<br/>Timer ON"| Z2_H',
+                '    end',
+                '    ',
+                '    Z1_H -->|"L quando attivo"| V1["💧 Valvola Zona 1"]',
+                '    Z2_H -->|"L quando attivo"| V2["💧 Valvola Zona 2"]',
+                '    COM_H -->|"Ritorno N"| RETURN["Ritorno Comune N"]',
+                '    ',
+                '    V1 --> RETURN',
+                '    V2 --> RETURN',
+                '    ',
+                '    NOTE["💡 LOGICA: Hunter connette<br/>morsetto zona a L per accendere.<br/>È una logica a TENSIONE,<br/>non a corrente di controllo."]',
+                '    ',
+                '    style NOTE fill:#ffe066,stroke:#fab005,stroke-width:1px,stroke-dasharray: 5 5',
+                '```'
+            ].join('\n');
+
+            // Schema Cablaggio Primario/Secondario Completo
+            const cablaggioRegex = /```[\s\S]*?PRIMARIO 230V AC[\s\S]*?Relè 2 \(IN2 da GPIO9\):[\s\S]*?```/;
+            const cablaggioMermaid = [
+                '```mermaid',
+                'flowchart TB',
+                '    style PRESA fill:#ff6b6b,stroke:#c92a2a,stroke-width:3px,color:#fff',
+                '    style RCD fill:#fab005,stroke:#e67700,stroke-width:2px',
+                '    style TRASF fill:#748ffc,stroke:#4c6ef5,stroke-width:2px',
+                '    style RELE1 fill:#ffd43b,stroke:#fab005,stroke-width:2px',
+                '    style RELE2 fill:#ffd43b,stroke:#fab005,stroke-width:2px',
+                '    style ARDUINO fill:#ff8787,stroke:#fa5252,stroke-width:2px',
+                '    ',
+                '    PRESA["⚡ PRESA 230V AC<br/><br/>L (Rosso)<br/>N (Blu)<br/>PE (Giallo/Verde)<br/><br/>⚠️ PERICOLO"]',
+                '    ',
+                '    PRESA -->|"L 230V"| FUS1["🔌 Fusibile 20A<br/>T250V IEC 60127"]',
+                '    FUS1 --> RCD',
+                '    PRESA -->|"N 230V"| RCD',
+                '    ',
+                '    RCD["🛡️ RCD 30mA<br/>Salvavita<br/><br/>Protezione<br/>Folgorazione"]',
+                '    ',
+                '    RCD -->|"L Protetto"| TRASF_IN_L',
+                '    RCD -->|"N Protetto"| TRASF_IN_N',
+                '    ',
+                '    subgraph TRASF ["🔌 TRASFORMATORE 40VA"]',
+                '        direction TB',
+                '        TRASF_IN_L["Primario L"]',
+                '        TRASF_IN_N["Primario N"]',
+                '        TRASF_OUT_L["Secondario L<br/>24VAC"]',
+                '        TRASF_OUT_N["Secondario N<br/>24VAC"]',
+                '        ',
+                '        TRASF_IN_L -.->|"Doppio<br/>Isolamento<br/>>1MΩ"| TRASF_OUT_L',
+                '        TRASF_IN_N -.->|"Classe II"| TRASF_OUT_N',
+                '    end',
+                '    ',
+                '    TRASF_OUT_L -->|"24VAC L"| FUS2["🔌 Fusibile 5A<br/>T250V"]',
+                '    FUS2 --> L_24V["L 24VAC"]',
+                '    TRASF_OUT_N --> N_24V["N 24VAC"]',
+                '    ',
+                '    L_24V --> RELE1_IN',
+                '    L_24V --> RELE2_IN',
+                '    ',
+                '    subgraph RELE1 ["⚙️ RELÈ 1 (Zona 1)"]',
+                '        direction LR',
+                '        RELE1_IN["IN (24VAC L)"]',
+                '        RELE1_NO["NO"]',
+                '        RELE1_COM["COM"]',
+                '        RELE1_IN -.->|"Quando GPIO8=LOW"| RELE1_NO',
+                '    end',
+                '    ',
+                '    subgraph RELE2 ["⚙️ RELÈ 2 (Zona 2)"]',
+                '        direction LR',
+                '        RELE2_IN["IN (24VAC L)"]',
+                '        RELE2_NO["NO"]',
+                '        RELE2_COM["COM"]',
+                '        RELE2_IN -.->|"Quando GPIO9=LOW"| RELE2_NO',
+                '    end',
+                '    ',
+                '    RELE1_NO --> V1["💧 VALVOLA 1<br/>6-8W"]',
+                '    RELE2_NO --> V2["💧 VALVOLA 2<br/>6-8W"]',
+                '    ',
+                '    V1 --> N_24V',
+                '    V2 --> N_24V',
+                '    RELE1_COM --> N_24V',
+                '    RELE2_COM --> N_24V',
+                '    ',
+                '    subgraph ARDUINO ["🧠 ARDUINO CONTROL"]',
+                '        direction TB',
+                '        GPIO8["GPIO 8"]',
+                '        GPIO9["GPIO 9"]',
+                '        GND_A["GND"]',
+                '        VCC_A["5V"]',
+                '    end',
+                '    ',
+                '    GPIO8 -->|"Digital OUT"| RELE1_CTRL["Relè 1 IN1"]',
+                '    GPIO9 -->|"Digital OUT"| RELE2_CTRL["Relè 2 IN2"]',
+                '    GND_A --> RELE1_CTRL',
+                '    GND_A --> RELE2_CTRL',
+                '    VCC_A --> RELE1_CTRL',
+                '    VCC_A --> RELE2_CTRL',
+                '    ',
+                '    RELE1_CTRL -.->|"Controlla"| RELE1',
+                '    RELE2_CTRL -.->|"Controlla"| RELE2',
+                '```'
+            ].join('\n');
+
+            // Arduino Uno Pinout
+            const arduinoPinoutRegex = /```[\s\S]*?Arduino Uno R3 \(ATmega328P\)[\s\S]*?EEPROM: 1 kB[\s\S]*?```/;
+            const arduinoPinoutMermaid = [
+                '```mermaid',
+                'flowchart LR',
+                '    style ARDUINO fill:#00979d,stroke:#005f73,stroke-width:2px,color:#fff',
+                '    ',
+                '    subgraph ARDUINO ["🧠 Arduino Uno R3 (ATmega328P)"]',
+                '        direction TB',
+                '        ',
+                '        subgraph POWER ["⚡ ALIMENTAZIONE"]',
+                '            VIN["Vin (7-12V)<br/>da Jack/USB"]',
+                '            V5["5V Regolato<br/>→ Sensori + Relè"]',
+                '            GND["GND Comune<br/>→ Tutti i componenti"]',
+                '        end',
+                '        ',
+                '        subgraph DIGITAL ["📍 GPIO DIGITALI"]',
+                '            D0["D0/D1 RX/TX<br/>(Seriale Debug)"]',
+                '            D8["D8 → IN1 Relè Zona1<br/>✓ USATO"]',
+                '            D9["D9 → IN2 Relè Zona2<br/>✓ USATO"]',
+                '            D_OTHER["D2-D7, D10-D13<br/>(Disponibili)"]',
+                '        end',
+                '        ',
+                '        subgraph ANALOG ["📊 ADC 10-bit (0-1023)"]',
+                '            A0["A0 → Sensore Zona1<br/>✓ USATO"]',
+                '            A1["A1 → Sensore Zona2<br/>✓ USATO"]',
+                '            A_OTHER["A2-A5<br/>(Disponibili)"]',
+                '        end',
+                '        ',
+                '        SPECS["📋 SPECIFICHE:<br/>Clock: 16 MHz<br/>Flash: 32 KB<br/>SRAM: 2 KB<br/>EEPROM: 1 KB<br/>GPIO Max: 40mA"]',
+                '    end',
+                '    ',
+                '    V5 --> EXT_5V["5V Esterno<br/>→ Relè VCC<br/>→ Sensori VCC"]',
+                '    GND --> EXT_GND["GND Esterno<br/>→ Relè GND<br/>→ Sensori GND"]',
+                '    D8 --> REL1["Relè 1 IN1"]',
+                '    D9 --> REL2["Relè 2 IN2"]',
+                '    A0 --> SENS1["Sensore Umidità 1<br/>OUT"]',
+                '    A1 --> SENS2["Sensore Umidità 2<br/>OUT"]',
+                '```'
+            ].join('\n');
+
+            // ESP32 Pinout
+            const esp32PinoutRegex = /```[\s\S]*?ESP32 DevKit v1 \(30-pin\)[\s\S]*?Temp\. funzionamento: -40–\+85°C[\s\S]*?```/;
+            const esp32PinoutMermaid = [
+                '```mermaid',
+                'flowchart LR',
+                '    style ESP32 fill:#e30b5d,stroke:#9c1c48,stroke-width:2px,color:#fff',
+                '    ',
+                '    subgraph ESP32 ["📡 ESP32 DevKit v1 (30-pin)"]',
+                '        direction TB',
+                '        ',
+                '        subgraph POWER_E ["⚡ ALIMENTAZIONE"]',
+                '            V5_E["5V da USB-C<br/>→ Regolatore 3.3V"]',
+                '            V33["3.3V Output<br/>⚠️ NON 5V!"]',
+                '            GND_E["GND Comune"]',
+                '        end',
+                '        ',
+                '        subgraph DIGITAL_E ["📍 GPIO DIGITALI (3.3V!)"]',
+                '            GPIO4["GPIO4 → SSR Zona1<br/>✓ USATO"]',
+                '            GPIO5["GPIO5 → SSR Zona2<br/>✓ USATO"]',
+                '            GPIO_AVOID["⚠️ EVITA:<br/>GPIO0, GPIO2, GPIO15<br/>(Boot/Flash)"]',
+                '        end',
+                '        ',
+                '        subgraph ANALOG_E ["📊 ADC 12-bit (0-4095)"]',
+                '            GPIO36["GPIO36 (ADC1_CH0)<br/>→ Sensore Zona1<br/>✓ USATO"]',
+                '            GPIO39["GPIO39 (ADC1_CH3)<br/>→ Sensore Zona2<br/>✓ USATO"]',
+                '        end',
+                '        ',
+                '        subgraph WIRELESS ["📶 WIRELESS"]',
+                '            WIFI["WiFi 802.11 b/g/n<br/>192.168.x.x"]',
+                '            BT["Bluetooth 5.0<br/>(opzionale)"]',
+                '        end',
+                '        ',
+                '        SPECS_E["📋 SPECIFICHE:<br/>Clock: 80-240 MHz<br/>Flash: 4 MB<br/>SRAM: 520 KB<br/>GPIO Max: 12mA<br/>Temp: -40 a +85°C"]',
+                '    end',
+                '    ',
+                '    V33 --> SSR["⚠️ SSR Optoisolato 3.3V<br/>OBBLIGATORIO!<br/>(NON relè 5V diretti!)"]',
+                '    GPIO4 --> SSR',
+                '    GPIO5 --> SSR',
+                '    GPIO36 --> SENS1_E["Sensore Umidità 1"]',
+                '    GPIO39 --> SENS2_E["Sensore Umidità 2"]',
+                '    WIFI -.-> WEB["🌐 Web Server<br/>http://IP:80"]',
+                '```'
+            ].join('\n');
+
+            // Sensori Umidità
+            const sensoriRegex = /```[\s\S]*?PINOUT SENSORE:[\s\S]*?Risciacquo settimanale[\s\S]*?```/;
+            const sensoriMermaid = [
+                '```mermaid',
+                'flowchart TB',
+                '    style SENSOR fill:#51cf66,stroke:#2f9e44,stroke-width:2px',
+                '    ',
+                '    subgraph SENSOR ["🌱 Sensore Umidità Capacitivo DFRobot SEN0193"]',
+                '        direction TB',
+                '        ',
+                '        PIN_GND["📌 GND (Nero)<br/>→ Arduino GND"]',
+                '        PIN_VCC["📌 VCC (Rosso)<br/>→ Arduino 5V<br/>(o 3.3V)"]',
+                '        PIN_OUT["📌 OUT (Giallo)<br/>→ Arduino A0/A1<br/>Analogico 0-1023"]',
+                '    end',
+                '    ',
+                '    subgraph FUNZIONAMENTO ["⚙️ FUNZIONAMENTO"]',
+                '        direction LR',
+                '        CAP["Capacità varia<br/>con umidità terreno"]',
+                '        ADC_OUT["Uscita Analogica<br/>0-1023 (10-bit)"]',
+                '        NO_CORR["✅ NO Corrosione<br/>(capacitivo,<br/>non resistivo)"]',
+                '    end',
+                '    ',
+                '    SENSOR --> CALIBRAZIONE',
+                '    ',
+                '    subgraph CALIBRAZIONE ["📏 CALIBRAZIONE NECESSARIA"]',
+                '        direction TB',
+                '        DRY["🏜️ SUOLO SECCO<br/>ADC: 800-900<br/>(0% umidità)"]',
+                '        HUMID["💧 SUOLO UMIDO<br/>ADC: 400-500<br/>(50% umidità)"]',
+                '        WET["🌊 SUOLO FRADICIO<br/>ADC: 200-300<br/>(90% umidità)"]',
+                '        WATER["💦 ACQUA PURA<br/>ADC: ~0-100<br/>(100% umidità)"]',
+                '        ',
+                '        DRY -.-> HUMID -.-> WET -.-> WATER',
+                '    end',
+                '    ',
+                '    FORMULA["📐 FORMULA CONVERSIONE:<br/><br/>% = (ADC_DRY - ADC_lettura) / (ADC_DRY - ADC_WET) × 100<br/><br/>Esempio: (850 - 500) / (850 - 250) × 100 = 58%"]',
+                '    ',
+                '    MANUTENZIONE["🔧 MANUTENZIONE:<br/><br/>✓ Vita: 3-5 anni<br/>✓ Risciacquo settimanale (acqua distillata)<br/>✓ NO contatto acqua sul circuito<br/>✓ Filtra rumore: Moving Average 10 letture"]',
+                '    ',
+                '    style FORMULA fill:#ffe066,stroke:#fab005,stroke-width:1px',
+                '    style MANUTENZIONE fill:#d0bfff,stroke:#9775fa,stroke-width:1px',
+                '```'
+            ].join('\n');
+
+            // Applica tutte le trasformazioni
             if (architectureRegex.test(text)) {
                 text = text.replace(architectureRegex, architectureMermaid);
             }
             if (terminaliRegex.test(text)) {
                 text = text.replace(terminaliRegex, terminaliMermaid);
             }
+            if (hunterConnRegex.test(text)) {
+                text = text.replace(hunterConnRegex, hunterConnMermaid);
+            }
+            if (cablaggioRegex.test(text)) {
+                text = text.replace(cablaggioRegex, cablaggioMermaid);
+            }
+            if (arduinoPinoutRegex.test(text)) {
+                text = text.replace(arduinoPinoutRegex, arduinoPinoutMermaid);
+            }
+            if (esp32PinoutRegex.test(text)) {
+                text = text.replace(esp32PinoutRegex, esp32PinoutMermaid);
+            }
+            if (sensoriRegex.test(text)) {
+                text = text.replace(sensoriRegex, sensoriMermaid);
+            }
+
             return text;
         }
 
@@ -1812,7 +2208,18 @@ Questo documento fornisce **tutto il necessario** per:
                 if (pre && pre.parentNode) pre.parentNode.replaceChild(placeholder, pre);
             });
             const nodes = scope.querySelectorAll('.mermaid');
-            if (nodes.length) mermaid.init(undefined, nodes);
+            if (nodes.length) {
+                mermaid.init(undefined, nodes);
+                // Aggiungi badge interattivo sopra ogni diagramma
+                nodes.forEach(node => {
+                    if (!node.previousElementSibling || !node.previousElementSibling.classList.contains('diagram-badge')) {
+                        const badge = document.createElement('div');
+                        badge.className = 'diagram-badge';
+                        badge.innerHTML = '📊 Diagramma Interattivo — Scorri per zoomare';
+                        node.parentNode.insertBefore(badge, node);
+                    }
+                });
+            }
         }
     </script>
 </body>
