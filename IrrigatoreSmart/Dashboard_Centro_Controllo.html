@@ -1,0 +1,2707 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌱 Irrigazione Smart DIY — Dashboard Centro Controllo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            color: #2d3748;
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            font-size: 1.2em;
+            color: #718096;
+            margin-bottom: 20px;
+        }
+
+        .status-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .status-item {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .status-item .label {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .status-item .value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        .card-icon {
+            font-size: 2.5em;
+            margin-right: 15px;
+        }
+
+        .card h2 {
+            font-size: 1.5em;
+            color: #2d3748;
+        }
+
+        .card-content {
+            margin-bottom: 20px;
+        }
+
+        .file-item {
+            background: #f7fafc;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .file-name {
+            font-weight: 600;
+            color: #2d3748;
+            flex: 1;
+        }
+
+        .file-size {
+            font-size: 0.85em;
+            color: #718096;
+            margin: 0 10px;
+        }
+
+        button,
+        .action-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: opacity 0.3s ease;
+            font-size: 0.95em;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover,
+        .action-button:hover {
+            opacity: 0.9;
+        }
+
+        button.secondary,
+        .action-button.secondary {
+            background: #edf2f7;
+            color: #2d3748;
+            border: 1px solid #cbd5e0;
+        }
+
+        button.secondary:hover,
+        .action-button.secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .action-button.small {
+            padding: 8px 14px;
+            font-size: 0.85em;
+        }
+
+        .action-button.disabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .file-note {
+            font-size: 0.85em;
+            color: #c53030;
+            font-weight: 600;
+        }
+
+        .content-viewers {
+            margin: 40px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .viewer-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 15px;
+        }
+
+        .viewer-header h3 {
+            margin-bottom: 5px;
+            color: #2d3748;
+        }
+
+        .viewer-body {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .markdown-body {
+            background: #f7fafc;
+            border-radius: 8px;
+            padding: 20px;
+            max-height: 520px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+        }
+
+        .markdown-rendered {
+            font-size: 0.95em;
+            color: #2d3748;
+            line-height: 1.6;
+        }
+
+        .markdown-rendered h1,
+        .markdown-rendered h2,
+        .markdown-rendered h3,
+        .markdown-rendered h4 {
+            margin: 20px 0 10px;
+            color: #1a202c;
+        }
+
+        .markdown-rendered h1 { font-size: 1.6em; }
+        .markdown-rendered h2 { font-size: 1.4em; border-bottom: 1px solid #e2e8f0; padding-bottom: 5px; }
+        .markdown-rendered h3 { font-size: 1.2em; color: #2c5282; }
+        .markdown-rendered h4 { font-size: 1.05em; color: #4a5568; }
+
+        .markdown-rendered p {
+            margin-bottom: 12px;
+        }
+
+        .markdown-rendered ul,
+        .markdown-rendered ol {
+            padding-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .markdown-rendered blockquote {
+            border-left: 4px solid #667eea;
+            background: #edf2ff;
+            padding: 10px 15px;
+            border-radius: 6px;
+            color: #2a4365;
+            margin: 15px 0;
+        }
+
+        .markdown-rendered code {
+            background: #edf2f7;
+            border-radius: 4px;
+            padding: 2px 5px;
+            font-family: 'Fira Code', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .markdown-rendered pre {
+            background: #1a202c;
+            color: #e2e8f0;
+            padding: 14px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9em;
+        }
+
+        .markdown-rendered pre code {
+            background: transparent;
+            padding: 0;
+        }
+
+        .markdown-rendered table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+            font-size: 0.95em;
+        }
+
+        .markdown-rendered table th,
+        .markdown-rendered table td {
+            border: 1px solid #cbd5e0;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .markdown-rendered table th {
+            background: #edf2f7;
+        }
+
+        .checklist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 520px;
+            overflow-y: auto;
+        }
+
+        .checklist-section {
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 18px;
+            background: #fdfdfd;
+        }
+
+        .checklist-section h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #2d3748;
+        }
+
+        .checklist-subsection {
+            margin-top: 15px;
+        }
+
+        .checklist-subsection h5 {
+            margin: 0 0 8px 0;
+            color: #4a5568;
+            font-size: 1em;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 6px 0;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-item input {
+            margin-top: 4px;
+        }
+
+        .todo-item span {
+            font-size: 0.95em;
+            color: #2d3748;
+        }
+
+        .todo-item small {
+            display: block;
+            color: #718096;
+            margin-top: 4px;
+        }
+
+        .todo-note {
+            margin-left: 26px;
+            font-size: 0.85em;
+            color: #718096;
+            padding: 4px 0;
+        }
+
+        .markdown-rendered .mermaid {
+            background: #fff;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 20px 0;
+            box-shadow: inset 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 10px;
+            background: #f7fafc;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .checklist li:before {
+            content: "☐";
+            margin-right: 10px;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+
+        .warning-box {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .warning-box strong {
+            color: #c53030;
+        }
+
+        .success-box {
+            background: #f0fff4;
+            border-left: 4px solid #9ae6b4;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+
+        .success-box strong {
+            color: #22543d;
+        }
+
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 15px;
+            padding: 12px;
+            background: #f7fafc;
+            border-radius: 6px;
+        }
+
+        .timeline-dot {
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .timeline-content h4 {
+            margin: 0 0 5px 0;
+            color: #2d3748;
+        }
+
+        .timeline-content p {
+            margin: 0;
+            color: #718096;
+            font-size: 0.95em;
+        }
+
+        footer {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            color: #718096;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+
+            .content-viewers {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            color: #718096;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #2d3748;
+        }
+
+        code {
+            background: #f7fafc;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            color: #c53030;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header>
+            <h1>🌱 Irrigazione Smart DIY 24 VAC</h1>
+            <p class="subtitle">Dashboard Centro Controllo — Progetto Completo</p>
+            <div class="status-bar">
+                <div class="status-item">
+                    <div class="label">File Totali</div>
+                    <div class="value">7</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Budget Base</div>
+                    <div class="value">€156</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Timeline</div>
+                    <div class="value">2-3 sett</div>
+                </div>
+                <div class="status-item">
+                    <div class="label">Versione</div>
+                    <div class="value">1.0</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN DASHBOARD -->
+        <div class="dashboard">
+
+            <!-- CARD 1: DOWNLOAD TUTTI I FILE -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📥</div>
+                    <h2>Scarica Tutti i File</h2>
+                </div>
+                <div class="card-content">
+                    <p style="margin-bottom: 15px; color: #718096;">Clicca il pulsante per scaricare il pacchetto completo (7 file .zip) o singoli file qui sotto:</p>
+
+                    <a href="Pacchetto_Completo_IrrigatoreSmart.zip" class="action-button" download style="width: 100%; padding: 15px; font-size: 1.1em; margin-bottom: 20px;">
+                        ⬇️ SCARICA TUTTO (.ZIP)
+                    </a>
+
+                    <div class="file-item">
+                        <span class="file-name">📊 BOM_Irrigazione_24VAC_DIY.xlsx</span>
+                        <a class="action-button small" href="BOM_Irrigazione_24VAC_DIY.xlsx" download>SCARICA</a>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">📖 Guida_Tecnica_DIY.md</span>
+                        <a class="action-button small" href="Guida_Tecnica.html">APRI PAGINA</a>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">💻 Codice_Arduino_Completo.ino</span>
+                        <a class="action-button small" href="Codice_Arduino_Completo.ino" download>SCARICA</a>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">✅ Checklist_Finale_Verifica.md</span>
+                        <a class="action-button small" href="#viewer-checklist">VISUALIZZA</a>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">📋 INDICE_GENERALE_DELIVERABLE.txt</span>
+                        <a class="action-button small" href="INDICE_GENERALE_DELIVERABLE.txt" download>SCARICA</a>
+                    </div>
+                    <div class="file-item">
+                        <span class="file-name">📊 Costi_Progetto_Riepilogo.csv</span>
+                        <a class="action-button small" href="Costi_Progetto_Riepilogo.csv" download>SCARICA</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 2: QUICK START -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🚀</div>
+                    <h2>Quick Start — 10 Step</h2>
+                </div>
+                <div class="card-content">
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-dot">1</div>
+                            <div class="timeline-content">
+                                <h4>Scarica i file</h4>
+                                <p>Clicca sopra per scaricare tutto</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">2</div>
+                            <div class="timeline-content">
+                                <h4>Apri Guida Tecnica</h4>
+                                <p>Intro + sicurezza direttamente nella pagina</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">3</div>
+                            <div class="timeline-content">
+                                <h4>Segui Checklist Pre-ordine</h4>
+                                <p>Spunta i componenti indispensabili</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">4</div>
+                            <div class="timeline-content">
+                                <h4>Apri BOM Excel</h4>
+                                <p>30 minuti — ordina LOTTO 1-3</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">5</div>
+                            <div class="timeline-content">
+                                <h4>Attendi componenti</h4>
+                                <p>5-7 giorni (Amazon) o 16-36 (AliExpress)</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">6</div>
+                            <div class="timeline-content">
+                                <h4>Montaggio hardware</h4>
+                                <p>2-3 giorni — segui checklist passo-passo</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">7</div>
+                            <div class="timeline-content">
+                                <h4>Test intermedi (5 test)</h4>
+                                <p>5-7 giorni — isolamento, relè, sensori, valvole</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">8</div>
+                            <div class="timeline-content">
+                                <h4>Carica codice Arduino</h4>
+                                <p>1 giorno — compilazione e upload</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">9</div>
+                            <div class="timeline-content">
+                                <h4>Calibra sensori</h4>
+                                <p>1 giorno — ADC_DRY e ADC_WET nel TUO terreno</p>
+                            </div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-dot">10</div>
+                            <div class="timeline-content">
+                                <h4>Operativo! 🌱💧</h4>
+                                <p>Sistema live 24/7 — ottimizza soglie 1-2 settimane</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button style="width: 100%;" onclick="document.getElementById('modal-checklist').style.display='block'">
+                    📋 Vedi checklist completa
+                </button>
+            </div>
+
+            <!-- CARD 3: BUDGET & COSTI -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">💰</div>
+                    <h2>Budget & Configurazioni</h2>
+                </div>
+                <div class="card-content">
+                    <table style="width: 100%; font-size: 0.95em;">
+                        <tr style="background: #f7fafc;">
+                            <td style="padding: 8px; font-weight: 600;">Base Uno R3</td>
+                            <td style="padding: 8px; text-align: right; color: #667eea; font-weight: 600;">€156</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px;">Base ESP32</td>
+                            <td style="padding: 8px; text-align: right; color: #667eea; font-weight: 600;">€152</td>
+                        </tr>
+                        <tr style="background: #f7fafc;">
+                            <td style="padding: 8px;">Full Optional</td>
+                            <td style="padding: 8px; text-align: right; color: #667eea; font-weight: 600;">€181</td>
+                        </tr>
+                        <tr style="border-top: 2px solid #e2e8f0;">
+                            <td style="padding: 8px;">+ WiFi Modulo</td>
+                            <td style="padding: 8px; text-align: right;">+€15</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px;">+ Display OLED</td>
+                            <td style="padding: 8px; text-align: right;">+€4-6</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px;">+ RTC Precisione</td>
+                            <td style="padding: 8px; text-align: right;">+€3-4</td>
+                        </tr>
+                        <tr style="background: #f7fafc;">
+                            <td style="padding: 8px;">+ Logging SD</td>
+                            <td style="padding: 8px; text-align: right;">+€7</td>
+                        </tr>
+                    </table>
+
+                    <div class="success-box" style="margin-top: 20px;">
+                        <strong>✓ ROI positivo:</strong> Payback in 1-2 stagioni irrigazione
+                        <br>✓ Risparmio acqua: +30-50% con sensori umidità
+                        <br>✓ Open-source: controllo totale, zero vendor lock-in
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 4: COMPONENTI CRITICI -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">⚠️</div>
+                    <h2>Componenti & Avvertenze</h2>
+                </div>
+                <div class="card-content">
+                    <div class="warning-box">
+                        <strong>🔴 CRITICO:</strong> Multimetro digitale OBBLIGATORIO per test sicurezza (230V)
+                    </div>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">Componenti principali:</h4>
+                    <ul class="checklist">
+                        <li>Arduino Uno R3 (€22)</li>
+                        <li>Relè 2ch optoisolato 5V (€3.50)</li>
+                        <li>Trasformatore 24VAC 40VA (€28.50)</li>
+                        <li>2x Sensori umidità capacitivi (€10.40)</li>
+                        <li>Box IP65 200×300mm (€18.50)</li>
+                        <li>Fusibili + Morsetti + Cavi (€10)</li>
+                        <li>RCD 30mA (opzionale ma consigliato)</li>
+                    </ul>
+
+                    <div class="warning-box" style="margin-top: 15px;">
+                        <strong>⚠️ CALIBRAZIONE SENSORI:</strong> Non usare valori di default! Ricalibrare ADC_DRY/ADC_WET nel TUO giardino (terreno diverso = valori diversi)
+                    </div>
+                </div>
+            </div>
+
+            <!-- CARD 5: FILE DETAILS -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">📄</div>
+                    <h2>Dettagli File</h2>
+                </div>
+                <div class="card-content">
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">📊 BOM Excel (4 fogli)</h4>
+                    <p style="color: #718096; font-size: 0.95em; margin-bottom: 15px;">BOM_Base: 23 componenti | Optional: 10 upgrade | Totali: calcoli automatici | Note: linee guida acquisto</p>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">📖 Guida Tecnica (14 sezioni)</h4>
+                    <p style="color: #718096; font-size: 0.95em; margin-bottom: 15px;">Sicurezza | Architettura | Componenti | Cablaggio | Montaggio passo-passo | Test | Troubleshooting</p>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">💻 Codice Arduino (400+ righe)</h4>
+                    <p style="color: #718096; font-size: 0.95em; margin-bottom: 15px;">Board-agnostico: config.h | hardware_uno.h | hardware_esp32.h | logic.cpp | main_uno.ino | main_esp32.ino</p>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">✅ Checklist (100+ items)</h4>
+                    <p style="color: #718096; font-size: 0.95em;">Pre-ordine | Acquisto | Montaggio | Test pre-alimentazione | Test intermedi | Collaudo finale</p>
+                </div>
+            </div>
+
+            <!-- CARD 6: SUPPORTO & FAQ -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">🆘</div>
+                    <h2>Supporto & FAQ</h2>
+                </div>
+                <div class="card-content">
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">❓ Come iniziare?</h4>
+                    <p style="color: #718096; font-size: 0.95em; margin-bottom: 15px;">1. Scarica tutti i file | 2. Apri la Guida (Intro + Sicurezza) | 3. Segui la Checklist interattiva | 4. Ordina da BOM Excel</p>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">❓ Quanto costa?</h4>
+                    <p style="color: #718096; font-size: 0.95em; margin-bottom: 15px;">Base: €156 (Arduino Uno) | ESP32: €152 | Full Optional: €181</p>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">❓ Quanto tempo serve?</h4>
+                    <p style="color: #718096; font-size: 0.95em; margin-bottom: 15px;">2-3 settimane dalla ordinazione al sistema operativo (5-7 giorni Amazon, 16-36 AliExpress)</p>
+
+                    <h4 style="margin: 15px 0 10px 0; color: #2d3748;">❓ Fallback Hunter?</h4>
+                    <p style="color: #718096; font-size: 0.95em;">SÌ! Deviatore reversibile permette switch rapido "Arduino → Hunter" in 5 secondi se Arduino crasha</p>
+                </div>
+                <button style="width: 100%; margin-top: 15px;" onclick="document.getElementById('modal-faq').style.display='block'">
+                    💡 Vedi FAQ completo
+                </button>
+            </div>
+
+        </div>
+
+        <!-- CHECKLIST VIEWER -->
+        <section class="content-viewers">
+            <div id="viewer-checklist" class="viewer-card">
+                <div class="viewer-header">
+                    <div>
+                        <h3>✅ Checklist Interattiva</h3>
+                        <p style="color: #718096; margin: 0;">Spunta le attività per monitorare l’avanzamento</p>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <button class="action-button secondary small" onclick="resetChecklist()">Reset</button>
+                        <a class="action-button small" href="Checklist_Finale_Verifica.md" download>DOWNLOAD .MD</a>
+                    </div>
+                </div>
+                <div class="checklist-container viewer-body" id="checklist-content">
+                    <p style="color: #718096;">Caricamento checklist...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <p><strong>Irrigazione Smart DIY v1.0</strong> — Dicembre 2025</p>
+            <p>Autore: Ingegnere Elettronico Senior + Maker Esperto Irrigazione</p>
+            <p>Licenza: Uso privato/educativo — Non commerciale</p>
+            <p style="margin-top: 15px; opacity: 0.8;">Grazie per aver scelto questo progetto! 🌱💧</p>
+        </footer>
+    </div>
+
+    <!-- MODALS -->
+    <div id="modal-checklist" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('modal-checklist').style.display='none'">&times;</span>
+            <h2>📋 Checklist Montaggio Completo</h2>
+            <h3>FASE PRE-ORDINE</h3>
+            <ul class="checklist">
+                <li>Verifica Arduino Uno R3 disponibile (€20-25)</li>
+                <li>Verifica Relè 2ch optoisolato 5V (SRD-05VDC-SL-C)</li>
+                <li>Verifica Trasformatore 24VAC 40VA CE certificato, doppio isolamento</li>
+                <li>Verifica 2x Sensori umidità capacitivi (non resistivi!)</li>
+                <li>Verifica Box IP65 200×300mm, guarnizioni neoprene</li>
+                <li>Verifica fusibili 20A (primario) e 5A (secondario)</li>
+                <li>Verifica RCD 30mA (opzionale ma consigliato)</li>
+                <li>Verifica deviatore manuale 2-vie 250VAC 16A</li>
+            </ul>
+            <h3>FASE MONTAGGIO</h3>
+            <ul class="checklist">
+                <li>Pulizia box IP65 interna (panno umido asciutto)</li>
+                <li>Montaggio DIN rail (allineamento perfetto con livella)</li>
+                <li>Montaggio portafusibile primario + fusibile 20A</li>
+                <li>Montaggio RCD 30mA (se presente)</li>
+                <li>Montaggio trasformatore 24VAC su DIN rail</li>
+                <li>Montaggio relè 2 canali</li>
+                <li>Cablaggio primario 230V (DISCONNETTI SEMPRE SPINA!)</li>
+                <li>Cablaggio secondario 24VAC (trasformatore → relè → valvole)</li>
+                <li>Collegamento Arduino + sensori umidità</li>
+                <li>Installazione pressacavi M20 IP67 (2-3 N⋅m, non forzare!)</li>
+            </ul>
+            <h3>FASE TEST PRE-ALIMENTAZIONE</h3>
+            <ul class="checklist">
+                <li>Test isolamento: 230V-24VAC &gt;1 MΩ (multimetro Ω×1000)</li>
+                <li>Test continuità: cavi L-N primario ≈0Ω</li>
+                <li>Test continuità: secondario 5-10Ω (trasformatore OK)</li>
+                <li>Test RCD: scatto pulsante TEST (se presente)</li>
+                <li>Test fusibili: intatti, non scuriti</li>
+            </ul>
+            <h3>FASE TEST INTERMEDI</h3>
+            <ul class="checklist">
+                <li>TEST 1: Alimentazione 230V isolata (no load) → 24V AC ±5%</li>
+                <li>TEST 2: Relè meccanico → scatto audibile a GPIO 8/9</li>
+                <li>TEST 3: Sensori umidità → calibrazione secca/bagnata (ADC_DRY/WET)</li>
+                <li>TEST 4: Ciclo irrigazione completo → relè attiva valvola, 24V ai morsetti</li>
+                <li>TEST 5: Migrazione ESP32 (opzionale) → GPIO 4,5,36,39</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="modal-faq" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="document.getElementById('modal-faq').style.display='none'">&times;</span>
+            <h2>💡 Domande Frequenti (FAQ)</h2>
+
+            <h3>❓ Cosa servono i file?</h3>
+            <p><strong>BOM Excel:</strong> Elenco completo componenti con link acquisto Amazon/AliExpress + costi automatici</p>
+            <p><strong>Guida Tecnica:</strong> Manuale stampabile 14 sezioni (sicurezza, montaggio, troubleshooting)</p>
+            <p><strong>Codice Arduino:</strong> Firmware completo board-agnostico (Uno R3 → ESP32 in 1 giorno)</p>
+            <p><strong>Checklist:</strong> 100+ checkbox per montaggio, test, calibrazione</p>
+
+            <h3>❓ Quale microcontrollore scegliere?</h3>
+            <p><strong>Arduino Uno R3:</strong> €156 base, affidabilità 16+anni, learning curve bassa. CONSIGLIATO per primo build.</p>
+            <p><strong>ESP32:</strong> €152 base, WiFi built-in, migrazione in Fase 4 (dopo test Uno funzionante)</p>
+
+            <h3>❓ Calibrazione sensori: cosa significa?</h3>
+            <p>Ogni terreno è diverso (argilla, sabbia, torba = diversi valori ADC). OBBLIGATORIO:</p>
+            <p>1. Posiziona sensore in suolo SECCO (aria 5 min) → annota ADC_DRY</p>
+            <p>2. Immergi sensore in ACQUA (30s) → annota ADC_WET</p>
+            <p>3. Modifica codice con TUOI valori. Se no: letture imprecise al 90%.</p>
+
+            <h3>❓ Mi serve multimetro?</h3>
+            <p><strong>SÌ, OBBLIGATORIO!</strong> Elementi critici:</p>
+            <p>• Test isolamento 230V-24VAC &gt;1 MΩ (folgorazione?)</p>
+            <p>• Test continuità cavi (cortocircuiti?)</p>
+            <p>• Test tensione secondaria 24V ±5% (trasformatore OK?)</p>
+
+            <h3>❓ Se Arduino crasha, cosa succede?</h3>
+            <p>Gira il deviatore reversibile da "Arduino" a "Hunter": sistema Hunter originale riprende il controllo in 5 secondi. Fallback sempre disponibile!</p>
+
+            <h3>❓ Posso cominciare senza sapere Arduino?</h3>
+            <p>SÌ! Codice è completamente commentato. Learning curve: 1-2 giorni per comprendere flusso.</p>
+            <p>Competenza minima richiesta: cablare cavi senza creare cortocircuiti + leggere un multimetro.</p>
+
+            <h3>❓ Quanto risparmio d'acqua?</h3>
+            <p>Con sensori umidità: +30-50% efficienza vs timer fisso. Stima payback: 1-2 stagioni irrigazione.</p>
+
+            <h3>❓ Posso aggiungere WiFi dopo?</h3>
+            <p>SÌ! In Fase 4 migri a ESP32 (€+21 extra). WiFi integrato, logging SD, display OLED tutte possibili.</p>
+        </div>
+    </div>
+
+
+Caratteristiche Elettriche:
+  • Tensione logica: 5V (GPIO)
+  • Corrente massima per GPIO: 40 mA total, ~20 mA per pin
+  • ADC 10-bit: risoluzione 5V/1024 ≈ 4.88 mV per step
+  • Frequenza clock: 16 MHz
+  • Flash: 32 kB; SRAM: 2 kB
+  • EEPROM: 1 kB (persistente)
+```
+
+**Specifiche per questo progetto:**
+- **Pin 8**: OUT relè Zona 1 (LOW = acceso)
+- **Pin 9**: OUT relè Zona 2 (LOW = acceso)
+- **Pin A0**: IN sensore umidità Zona 1 (0-1023 ADC)
+- **Pin A1**: IN sensore umidità Zona 2 (0-1023 ADC)
+- **GND**: Massa comune
+
+### 6.2 ESP32 DevKit v1
+
+**Alternativa per Fase 4 (migrazione WiFi)**
+
+```
+Pinout Rilevante:
+┌──────────────────────────────┐
+│ ESP32 DevKit v1 (30-pin)     │
+├──────────────────────────────┤
+│ POWER:                        │
+│  5V (da USB-C)  ← Regolatore │
+│  GND            ← Massa      │
+├──────────────────────────────┤
+│ GPIO DIGITALI:                │
+│  GPIO4, GPIO5   ← SSR relè   │
+│  (non usare GPIO0,2,15)      │
+├──────────────────────────────┤
+│ ADC (12-bit):                │
+│  ADC1_CH0 (GPIO36) ← Sens. 1 │
+│  ADC1_CH3 (GPIO39) ← Sens. 2 │
+├──────────────────────────────┤
+│ I2C, SPI, UART               │
+│ WiFi 802.11 b/g/n           │
+│ Bluetooth 5.0               │
+└──────────────────────────────┘
+
+Caratteristiche Elettriche:
+  • Tensione logica: 3.3V (GPIO) ← ATTENZIONE: NON 5V!
+  • Corrente massima per GPIO: 12 mA (limite soft)
+  • ADC 12-bit: risoluzione 3.3V/4096 ≈ 0.8 mV per step
+  • Frequenza clock: 80-240 MHz (configurable)
+  • Flash: 4 MB (SPIFFS filesystem)
+  • SRAM: 520 kB
+  • Temp. funzionamento: -40–+85°C
+```
+
+**ATTENZIONE GPIO 3.3V**: NON connettere direttamente relè 5V al pin ESP32! Usare SSR optoisolato 3.3V oppure optoisolatore esterno (NPN transistor + LED).
+
+### 6.3 Modulo Relè 2 Canali Optoisolato 5V
+
+**Modello: SRD-05VDC-SL-C (standard AliExpress/Amazon)**
+
+```
+┌────────────────────────────────────┐
+│ Relè 2 Canali Optoisolato (5V)     │
+│                                    │
+│  INPUT SIDE:                       │
+│  ┌──────┬──────┬──────┬──────┐    │
+│  │ GND  │ IN1  │ IN2  │ VCC  │    │
+│  └──────┴──────┴──────┴──────┘    │
+│    │      │      │      │         │
+│   (◄◄─────┤      ├─────►►►)       │ ← Optoisolamento
+│    │      │      │      │         │
+│  OUTPUT SIDE:                      │
+│  ┌─────────────────────────┐      │
+│  │  NC1 NO1 COM | NC2 NO2 COM     │ ← Contatti relè
+│  └──┬──────┬─────┴────┬────┬──────┘
+│     │      │          │    │
+│    (1)    (2)        (3)  (4)    (5)
+│
+│ Specifiche:
+│  • Input VCC: 5V DC
+│  • Input current per canale: ~70 mA @ 5V
+│  • Output: 10A 250VAC (standard)
+│  • Tempo commutazione: ~10 ms
+│  • Isolamento: 2 kV tra ingresso e uscita
+│  • Contatti: SPDT (Single Pole Double Throw)
+│
+│ LOGICA:
+│  IN1 = LOW (0V)  → OPEN circuito (relè non pilotato)
+│  IN1 = HIGH (5V) → CHIUDE circuito (relè pilotato)
+│
+│  NOTA: Logica invertita nel nostro codice:
+│        digitalWrite(pin_relè, LOW) → ACCENDI irrigazione
+│        digitalWrite(pin_relè, HIGH) → SPEGNI irrigazione
+└────────────────────────────────────┘
+
+Integrazione con Arduino Uno:
+VCC  → 5V (Arduino)
+GND  → GND (Arduino)
+IN1  → GPIO Pin 8 (Arduino)
+IN2  → GPIO Pin 9 (Arduino)
+
+NO1 + COM → Circuito 24VAC Zona 1
+NO2 + COM → Circuito 24VAC Zona 2
+```
+
+### 6.4 Trasformatore 230V → 24VAC 40VA
+
+**Modello commerciale: Trasformatore toroidale preassemblato DIN-rail**
+
+```
+PRIMARIO (230V input):
+  ┌─────────────────────┐
+  │ ┌─────────────────┐ │
+  │ │  TRASFORMATORE  │ │
+  │ │  230V ↔ 24VAC   │ │  40VA =
+  │ │  40VA / 50-60Hz │ │  24V × 1.67A
+  │ └─────────────────┘ │
+  │ [L] [N]             │  Doppio isolamento
+  └──┬──┬──┘            │  Protezione termica
+     │  │               │  IEC 60950 Classe II
+     │  │               │
+     │  │  SECONDARIO    │
+     │  │  24VAC output  │
+     │  │               │
+     │  └───┬───────┬───┤
+     │      │       │   │
+     │      OUT1   OUT2 │
+     │      (L)    (N)  │
+     │      │       │   │
+     └──────┴─────────┘
+
+Specifiche Elettriche:
+  • Perdite a vuoto: ~2-5 W (calore residuo)
+  • Perdite in carico (40VA): ~1-2 W (resistenza primario/secondario)
+  • Rendimento: ~95% a carico pieno
+  • Protezione termica: fusibile interno a ~60°C (se sovraccarico)
+  • Isolamento: Classe II (doppio isolamento, no terra)
+  • Ingresso: 230V ± 10% (200-253V tollerato)
+  • Uscita: 24V ± 5% (a plena potenza con carico)
+
+DIMESIONAMENTO:
+  Caso 1: 1 valvola 6W attiva
+  → I_secondary = 6W / 24V = 0.25A (OK, sotto 1.67A)
+  
+  Caso 2: 2 valvole 6W ciascuna simultanee
+  → I_secondary = 12W / 24V = 0.5A (OK)
+  
+  Caso 3: 2 valvole + isteresi inrush
+  → I_inrush_solenoid = ~2-3x I_holding
+  → Worst case: 0.5A × 3 = 1.5A < 1.67A (margine ristretto!)
+  → Usar trasformatore 40VA è al limite; 50VA è più sicuro se disponibile
+
+MONTAGGIO FISICO:
+  • DIN rail 35mm standard (guida in box IP65)
+  • Dimensioni tipiche: 72×60×80 mm
+  • Peso: ~0.8 kg
+  • Ventilazione: aria libera min. 5cm attorno (box con fori?)
+```
+
+### 6.5 Sensori Umidità Capacitivi
+
+**Modello: DFRobot SEN0193 (capacitivo, 0-100% scala)**
+
+```
+PINOUT SENSORE:
+  ┌──────────────────┐
+  │ Capacitive Sensor│
+  │                  │
+  │ [GND] [VCC] [OUT]│ ← 3 fili
+  └────┬─────┬──────┘
+       │     │      │
+       ●     ●      ● (giallo/arancio/nero tipicamente)
+       │     │      │
+    (BLK)  (RED)  (GRN)
+
+PIN DETAILS:
+  • GND: Nero → GND Arduino
+  • VCC: Rosso → 5V Arduino (o 3.3V, accetta entrambi)
+  • OUT: Giallo → ADC Arduino (A0 per zona 1, A1 per zona 2)
+
+FUNZIONAMENTO:
+  • Capacità varia con umidità del suolo
+  • Nessun contatto diretto con acqua (non corrosivo come resistivo)
+  • Uscita analogica 0-1023 (ADC 10-bit Arduino)
+
+GAMMA UMIDITÀ (post-calibrazione):
+  • Suolo secco: ~800-900 ADC
+  • Suolo umido: ~400-500 ADC
+  • Suolo fradicio: ~200-300 ADC
+  • Acqua pura: ~0 ADC
+
+CALIBRAZIONE NECESSARIA:
+  1. Leggi valore "dry" in vaso vuoto per 5 min
+  2. Leggi valore "wet" immergendo punta in acqua per 30s
+  3. Usa mappa lineare: % = (dry - ADC) / (dry - wet) × 100
+  4. Filtra rumore con moving average su 10 letture
+
+DURATA:
+  • Vita media: 3-5 anni (niente contatto resistivo)
+  • Resistenza all'oxidazione: buona se non sporco
+  • Risciacquo settimanale consigliato con acqua distillata se molto sporco
+```
+
+### 6.6 Box IP65 200x300x150mm
+
+```
+ESTERNO:
+  ┌─────────────────────┐
+  │ Box IP65 200x300mm  │
+  │ Polycarbonate grigio│
+  │                     │
+  │ ┌─────────────────┐ │
+  │ │  Sportello      │ │ ← Inclinato verso basso
+  │ │ + Guarnizione   │ │   (evita ristagni)
+  │ │ + 2 Maniglie    │ │
+  │ └─────────────────┘ │
+  │                     │
+  │ [◉] [◉] Pressacavi │ ← M20 IP67
+  │     x2             │
+  │                     │
+  │ (fori per drenaggio)│ ← Opzionali Ø3mm
+  └─────────────────────┘
+         65cm × 80cm
+
+INTERNO:
+  ┌─────────────────────────────┐
+  │ GUIDA DIN 35mm              │ ← Su parete interna
+  │ ├─ Portafusibile DIN        │
+  │ │  ├─ Fusibile 20A primario │
+  │ │  └─ Fusibile 5A secondario│
+  │ ├─ RCD 30mA 2x25A (OPZ.)   │
+  │ ├─ Trasformatore 40VA       │
+  │ └─ Relè 2 canali (DIN)      │
+  │                             │
+  │ Arduino Uno (a parte, non   │
+  │ su DIN, su staffa)          │
+  │                             │
+  │ Cablaggio organizzato:      │
+  │  • 230V rosso/nero in tubo  │
+  │  • 24VAC arancione in tubo  │
+  │  • Sensori schermati        │
+  └─────────────────────────────┘
+
+SPECIFICHE IP65:
+  • IP = Ingress Protection
+  • 6 = Protezione polvere totale (pressione aria)
+  • 5 = Getti d'acqua bassa pressione (all'angolo)
+  • -20 a +60°C operativo
+  • Guarnizione in neoprene (resistenza umidità 5-10 anni)
+  • Trattamento UV per polycarbonate
+
+MONTAGGIO FISICO:
+  • Muro giardino, orientamento: nordest consigliato
+    (sole diretto al mattino, ombra pomeriggio)
+  • Altezza: 1.5-2m dal suolo (sopra erba bagnata)
+  • Distanza dalle valvole: ≤3m (minimalizza cavi)
+  • Protezione da piante rampicanti (mantieni libero)
+```
+
+---
+
+## 7. CABLAGGIO ELETTROVALVOLE 24 VAC
+
+### Topologia: Parallelo Reversibile
+
+Due valvole **in parallelo** sul secondario trasformatore. Lo **stato ON/OFF dipende dal relè Arduino**, non da Hunter.
+
+```
+MODALITÀ HUNTER (deviatore SU "Hunter"):
+  
+  Trasformatore OUT (L, N)
+         ↓
+  Hunter Eco-Logic
+    Morsetto Z1 → Valvola Zona 1
+    Morsetto Z2 → Valvola Zona 2
+    Morsetto COM → N trasf.
+
+MODALITÀ ARDUINO (deviatore SU "Arduino"):
+
+  Trasformatore OUT (L, N)
+         ↓
+  [L]
+   │
+   ├─→ [NO1 relè 1] ─→ Valvola Zona 1 ─→ [N]
+   │                                        ↑
+   ├─→ [NO2 relè 2] ─→ Valvola Zona 2 ─→───┘
+   │
+   └─→ [COM] (da relè 1 e 2 univocamente nel circuito)
+       
+   Arduino GPIO 8 → [IN1 relè] → pilota Zona 1
+   Arduino GPIO 9 → [IN2 relè] → pilota Zona 2
+```
+
+### Disegno Schematico Dettagliato
+
+```
+PRIMARIO 230V AC (esterno box, protetto):
+┌──────────────────────────────────────┐
+│ Presa 230V                           │
+│ [L=rosso] [N=blu] [PE=giallo]        │
+└──┬──────────┬──────────┬─────────────┘
+   │          │          │
+   │ [20A]    │          │ Interruttore
+   │  fus.    │          │ principale
+   │          │          │
+   ├──────────▼──────────┼─────→ RCD 30mA (opzionale)
+   │                     │
+   ▼                     ▼
+  Fase                 Neutro
+   │                     │
+   └─────────┬───────────┘
+             │
+      ┌──────▼───────┐
+      │Trasformatore │
+      │230V → 24VAC  │
+      │ 40VA         │
+      └──────┬───────┘
+             │
+      ┌──────▼───────────────┐
+      │ SECONDARIO 24VAC     │
+      │ [5A fus.] ─→ L(out)  │
+      │ [5A fus.] ─→ N(out)  │
+      └──────┬───────┬───────┘
+             │       │
+             L       N
+             │       │
+        ┌────┤       │
+        │    ├───────┤
+        │    │       │
+        NO1  NO2    COM(relè)
+        │    │       │
+        │    │       └─→ N trasf. (comune ritorno)
+        │    │
+        │    ├─→ Valvola 2 ─→ [N]
+        │
+        ├─→ Valvola 1 ─→ [N]
+
+Relè 1 (IN1 da GPIO8):
+  • GND → GND Arduino
+  • VCC → 5V Arduino
+  • IN1 → GPIO 8 Arduino
+  • NO1 → Entra Valvola 1
+  • COM → Uscita A Valvola 1
+
+Relè 2 (IN2 da GPIO9):
+  • GND → GND Arduino
+  • VCC → 5V Arduino (comune con relè 1)
+  • IN2 → GPIO 9 Arduino
+  • NO2 → Entra Valvola 2
+  • COM → Uscita Valvola 2 (e uscita Valvola 1 univocamente a N)
+```
+
+### Tabella Morsetti Effettivi
+
+| Punto | Componente | Tensione | Colore Cavo | Funzione |
+|-------|-----------|----------|-------------|----------|
+| TP1 | Presa 230V Fase | 230V AC | Rosso | Input primario |
+| TP2 | Presa 230V Neutro | 0V ref | Blu | Input primario |
+| TP3 | Fusibile 20A | 230V→0V | Rosso | Protezione primario |
+| TP4 | Trasformatore [L] | 24V AC | Arancio | Output secondario hot |
+| TP5 | Trasformatore [N] | 0V AC | Grigio | Output secondario return |
+| TP6 | Relè 1 [NO] | 24V AC | Arancio | A Valvola 1 ingresso |
+| TP7 | Relè 1 [COM] | 0/24V AC | Grigio | Ritorno Valvola 1 (e Valvola 2) |
+| TP8 | Relè 2 [NO] | 24V AC | Arancio | A Valvola 2 ingresso |
+| TP9 | Valvola 1 Ingr. | 24V AC | Arancio | Connettore valvola |
+| TP10 | Valvola 1 Uscita | 0V AC | Grigio | Ritorno |
+| TP11 | Valvola 2 Ingr. | 24V AC | Arancio | Connettore valvola |
+| TP12 | Valvola 2 Uscita | 0V AC | Grigio | Ritorno (comune) |
+
+---
+
+## 8. MODALITÀ OPERATIVE
+
+### Modalità 1: Sostituzione Totale (ONLY Arduino)
+
+**Deviatore "Arduino" selezionato permanentemente.**
+
+**Configurazione:**
+- Hunter rimane spento (disconnesso dal trasformatore)
+- Arduino controlla **esclusivamente** le due valvole
+- Nessun fallback a Hunter
+
+**Pro:**
+- Massimo controllo intelligente
+- Compatibile con i sensori umidità
+
+**Contro:**
+- Se Arduino crasha: zero irrigazione
+- Rischio morte piante se bug nel codice
+
+**Caso d'uso:** Persona con skill tecnico alto che vuole full automation.
+
+### Modalità 2: Parallelo Reversibile (Consigliata per questo progetto)
+
+**Deviatore manuale permette passaggio rapido "Hunter ↔ Arduino".**
+
+**Configurazione:**
+```
+Posizione A: "Hunter Mode"
+  → Trasformatore alimenta SOLO Hunter Eco-Logic
+  → Arduino spento / disalimentato
+  → Fallback a controller originale (affidabile, commerciale)
+
+Posizione B: "Arduino Mode"
+  → Trasformatore alimenta SOLO Arduino + Relè
+  → Hunter disconnesso
+  → Smart control, sensori, logging
+```
+
+**Pro:**
+- Massima **reversibilità** e **sicurezza** (sempre via escape)
+- Testare Arduino senza rischiare impianto
+- Se Arduino ha bug: switch a Hunter in 2 secondi
+- Raccolta dati durante operazione Hunter (logging opzionale)
+
+**Contro:**
+- Richiede **manual switching** (non completamente automatico)
+- Possibile dimenticarsi selettore e usare Hunter con Arduino carico → confusione
+
+**Implementazione:**
+```
+Deviatore 2x25A 250VAC doppio (SPDT):
+  • Contatto 1: Alimenta Trasf. → Hunter
+  • Contatto 2: Alimenta Trasf. → Arduino Box
+  • Comune: Trasformatore ingresso 24VAC
+  
+  Posizione A (Hunter):
+    Trasf. 24VAC OUT → Hunter
+  
+  Posizione B (Arduino):
+    Trasf. 24VAC OUT → Arduino Relè
+```
+
+**Raccomandazione:** **MODALITÀ 2 OBBLIGATORIA** per questo progetto.
+
+---
+
+## 9. MONTAGGIO PASSO-PASSO
+
+### FASE 1: PIANIFICAZIONE (0.5 giorni)
+
+- [ ] Verifica distanza box da valvole Hunter (contai 3m max)
+- [ ] Misura lunghezza cavi necessari (primario 230V, secondario 24VAC, sensori)
+- [ ] Identifica alimentazione 230V più vicina (presa giardino, scatola silenziatore, etc.)
+- [ ] Scegli posizionamento box IP65 (parete nord-est, altura 1.5-2m)
+- [ ] Ordina tutti i componenti BOM (+ 10% margine)
+- [ ] Verifica arrivo trasformatore 24VAC e fusibili
+
+### FASE 2: PREPARAZIONE BOX E COMPONENTI (1 giorno)
+
+#### Step A: Apertura e Pulizia Box IP65
+
+1. Estrai box dall'imballaggio
+2. Rimuovi protezioni di spedizione
+3. Ispeziona guarnizioni (neoprene integro?)
+4. Lava internamente con panno umido, asciuga completamente
+5. Monta **staffa Arduino** all'interno (non su DIN rail, su supporto separato)
+
+#### Step B: Montaggio DIN Rail e Componenti Protezione
+
+1. **DIN Rail 35mm**: monta orizzontale su parete interna box
+   - Fissa con 2-3 staffe metalliche (kit solitamente incluso)
+   - Allinea perfettamente (livella)
+
+2. **Portafusibile DIN + Fusibili**:
+   - Inserisci fusibile 20A in portafusibile (primario 230V)
+   - Inserisci fusibile 5A in secondo portafusibile (secondario 24VAC)
+   - Monta su DIN rail (scatto semplice, prova movimento)
+
+3. **RCD 30mA** (opzionale ma vivamente consigliato):
+   - Monta a sinistra portafusibili
+   - Verifica morsetti: L→230V rosso, N→230V blu, OUT verso trasformatore
+
+4. **Trasformatore 40VA**:
+   - Prendi trasformatore preassemblato DIN
+   - Monta a destra su DIN rail
+   - Verifica stabilità (no vibrazioni)
+
+#### Step C: Montaggio Relè 2 Canali
+
+1. **Opzione A** (se relè ha attacco DIN):
+   - Monta su DIN rail a destra trasformatore
+
+2. **Opzione B** (se relè è breadboard-style):
+   - Monta su **staffa di plastica** separata, parallela a Arduino
+
+#### Step D: Preparazione Cablaggio Interno
+
+1. Taglia cavi secondo lunghezze stimate:
+   - **Primario 230V**: L e N da RCD a trasformatore (~30cm)
+   - **Secondario 24VAC**: OUT da trasformatore a relè (2x ~30cm)
+   - **Sensori**: 0.5mm² da Arduino A0/A1 a sensori (~2m esteriore)
+
+2. **Isola tutti i cavi** secondo categoria:
+   - Cavi primario 230V (rosso per L, blu per N) **in tubo giallo opaco separato**
+   - Cavi secondario 24VAC (arancio per L, grigio per N) **in tubo grigio separato**
+   - Cavi sensori digitali (schermati se possibile) in tubo separato
+
+3. Etichetta TUTTI i morsetti con etichette adesive vinile:
+   ```
+   "230V-L"    "230V-N"
+   "24V-L"     "24V-N"
+   "Z1-IN"     "Z1-OUT"
+   "Z2-IN"     "Z2-OUT"
+   "GND Arduino" "5V Arduino"
+   ```
+
+### FASE 3: CABLAGGIO ELETTRICO (1 giorno)
+
+#### Step A: Collegamento Primario 230V
+
+**⚠️ SICUREZZA: Indossa guanti isolanti, verifica con multimetro prima di toccare**
+
+1. **Disconnetti completamente** la presa 230V (scollega spina dalla parete)
+2. **Verifica assenza tensione** con multimetro DC (dovrebbe leggere ~0V)
+3. Collega:
+   - Fase rossa presa → Fusibile 20A ingresso (morsetto 1)
+   - Fusibile 20A uscita (morsetto 2) → RCD ingresso L (oppure diretto trasformatore se no RCD)
+   - Neutro blu presa → RCD ingresso N (oppure diretto trasformatore)
+   - Terra giallo/verde → Morsetto PE trasformatore (se classe III) o isolato se classe II
+
+4. **Test**: Collega spina alla parete, accendi multimetro sul morsetto uscita RCD:
+   - Dovrebbe leggere ~230V AC
+   - Premi pulsante TEST del RCD (dovrebbe scattare e staccare alimentazione)
+   - Premi pulsante RESET del RCD (alimentazione ritorna)
+   - **Se non scatta**: RCD difettoso, TOGLI SPINA e sostituisci
+
+#### Step B: Collegamento Secondario 24VAC
+
+1. **Disconnetti ancora spina 230V** (doppia verifica sicurezza)
+2. Collega morsetti trasformatore secondario:
+   - OUT1 (L 24VAC) → Relè [L input]
+   - OUT2 (N 24VAC) → Relè [N input] + [COM comune]
+
+3. **Collegamento Relè a Valvole**:
+   - Relè 1 [NO] → Valvola Zona 1 [L]
+   - Relè 2 [NO] → Valvola Zona 2 [L]
+   - Relè 1 [COM] + Relè 2 [COM] → Valvole [N] (ritorno, comune)
+
+4. Tira i cavi dai **pressacavi M20 IP67** sulla parete box verso l'esterno:
+   - Pressacavo 1: cavo rosso 230V (fase primario)
+   - Pressacavo 2: cavo blu 230V (neutro primario)
+   - Pressacavo 3: cavo arancio 24VAC primario (extra per flessibilità)
+
+#### Step C: Collegamento Arduino e Sensori
+
+1. **Alimentazione Arduino**:
+   - USB-C o micro-USB da alimentatore 5V/2A esterno
+   - Oppure (solo test): da computer via USB (limitato a ~500mA)
+
+2. **Sensori umidità** (2x per zone):
+   - Sensore Zona 1: GND → Arduino GND, VCC → Arduino 5V, OUT → Arduino A0
+   - Sensore Zona 2: GND → Arduino GND, VCC → Arduino 5V, OUT → Arduino A1
+
+3. **Relè control**:
+   - Relè GND → Arduino GND (comune)
+   - Relè VCC → Arduino 5V
+   - Relè IN1 → Arduino GPIO 8
+   - Relè IN2 → Arduino GPIO 9
+
+### FASE 4: MONTAGGIO FISICO ESTERNO (0.5 giorni)
+
+1. **Deviatore manuale 2-vie**:
+   - Monta su parete box o adiacente (altezza ergonomica, ~1.5m)
+   - Etichetta chiaramente: "Hunter" / "Arduino"
+   - Collega morsetto comune a trasformatore input 24VAC
+
+2. **Percorso cavi esteriori**:
+   - Primario 230V: tubo arancio con protezione UV, in angoli ombreggiati
+   - Secondario 24VAC: tubo grigio, separato dal primario (min 10cm)
+   - Sensori: guaina schermata lungo muri, lontano da cavi potenza
+
+3. **Pressacavi**:
+   - Inserisci guarnizioni silicone aggiuntive (doppio sigillo)
+   - Serrat con chiave dinamometrica ~2 N⋅m (leggero, non forzare)
+
+### FASE 5: TEST PRE-ALIMENTAZIONE (1 giorno)
+
+1. **Controllo visivo completo**:
+   - Nessun cavo scoperto su parti metalliche
+   - Nessun incrocio 230V-24VAC
+   - Isolamento intatto (nessun buco in tubi)
+
+2. **Test continuità** (multimetro):
+   - 230V L → ingresso primario: ~0Ω (continuità OK)
+   - 230V N → ingresso primario: ~0Ω (continuità OK)
+   - Tra 230V L e N: ∞Ω (nessun cortocircuito!)
+   - Tra 24VAC L e N secondario: 5-10Ω (trasformatore OK)
+
+3. **Test isolamento** (multimetro DC HIGH, ~1kV):
+   - Tra 230V L e 24VAC L: >1 MΩ (isolamento OK)
+   - Tra 230V N e chassis: >1 MΩ (isolamento OK)
+
+4. **Verifica fusibili**:
+   - Fusibile 20A primario: intatto, non scurrito
+   - Fusibile 5A secondario: intatto
+
+---
+
+## 10. IMMAGINI OBBLIGATORIE
+
+### Elenco di cosa fotografare o disegnare
+
+Genera **fotografie professionali** o schemi tecnici per i seguenti punti:
+
+1. **Schema generale BOM montato**: vista completa box IP65 interno con tutti componenti etichettati
+2. **Dettaglio DIN rail**: portafusibile, RCD, trasformatore in sequenza
+3. **Dettaglio relè e cablaggio secondario 24VAC**: foto dell'attacco morsetti relè → valvole
+4. **Dettaglio sensori umidità**: installazione probe nel terreno, lungo le zone
+5. **Dettaglio deviatore manuale**: posizioni "Hunter" e "Arduino" con etichette chiare
+6. **Cablaggio primario 230V** (SOLO SCHEMA, non foto dal vivo per sicurezza): fase, neutro, terra a portafusibili
+7. **Box esterno in giardino**: posizionamento su parete, protezione UV, pendenza sportello
+8. **Collegamento Arduino Uno**: pinout etichettato (GND, 5V, GPIO 8, 9, A0, A1)
+9. **Collegamento ESP32**: pinout etichettato (GND, 3.3V, GPIO 4, 5, ADC1_CH0, ADC1_CH3)
+10. **Tabella morsetti stampabile**: A4 da applicare su parete interna box con etichettatrice
+
+---
+
+## 11. COLLAUDO E TEST INTERMEDI
+
+### Test 1: Alimentazione 230V Isolata (NESSUN LOAD)
+
+**Obiettivo:** Verificare trasformatore genera 24VAC senza carichi collegati.
+
+**Procedura:**
+1. Deviatore su "Arduino" (ma Arduino spento)
+2. Accendi RCD (test button)
+3. Misura con multimetro AC tra morsetti OUT trasformatore:
+   - Dovrebbe leggere **24V ± 1V** (tolleranza ±5% = 22.8-25.2V)
+4. Se non legge nulla: verificare fusibile 20A primario, continuità cavi
+
+### Test 2: Relè Meccanico (senza valvole)
+
+**Obiettivo:** Verifica che relè scatti correttamente quando alimentato.
+
+**Procedura:**
+1. Accendi Arduino Uno (via USB, solo alimentazione digitale)
+2. Carica sketch test:
+   ```cpp
+   void setup() {
+     pinMode(8, OUTPUT);
+     pinMode(9, OUTPUT);
+     Serial.begin(9600);
+   }
+   void loop() {
+     digitalWrite(8, LOW);  // Relè 1 ON
+     Serial.println("Relè 1 ON");
+     delay(1000);
+     digitalWrite(8, HIGH); // Relè 1 OFF
+     Serial.println("Relè 1 OFF");
+     delay(1000);
+   }
+   ```
+3. **Ascolta clic** del relè: dovrebbe sentire "click-click" ogni secondo
+4. Ripeti per GPIO 9 (modifica codice)
+5. Se no click: verificare alimentazione 5V relè, continuità IN1/IN2
+
+### Test 3: Sensori Umidità (Calibrazione Secca/Bagnata)
+
+**Obiettivo:** Determinare range ADC per calibrazione 0-100%.
+
+**Procedura:**
+1. Carica sketch test:
+   ```cpp
+   void setup() {
+     Serial.begin(9600);
+   }
+   void loop() {
+     int raw1 = analogRead(A0);
+     int raw2 = analogRead(A1);
+     Serial.print("Zona1: "); Serial.print(raw1);
+     Serial.print(" | Zona2: "); Serial.println(raw2);
+     delay(500);
+   }
+   ```
+2. **Test Secco**: Posiziona sensore in vaso vuoto, attendi 2 minuti → annota ADC_DRY
+   - Tipico: 800-900 ADC
+3. **Test Bagnato**: Immergi punta sensore in bicchiere acqua per 30s → annota ADC_WET
+   - Tipico: 200-300 ADC
+4. **Calcola formula calibrazione:**
+   ```
+   % umidità = (ADC_DRY - ADC_lettura_attuale) / (ADC_DRY - ADC_WET) × 100
+   ```
+5. Annotai valori in commento del codice
+
+### Test 4: Ciclo Irrigazione Completo (Uno + Trasformatore + Una Valvola)
+
+**⚠️ PREREQUISITO: Trasformatore alimentato, solo Zona 1 testata**
+
+**Procedura:**
+1. Carica sketch semplificato:
+   ```cpp
+   #define PIN_VALVOLA 8
+   #define SENSORE_UMID A0
+   #define ADC_DRY 850
+   #define ADC_WET 250
+   #define SOGLIA_ON 30  // Accendi se umidità < 30%
+   #define SOGLIA_OFF 60 // Spegni se umidità > 60%
+   
+   void setup() {
+     pinMode(PIN_VALVOLA, OUTPUT);
+     digitalWrite(PIN_VALVOLA, HIGH); // Inizio OFF
+     Serial.begin(9600);
+   }
+   
+   void loop() {
+     int raw = analogRead(SENSORE_UMID);
+     int perc = map(raw, ADC_DRY, ADC_WET, 0, 100);
+     perc = constrain(perc, 0, 100);
+     
+     Serial.print("Umidità: "); Serial.print(perc); Serial.println("%");
+     
+     if (perc < SOGLIA_ON) {
+       digitalWrite(PIN_VALVOLA, LOW);  // Accendi
+       Serial.println("→ IRRIGAZIONE ON");
+     }
+     if (perc > SOGLIA_OFF) {
+       digitalWrite(PIN_VALVOLA, HIGH); // Spegni
+       Serial.println("→ IRRIGAZIONE OFF");
+     }
+     
+     delay(5000); // Leggi ogni 5s (accelerato per test)
+   }
+   ```
+2. **Osserva comportamento**:
+   - Accendi seriale Monitor (baud 9600)
+   - Leggi % umidità in tempo reale
+   - Asciugare sensore → % scende, relè accende valvola → senti "click"
+   - Bagnare sensore → % sale, relè spegne valvola → senti "click"
+3. **Verifica uscita valvola 24VAC**:
+   - Multimetro AC tra morsetti NO e COM relè
+   - Dovrebbe alternare 24V (valvola ON) e 0V (valvola OFF)
+
+### Test 5: Migrazione da Uno a ESP32 (FASE 4)
+
+**Prerequisito:** Codice Uno funzionante, ESP32 IDE installato
+
+**Procedura:**
+1. Carica codice ESP32 da sezione Codice (file `main_esp32.cpp`)
+2. Configura Arduino IDE:
+   - Board: "ESP32 Dev Module"
+   - Port: COM della ESP32
+   - Upload speed: 115200
+3. Carica sketch
+4. Ripeti Test 1-4 con GPIO 4/5 (ESP32) invece di 8/9 (Uno)
+5. Se WiFi: verifica connessione con Serial Monitor
+   ```
+   [WiFi]: Connecting to SSID...
+   [WiFi]: Connected! IP: 192.168.x.x
+   ```
+
+---
+
+## 12. TROUBLESHOOTING
+
+### Problema 1: Nessuna tensione 24VAC all'uscita trasformatore
+
+| Sintomo | Causa Probabile | Soluzione |
+|---------|-----------------|-----------|
+| 0V secondario | Fusibile 20A primario bruciato | Sostituisci fusibile 20A T250V, verifica cortocircuito |
+| 0V secondario | Trasformatore guasto | Test continuità bobina primaria (dovrebbe ~100-500Ω) |
+| ~24V ma sporco (onda quadra) | RCD scattato | Premi reset RCD, se ripete → isolamento primario compromesso |
+| Tensione bassa (18V) | Sovraccarico | Verificare no cortocircuiti secondario, misurare corrente |
+
+**Test diagnostico:**
+```
+Multimetro AC:
+  1. Tra L-N presa 230V → dovrebbe legger 230V ± 10%
+  2. Tra ingresso RCD L-N → dovrebbe 230V (se no RCD) o dopo RCD
+  3. Tra OUT trasformatore L-N → dovrebbe 24V ± 5%
+  Se uno step fallisce, problema in quella sezione
+```
+
+### Problema 2: Relè non scatta (nessun click)
+
+| Sintomo | Causa Probabile | Soluzione |
+|---------|-----------------|-----------|
+| Arduino spento | Alimentazione 5V assente | Verifica USB, led Arduino acceso? |
+| GPIO 8/9 non esce da Arduino | Codice non caricato correttamente | Ricarica sketch, verifica compilazione OK |
+| GPIO out ma relè non scatta | Corrente insufficiente GPIO | Arduino Uno max 40mA totale; relè 5V richiede ~70mA; usa SN74HC595 shift register |
+| Relè scatta ma NO non accende valvola | Contatto relè ossidato | Estrai relè, puoi contatti con carta vetrata fine, reinserisci |
+| Relè acceso tutto il tempo | Logica invertita nel codice | Modifica: `digitalWrite(pin, LOW)` accende relè (LOW = attivazione) |
+
+**Test diagnostico:**
+```
+1. Multimetro sulla uscita GPIO 8 Arduino:
+   - Dovrebbe alternare 0V (LOW) e 5V (HIGH)
+   - Se fisso a 5V: software issue (loop bloccato)
+   - Se fisso a 0V: hardware issue (pin danneggiato)
+   
+2. Alimentazione relè:
+   - Verifica 5V tra VCC e GND relè
+   - Verifica <0.1Ω tra Arduino GND e relè GND (stesso ground!)
+```
+
+### Problema 3: Sensori non leggono correttamente
+
+| Sintomo | Causa Probabile | Soluzione |
+|---------|-----------------|-----------|
+| ADC sempre 1023 (max) | Sensore disconnesso | Verifica cavo A0/A1, continuità con multimetro |
+| ADC sempre 0 (min) | Sensore cortocircuitato o firmware errato | Isola sensore, testa con power supply esterno |
+| ADC fluttua wildly (100-900 random) | Rumore EMI, cavi lunghi | Aggiungi condensatore 100nF tra VCC e GND sensore, usa cavi schermati |
+| Stessa lettura per zona 1 e 2 | A1 non configurato | Verifica: `analogRead(A1)` nel codice, non `analogRead(A0)` due volte |
+
+**Calibrazione advanced:**
+```cpp
+// Se sensore legge sempre umido (ADC basso anche in secco):
+// Probabilità: suolo molto argilloso, sensore sporco
+
+// Soluzione 1: Aumenta ADC_DRY
+//   Usa: (ADC_DRY = 950, ADC_WET = 200) invece (850, 250)
+
+// Soluzione 2: Risciacqua sensore
+//   - Rimuovi dal terreno
+//   - Sciacqua con acqua distillata per 1 minuto
+//   - Asciuga completamente
+//   - Reinserisci, attendi 5 minuti, ricalibrare
+```
+
+### Problema 4: Valvole si accendono ma non esce acqua
+
+| Sintomo | Causa Probabile | Soluzione |
+|---------|-----------------|-----------|
+| 24VAC all'ingresso valvola, niente acqua | Valvola meccanicamente bloccata | Spegni sistema, smonta valvola, pulisci sedile con solvente |
+| Niente 24VAC valvola | Contatto relè difettoso | Prova second relè su stessa posizione, sostituisci se no va |
+| Acqua fuoriesce sempre | Valvola solenoid bruciata (solenoide + ball non chiude) | Sostituisci valvola con nuova Hunter PGV equivalente |
+| Pressione bassa (gocce, non getto) | Filtro main intasato | Ispeziona filtro impianto Hunter, pulizia |
+
+**Test diagnostico:**
+```
+1. Verifica 24VAC ai morsetti valvola quando relè chiuso
+   - Accendi valvola manualmente (GPIO 8 → LOW)
+   - Multimetro AC tra morsetti valvola
+   - Dovrebbe leggere 23-25V AC
+
+2. Se no tensione ma relè "click": relè difettoso, sostituisci
+
+3. Se tensione OK ma niente acqua: valvola o tubo bloccati
+   - Scollega tubo di scarico valvola, attiva
+   - Se acqua fuoriesce: uscita OK, problema a valle
+   - Se no acqua: valvola bloccata, smonta e pulisci
+```
+
+### Problema 5: Il sistema funziona, ma Arduino si resetta continuamente
+
+| Sintomo | Causa Probabile | Soluzione |
+|---------|-----------------|-----------|
+| Loop reset ogni 10-30s | Watchdog interno Arduino | Codice ha `delay()` troppo lungo, blocca loop |
+| Serial Monitor disconnesso | Alimentazione 5V instabile | Usta alimentatore 5V diverse corrente min. 2A, no USB computer |
+| Reset quando accendi relè | Spike di corrente relè | Aggiungi diodo 1N4007 flyback ai capi bobina relè (catodo a VCC) |
+
+**Soluzione codice:**
+```cpp
+// SBAGLIATO (causa reset):
+void loop() {
+  // ... elaborazione
+  delay(30000); // 30s: Arduino watchdog scatta, reset!
+}
+
+// CORRETTO (non blocca):
+unsigned long lastTime = 0;
+void loop() {
+  unsigned long now = millis();
+  if (now - lastTime >= 30000) {
+    // ... elaborazione ogni 30s
+    lastTime = now;
+  }
+  // Loop ritorna SUBITO, watchdog contento
+}
+```
+
+---
+
+## 13. ANTI-ZANZARE: PREVENZIONE SICURA
+
+### Problema: Ristagni d'acqua = Colonie zanzare
+
+**Strategia**: Non pesticidi, ma **prevenzione + monitoraggio**.
+
+### Passo 1: Identificare Ristagni Critici
+
+| Zona | Problema Tipico | Soluzione Arduino |
+|------|-----------------|------------------|
+| Sottobicchieri vasi | Ristagno 24-48h | Sensore livello capacitivo, reminder app "Svuota" |
+| Tubo scarico A/C | Gocce accumulate | Sensore pioggia diretto, sposta scolo |
+| Angoli box IP65 | Acqua di condensazione | Fori drenaggio Ø3mm, ogni 2-3 mesi asciuga con panno |
+| Avvallamenti terreno | Pozzanghere dopo pioggia | Sensore livello ristagno nel punto basso |
+
+### Passo 2: Monitor Sensori Ristagni
+
+**Sensore livello capacitivo (opzionale upgrade):**
+```cpp
+#define PIN_RISTAGNO A2
+#define ADC_SECCO 800
+#define ADC_BAGNATO 300
+
+void check_ristagno() {
+  int raw = analogRead(PIN_RISTAGNO);
+  
+  if (raw < ADC_BAGNATO) {
+    // Ristagno rilevato!
+    Serial.println("⚠️ RISTAGNO CRITICO - Attiva drenaggio!");
+    // Opz: accendi pompa svuotamento a 12V
+    digitalWrite(PIN_POMPA, HIGH);
+  }
+}
+```
+
+### Passo 3: Prevenzione Biologica (NON CHIMICA)
+
+| Metodo | Costo | Frequenza | Efficacia |
+|--------|-------|-----------|-----------|
+| **Bacillus thuringiensis (Bti)** | €5-10/flacone | 7 giorni se ristagno | Alto (larvicida naturale, non tossico) |
+| **Drenaggio gravitazionale** | €0 (layout) | Continuo | Alto (previene ristagni) |
+| **Trappole luminose UV** | €15-30 | Ricambio mensile | Medio (attrae adulti, non larve) |
+| **Ventilazione forzata** | €50-100 | Continuo | Medio (asciuga umidità) |
+| **Pesticida sintetico** | Vario | 5-7 giorni | Alto ma **TOSSICO, no DIY** |
+
+### Passo 4: Implementazione Reminder App (WiFi ESP32)
+
+```cpp
+#ifdef USE_WIFI
+#include <WiFi.h>
+#include <WebServer.h>
+
+const char* ssid = "Your_SSID";
+const char* password = "Your_PASSWORD";
+WebServer server(80);
+
+void handleRoot() {
+  // Pagina web mostra:
+  // - Umidità zone
+  // - Stato ristagni
+  // - Countdown Bti reminder
+  String html = "<h1>Sistema Irrigazione DIY</h1>";
+  html += "<p>Umidità Zona1: " + String(percentile_zona1) + "%</p>";
+  html += "<p>⚠️ Reminder: Svuota ristagni tra 2 giorni!</p>";
+  server.send(200, "text/html", html);
+}
+
+void setup() {
+  WiFi.begin(ssid, password);
+  server.on("/", handleRoot);
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+  // ... resto logica
+}
+#endif
+```
+
+**Accedi da browser:** `http://192.168.1.XXX:80` (IP assegnato da router)
+
+---
+
+## 14. APPENDICI TECNICHE
+
+### A. Formule e Calcoli Critici
+
+**Corrente secondario trasformatore (caso 2 valvole):**
+```
+P = V × I
+I = P / V = (2 valvole × 6W) / 24V = 0.5A
+(Margine su 1.67A nominale: 0.5A / 1.67A = 29% load, OK)
+```
+
+**Caduta di tensione su cavi 24VAC:**
+```
+ΔV = 2 × I × R × L / S
+  I   = corrente (A) = 0.5A
+  R   = resistività rame = 0.0175 Ω⋅mm²/m
+  L   = lunghezza cavo = 20m (andata+ritorno)
+  S   = sezione cavo = 0.75mm²
+
+ΔV = 2 × 0.5 × 0.0175 × 20 / 0.75 = 0.47V
+Tensione finale: 24V - 0.47V = 23.53V ✓ (tolleranza OK)
+```
+
+**Potenza dissipata come calore in trasformatore:**
+```
+P_loss = I² × R_secondario + I² × R_primario
+      ≈ 1-2W (per trasformatore 40VA)
+→ NON occorre ventilazione forzata in box (dissipazione naturale OK)
+```
+
+### B. Pinout e Schema Collegamento Finale
+
+**Arduino Uno R3 (40-pin DIP):**
+```
+         ┌────────────────────────────┐
+         │     Arduino Uno R3         │
+    ┌────┤1     ICSP        13┌───────┤
+    │ ┌──┤2     USB-B       12├──────┐│
+    │ │ ┌┤3     RX/TX       11├┐ PWM││
+    │ │ ││                    10├┤   ││
+    │ │ ││ Vin 5V GND        9├┤PWM││ GPIO 9 → Relè IN2
+    │ │ │└────────────────────8┤GPIO ┼ GPIO 8 → Relè IN1
+    └─┼─┼──────────────────────┤RESET │
+      └─┼──────────────────────7┤GPIO │
+        └──────────────────────6┤GPIO │
+                    ┌───────────5┤PWM  │
+                    │  ┌────────4┤GPIO │
+                    │  │  ┌─────3┤PWM  │
+                    │  │  │ ┌───2┤GPIO │
+                    │  │  │ │    │1    │
+                    │  │  │ │    │0    │
+                    │  │  │ │  ┌─┴┬───┬┴──┐
+                    │  │  │ │  │A0│A1 │A2 │ ADC
+                    │  │  │ │  │(A3-A5)   │
+                    │  │  │ │  └────────┬─┘
+                    │  │  │ │ Sensori  └─ A0 Zona1
+                    │  │  │ └─────────── A1 Zona2
+                    │  │  └──────────────5V (Relè+Sensori)
+                    │  └────────────────GND (Relè+Sensori)
+```
+
+**Relè 2 canali optoisolato pinout:**
+```
+┌─────────────────────────────┐
+│ Relè 2 Canali SRD-05VDC    │
+├─────────────────────────────┤
+│  [1]  [2]  [3]  [4]  [5]   │ Connettori
+│  GND  IN1  IN2  VCC  ─      │ Etichette
+└──┬───┬────┬────┬───┬────────┘
+   │   │    │    │   │
+   ●   ●    ●    ●   │ (connettori a 5.08mm pitch)
+   │   │    │    │
+(Arduino GND) │    │    │
+(GPIO 8)  ────┴──  │    │
+(GPIO 9)  ─────────┴────│
+(Arduino 5V) ─────────┬─┘
+
+OUTPUT (altro lato):
+┌──────────────────────────────┐
+│  NC1  NO1  COM | NC2 NO2 COM │
+└───┬───┬────┬────┼───┬───┬────┘
+    │   │    │    │   │   │
+    ●   ●    ●    ●   ●   ●
+    │   │    │    │   │   │
+        (NO1=Valvola1 attiva)
+            (COM=Ritorno)
+                    (NO2=Valvola2 attiva)
+```
+
+### C. Calibrazione Sensori Umidità (Procedura Completa)
+
+```cpp
+// PROCEDURA CALIBRAZIONE IN LOOP
+// Esegui una volta, poi salva ADC_DRY e ADC_WET in #define
+
+void calibrate() {
+  Serial.println("=== CALIBRAZIONE SENSORE ===");
+  Serial.println("1. Posiziona sensore in SUOLO ASCIUTTO (no acqua)");
+  Serial.println("2. Premi 'S' seriale quando pronto...");
+  
+  while (Serial.read() != 'S') delay(100);
+  delay(2000); // Attendi stabilizzazione
+  
+  int sum_dry = 0;
+  for (int i = 0; i < 10; i++) {
+    sum_dry += analogRead(A0);
+    delay(200);
+  }
+  int ADC_DRY = sum_dry / 10;
+  Serial.print("✓ Valore SECCO: "); Serial.println(ADC_DRY);
+  
+  Serial.println("3. IMMERGI sensore in ACQUA per 30 secondi");
+  Serial.println("4. Premi 'S' quando immerso...");
+  
+  while (Serial.read() != 'S') delay(100);
+  delay(1000);
+  
+  int sum_wet = 0;
+  for (int i = 0; i < 10; i++) {
+    sum_wet += analogRead(A0);
+    delay(200);
+  }
+  int ADC_WET = sum_wet / 10;
+  Serial.print("✓ Valore BAGNATO: "); Serial.println(ADC_WET);
+  
+  // SALVA NEL CODICE:
+  // #define ADC_DRY ADC_DRY_VALUE_QUI
+  // #define ADC_WET ADC_WET_VALUE_QUI
+  Serial.println("RICOPIA IN #define PRINCIPALE:");
+  Serial.print("#define ADC_DRY "); Serial.println(ADC_DRY);
+  Serial.print("#define ADC_WET "); Serial.println(ADC_WET);
+}
+```
+
+### D. Verifica Isolamento Trasformatore (Controllo Sicurezza)
+
+```
+Multimetro impostato su Ω×1000 (megaohm):
+  
+Tra primario (230V) e secondario (24V):
+  ┌─────────────────┐
+  │ L primario ←──┐ │
+  │     +         │ │
+  │ TRASF.        ├─┤ Dovrebbe leggere >1 MΩ
+  │     +         │ │
+  │ N primario ←──┤ │
+  └────────┬──────┘
+           │
+        ┌─┴─┐
+        │   │ OUT1 secondario
+        │   │ OUT2 secondario
+        └───┘
+        
+Se < 1 MΩ: ISOLAMENTO COMPROMESSO
+→ NON USARE trasformatore
+→ POTENZIALE RISCHIO FOLGORAZIONE
+→ Acquista nuovo trasformatore
+```
+
+### E. Configurazione Rete WiFi (ESP32 avanzato)
+
+```cpp
+#include <WiFi.h>
+#include <SPIFFS.h>
+
+const char* ssid = "Your_WiFi_SSID";
+const char* password = "Your_WiFi_Password";
+const char* hostname = "irrigazione-esp32";
+
+void setup() {
+  WiFi.mode(WIFI_STA);
+  WiFi.setHostname(hostname);
+  WiFi.begin(ssid, password);
+  
+  int attempts = 0;
+  while (WiFi.status() != WL_CONNECTED && attempts < 20) {
+    delay(500);
+    Serial.print(".");
+    attempts++;
+  }
+  
+  if (WiFi.status() == WL_CONNECTED) {
+    Serial.println("\n✓ WiFi connesso!");
+    Serial.print("IP: "); Serial.println(WiFi.localIP());
+  } else {
+    Serial.println("\n✗ WiFi fallito, continua offline");
+  }
+}
+```
+
+---
+
+## CONCLUSIONI E PROSSIMI PASSI
+
+Questo documento fornisce **tutto il necessario** per:
+1. ✅ Ordinare componenti reali, acquistabili
+2. ✅ Montare e cablare in sicurezza
+3. ✅ Testare passo-passo (niente assunzioni)
+4. ✅ Migrare da Arduino Uno a ESP32
+5. ✅ Estendere verso WiFi, logging, sensori aggiuntivi
+
+**Per domande, consulta la sezione Troubleshooting o ripeti i Test Intermedi.**
+
+---
+
+*Versione 1.0 — Dicembre 2025*  
+*Autore: Ingegnere Elettronico Senior + Maker Esperienza Impianti Irrigazione*
+
+    </script>
+
+    <script type="text/plain" id="inline-checklist">
+# ✅ CHECKLIST FINALE DI VERIFICA — Progetto Irrigazione DIY
+
+---
+
+## 📋 FASE PRE-ORDINE
+
+### Verifica Componenti (Leggi BOM_Base.xlsx prima!)
+
+- [ ] **Arduino Uno R3**: Prezzo €20-25 (Amazon.it o AliExpress)
+  - [ ] Verifica: "Originale" vs "Compatibile" (entrambi OK per DIY)
+  - [ ] Board: ATmega328P 16MHz 32kB Flash
+  
+- [ ] **ESP32 DevKit v1** (acquista in Fase 4, non ora)
+  - [ ] Verifica: "DOIT" (modello standard, 30 pin)
+  - [ ] Non confondere con ESP8266 o altro (sbagliato!)
+  
+- [ ] **Relè 2 canali optoisolato 5V** (SRD-05VDC-SL-C o equivalente)
+  - [ ] Verifica: 5V coil, 10A 250VAC contatti
+  - [ ] Isolamento ottico (elemento critico per sicurezza!)
+  
+- [ ] **Trasformatore 24VAC preassemblato 40VA**
+  - [ ] Verifica: 230V input, 24V output, 40VA
+  - [ ] Certificazione: CE, IEC 60950, doppio isolamento (Classe II)
+  - [ ] Nota: se 50VA disponibile = preferibile (margine maggiore)
+  
+- [ ] **2x Sensori umidità capacitivi**
+  - [ ] Modello: DFRobot v1.2 o SEN0193 (non resistivi!)
+  - [ ] Verifica: ADC 10-bit, 3.3-5V, scala 0-100%
+  
+- [ ] **Box IP65 200×300×150mm**
+  - [ ] Verifica: IP65 (polvere+getti), guarnizione neoprene
+  - [ ] Pressacavi M20 inclusi (min. 2, meglio 4-5)
+  
+- [ ] **Fusibili + Portafusibili DIN**
+  - [ ] 20A T250V primario (protezione 230V)
+  - [ ] 5A T250V secondario (protezione 24VAC)
+  - [ ] Portafusibili DIN rail compatible
+  
+- [ ] **RCD 30mA 2×25A** (OPZIONALE ma consigliato)
+  - [ ] Verifica: Type AC (non A), 30mA, IEC 61008
+  - [ ] Per uso giardino umido = VIVAMENTE consigliato
+  
+- [ ] **Deviatore manuale 2-vie 250VAC 16A**
+  - [ ] Permette switch "Hunter ↔ Arduino"
+  - [ ] Tipo IEC 60669-1 (standard)
+  - [ ] Verifica: isolamento stabile (no usura contatti)
+  
+- [ ] **Cavi e Cablaggio**
+  - [ ] Cavo 1.5mm² per primario 230V (~5m, rotolo 50m)
+  - [ ] Cavo 0.75mm² per secondario 24VAC (~30m, rotolo 100m)
+  - [ ] Tubo isolante: giallo (230V), grigio (24VAC), schermato (sensori)
+  - [ ] Morsetti a vite 2-poli 24VAC (min. 4 pezzi)
+  - [ ] Morsetti a vite 3-poli 230V (min. 2 pezzi)
+  
+- [ ] **Connettori e Montaggio**
+  - [ ] Pressacavi M20 IP67 (min. 3-4, confezione 5)
+  - [ ] Guarnizioni silicone ricambio
+  - [ ] Guida DIN 35mm (~40cm necessari, rotolo 2m)
+  - [ ] Etichette adesive vinile (cavi, morsetti)
+  - [ ] Nastro isolante PVC (20m rotolo)
+
+### Budget Totale Stima
+
+- **Fase 1 (Uno + test)**: €32-40
+- **Fase 2 (sensori)**: €10-15
+- **Fase 3 (trasformatore + protezioni)**: €60-80
+- **Fase 4 (migrazione ESP32, opzionale)**: €15-25
+- **Opzionali (OLED, RTC, Logging)**: €15-35
+
+**TOTALE MINIMO (Uno): €100-150**  
+**TOTALE COMPLETO (ESP32 + optional): €180-220**
+
+---
+
+## 📦 FASE ACQUISTO
+
+- [ ] Ordina in lotti (non tutto insieme per risparmiare spedizione)
+  - Lotto 1: Arduino Uno + Relè + Alimentatore 5V (3-5 giorni)
+  - Lotto 2: Trasformatore + Fusibili + Box IP65 (5-7 giorni)
+  - Lotto 3: Sensori + Cavi (dipende da fornitore)
+  
+- [ ] Verifica compatibilità Amazon.it vs AliExpress
+  - [ ] Amazon: consegna veloce (2-3 giorni Prime), prezzo +20-30%
+  - [ ] AliExpress: prezzo basso, ma 15-30 giorni di attesa
+  
+- [ ] IMPORTANTE: non ordinare Uno se lo hai già!
+  - [ ] Inventario: controlla Arduino in garage/cassetti
+
+---
+
+## 🔧 FASE PRE-MONTAGGIO
+
+### Preparazione Postazione di Lavoro
+
+- [ ] Area di lavoro asciutta e ben illuminata (niente umidità!)
+- [ ] Tavolo ampio con **tappeto antistatico** (protezione Arduino ESD)
+- [ ] Multimetro digitale a batteria (per test senza contatti pericolosi)
+- [ ] Attrezzi:
+  - [ ] Cacciavite a croce (piccolo, per morsetti)
+  - [ ] Cacciavite piatto (taglio cavi guaina)
+  - [ ] Forbici per cavi
+  - [ ] Pinza spelacavi 0.75–1.5mm²
+  - [ ] Pinza crimpatrice (opzionale, se usi Wago push-fit)
+  - [ ] Chiave dinamometrica ~2 N⋅m (per pressacavi)
+  
+- [ ] **Verifiche componenti da fare al ricevimento:**
+  - [ ] Arduino Uno: LED rosso acceso quando alimentato? (OK)
+  - [ ] Relè: bottone di test meccanico? (click udibile)
+  - [ ] Trasformatore: peso ≥ 800g? (controllo qualità)
+  - [ ] Box IP65: guarnizioni integre senza crepe?
+  - [ ] Sensori: tre fili integri senza cortocircuiti? (multimetro)
+
+---
+
+## 🏗️ FASE MONTAGGIO
+
+### Step 1: Preparazione Box IP65
+
+- [ ] **Pulizia interna**: panno umido asciutto → asciuga completamente
+- [ ] **Montaggio DIN rail**: allineamento orizzontale perfetto (livella)
+- [ ] **Ispezione guarnizioni**: neoprene integro, no secchezza?
+- [ ] **Montaggio staffa Arduino**: fissaggio stabile (vibrazione test)
+
+### Step 2: Montaggio Componenti DIN Rail (IN ORDINE)
+
+1. [ ] **Portafusibile primario 20A**
+   - Posizione: sinistra, dopo ingresso trasformatore
+   - Azione: inserisci fusibile 20A T250V, test scatto meccanico
+   
+2. [ ] **RCD 30mA** (se presente)
+   - Posizione: centro-sinistra
+   - Azione: test button → dovrebbe scattare e tornare
+   
+3. [ ] **Trasformatore 40VA**
+   - Posizione: centro-destra DIN rail
+   - Azione: verifica fissaggio, no vibrazioni con mano
+   - Test: continutà bobina primaria ~100-500Ω (multimetro Ω)
+   
+4. [ ] **Portafusibile secondario 5A**
+   - Posizione: destra trasformatore
+   - Azione: inserisci fusibile 5A T250V
+
+### Step 3: Collegamento Cavi Primario 230V
+
+**⚠️ DOPPIA VERIFICAZIONE SICUREZZA**
+
+- [ ] Spegni completamente (scollega presa di corrente dalla parete)
+- [ ] **Multimetro**: verifica 0V tra qualunque morsetto di input
+  - Se legge tensione: NON PROCEDERE, presa ancora live!
+  
+- [ ] Cavo rosso (FASE) presa → morsetto 1 portafusibile
+- [ ] Cavo blu (NEUTRO) presa → morsetto N portafusibile
+- [ ] Terra giallo/verde (opzionale se classe II): → morsetto PE box
+  
+- [ ] Uscita portafusibile → Ingresso RCD L (o diretto trasformatore se no RCD)
+- [ ] Neutro presa → Ingresso RCD N (o diretto trasformatore)
+
+**Verifica finale primario (spina ancora disconnessa):**
+- [ ] Test continuità fusibile con multimetro: ~0Ω (no resistenza)
+- [ ] Test isolamento primario-secondario: >1 MΩ (multimetro Ω×1000)
+
+### Step 4: Collegamento Secondario 24VAC
+
+- [ ] OUT1 trasformatore (L 24VAC) → Morsetto L relè
+- [ ] OUT2 trasformatore (N 24VAC) → Morsetto N relè
+- [ ] Fusibile 5A secondario: inserito in portafusibile
+- [ ] Test continuità secondario con multimetro: 5-10Ω (OK)
+
+### Step 5: Collegamento Relè a Valvole
+
+- [ ] Relè 1 [NO] → Valvola Zona 1 ingresso [L/hot]
+- [ ] Relè 2 [NO] → Valvola Zona 2 ingresso [L/hot]
+- [ ] Relè 1 [COM] + Relè 2 [COM] → Entrambe valvole [N/return]
+  - Nota: COM deve essere unico punto ritorno, no diramazioni multiple!
+
+### Step 6: Collegamento Arduino + Sensori
+
+- [ ] Arduino **GND** → Relè GND (comune con trasformatore)
+- [ ] Arduino **5V** → Relè VCC + Sensori VCC
+- [ ] Arduino **GPIO 8** → Relè IN1
+- [ ] Arduino **GPIO 9** → Relè IN2
+- [ ] Arduino **A0** → Sensore Zona 1 OUT
+- [ ] Arduino **A1** → Sensore Zona 2 OUT
+- [ ] Arduino **Alimentazione**: USB 5V/2A esterno (o USB-C computer test)
+
+### Step 7: Installazione Pressacavi M20 IP67
+
+- [ ] Prova a secco (no aperto): inserisci in foro box (dovrebbe resistere)
+- [ ] Aggiungi guarnizione silicone extra (doppio sigillo)
+- [ ] Serrata leggera con chiave dinamometrica ~2 N⋅m
+  - Nota: non forzare! Rischio danno guarnizioni.
+
+---
+
+## ⚡ FASE TEST PRIMA ALIMENTAZIONE
+
+### Test 1: Isolamento 230V (NO power, multimetro solo)
+
+- [ ] Tra L-N presa: ~230V AC (normale, spina collegata)
+- [ ] Tra 230V L e 24VAC L (trasformatore output): >1 MΩ
+  - Se <1 MΩ: STOP! Trasformatore difettoso, non usare!
+- [ ] Tra 230V L e chassis box (terra): >1 MΩ
+- [ ] Tra 230V N e 24VAC L: >1 MΩ (doppio isolamento ok)
+
+### Test 2: Continuità e Cortocircuiti
+
+- [ ] Primario L → portafusibile → uscita: ~0Ω
+- [ ] Primario N → portafusibile → uscita: ~0Ω
+- [ ] Secondario L ↔ N (acceso, in vuoto): 5-10Ω (trasformatore OK)
+- [ ] Tra 230V L ↔ 230V N (multimetro): ∞Ω (no cortocircuito primario)
+
+### Test 3: Accensione RCD (se presente)
+
+- [ ] Collega spina 230V
+- [ ] Premi pulsante **TEST** RCD: dovrebbe scattare (interruttore OFF)
+- [ ] Premi **RESET**: alimentazione ritorna (interruttore ON)
+- [ ] Se non scatta: RCD difettoso, sostituisci e ripeti
+
+### Test 4: Tensione Secondaria (senza carichi)
+
+- [ ] Accendi RCD (interruttore ON)
+- [ ] Multimetro AC tra OUT trasformatore:
+  - [ ] Dovrebbe leggere **24V ± 1V** (tolleranza ±5%)
+  - [ ] Se 0V: verifica fusibile 20A intatto
+  - [ ] Se <22V: possibile trasformatore sovraccarico (collaudo con relè)
+
+### Test 5: Arduino Uno Caricamento Sketch
+
+- [ ] Collega Arduino Uno a computer via USB
+- [ ] Arduino IDE: seleziona Board "Arduino Uno", Port "COM X"
+- [ ] Carica sketch test semplice:
+  ```cpp
+  void setup() {
+    pinMode(8, OUTPUT);
+    Serial.begin(9600);
+  }
+  void loop() {
+    digitalWrite(8, LOW);
+    Serial.println("LOW");
+    delay(1000);
+    digitalWrite(8, HIGH);
+    Serial.println("HIGH");
+    delay(1000);
+  }
+  ```
+- [ ] Apri Serial Monitor (9600 baud)
+- [ ] Verifica: messaggio "LOW" e "HIGH" alternato
+- [ ] Ascolta GPIO 8: dovrebbe avere "click" meccanico (relè)
+- [ ] Se no click: verificare continuità cavo GPIO 8 → Relè IN1
+
+### Test 6: Lettura Sensori (no valvole ancora)
+
+- [ ] Carica sketch sensori:
+  ```cpp
+  void setup() { Serial.begin(9600); }
+  void loop() {
+    Serial.print(analogRead(A0)); Serial.print(" ");
+    Serial.println(analogRead(A1));
+    delay(500);
+  }
+  ```
+- [ ] Apri Serial Monitor
+- [ ] Letture devono essere:
+  - [ ] Sensore secco (aria): 800-900 ADC
+  - [ ] Sensore bagnato (acqua): 200-300 ADC
+  - [ ] Se invertito o fuori range: verificare calibrazione o sensore difettoso
+
+### Test 7: Ciclo Completo (Uno + Trasformatore + Valvola)
+
+- [ ] Carica sketch completo da "Codice_Arduino_Completo.ino"
+- [ ] Accendi spina 230V
+- [ ] Serial Monitor: dovrebbe mostrare stato umidità + stato valvola
+- [ ] Asciuga sensore → ADC basso → relè attiva valvola (click)
+- [ ] Bagna sensore → ADC alto → relè spegne valvola (click)
+- [ ] Multimetro AC su morsetti valvola: alternare 24V e 0V ✓
+
+---
+
+## 🔀 FASE MIGRAZIONE UNO → ESP32 (FASE 4)
+
+### Pre-Migrazione Checklist
+
+- [ ] Uno funzionante e testato completamente
+- [ ] Arduino IDE: installa supporto ESP32 (Board Manager)
+  - Arduino IDE → Preferences → Additional Boards URLs
+  - Aggiungi: `https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json`
+  
+- [ ] Compra ESP32 DevKit v1 (DOIT, 30-pin)
+
+### Procedura Migrazione Codice
+
+- [ ] **Coppo file identici**:
+  - [ ] config.h: identico (nessun cambio)
+  - [ ] logic.cpp: identico (nessun cambio)
+  
+- [ ] **Modifica hardware**:
+  - [ ] Sostituisci `#include "hardware_uno.h"`
+  - [ ] Con `#include "hardware_esp32.h"`
+  - [ ] Verifica pin ESP32: GPIO 4, 5 (relè), GPIO 36, 39 (sensori)
+  
+- [ ] **Ricompilazione**:
+  - [ ] Arduino IDE: Board "ESP32 Dev Module"
+  - [ ] Port: COM della ESP32
+  - [ ] Upload speed: 115200
+  - [ ] Verifica compilazione OK (no errori)
+  
+- [ ] **Caricamento e test**:
+  - [ ] Carica sketch
+  - [ ] Serial Monitor: verificati log startup ESP32
+  - [ ] Ripeti Test 1-5 precedenti (identici proceduralmente)
+  - [ ] Calibrazione sensori: potrebbe differire leggermente
+
+### Post-Migrazione (Opzionale)
+
+- [ ] Aggiungi WiFi:
+  - [ ] Attiva `#define USE_WIFI` in config.h
+  - [ ] Modifica ssid/password in hardware_esp32.h
+  
+- [ ] Aggiungi Display OLED (I2C):
+  - [ ] Connetti SDA → GPIO 21, SCL → GPIO 22 (standard ESP32)
+  - [ ] Attiva `#define USE_OLED` e implementa libreria Adafruit
+  
+- [ ] Logging SD (opzionale):
+  - [ ] Modulo microSD reader SPI: CS→GPIO 5, MOSI→GPIO 23, etc.
+  - [ ] Attiva `#define USE_SD` e libreria SD.h
+
+---
+
+## 🌱 FASE COLLAUDO FINALE
+
+### Test Completo Campo (Sistema Live)
+
+- [ ] Deviatore su "Arduino" (non Hunter!)
+- [ ] Accendi 230V
+- [ ] Osserva comportamento zona 1:
+  - [ ] Sensore secco → Valvola 1 accesa (irrigazione attiva)
+  - [ ] Sensore bagnato → Valvola 1 spenta (riposo)
+  - [ ] Transizioni: verificare cooldown (no accensioni frenetiche)
+  
+- [ ] Osserva zona 2: stesso comportamento
+  
+- [ ] Test fallback:
+  - [ ] Spegni 230V
+  - [ ] Deviatore su "Hunter"
+  - [ ] Accendi 230V
+  - [ ] Verifica Hunter ancora funzionante (timer test)
+
+### Calibrazione Soglie Umidità (1-2 settimane)
+
+- [ ] Osserva pattern naturale giardino
+- [ ] Regola SOGLIA_ON/OFF se necessario:
+  - [ ] Se valvole si accendono troppo spesso: aumenta SOGLIA_ON (es: 35%)
+  - [ ] Se piante soffrono secchezza: diminuisci SOGLIA_ON (es: 25%)
+  - [ ] Isteresi (SOGLIA_OFF - SOGLIA_ON) ideale: 20-30%
+  
+- [ ] Annota comportamento in foglio (data, ora, umidità, stato)
+
+### Test Sensore Pioggia (Opzionale, Fase 5+)
+
+- [ ] Installazione sensore pioggia: sotto gronda principale
+- [ ] Logica: se piove → arresta irrigazione per 2-3 ore
+- [ ] Verifica con nebulizzatore (simulate rain)
+
+---
+
+## 🐛 TROUBLESHOOTING RAPIDO
+
+### Arduino non carica sketch
+
+```
+Soluzione:
+  1. Verifica Port e Board corretti (Arduino IDE)
+  2. Prova porta USB diversa (o altro cavo)
+  3. Se ancora no: Arduino difettoso, prova su altro PC
+```
+
+### Relè non scatta (no click)
+
+```
+Soluzione:
+  1. Misura 5V tra VCC e GND relè (alimentazione OK?)
+  2. Misura GPIO 8/9 con multimetro: alterna 0V-5V?
+  3. Se GPIO fisso: software issue o pin danneggiato
+  4. Se GPIO OK ma relè immobile: relè guasto, sostituisci
+```
+
+### Sensori leggono male (sempre 1023 o sempre 0)
+
+```
+Soluzione:
+  1. Verifica cavi A0/A1: continuità con multimetro
+  2. Disconnetti sensore, misura ADC (dovrebbe 0 o 1023)
+  3. Se stabile: problema sensore o calibrazione
+  4. Ricalibrare: ripeti procedura calibrazione con ADC_DRY/WET nuovi
+```
+
+### Valvole si accendono ma acqua non esce
+
+```
+Soluzione:
+  1. Multimetro AC su morsetti valvola: leggi 24V?
+  2. Se no 24V: relè difettoso o cavi scollati
+  3. Se 24V OK: valvola bloccata meccanicamente
+     → Spegni, smonta valvola, pulisci sedile e sfera
+     → Test con pressione d'aria compressa (max 1 bar!)
+```
+
+---
+
+## ✅ FIRMA FINALE DI COMPLETAMENTO
+
+Una volta completati TUTTI i test e funzionante nel vostro giardino:
+
+```
+Data inizio progetto: ___/___/______
+Data completamento: ___/___/______
+
+Arduino (Uno/ESP32): ________________ (modello)
+Sensore Zona 1 ADC_DRY: _____ ADC_WET: _____
+Sensore Zona 2 ADC_DRY: _____ ADC_WET: _____
+
+Soglia ON: _____% Soglia OFF: _____%
+
+Irriga automaticamente: ☐ SÌ ☐ NO
+
+Eventuali problemi residui:
+_________________________________________
+_________________________________________
+
+Firma: ________________ Data: __________
+```
+
+---
+
+**CONGRATULAZIONI! 🎉 Sistema operativo e monitored.**
+
+Per future espansioni o debugging, consultare sempre:
+1. Guida Tecnica (troubleshooting section)
+2. Codice Arduino (commenti dettagliati)
+3. BOM (componenti equivalenti e alternative)
+
+    </script>
+
+    <script>
+        const CHECKLIST_FILE = 'Checklist_Finale_Verifica.md';
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadChecklist();
+        });
+
+        function loadChecklist() {
+            const container = document.getElementById('checklist-content');
+            if (!container) return;
+            container.innerHTML = '<p style="color:#718096;">Caricamento checklist...</p>';
+
+            loadTextResource(CHECKLIST_FILE, 'inline-checklist')
+                .then(text => renderChecklist(text, container))
+                .catch(err => {
+                    container.innerHTML = `<p class="file-note">Errore caricamento: ${err.message || err}</p>`;
+                });
+        }
+
+        function loadTextResource(file, fallbackId) {
+            const inlineElement = fallbackId ? document.getElementById(fallbackId) : null;
+            const shouldUseInline = window.location.protocol === 'file:';
+
+            if (!shouldUseInline && file) {
+                return fetch(file)
+                    .then(response => {
+                        if (!response.ok) throw new Error('File non trovato');
+                        return response.text();
+                    })
+                    .catch(err => {
+                        if (inlineElement) return inlineElement.textContent;
+                        throw err;
+                    });
+            }
+
+            if (inlineElement) {
+                return Promise.resolve(inlineElement.textContent);
+            }
+
+            if (file) {
+                return fetch(file).then(response => {
+                    if (!response.ok) throw new Error('File non trovato');
+                    return response.text();
+                });
+            }
+
+            return Promise.reject(new Error('Risorsa non disponibile'));
+        }
+
+        function renderChecklist(text, container) {
+            container.innerHTML = '';
+            let currentSection = null;
+            let currentSubsection = null;
+
+            text.split(/\r?\n/).forEach(line => {
+                const trimmed = line.trim();
+
+                if (!trimmed) {
+                    return;
+                }
+
+                if (/^(-{3,}|\*{3,})$/.test(trimmed)) {
+                    return;
+                }
+
+                if (trimmed.startsWith('# ')) {
+                    return;
+                }
+
+                if (trimmed.startsWith('## ')) {
+                    currentSection = document.createElement('div');
+                    currentSection.className = 'checklist-section';
+                    const title = document.createElement('h4');
+                    title.textContent = trimmed.replace(/^##\s*/, '');
+                    currentSection.appendChild(title);
+                    container.appendChild(currentSection);
+                    currentSubsection = null;
+                    return;
+                }
+
+                if (trimmed.startsWith('### ')) {
+                    if (!currentSection) {
+                        currentSection = document.createElement('div');
+                        currentSection.className = 'checklist-section';
+                        container.appendChild(currentSection);
+                    }
+                    currentSubsection = document.createElement('div');
+                    currentSubsection.className = 'checklist-subsection';
+                    const title = document.createElement('h5');
+                    title.textContent = trimmed.replace(/^###\s*/, '');
+                    currentSubsection.appendChild(title);
+                    currentSection.appendChild(currentSubsection);
+                    return;
+                }
+
+                const checkboxMatch = line.match(/^\s*(?:-|\d+\.) \[ \] (.+)$/);
+                if (checkboxMatch) {
+                    const target = currentSubsection || currentSection || container;
+                    const item = document.createElement('label');
+                    item.className = 'todo-item';
+                    const indentLevel = Math.floor(line.match(/^\s*/)[0].length / 2);
+                    if (indentLevel > 0) {
+                        item.style.marginLeft = `${indentLevel * 12}px`;
+                    }
+                    const input = document.createElement('input');
+                    input.type = 'checkbox';
+                    const span = document.createElement('span');
+                    span.innerHTML = formatInline(checkboxMatch[1]);
+                    item.appendChild(input);
+                    item.appendChild(span);
+                    target.appendChild(item);
+                    return;
+                }
+
+                if (/^\s*-\s*Nota:/i.test(line)) {
+                    const note = document.createElement('div');
+                    note.className = 'todo-note';
+                    note.innerHTML = formatInline(line.trim().replace(/^-+\s*/i, ''));
+                    (currentSubsection || currentSection || container).appendChild(note);
+                    return;
+                }
+
+                const paragraph = document.createElement('p');
+                paragraph.style.color = '#4a5568';
+                paragraph.style.fontSize = '0.9em';
+                paragraph.style.margin = '8px 0';
+                paragraph.innerHTML = formatInline(trimmed);
+                (currentSubsection || currentSection || container).appendChild(paragraph);
+            });
+        }
+
+        function formatInline(text) {
+            return escapeHtml(text)
+                .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+                .replace(/`([^`]+)`/g, '<code>$1</code>');
+        }
+
+        function escapeHtml(str) {
+            const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;' };
+            return str.replace(/[&<>]/g, ch => map[ch] || ch);
+        }
+
+        function resetChecklist() {
+            document.querySelectorAll('#checklist-content input[type="checkbox"]').forEach(input => {
+                input.checked = false;
+            });
+        }
+
+        // Chiude i modali quando l'utente clicca fuori dal contenuto
+        window.onclick = function(event) {
+            let modal1 = document.getElementById('modal-checklist');
+            let modal2 = document.getElementById('modal-faq');
+            if (event.target == modal1) modal1.style.display = 'none';
+            if (event.target == modal2) modal2.style.display = 'none';
+        }
+    </script>
+</body>
+</html>

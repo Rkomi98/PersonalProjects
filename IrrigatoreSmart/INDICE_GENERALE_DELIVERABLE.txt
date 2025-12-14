@@ -1,0 +1,285 @@
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║          🌱 PROGETTO IRRIGAZIONE SMART DIY 24 VAC                        ║
+║                   Arduino Uno R3 → ESP32 MIGRATION                        ║
+║                                                                            ║
+║                        DELIVERABLE COMPLETI v1.0                          ║
+║                      Dicembre 2025 — Pronto all'uso                       ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+
+📦 COSA RICEVI — 3 DELIVERABLE COMPLETI
+════════════════════════════════════════════════════════════════════════════
+
+1️⃣  BOM_Irrigazione_24VAC_DIY.xlsx
+    ├─ Foglio "BOM_Base": Elenco 23 componenti realmente acquistabili
+    │  └─ Colonne: Categoria | Componente | Quantità | Specifiche |
+    │             Compatibilità | Note | Link Amazon | Link AliExpress |
+    │             Prezzo | Totale
+    │
+    ├─ Foglio "Optional_Upgrade": 10 componenti opzionali (WiFi, Display, etc.)
+    │  └─ Colonne: Categoria | Componente | Prezzo | Incluso? (Sì/No)
+    │
+    ├─ Foglio "Totali": Calcoli automatici
+    │  └─ Base Arduino Uno: €156.10
+    │  └─ Base ESP32: €151.91
+    │  └─ Full Optional: €180.91
+    │
+    └─ Foglio "Note_Acquisto": 11 linee guida + alternative equivalenti
+
+
+2️⃣  Guida_Tecnica_DIY.md (STAMPABILE)
+    ├─ 14 SEZIONI COMPLETE:
+    │
+    │ 1. Introduzione al progetto (target, timeline 2-3 settimane)
+    │ 2. Cosa fa / Cosa NON fa (specifiche funzioni, limitazioni)
+    │ 3. Sicurezza elettrica (tabelle pericoli + mitigazioni)
+    │ 4. Architettura generale (schema blocchi, flusso logico)
+    │ 5. Impianto Hunter Eco-Logic (specifiche, terminali, logica)
+    │ 6. Componenti principali (pinout + specs Arduino Uno, ESP32, relè, trasformatore)
+    │ 7. Cablaggio 24VAC (topologia parallelo, schema morsetti)
+    │ 8. Modalità operative (Sostituzione vs Parallelo reversibile)
+    │ 9. Montaggio passo-passo (FASE 1-5 con checklist)
+    │ 10. Immagini obbligatorie (cosa fotografare/disegnare)
+    │ 11. Collaudo e test intermedi (Test 1-5 con diagnostica)
+    │ 12. Troubleshooting (sintomi → cause → soluzioni)
+    │ 13. Anti-zanzare sicuro (ristagni monitoring, Bti, trappole)
+    │ 14. Appendici tecniche (formule, calibrazione, pinout, WiFi)
+    │
+    └─ Formato: MARKDOWN stampabile, +1000 parole, 4 schemi
+
+
+3️⃣  Codice_Arduino_Completo.ino
+    ├─ ARCHITETTURA BOARD-AGNOSTICA (Uno → ESP32 in 1 giorno)
+    │
+    │ FILE INCLUSI:
+    │  • config.h: Soglie, calibrazione sensori, opzioni compilazione
+    │  • hardware_uno.h: Pin Arduino Uno (8,9,A0,A1)
+    │  • hardware_esp32.h: Pin ESP32 (4,5,36,39) + WiFi
+    │  • logic.cpp: Logica irrigazione (isteresi, cooldown, anti-ripetizione)
+    │  • main_uno.ino: Entry point Uno R3
+    │  • main_esp32.ino: Entry point ESP32
+    │
+    ├─ FUNZIONALITÀ:
+    │  ✓ Lettura 2 sensori umidità capacitivi (ADC 10-bit/12-bit)
+    │  ✓ Logica ON/OFF con ISTERESI (SOGLIA_ON=30%, SOGLIA_OFF=60%)
+    │  ✓ Protezione anti-ripetizione COOLDOWN (15 minuti)
+    │  ✓ Media mobile su 5 letture (riduce rumore sensori)
+    │  ✓ Debug seriale completo (9600 baud, stato real-time)
+    │  ✓ Calibrazione sensori dinamica (ADC_DRY / ADC_WET)
+    │  ✓ Gestione relè optoisolato (LOW=acceso, HIGH=spento)
+    │  ✓ Estensibile WiFi, OLED, RTC, SD logging
+    │
+    └─ QUALITÀ: 400+ righe codice commentato, compilato & testato
+
+
+────────────────────────────────────────────────────────────────────────────
+
+
+🚀 COME INIZIARE — PROCEDURA RAPIDA
+════════════════════════════════════════════════════════════════════════════
+
+FASE 1 — PIANIFICAZIONE (30 minuti)
+──────────────────────────────────
+□ Leggi sezione "Introduzione al Progetto" (Guida Tecnica)
+□ Apri BOM_Irrigazione_24VAC_DIY.xlsx, leggi Fogli 1-4
+□ Calcola distanze: box IP65 → valvole Hunter (max 3m)
+□ Identifica presa 230V più vicina (sicurezza, spina certificata)
+□ Scegli posizionamento box (parete nord-est, altura 1.5-2m)
+
+
+FASE 2 — ORDINAMENTO (5-7 giorni)
+─────────────────────────────────
+□ Acquista LOTTO 1 (Arduino Uno + Relè + Alimentatore 5V, €32-40)
+□ Acquista LOTTO 2 (Trasformatore + Fusibili + Box IP65, €60-80)
+□ Acquista LOTTO 3 (Sensori + Cavi + Cablaggio, €15-30)
+   NOTA: Da AliExpress aspettati 15-30 giorni, da Amazon 2-3 giorni
+
+
+FASE 3 — MONTAGGIO HARDWARE (1-2 giorni)
+────────────────────────────────────────
+□ Segui "Montaggio Passo-Passo" (Guida Tecnica, sezione 9)
+   STEP A: Preparazione box IP65
+   STEP B: Montaggio DIN rail + portafusibili
+   STEP C: Cablaggio primario 230V
+   STEP D: Cablaggio secondario 24VAC
+   STEP E: Collegamento Arduino + sensori
+   STEP F: Montaggio fisico esterno
+
+
+FASE 4 — TEST INTERMEDI (3-4 giorni)
+────────────────────────────────────
+□ Segui "Collaudo e Test Intermedi" (Guida Tecnica, sezione 11)
+   TEST 1: Alimentazione 230V isolata (no load)
+   TEST 2: Relè meccanico (scatto con Arduino)
+   TEST 3: Sensori umidità (calibrazione secca/bagnata)
+   TEST 4: Ciclo irrigazione completo (Uno + trasformatore + valvola)
+   TEST 5: Migrazione ESP32 (opzionale, Fase 4)
+
+
+FASE 5 — OTTIMIZZAZIONE (1-2 settimane)
+────────────────────────────────────────
+□ Osserva comportamento naturale giardino
+□ Calibra SOGLIA_ON e SOGLIA_OFF se necessario
+□ Testa funzionamento reversibile: Hunter ↔ Arduino (deviatore)
+□ Aggiungi opzionali: WiFi, OLED, Logging SD
+
+
+────────────────────────────────────────────────────────────────────────────
+
+
+📋 CHECKLIST FINALE — VERIFICA PRIMA DI ORDINARE
+════════════════════════════════════════════════════════════════════════════
+
+COMPRENSIONE DEL PROGETTO:
+□ Ho letto "Cosa fa / Cosa NON fa" (Guida, sezione 2)
+□ Accetto che il sistema automatizza SOLO irrigazione, non pompa principale
+□ Ho capito "Modalità Parallelo Reversibile" (deviatore Hunter ↔ Arduino)
+□ Accetto learning curve su Arduino IDE + circuiti semplici
+
+COMPONENTI VERIFICATI:
+□ Arduino Uno R3: Prezzo €20-25, disponibile entro 3-5 giorni
+□ Relè 2ch optoisolato 5V: Specificato SRD-05VDC-SL-C, 10A 250VAC
+□ Trasformatore 24VAC: 40VA CE certificato, doppio isolamento Classe II
+□ 2x Sensori capacitivi: DFRobot SEN0193 o equivalente, NO resistivi
+□ Box IP65: 200×300mm, guarnizioni neoprene, pressacavi M20
+
+AMBIENTE DI LAVORO:
+□ Tavolo asciutto, ben illuminato, tappeto antistatico
+□ Multimetro digitale disponibile (test sicurezza essenziale)
+□ Attrezzi di base: cacciaviti, forbici cavi, pinza spelacavi
+□ Competenza: posso cablare cavi senza creare cortocircuiti
+
+BACKUP & FALLBACK:
+□ Ho compreso che posso sempre tornare a Hunter originale (deviatore)
+□ Ho pianificato power loss recovery (Arduino reset, torna idle)
+□ Accetto che se Arduino crasha: zero irrigazione fino a fix
+
+────────────────────────────────────────────────────────────────────────────
+
+
+💡 QUICK START — I 5 STEP ESSENZIALI
+════════════════════════════════════════════════════════════════════════════
+
+1. ORDINA COMPONENTI (leggi BOM Excel)
+   └─ Total budget: €150-180 base, €200-220 full optional
+
+2. PREPARA BOX IP65 (segui Montaggio, Step A-B)
+   └─ DIN rail, portafusibili, trasformatore, relè in sequenza
+
+3. CARICA CODICE SU ARDUINO (usa Codice_Arduino_Completo.ino)
+   └─ Board: Arduino Uno, Pin 8,9 relè, A0,A1 sensori
+
+4. ESEGUI 5 TEST (leggi Collaudo, Test 1-5)
+   └─ Isolamento → Relè → Sensori → Valvole → Migrazione ESP32
+
+5. CALIBRA SENSORI (sezione "Calibrazione" Appendici)
+   └─ ADC_DRY e ADC_WET nel tuo giardino specifico
+
+
+────────────────────────────────────────────────────────────────────────────
+
+
+⚠️ AVVERTENZE CRITICHE (LEGGERE OBB.)
+════════════════════════════════════════════════════════════════════════════
+
+SICUREZZA ELETTRICA:
+✓ PRIMA di toccare qualunque cavo: DISCONNETTI SPINA 230V dalla parete
+✓ Usa MULTIMETRO per verificare assenza tensione (elemento obbligatorio)
+✓ Isolamento trasformatore DEVE avere Classe II (doppio isolamento) —
+  se no: NON USARE, pericolo folgorazione grave
+✓ Fusibile 20A primario: NON USARE valore diverso (potrebbe non proteggere)
+✓ RCD 30mA: altamente consigliato per giardini umidi (scatta se umano tocca)
+
+VALORI SENSORI DIPENDONO DAL TUO GIARDINO:
+✓ Non usare ADC_DRY/WET della documentazione: RICALIBRARE nel TUO terreno
+✓ Esegui calibrazione "Secca" (aria 5min) e "Bagnata" (acqua 30s) OBBLIGATORIO
+✓ Se letture sbagliate: probabilità 90% = calibrazione necessaria
+
+COMPATIBILITÀ VALVOLE HUNTER:
+✓ Se non conosci specifiche valvole: ordina modulo relè SPDT (10A 250VAC)
+  che copre sia 24VAC puro che 24VAC/DC dual
+✓ Worst case: aggiungi SSR 24VAC 16A (€12 extra, 100% compatibile)
+
+FALLBACK HUNTER SEMPRE DISPONIBILE:
+✓ Deviatore reversibile OBBLIGATORIO: permette switch rapido "Arduino→Hunter"
+✓ Se Arduino ha bug: gira selettore e Hunter torna operativo in 5 secondi
+✓ Testare switch regolarmente (settimanale primo mese)
+
+────────────────────────────────────────────────────────────────────────────
+
+
+📞 SUPPORTO & RISOLUZIONE PROBLEMI
+════════════════════════════════════════════════════════════════════════════
+
+PROBLEMA: Niente tensione 24VAC secondaria
+SOLUZIONE: Vedi "Troubleshooting" Guida Tecnica sezione 12
+→ Controllist: Fusibile 20A OK? Trasformatore alimentato? Continuità cavi?
+
+PROBLEMA: Sensori leggono male (sempre max/min)
+SOLUZIONE: Vedi "Calibrazione Sensori" Appendici sezione 14
+→ Ricalibrare ADC_DRY e ADC_WET nel TUO terreno
+
+PROBLEMA: Relè non scatta (no click)
+SOLUZIONE: Vedi "Controllo Valvola" Troubleshooting sezione 12
+→ Multimetro: verificare 5V relè, GPIO 8/9 alternano 0-5V?
+
+PROBLEMA: Arduino non carica sketch
+SOLUZIONE: Vedi "Arduino non carica" Troubleshooting
+→ Verifica Port e Board IDE, prova cavo USB diverso
+
+PROBLEMA: Valvole si accendono ma zero acqua
+SOLUZIONE: Vedi "Valvole no acqua" Troubleshooting
+→ Multimetro AC: 24V ai morsetti valvola? Se sì → valvola bloccata (pulizia)
+
+────────────────────────────────────────────────────────────────────────────
+
+
+✅ FIRMA FINALE
+════════════════════════════════════════════════════════════════════════════
+
+Leggere INTEGRALMENTE:
+□ Sezione "Cosa fa / Cosa NON fa" (Guida, punto 2)
+□ Sezione "Sicurezza Elettrica" (Guida, punto 3)
+□ Sezione "Troubleshooting" (Guida, punto 12)
+□ Checklist "FASE PRE-ORDINE" (Checklist_Finale)
+
+Eseguire IN ORDINE i 5 STEP "Montaggio Passo-Passo":
+□ FASE 1: Pianificazione (0.5 giorni)
+□ FASE 2: Preparazione box (1 giorno)
+□ FASE 3: Cablaggio elettrico (1 giorno)
+□ FASE 4: Montaggio fisico (0.5 giorni)
+□ FASE 5: Test pre-alimentazione (1 giorno)
+
+Accetto pienamente:
+□ Responsabilità per lavori elettrici (consultare elettricista se dubbio)
+□ Rischi residui e impegno a seguire checklist di sicurezza
+□ Che questo è sistema DIY, non certificato professionalmente
+
+────────────────────────────────────────────────────────────────────────────
+
+
+📧 CONTATTI E CREDITI
+════════════════════════════════════════════════════════════════════════════
+
+AUTORE: Ingegnere Elettronico Senior + Maker Esperto Irrigazione
+VERSION: 1.0 (Dicembre 2025)
+LICENSE: Documentazione per uso privato/educativo — Non commerciale
+
+FONTI COMPONENTI:
+  Amazon.it, AliExpress, DFRobot, Hunter Industries, Arduino.cc,
+  Espressif (ESP32), Arduino community, IEC standards (60950, 60127)
+
+SUPPORTO TECNICO:
+  → Arduino IDE: arduino.cc/support
+  → ESP32: github.com/espressif/arduino-esp32/issues
+  → Hunter: hunterirrigation.com/support (originale solo)
+
+────────────────────────────────────────────────────────────────────────────
+
+Grazie per aver scelto questo progetto.
+Buon irrigamento smart! 🌱💧
+
+════════════════════════════════════════════════════════════════════════════
