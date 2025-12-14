@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Centralina Smart 24VAC Hunter - Progetto DIY</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background:#0f172a; color:#e5e7eb; margin:0; }
+    header { background:#020617; padding:2rem; text-align:center; }
+    h1 { color:#38bdf8; }
+    section { padding:2rem; max-width:1000px; margin:auto; }
+    .card { background:#020617; border-radius:12px; padding:1.5rem; margin-bottom:1.5rem; }
+    a.button {
+      display:inline-block; margin-top:1rem; padding:0.6rem 1.2rem;
+      background:#38bdf8; color:#020617; text-decoration:none;
+      border-radius:8px; font-weight:bold;
+    }
+    footer { text-align:center; padding:1rem; font-size:0.8rem; color:#94a3b8; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Centralina Smart DIY 24 VAC (Hunter)</h1>
+  <p>Arduino UNO → ESP32 · Parallelo reversibile · Documentazione professionale</p>
+</header>
+
+<section>
+  <div class="card">
+    <h2>🔧 Panoramica del progetto</h2>
+    <p>
+      Questo progetto descrive una <strong>centralina di irrigazione smart DIY</strong>
+      compatibile con elettrovalvole <strong>Hunter 24 VAC</strong>, progettata per essere:
+    </p>
+    <ul>
+      <li>Sviluppata e testata su <strong>Arduino UNO</strong></li>
+      <li>Migrata successivamente su <strong>ESP32</strong> senza cambiare hardware</li>
+      <li>Utilizzabile in <strong>parallelo reversibile</strong> con la centralina Hunter esistente</li>
+      <li>Sicura dal punto di vista elettrico (separazione 230V / 24VAC / 5VDC)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>📦 Contenuto del pacchetto</h2>
+    <ul>
+      <li><strong>BOM + costi</strong> (Excel, 4 fogli)</li>
+      <li><strong>Guida tecnica stampabile</strong> (PDF)</li>
+      <li><strong>Codice completo Arduino / ESP32</strong> (ZIP)</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>⬇️ Download file</h2>
+    <p>Quando questo progetto è pubblicato online (GitHub / server web), questi pulsanti
+       permettono il download diretto dei file:</p>
+
+    <a class="button" href="DIY_Hunter_24VAC_SmartController_BOM.xlsx">📊 BOM Excel</a><br>
+    <a class="button" href="Guida_Tecnica_Centralina_Smart_24VAC_Hunter_DualMode.pdf">📘 Guida Tecnica PDF</a><br>
+    <a class="button" href="IrrigationSmart_UNO_to_ESP32_Code.zip">💻 Codice Arduino / ESP32</a>
+  </div>
+
+  <div class="card">
+    <h2>🛡️ Filosofia di sicurezza</h2>
+    <ul>
+      <li>Nessuna parte a 230V nel box DIY</li>
+      <li>Uso esclusivo di 24VAC e bassissima tensione</li>
+      <li>Fail-safe: senza calibrazione → niente irrigazione automatica</li>
+    </ul>
+  </div>
+
+</section>
+
+<footer>
+  Progetto DIY – uso domestico – documentazione tecnica · 2025
+</footer>
+
+</body>
+</html>
