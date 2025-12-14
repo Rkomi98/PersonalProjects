@@ -14,14 +14,15 @@
     
     <style>
         :root {
-            --primary: #C12A22;
+            --primary: #226E85;
+            --primary-strong: #0F4C65;
             --text-dark: #1E293B;
             --text-gray: #475569;
             --text-light: #64748B;
             --bg-slide: #FFFFFF;
             --bg-card: #F8FAFC;
-            --card-red-bg: #FEF2F2;
-            --card-red-border: #FEE2E2;
+            --card-red-bg: #E5F4FA;
+            --card-red-border: #C5E7F5;
             --card-blue-bg: #EFF6FF;
             --card-blue-border: #DBEAFE;
             --card-green-bg: #ECFDF5;
@@ -55,7 +56,7 @@
         }
         
         .reveal p, .reveal li {
-            font-size: 0.7em;
+            font-size: 0.6em;
             color: var(--text-gray);
             line-height: 1.6;
         }
@@ -70,8 +71,8 @@
             position: fixed;
             top: 20px;
             right: 30px;
-            width: 50px;
-            height: 50px;
+            width: 60px;
+            height: 60px;
             z-index: 100;
         }
         
@@ -80,10 +81,18 @@
             position: fixed;
             bottom: 20px;
             right: 30px;
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             opacity: 0.04;
             z-index: 1;
+        }
+
+        .logo-fixed img,
+        .watermark img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
         
         /* Badge numero slide */
@@ -91,11 +100,11 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--primary);
+            background: var(--primary-strong);
             color: white;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 0.55em;
+            font-size: 0.5em;
             padding: 6px 14px;
             border-radius: 6px;
             margin-bottom: 15px;
@@ -115,7 +124,7 @@
         
         /* Subtitle */
         .subtitle {
-            font-size: 0.65em;
+            font-size: 0.6em;
             color: var(--text-light);
             margin-top: -10px;
             margin-bottom: 25px;
@@ -152,7 +161,7 @@
         
         .card-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 0.55em;
+            font-size: 0.5em;
             font-weight: 700;
             text-transform: uppercase;
             margin-bottom: 8px;
@@ -167,7 +176,7 @@
         
         .card p {
             margin: 0;
-            font-size: 0.65em;
+            font-size: 0.6em;
         }
         
         /* Tags */
@@ -176,7 +185,7 @@
             padding: 6px 12px;
             background: #F1F5F9;
             border-radius: 6px;
-            font-size: 0.55em;
+            font-size: 0.5em;
             color: var(--text-dark);
             margin: 3px;
             font-weight: 600;
@@ -196,10 +205,23 @@
             margin: 12px 0;
             text-align: center;
         }
+
+        .formula-box p {
+            font-size: 0.45em !important;
+        }
+
+        .formula-steps {
+            display: flex;
+            gap: 15px;
+        }
+
+        .formula-steps .formula-box {
+            flex: 1;
+        }
         
         .formula-box.red {
             border-color: var(--card-red-border);
-            background: #FFFBFB;
+            background: #F5FBFF;
         }
         
         .formula-note {
@@ -271,24 +293,23 @@
         }
         
         .cover-logo {
-            width: 100px;
-            height: 100px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
+            width: 130px;
+            height: 130px;
+            margin: 0 auto 30px;
+            display: block;
         }
         
-        .cover-logo svg {
-            width: 60px;
-            height: 60px;
+        .cover-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
         }
         
         .cover-slide h1 {
             font-size: 2.4em;
             margin-bottom: 10px;
+            color: var(--primary-strong);
         }
         
         .cover-subtitle {
@@ -355,7 +376,7 @@
         }
         
         .pipeline-step p {
-            font-size: 0.55em;
+            font-size: 0.5em;
             margin: 0;
             font-weight: 600;
             color: var(--text-dark);
@@ -363,7 +384,7 @@
         
         /* Highlight box */
         .highlight-box {
-            background: linear-gradient(135deg, var(--card-red-bg) 0%, #FFF5F5 100%);
+            background: linear-gradient(135deg, var(--card-red-bg) 0%, #F0FAFF 100%);
             border: 2px solid var(--primary);
             border-radius: 12px;
             padding: 20px;
@@ -403,26 +424,14 @@
         
         /* Lista stilizzata */
         .styled-list {
-            list-style: none;
-            padding: 0;
+            list-style: disc;
+            padding-left: 18px;
             margin: 0;
         }
         
         .styled-list li {
-            padding: 8px 0 8px 25px;
-            position: relative;
-            font-size: 0.65em;
-        }
-        
-        .styled-list li::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 14px;
-            width: 8px;
-            height: 8px;
-            background: var(--primary);
-            border-radius: 50%;
+            padding: 6px 0;
+            font-size: 0.6em;
         }
         
         /* Workflow step */
@@ -435,7 +444,7 @@
         
         .workflow-num {
             font-family: 'Poppins', sans-serif;
-            font-size: 0.6em;
+            font-size: 0.55em;
             font-weight: 700;
             color: white;
             background: var(--primary);
@@ -452,12 +461,12 @@
         }
         
         .workflow-content strong {
-            font-size: 0.65em;
+            font-size: 0.6em;
             color: var(--text-dark);
         }
         
         .workflow-content p {
-            font-size: 0.55em;
+            font-size: 0.5em;
             margin: 3px 0 0;
             color: var(--text-gray);
         }
@@ -481,13 +490,13 @@
         }
         
         .takeaway-item h4 {
-            font-size: 0.7em;
+            font-size: 0.65em;
             color: var(--text-dark);
             margin-bottom: 10px;
         }
         
         .takeaway-item p {
-            font-size: 0.55em;
+            font-size: 0.5em;
         }
 
         /* Q&A slide */
@@ -506,29 +515,29 @@
         
         /* MathJax adjustments */
         .MathJax {
-            font-size: 0.9em !important;
+            font-size: 0.4em !important;
         }
         
         .formula-box .MathJax {
-            font-size: 1em !important;
+            font-size: 0.45em !important;
+        }
+        
+        .formula-block:not(:last-child) {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #E2E8F0;
         }
     </style>
 </head>
 <body>
     <!-- Logo fisso -->
     <div class="logo-fixed">
-        <svg viewBox="0 0 100 100" fill="none">
-            <path d="M10 90 L50 10 L90 90 Z" stroke="#C12A22" stroke-width="10" fill="none"/>
-            <path d="M30 60 Q50 40 70 60" stroke="#C12A22" stroke-width="7" fill="none"/>
-        </svg>
+        <img src="Logo.png" alt="Logo personale">
     </div>
     
     <!-- Watermark -->
     <div class="watermark">
-        <svg viewBox="0 0 100 100" fill="none">
-            <path d="M10 90 L50 10 L90 90 Z" stroke="#C12A22" stroke-width="10" fill="none"/>
-            <path d="M30 60 Q50 40 70 60" stroke="#C12A22" stroke-width="7" fill="none"/>
-        </svg>
+        <img src="Logo.png" alt="Logo personale in trasparenza">
     </div>
 
     <div class="reveal">
@@ -537,10 +546,7 @@
             <!-- SLIDE 1: COVER -->
             <section class="cover-slide">
                 <div class="cover-logo">
-                    <svg viewBox="0 0 100 100" fill="none">
-                        <path d="M10 90 L50 10 L90 90 Z" stroke="white" stroke-width="10" fill="none"/>
-                        <path d="M30 60 Q50 40 70 60" stroke="white" stroke-width="7" fill="none"/>
-                    </svg>
+                    <img src="Logo.png" alt="Logo personale">
                 </div>
                 <h1>Anomaly Detection su<br>Telemetria Geospaziale</h1>
                 <p class="cover-subtitle">6D Point Clouds & SAR Flood Mapping</p>
@@ -613,10 +619,9 @@
                             <p>La nuvola grezza contiene:</p>
                             <ul class="styled-list" style="margin-top: 8px;">
                                 <li>Rumore e outlier geometrici</li>
-                                <li>Occlusioni da vegetazione</li>
                                 <li>Artefatti di ricostruzione</li>
                             </ul>
-                            <p style="margin-top: 10px;"><em>→ Se data "as is" a un modello, esplodono i falsi positivi!</em></p>
+                            <!--<p style="margin-top: 10px;"><em>→ Se data "as is" a un modello, esplodono i falsi positivi!</em></p>-->
                         </div>
                     </div>
                     <div>
@@ -629,15 +634,15 @@
                             <div class="card" style="display: flex; align-items: center; gap: 15px;">
                                 <div class="workflow-num">1</div>
                                 <div>
-                                    <strong style="font-size: 0.6em; color: var(--text-dark);">Unsupervised</strong>
-                                    <p style="margin: 0; font-size: 0.55em;">Anomaly/noise removal (SOR, DBSCAN, ROR, denoising)</p>
+                                    <strong style="font-size: 0.6em; color: var(--text-dark);">Unsupervised - Statistical</strong>
+                                    <p style="margin: 0; font-size: 0.55em;">Outlier removal (SOR, DBSCAN, ROR, ...)</p>
                                 </div>
                             </div>
                             <div class="card" style="display: flex; align-items: center; gap: 15px;">
                                 <div class="workflow-num">2</div>
                                 <div>
-                                    <strong style="font-size: 0.6em; color: var(--text-dark);">Supervised</strong>
-                                    <p style="margin: 0; font-size: 0.55em;">Semantic segmentation con PointNeXt</p>
+                                    <strong style="font-size: 0.6em; color: var(--text-dark);">Unupervised - Geometrical</strong>
+                                    <p style="margin: 0; font-size: 0.55em;">Anomaly detection: Bilateral filter, Mean-shift, ...</p>
                                 </div>
                             </div>
                         </div>
@@ -741,7 +746,7 @@
                     <span class="slide-badge">05</span>
                     <h2>Statistical Outlier Removal (SOR)</h2>
                 </div>
-                <p class="subtitle">Rimozione outlier basata su distanza ai vicini</p>
+                <p class="subtitle">Rimozione outlier basata su distanza ai vicini. Fase di pulizia per rimuovere punti fuori distribuzione.</p>
                 
                 <div class="two-columns">
                     <div>
@@ -750,15 +755,17 @@
                             <p>Per ogni punto, calcola la <strong>distanza media</strong> ai suoi k vicini più prossimi. I punti con distanza anomalmente alta sono outlier.</p>
                         </div>
                         
-                        <div class="formula-box red">
-                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">Distanza media ai k vicini</p>
-                            \[ \bar{d}_i = \frac{1}{k}\sum_{j=1}^{k} \|p_i - p_j\| \]
-                        </div>
-                        
-                        <div class="formula-box red">
-                            <p style="font-size: 0.5em; color: var(--text-light); margin-bottom: 10px;">Criterio di outlier</p>
-                            \[ \bar{d}_i > \mu_d + \alpha \cdot \sigma_d \implies \text{outlier} \]
-                            <p class="formula-note">dove μ<sub>d</sub> e σ<sub>d</sub> sono media e dev. std. globali</p>
+                        <div class="formula-steps">
+                            <div class="formula-box red">
+                                <p style="color: var(--text-light); margin-bottom: 6px;">Step 1 · Distanza media ai k vicini</p>
+                                \[ \bar{d}_i = \frac{1}{k}\sum_{j=1}^{k} \|p_i - p_j\| \]
+                            </div>
+                            <div class="formula-box red">
+                                <p style="color: var(--text-light); margin-bottom: 4px;">Step 2 · Criterio di outlier</p>
+                                <p style="color: var(--text-gray); margin-bottom: 6px;">Un punto viene considerato <strong>outlier</strong> se</p>
+                                \[ \bar{d}_i > \mu_d + \alpha \cdot \sigma_d \implies \text{outlier} \]
+                                <p class="formula-note">con μ<sub>d</sub> media e σ<sub>d</sub> d.s. glob.</p>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -777,11 +784,6 @@
                                 <li>Efficiente computazionalmente</li>
                                 <li>Buono per artefatti sparsi e isolati</li>
                             </ul>
-                        </div>
-                        
-                        <div class="card card-yellow">
-                            <div class="card-title yellow">Quando usarlo</div>
-                            <p>Prima fase di pulizia per rimuovere punti chiaramente fuori distribuzione.</p>
                         </div>
                     </div>
                 </div>
@@ -1283,10 +1285,7 @@
             <!-- SLIDE 16: Q&A -->
             <section class="qna-slide">
                 <div class="cover-logo">
-                    <svg viewBox="0 0 100 100" fill="none">
-                        <path d="M10 90 L50 10 L90 90 Z" stroke="white" stroke-width="10" fill="none"/>
-                        <path d="M30 60 Q50 40 70 60" stroke="white" stroke-width="7" fill="none"/>
-                    </svg>
+                    <img src="Logo.png" alt="Logo personale">
                 </div>
                 <h1>Q&A</h1>
                 <p class="cover-subtitle">Domande?</p>
