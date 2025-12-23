@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Blue: Logica & Matematica</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1d;
+            --panel-bg: #252526;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --accent-blue: #007acc;
+            --accent-green: #4caf50;
+            --accent-red: #f44336;
+            --accent-yellow: #ffc107;
+            --board-light: #dadada;
+            --board-dark: #888888;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* HEADER */
+        header {
+            padding: 15px 30px;
+            background: #1e1e1e;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        h1 { margin: 0; font-weight: 400; font-size: 1.4rem; letter-spacing: 1px; }
+        .subtitle { font-size: 0.9rem; color: var(--text-dim); }
+
+        /* MAIN LAYOUT */
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* LEFT: CHESSBOARD */
+        .game-panel {
+            flex: 0 0 450px;
+            background: var(--panel-bg);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border-right: 1px solid #333;
+            z-index: 2;
+        }
+
+        .chessboard-wrapper {
+            width: 380px;
+            height: 380px;
+            padding: 5px;
+            background: #444;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .chessboard {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            grid-template-rows: repeat(8, 1fr);
+            width: 100%;
+            height: 100%;
+        }
+
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            position: relative;
+        }
+        .sq-light { background-color: var(--board-light); color: black; }
+        .sq-dark { background-color: var(--board-dark); color: black; }
+
+        .piece {
+            line-height: 1;
+            cursor: default;
+            z-index: 10;
+        }
+        .piece.white { color: #fff; text-shadow: 0 0 2px #000; }
+        .piece.black { color: #000; text-shadow: 0 0 1px #fff; }
+
+        /* Highlight overlay for squares */
+        .highlight {
+            position: absolute;
+            width: 100%; height: 100%;
+            background: rgba(255, 215, 0, 0.4);
+            z-index: 5;
+        }
+
+        /* CONTROLS */
+        .controls {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+        }
+
+        button {
+            background: #3e3e42;
+            color: white;
+            border: 1px solid #555;
+            padding: 8px 20px;
+            border-radius: 2px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+        button:hover { background: #505055; }
+        button:disabled { opacity: 0.4; cursor: not-allowed; }
+        button.primary { background: var(--accent-blue); border-color: var(--accent-blue); }
+        button.primary:hover { background: #0062a3; }
+
+        /* RIGHT: LOGIC & VISUALIZATION */
+        .logic-panel {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            background: #1e1e1e;
+            overflow-y: auto;
+        }
+
+        .step-header {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #444;
+            padding-bottom: 15px;
+        }
+        .step-number { color: var(--accent-blue); font-weight: bold; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .step-title { font-size: 1.8rem; margin: 5px 0 10px 0; color: white; }
+
+        .explanation {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-main);
+            margin-bottom: 30px;
+            max-width: 800px;
+        }
+
+        .math-block {
+            background: #2d2d30;
+            border-left: 4px solid var(--accent-yellow);
+            padding: 15px 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #dcdcaa;
+            margin-bottom: 20px;
+            border-radius: 0 4px 4px 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .viz-container {
+            flex: 1;
+            border: 1px solid #444;
+            background: #252526;
+            border-radius: 4px;
+            position: relative;
+            /* Ensure height is sufficient but flexible */
+            min-height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        svg { width: 100%; height: 100%; display: block; }
+
+        /* SVG CLASSES */
+        .node circle { stroke-width: 2px; transition: all 0.5s; }
+        .node text { font-family: monospace; font-size: 14px; fill: #ccc; text-anchor: middle; }
+        .link { stroke: #555; stroke-width: 2px; fill: none; }
+
+        .arrow-head { fill: #555; }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <h1>DEEP BLUE: ALGORITMO</h1>
+            <div class="subtitle">Analisi Matematica della Funzione di Scelta</div>
+        </div>
+        <div style="font-family: monospace; color: var(--accent-blue)">
+            [PAPER: Campbell et al., 2002]
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- GAME / BOARD -->
+        <div class="game-panel">
+            <div class="chessboard-wrapper">
+                <div class="chessboard" id="board"></div>
+            </div>
+
+            <div class="controls">
+                <button id="btn-prev" onclick="changeStep(-1)">PREV</button>
+                <span id="step-indicator">1 / 8</span>
+                <button id="btn-next" class="primary" onclick="changeStep(1)">NEXT</button>
+            </div>
+        </div>
+
+        <!-- LOGIC / VIZ -->
+        <div class="logic-panel">
+            <div class="step-header">
+                <div class="step-number" id="ui-tag">STEP 1</div>
+                <h2 class="step-title" id="ui-title">Titolo</h2>
+            </div>
+
+            <div class="explanation" id="ui-desc">
+                Descrizione...
+            </div>
+
+            <div class="math-block" id="ui-math">
+                <code>Formula...</code>
+            </div>
+
+            <div class="viz-container" id="viz-wrapper">
+                <svg id="svg-canvas" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+        </div>
+    </div>
+
+<script>
+// --- DATI DELLA LEZIONE ---
+
+const STEPS = [
+    {
+        title: "La Ricerca Base (Alpha-Beta)",
+        tag: "FONDAMENTA",
+        desc: "<b>Cosa significa 'risultato peggiore'?</b><br>Immagina di aver già trovato una mossa sicura che ti garantisce <b>5 punti</b> (Ramo A). Ora inizi ad analizzare una nuova mossa (Ramo B). Appena scopri che l'avversario ha una risposta che ti limita a soli <b>3 punti</b> in quel ramo, ti fermi.<br><br>È inutile continuare ad analizzare il Ramo B sperando in meglio, perché l'avversario intelligente ti costringerà a prendere 3. Poiché 3 < 5, il Ramo B viene 'tagliato' (Pruned).",
+        math: "Valore_Sicuro (Alpha) = 5\nNuovo_Ramo_Minimo <= 3\nPoiché 3 < 5 -> TAGLIA il resto del ramo.",
+        fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+        mode: "alphabeta"
+    },
+    {
+        title: "Funzione di Valutazione (Evaluation)",
+        tag: "HARDWARE",
+        desc: "Come trasformiamo una posizione in un numero? Deep Blue non usa 'intuizione'. Il chip hardware calcola una somma pesata di circa 8000 feature (caratteristiche). Ogni feature (es. 'Torre su 7a traversa') ha un peso specifico ($w$).",
+        math: "Score(p) = Σ (w_i * f_i(p)) \nDove f_i può essere 'Sicurezza Re', 'Struttura Pedoni', etc.",
+        fen: "r1bqkbnr/pp1ppppp/2n5/2p5/3P4/5N2/PPP1PPPP/RNBQKB1R w KQkq - 2 3",
+        mode: "eval_sum",
+        highlight: [28, 29] // d4, f3 squares roughly
+    },
+    {
+        title: "Definizione di 'Mossa Singolare'",
+        tag: "SELETTIVITÀ",
+        desc: "Ecco la prima definizione matematica di 'Interessante'. Una mossa è <b>Singolare</b> se il suo punteggio è significativamente superiore a tutte le altre mosse legali. Se c'è una mossa 'ovvia' e forzata, Deep Blue la etichetta come singolare.",
+        math: "Se Score(Mossa_A) ≥ Score(Mossa_B) + Margine_Singolarità \nAllora Mossa_A è 'Singolare'.",
+        fen: "r1bqkb1r/pp1ppppp/2n2n2/2p5/3P4/5N2/PPP1PPPP/RNBQKB1R b KQkq - 0 3",
+        mode: "singular_inequality",
+        highlight: [35] // c5
+    },
+    {
+        title: "Estensione Singolare (Singular Extension)",
+        tag: "SELETTIVITÀ",
+        desc: "Se una mossa viene identificata come Singolare, l'algoritmo infrange la regola della profondità massima. Estende la ricerca su quel ramo specifico. Verifica: 'È davvero così buona o c'è una trappola profonda?'.",
+        math: "Depth(Nodo_Singolare) = Depth(Standard) + Extension_Ply",
+        fen: "r1bqkb1r/pp1ppppp/2n2n2/2p5/8/5N2/PPP1PPPP/RNBQKB1R b KQkq - 0 3",
+        mode: "singular_tree",
+        highlight: [35]
+    },
+    {
+        title: "Euristica Mossa Nulla (Null Move)",
+        tag: "MINACCIA",
+        desc: "Come fa Deep Blue a capire se c'è una minaccia immediata? Usa l'euristica della <b>Mossa Nulla</b>. Deep Blue immagina di 'passare' il turno (mossa illegale negli scacchi) e lascia muovere l'avversario due volte di fila. Se il punteggio crolla (beta cutoff), significa che c'era una minaccia devastante.",
+        math: "Search(Board + NullMove) < Beta ? \nSì -> Minaccia Rilevata -> Estendi la ricerca.",
+        fen: "r1bq1rk1/pp2ppbp/6p1/2p5/3P4/2P2N2/P3PPPP/R1BQKB1R w KQ - 0 8",
+        mode: "null_move",
+        highlight: []
+    },
+    {
+        title: "Dual Credit Algorithm",
+        tag: "ALGORITMO",
+        desc: "Se estendiamo troppo, il tempo scade. Deep Blue usa un sistema di 'Crediti'. Ogni volta che si incontra una mossa forzata/singolare, si accumulano crediti parziali. Solo quando i crediti superano una soglia intera, si aggiunge profondità di ricerca. Questo bilancia profondità e ampiezza.",
+        math: "Credit_Accumulati += 0.25 (per mossa forzata)\nSe Credit > 1.0 -> Profondità +1",
+        fen: "r1bq1rk1/pp2ppbp/6p1/2p5/3P4/2P2N2/P3PPPP/R1BQKB1R w KQ - 0 8",
+        mode: "credit_accumulation",
+        highlight: []
+    },
+    {
+        title: "Valutazione Hardware: Rooks on Files",
+        tag: "DETTAGLIO CHIP",
+        desc: "Esempio pratico di valutazione hardware. Il chip controlla ogni colonna per le Torri. Usa una tabella di lookup hardware (ROM) per assegnare un bonus. Controlla: Torre aperta? Torre semi-aperta? Bloccata da pedone proprio?",
+        math: "Index = {Is_Open, Is_Blocked, Has_Own_Pawn}\nBonus = LookupTable[Index]",
+        fen: "2r2rk1/pp2ppbp/6p1/2p5/3P4/2P2N2/P3PPPP/R1BQKB1R w KQ - 0 9",
+        mode: "hw_lookup",
+        highlight: [2] // c file rook
+    },
+    {
+        title: "Conclusione: Vittoria per Calcolo",
+        tag: "RISULTATO",
+        desc: "Mettendo tutto insieme: Deep Blue non ha 'capito' il sacrificio. Ha calcolato che la mossa era Singolare, ha esteso la ricerca (grazie ai Crediti), ha verificato la minaccia (Null Move) e ha valutato le posizioni finali (Hardware Eval) come vincenti matematicamente.",
+        math: "Score(BestMove) > Soglia_Vittoria",
+        fen: "2r2rk1/pp2ppbp/6p1/2p5/3P4/2P2N2/P3PPPP/R1BQKB1R w KQ - 0 9",
+        mode: "final_tree",
+        highlight: []
+    }
+];
+
+let currentStep = 0;
+
+// --- BOARD RENDERER ---
+const PIECES = {
+    'r': '♜', 'n': '♞', 'b': '♝', 'q': '♛', 'k': '♚', 'p': '♟',
+    'R': '♖', 'N': '♘', 'B': '♗', 'Q': '♕', 'K': '♔', 'P': '♙'
+};
+
+function renderBoard() {
+    const step = STEPS[currentStep];
+    const boardEl = document.getElementById('board');
+    boardEl.innerHTML = '';
+
+    // Parse FEN
+    const fenRows = step.fen.split(' ')[0].split('/');
+    let flatBoard = [];
+
+    fenRows.forEach(row => {
+        for(let char of row) {
+            if(!isNaN(char)) {
+                for(let i=0; i<parseInt(char); i++) flatBoard.push(null);
+            } else {
+                flatBoard.push(char);
+            }
+        }
+    });
+
+    for(let i=0; i<64; i++) {
+        const sq = document.createElement('div');
+        const row = Math.floor(i / 8);
+        const col = i % 8;
+        const isDark = (row + col) % 2 === 1;
+
+        sq.className = `square ${isDark ? 'sq-dark' : 'sq-light'}`;
+
+        // Highlight logic
+        if(step.highlight && step.highlight.includes(i)) {
+            const hl = document.createElement('div');
+            hl.className = 'highlight';
+            sq.appendChild(hl);
+        }
+
+        const pieceChar = flatBoard[i];
+        if(pieceChar) {
+            const p = document.createElement('span');
+            p.className = `piece ${pieceChar === pieceChar.toUpperCase() ? 'white' : 'black'}`;
+            p.textContent = PIECES[pieceChar];
+            sq.appendChild(p);
+        }
+
+        boardEl.appendChild(sq);
+    }
+}
+
+// --- VISUALIZATION RENDERER (SVG) ---
+function renderViz() {
+    const step = STEPS[currentStep];
+    const svg = document.getElementById('svg-canvas');
+    svg.innerHTML = ''; // Clear
+
+    // Use fixed viewBox for consistent scaling
+    const VIEW_W = 600;
+    const VIEW_H = 400;
+    svg.setAttribute('viewBox', `0 0 ${VIEW_W} ${VIEW_H}`);
+
+    const cx = VIEW_W / 2;
+    const cy = VIEW_H / 2;
+
+    // Helper for SVG creation
+    const create = (type, attrs) => {
+        const el = document.createElementNS("http://www.w3.org/2000/svg", type);
+        for(let k in attrs) el.setAttribute(k, attrs[k]);
+        return el;
+    };
+
+    // Helper specifically for creating Text nodes
+    const appendText = (attrs, content) => {
+        const el = create('text', attrs);
+        el.textContent = content;
+        svg.appendChild(el);
+    };
+
+    if(step.mode === 'alphabeta') {
+        // ALPHA-BETA VIZ - REDESIGNED
+        const rootX = cx;
+        const rootY = 50;
+        const leftX = 150;
+        const rightX = 450;
+        const level2Y = 150;
+        const leafY = 280;
+
+        // Root Node (Me)
+        svg.appendChild(create('circle', {cx: rootX, cy: rootY, r: 25, fill: '#007acc', stroke: '#fff', 'stroke-width': 2}));
+        appendText({x: rootX, y: rootY+5, fill: 'white', 'font-weight': 'bold', 'text-anchor': 'middle'}, "MAX");
+
+        // --- LEFT BRANCH (Good Path) ---
+        // Link Root -> Left
+        svg.appendChild(create('line', {x1: rootX, y1: rootY+25, x2: leftX, y2: level2Y-25, stroke: '#888', 'stroke-width': 2}));
+
+        // Left Node (Opponent)
+        svg.appendChild(create('circle', {cx: leftX, cy: level2Y, r: 25, fill: '#333', stroke: '#888', 'stroke-width': 2}));
+        appendText({x: leftX, y: level2Y+5, fill: 'white', 'text-anchor': 'middle'}, "MIN");
+
+        // Link Left -> Leaf (Value 5)
+        svg.appendChild(create('line', {x1: leftX, y1: level2Y+25, x2: leftX, y2: leafY-25, stroke: '#4caf50', 'stroke-width': 4})); // Thick Green
+
+        // Leaf Node (5)
+        svg.appendChild(create('rect', {x: leftX-25, y: leafY-25, width: 50, height: 50, fill: '#4caf50', rx: 5}));
+        appendText({x: leftX, y: leafY+5, fill: 'white', 'font-size': '20px', 'font-weight': 'bold', 'text-anchor': 'middle'}, "5");
+
+        // Alpha Label
+        appendText({x: leftX, y: leafY+45, fill: '#4caf50', 'font-size': '14px', 'text-anchor': 'middle'}, "Alpha = 5");
+
+        // --- RIGHT BRANCH (Pruned Path) ---
+        // Link Root -> Right
+        svg.appendChild(create('line', {x1: rootX, y1: rootY+25, x2: rightX, y2: level2Y-25, stroke: '#888', 'stroke-width': 2}));
+
+        // Right Node (Opponent)
+        svg.appendChild(create('circle', {cx: rightX, cy: level2Y, r: 25, fill: '#333', stroke: '#888', 'stroke-width': 2}));
+        appendText({x: rightX, y: level2Y+5, fill: 'white', 'text-anchor': 'middle'}, "MIN");
+
+        // Link Right -> Bad Leaf (Value 3)
+        svg.appendChild(create('line', {x1: rightX, y1: level2Y+25, x2: rightX-50, y2: leafY-25, stroke: '#f44336', 'stroke-width': 2})); // Red
+
+        // Bad Leaf Node (3)
+        svg.appendChild(create('rect', {x: rightX-75, y: leafY-25, width: 50, height: 50, fill: '#f44336', rx: 5}));
+        appendText({x: rightX-50, y: leafY+5, fill: 'white', 'font-size': '20px', 'font-weight': 'bold', 'text-anchor': 'middle'}, "3");
+
+        // Pruning Logic Text
+        appendText({x: cx, y: 350, fill: '#fff', 'font-size': '16px', 'text-anchor': 'middle'}, "Poiché 3 (Destra) < 5 (Sinistra)...");
+
+        // --- PRUNED PART ---
+        // Ghost Link
+        svg.appendChild(create('line', {x1: rightX, y1: level2Y+25, x2: rightX+50, y2: leafY-25, stroke: '#666', 'stroke-width': 2, 'stroke-dasharray': '5,5'}));
+
+        // Ghost Leaf
+        svg.appendChild(create('circle', {cx: rightX+50, cy: leafY, r: 15, fill: 'none', stroke: '#666', 'stroke-width': 2, 'stroke-dasharray': '3,3'}));
+        appendText({x: rightX+50, y: leafY+5, fill: '#666', 'font-size': '12px', 'text-anchor': 'middle'}, "?");
+
+        // BIG RED X
+        const crossSize = 20;
+        const crossX = rightX + 25;
+        const crossY = (level2Y + leafY) / 2;
+        svg.appendChild(create('line', {x1: crossX-crossSize, y1: crossY-crossSize, x2: crossX+crossSize, y2: crossY+crossSize, stroke: '#f44336', 'stroke-width': 5}));
+        svg.appendChild(create('line', {x1: crossX+crossSize, y1: crossY-crossSize, x2: crossX-crossSize, y2: crossY+crossSize, stroke: '#f44336', 'stroke-width': 5}));
+
+        appendText({x: rightX+60, y: crossY, fill: '#f44336', 'font-size': '14px', 'font-weight': 'bold', 'text-anchor': 'start'}, "TAGLIO!");
+    }
+
+    else if(step.mode === 'eval_sum') {
+        // Equation Viz
+        let startY = 50;
+        const features = [
+            {n: "Materiale", v: 100},
+            {n: "Posizione Re", v: -10},
+            {n: "Pedoni Isolati", v: -5},
+            {n: "Torre 7a traversa", v: 25}
+        ];
+
+        // Background container
+        svg.appendChild(create('rect', {x: cx-200, y: 20, width: 400, height: 300, fill: '#2d2d30', rx: 10}));
+
+        features.forEach((f, i) => {
+            const y = startY + (i*60);
+            // Label
+            appendText({x: cx-180, y: y, fill: '#aaa', 'font-size': '16px', 'text-anchor': 'start'}, f.n);
+
+            // Bar background
+            svg.appendChild(create('rect', {x: cx, y: y-15, width: 150, height: 20, fill: '#444'}));
+
+            // Value Bar
+            const barW = Math.abs(f.v) * 1.5;
+            const barX = f.v > 0 ? cx : cx - barW;
+            const color = f.v > 0 ? '#4caf50' : '#f44336';
+            svg.appendChild(create('rect', {x: barX, y: y-15, width: barW, height: 20, fill: color}));
+
+            // Value Text
+            const textX = f.v > 0 ? cx + barW + 10 : cx - barW - 10;
+            const align = f.v > 0 ? 'start' : 'end';
+            appendText({x: textX, y: y, fill: 'white', 'text-anchor': align}, f.v);
+        });
+
+        // Total
+        svg.appendChild(create('line', {x1: cx-180, y1: 280, x2: cx+180, y2: 280, stroke: '#666'}));
+        appendText({x: cx, y: 310, fill: 'white', 'font-size': '24px', 'font-weight': 'bold'}, "PUNTEGGIO TOTALE: 110");
+    }
+
+    else if(step.mode === 'singular_inequality') {
+        // IMPROVED BAR CHART
+        const chartBottom = 350;
+        const chartLeft = 150;
+
+        // Axes
+        svg.appendChild(create('line', {x1: 100, y1: chartBottom, x2: 500, y2: chartBottom, stroke: '#888', 'stroke-width': 2})); // X
+        svg.appendChild(create('line', {x1: 100, y1: chartBottom, x2: 100, y2: 50, stroke: '#888', 'stroke-width': 2})); // Y
+
+        // Bar A (Green)
+        const hA = 250;
+        svg.appendChild(create('rect', {x: 150, y: chartBottom - hA, width: 100, height: hA, fill: '#4caf50'}));
+        appendText({x: 200, y: chartBottom + 30, fill: 'white'}, "Mossa A");
+        appendText({x: 200, y: chartBottom - hA - 10, fill: '#4caf50', 'font-weight': 'bold'}, "100");
+
+        // Bar B (Red)
+        const hB = 100;
+        svg.appendChild(create('rect', {x: 350, y: chartBottom - hB, width: 100, height: hB, fill: '#f44336'}));
+        appendText({x: 400, y: chartBottom + 30, fill: 'white'}, "Mossa B");
+        appendText({x: 400, y: chartBottom - hB - 10, fill: '#f44336', 'font-weight': 'bold'}, "40");
+
+        // Gap / Margin visualization
+        // Dotted line from top of B
+        svg.appendChild(create('line', {x1: 350, y1: chartBottom - hB, x2: 150, y2: chartBottom - hB, stroke: '#aaa', 'stroke-dasharray': '5,5'}));
+
+        // Brace or Line for margin
+        svg.appendChild(create('line', {x1: 200, y1: chartBottom - hB, x2: 200, y2: chartBottom - hA, stroke: '#ffc107', 'stroke-width': 3, 'marker-end': 'url(#arrow)'}));
+
+        // Margin Text
+        appendText({x: 210, y: 200, fill: '#ffc107', 'font-size': '14px', 'text-anchor': 'start'}, "GAP ENORME");
+        appendText({x: 210, y: 220, fill: '#ffc107', 'font-size': '14px', 'text-anchor': 'start'}, "(Singolarità)");
+    }
+
+    else if(step.mode === 'singular_tree') {
+        // Asymmetric Tree
+        const rootY = 50;
+
+        // Root
+        svg.appendChild(create('circle', {cx: cx, cy: rootY, r: 10, fill: 'white'}));
+
+        // Left Branch (Normal)
+        svg.appendChild(create('line', {x1: cx, y1: rootY, x2: cx-100, y2: 150, class: 'link'}));
+        svg.appendChild(create('circle', {cx: cx-100, cy: 150, r: 8, fill: '#888'}));
+        appendText({x: cx-100, y: 180, fill: '#888'}, "Standard");
+
+        // Right Branch (Singular) - Highlighted
+        svg.appendChild(create('line', {x1: cx, y1: rootY, x2: cx+100, y2: 150, stroke: '#ffd700', 'stroke-width': 4}));
+        svg.appendChild(create('circle', {cx: cx+100, cy: 150, r: 12, fill: '#ffd700'}));
+        appendText({x: cx+100, y: 180, fill: '#ffd700', 'font-weight': 'bold'}, "Singolare");
+
+        // Extension
+        svg.appendChild(create('line', {x1: cx+100, y1: 150, x2: cx+100, y2: 300, stroke: '#ffd700', 'stroke-width': 3, 'stroke-dasharray': '8,4'}));
+        svg.appendChild(create('circle', {cx: cx+100, cy: 300, r: 10, fill: 'none', stroke: '#ffd700', 'stroke-width': 2}));
+
+        // Label extension
+        appendText({x: cx+120, y: 250, fill: '#ffd700', 'font-size': '14px', 'text-anchor': 'start'}, "Estensione Profonda");
+        appendText({x: cx+120, y: 270, fill: '#aaa', 'font-size': '12px', 'text-anchor': 'start'}, "(Check Trappole)");
+    }
+
+    else if(step.mode === 'null_move') {
+        // Null Move logic
+        // Current Node
+        svg.appendChild(create('circle', {cx: cx, cy: 80, r: 15, fill: '#4caf50'}));
+        appendText({x: cx, y: 50, fill: '#4caf50', 'font-weight': 'bold'}, "Tocca a Me");
+
+        // Null Move edge (dashed)
+        svg.appendChild(create('path', {d: `M ${cx} 95 L ${cx} 180`, stroke: '#aaa', 'stroke-width': 2, 'stroke-dasharray': '5,5'}));
+
+        // "PASS" Label
+        svg.appendChild(create('rect', {x: cx-40, y: 120, width: 80, height: 25, fill: '#333', stroke: '#aaa'}));
+        appendText({x: cx, y: 137, fill: '#aaa', 'font-size': '12px'}, "PASSO (Null)");
+
+        // Opponent Node (Free move 1)
+        svg.appendChild(create('circle', {cx: cx, cy: 200, r: 15, fill: '#f44336'}));
+        appendText({x: cx+30, y: 205, fill: '#f44336', 'text-anchor': 'start'}, "Avversario gioca");
+
+        // Opponent Node (Free move 2 - Attack)
+        svg.appendChild(create('line', {x1: cx, y1: 215, x2: cx, y2: 300, stroke: '#f44336', 'stroke-width': 3}));
+        svg.appendChild(create('circle', {cx: cx, cy: 300, r: 20, fill: '#f44336'}));
+
+        appendText({x: cx, y: 340, fill: '#f44336', 'font-size': '18px', 'font-weight': 'bold'}, "MINACCIA RILEVATA!");
+    }
+
+    else if(step.mode === 'credit_accumulation') {
+        // Credit meter visualization
+        const meterW = 400;
+        const meterH = 40;
+        const meterX = cx - meterW/2;
+        const meterY = cy;
+
+        // Background
+        svg.appendChild(create('rect', {x: meterX, y: meterY, width: meterW, height: meterH, fill: '#333', stroke: '#888'}));
+
+        // Progress (e.g. 1.25)
+        const progress = 1.25 * (meterW / 2); // Scale: 2.0 max
+        svg.appendChild(create('rect', {x: meterX, y: meterY, width: progress, height: meterH, fill: '#007acc'}));
+
+        // Threshold Markers
+        svg.appendChild(create('line', {x1: cx, y1: meterY-10, x2: cx, y2: meterY+meterH+10, stroke: 'white', 'stroke-width': 2}));
+        appendText({x: cx, y: meterY-20, fill: 'white'}, "Soglia 1.0 (Nuovo Ply)");
+
+        // Text value
+        appendText({x: meterX + progress + 10, y: meterY + 25, fill: '#007acc', 'text-anchor': 'start', 'font-weight': 'bold'}, "Credits: 1.25");
+
+        appendText({x: cx, y: meterY + 80, fill: '#aaa'}, "Accumulando piccoli bonus (0.25) si ottiene profondità.");
+    }
+
+    else if(step.mode === 'hw_lookup') {
+        // Hardware Table
+        svg.appendChild(create('rect', {x: cx-150, y: 80, width: 300, height: 200, fill: '#1e1e1e', stroke: '#00cc66', 'stroke-width': 2, rx: 10}));
+        appendText({x: cx, y: 60, fill: '#00cc66', 'text-anchor': 'middle', 'font-size': '18px', 'font-weight': 'bold'}, "VLSI CHIP ROM");
+
+        // Bits Input
+        let bits = "1 0 1 1 0";
+        appendText({x: cx, y: 130, fill: '#00cc66', 'font-family': 'monospace', 'font-size': '32px', 'text-anchor': 'middle', 'letter-spacing': '5px'}, bits);
+        appendText({x: cx, y: 160, fill: '#aaa', 'text-anchor': 'middle'}, "Indirizzo (Feature Input)");
+
+        // Arrow down
+        svg.appendChild(create('path', {d: `M ${cx} 180 L ${cx} 220`, stroke: 'white', 'stroke-width': 2, 'marker-end': 'url(#arrow)'}));
+
+        // Output
+        svg.appendChild(create('rect', {x: cx-80, y: 230, width: 160, height: 40, fill: '#00cc66'}));
+        appendText({x: cx, y: 257, fill: '#000', 'font-weight': 'bold', 'text-anchor': 'middle', 'font-size': '18px'}, "+45 Punti");
+    }
+
+    else if(step.mode === 'final_tree') {
+        // Winner viz
+        svg.appendChild(create('text', {x: cx, y: cy, fill: '#ffd700', 'font-size': '40px', 'font-weight': 'bold', 'text-anchor': 'middle'}, "DEEP BLUE WIN"));
+        svg.appendChild(create('text', {x: cx, y: cy+50, fill: '#fff', 'font-size': '18px', 'text-anchor': 'middle'}, "Score > Threshold"));
+    }
+}
+
+// --- CONTROLLER ---
+function updateUI() {
+    const step = STEPS[currentStep];
+
+    document.getElementById('ui-tag').textContent = step.tag;
+    document.getElementById('ui-title').textContent = step.title;
+    document.getElementById('ui-desc').innerHTML = step.desc;
+    document.getElementById('ui-math').innerHTML = step.math.replace(/\n/g, '<br>');
+    document.getElementById('step-indicator').textContent = `${currentStep + 1} / ${STEPS.length}`;
+
+    document.getElementById('btn-prev').disabled = currentStep === 0;
+    document.getElementById('btn-next').disabled = currentStep === STEPS.length - 1;
+
+    renderBoard();
+    renderViz();
+}
+
+function changeStep(dir) {
+    if(currentStep + dir >= 0 && currentStep + dir < STEPS.length) {
+        currentStep += dir;
+        updateUI();
+    }
+}
+
+// Init
+window.addEventListener('resize', renderViz);
+updateUI();
+
+</script>
+</body>
+</html>
