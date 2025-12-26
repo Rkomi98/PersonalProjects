@@ -14,18 +14,15 @@ export function useChessGame() {
                 promotion: 'q', // always promote to queen for simplicity for now
             };
 
-            const result = game.move(move);
+            // Work on a copy to avoid direct state mutation and preserve history
+            const gameCopy = new Chess();
+            gameCopy.loadPgn(game.pgn());
+
+            const result = gameCopy.move(move);
 
             if (result) {
-                // Update state with new FEN
-                setFen(game.fen());
-                // Create a new instance to ensure reference changes if needed, 
-                // though strictly not required if we rely on FEN for the board.
-                // But for game logic queries, we need the updated instance.
-                // Actually chess.js is stateful. We can clone it or just keep it.
-                // For safety/reactivity:
-                const newGame = new Chess(game.fen());
-                setGame(newGame);
+                setGame(gameCopy);
+                setFen(gameCopy.fen());
                 return true;
             }
         } catch (e) {
@@ -41,10 +38,13 @@ export function useChessGame() {
     }, []);
 
     const undoMove = useCallback(() => {
-        const result = game.undo();
+        const gameCopy = new Chess();
+        gameCopy.loadPgn(game.pgn());
+
+        const result = gameCopy.undo();
         if (result) {
-            setFen(game.fen());
-            setGame(new Chess(game.fen()));
+            setGame(gameCopy);
+            setFen(gameCopy.fen());
             return true;
         }
         return false;
