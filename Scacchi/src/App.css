@@ -1,0 +1,93 @@
+.app-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    background-color: #242424;
+    color: white;
+    padding: 20px 10px;
+    box-sizing: border-box;
+    overflow: hidden;
+    /* Prevent scrolling during drag */
+}
+
+.player-section {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.board-section {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    max-height: 60vh;
+    /* Ensure board fits */
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    flex-shrink: 0;
+}
+
+button {
+    border-radius: 8px;
+    border: 1px solid transparent;
+    padding: 0.6em 1.2em;
+    font-size: 1em;
+    font-weight: 500;
+    font-family: inherit;
+    background-color: #1a1a1a;
+    cursor: pointer;
+    transition: border-color 0.25s;
+}
+
+button:hover {
+    border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+    outline: 4px auto -webkit-focus-ring-color;
+}
+
+.status-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    pointer-events: none;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.status-badge {
+    background: rgba(220, 38, 38, 0.9);
+    /* Reddish for attention */
+    color: white;
+    padding: 12px 24px;
+    border-radius: 99px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.footer-info {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 5px;
+}

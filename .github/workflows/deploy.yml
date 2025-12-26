@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: Schacchi
+        working-directory: Scacchi
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: Schacchi/package-lock.json
+          cache-dependency-path: Scacchi/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -43,13 +43,13 @@ jobs:
 
       - name: Prepare deployment
         run: |
-          mkdir -p deploy/Schacchi
-          cp -r dist/* deploy/Schacchi/
+          mkdir -p deploy/Scacchi
+          cp -r dist/* deploy/Scacchi/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './Schacchi/deploy'
+          path: './Scacchi/deploy'
 
   deploy:
     environment:
