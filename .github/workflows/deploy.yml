@@ -41,10 +41,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
+      - name: Prepare deployment
+        run: |
+          mkdir -p deploy/Schacchi
+          cp -r dist/* deploy/Schacchi/
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './Schacchi/dist'
+          path: './Schacchi/deploy'
 
   deploy:
     environment:
