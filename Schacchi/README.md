@@ -1,8 +1,23 @@
 # Web Chess - 2 Player Mode
 
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
+![Chess.js](https://img.shields.io/badge/chess.js-000000?style=for-the-badge&logo=chess.com&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
+
 A React-based chess application designed for two players sharing a single device (e.g., an iPad or tablet).
 
-## Features
+## 📋 Project Specifications
+
+| Feature | Details |
+| :--- | :--- |
+| **React Version** | `^18.2.0` |
+| **Build Tool** | Vite `^5.0.8` |
+| **Game Engine** | `chess.js` |
+| **UI Components** | `react-chessboard` |
+| **Logic** | Offline, Local Multiplayer |
+
+## ✨ Key Features
 
 - **Split Screen UI**: Black player controls at the top (rotated 180°), White player at the bottom.
 - **Fixed Board**: The board remains centered and does not rotate, suitable for placing the device between players.
@@ -10,13 +25,7 @@ A React-based chess application designed for two players sharing a single device
 - **Optional Chess Clock**: Toggleable 5-minute countdown timer (Blitz style). Timer switches automatically on moves.
 - **Legal Moves**: Full chess rules enforcement via `chess.js`.
 
-## Tech Stack
-
-- **React** (Vite)
-- **chess.js** (Game logic)
-- **react-chessboard** (Board UI)
-
-## Getting Started
+## 🚀 Getting Started
 
 1. **Install dependencies**:
    ```bash
@@ -28,7 +37,7 @@ A React-based chess application designed for two players sharing a single device
    npm run dev
    ```
 
-## Deploying to GitHub Pages
+## 📦 Deployment to GitHub Pages
 
 To make this app available online:
 
@@ -55,10 +64,6 @@ To make this app available online:
    git add .
    git commit -m "Initial commit"
    
-   # Push to GitHub (ensure remote is set)
-   # git remote add origin https://github.com/Rkomi98/PersonalProjects.git
-   # git push -u origin main
-
    # Deployment using gh-pages package
    npm install --save-dev gh-pages
    ```
@@ -75,8 +80,6 @@ To make this app available online:
    npm run deploy
    ```
 
-   Alternatively, configure GitHub Actions to deploy from the `dist` folder.
+## 📄 License
 
-## License
-
-MIT
+Distributed under the MIT License. See `LICENSE` for more information.
