@@ -7,7 +7,7 @@ import { useChessClock } from './hooks/useChessClock'
 import { calculateMaterialAdvantage } from './utils/chessUtils'
 
 function App() {
-    const { game, makeMove, status, resetGame: resetChess } = useChessGame();
+    const { game, makeMove, status, resetGame: resetChess, undoMove } = useChessGame();
 
     // Settings
     const [clockEnabled, setClockEnabled] = useState(false);
@@ -54,6 +54,10 @@ function App() {
     const toggleClock = () => {
         setClockEnabled(!clockEnabled);
         handleReset();
+    };
+
+    const handleUndo = () => {
+        undoMove();
     };
 
     // Stop clock on game over
@@ -104,6 +108,7 @@ function App() {
             {/* Controls */}
             <div className="controls">
                 <button onClick={handleReset}>New Game</button>
+                <button onClick={handleUndo}>Undo</button>
                 <button onClick={toggleClock}>
                     {clockEnabled ? "Disable Timer" : "Enable Timer (5m)"}
                 </button>

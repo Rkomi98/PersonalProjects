@@ -40,11 +40,22 @@ export function useChessGame() {
         setFen(newGame.fen());
     }, []);
 
+    const undoMove = useCallback(() => {
+        const result = game.undo();
+        if (result) {
+            setFen(game.fen());
+            setGame(new Chess(game.fen()));
+            return true;
+        }
+        return false;
+    }, [game]);
+
     return {
         game,
         fen,
         makeMove,
         resetGame,
+        undoMove,
         status: {
             isCheckmate: game.isCheckmate(),
             isDraw: game.isDraw(),
