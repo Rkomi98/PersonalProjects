@@ -12,6 +12,7 @@ function App() {
     // Settings
     const [clockEnabled, setClockEnabled] = useState(false);
     const [initialTime, setInitialTime] = useState(300); // 5 minutes default
+    const [rotationMode, setRotationMode] = useState('fixed'); // 'fixed', 'dynamic', 'none'
 
     // Clock Hook
     const {
@@ -60,6 +61,12 @@ function App() {
         undoMove();
     };
 
+    const toggleRotationMode = () => {
+        const modes = ['fixed', 'dynamic', 'none'];
+        const nextIndex = (modes.indexOf(rotationMode) + 1) % modes.length;
+        setRotationMode(modes[nextIndex]);
+    };
+
     // Stop clock on game over
     useEffect(() => {
         if (status.isGameOver) {
@@ -91,7 +98,11 @@ function App() {
                 <div className="status-overlay">
                     {gameStatusText && <div className="status-badge">{gameStatusText}</div>}
                 </div>
-                <ChessBoardComp game={game} onMakeMove={handleMove} />
+                <ChessBoardComp
+                    game={game}
+                    onMakeMove={handleMove}
+                    rotationMode={rotationMode}
+                />
             </div>
 
             {/* Bottom Player (White) */}
@@ -111,6 +122,9 @@ function App() {
                 <button onClick={handleUndo}>Undo</button>
                 <button onClick={toggleClock}>
                     {clockEnabled ? "Disable Timer" : "Enable Timer (5m)"}
+                </button>
+                <button onClick={toggleRotationMode}>
+                    Rotation: {rotationMode === 'fixed' ? 'Fixed' : rotationMode === 'dynamic' ? 'Dynamic' : 'None'}
                 </button>
             </div>
 

@@ -91,3 +91,63 @@ button:focus-visible {
     color: #666;
     margin-top: 5px;
 }
+
+
+/* Rotation Modes */
+/* Target SVG inside pieces to avoid transform overrides from the library's inline styles */
+
+/* Fixed mode: Black pieces always rotated 180 degrees, White 0 degrees */
+.rotation-fixed [data-piece^="b"] svg,
+.rotation-fixed [data-piece^="b"] img {
+    transform: rotate(180deg) !important;
+}
+
+.rotation-fixed [data-piece^="w"] svg,
+.rotation-fixed [data-piece^="w"] img {
+    transform: rotate(0deg) !important;
+}
+
+/* Dynamic mode: White pieces rotate to face active player, Black pieces stay facing Black */
+/* Disable transitions in dynamic mode to prevent 360deg rotation glitch */
+.rotation-dynamic [data-piece] svg,
+.rotation-dynamic [data-piece] img {
+    transition: none !important;
+}
+
+/* White's turn */
+/* White -> 0deg (Faces White) */
+.rotation-dynamic.turn-w [data-piece^="w"] svg,
+.rotation-dynamic.turn-w [data-piece^="w"] img {
+    transform: rotate(0deg) !important;
+}
+
+/* Black -> 180deg (Faces Black) */
+.rotation-dynamic.turn-w [data-piece^="b"] svg,
+.rotation-dynamic.turn-w [data-piece^="b"] img {
+    transform: rotate(180deg) !important;
+}
+
+/* Black's turn */
+/* White -> 180deg (Faces Black) */
+.rotation-dynamic.turn-b [data-piece^="w"] svg,
+.rotation-dynamic.turn-b [data-piece^="w"] img {
+    transform: rotate(180deg) !important;
+}
+
+/* Black -> 180deg (Faces Black) */
+.rotation-dynamic.turn-b [data-piece^="b"] svg,
+.rotation-dynamic.turn-b [data-piece^="b"] img {
+    transform: rotate(180deg) !important;
+}
+
+/* Base piece style with smooth and stable transitions */
+[data-piece] {
+    transition: none !important;
+}
+
+[data-piece] svg {
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center center;
+    will-change: transform;
+    backface-visibility: hidden;
+}
