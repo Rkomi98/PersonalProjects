@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig(({ command }) => {
-  const basePath = command === "build" ? "/PersonalProjects/" : "/";
+  const basePath = command === "build" ? "/PersonalProjects/chess-openings/" : "/";
 
   return {
     base: basePath,
