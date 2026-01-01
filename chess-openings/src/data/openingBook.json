@@ -1,0 +1,592 @@
+{
+  "version": 1,
+  "openings": [
+    {
+      "id": "italian",
+      "name": "Giuoco Italiano",
+      "subtitle": "1. e4 e5 2. Nf3 Nc6 3. Bc4",
+      "root": "italian_root",
+      "tags": [
+        "e4",
+        "giochi aperti"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "ruy_lopez",
+      "name": "Spagnola (Ruy Lopez)",
+      "subtitle": "1. e4 e5 2. Nf3 Nc6 3. Bb5",
+      "root": "ruy_root",
+      "tags": [
+        "e4",
+        "giochi aperti"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "sicilian",
+      "name": "Siciliana",
+      "subtitle": "1. e4 c5",
+      "root": "sicilian_root",
+      "tags": [
+        "e4",
+        "asimmetria"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "french",
+      "name": "Francese",
+      "subtitle": "1. e4 e6",
+      "root": "french_root",
+      "tags": [
+        "e4",
+        "strutture pedonali"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "caro_kann",
+      "name": "Caro-Kann",
+      "subtitle": "1. e4 c6",
+      "root": "caro_root",
+      "tags": [
+        "e4",
+        "solida"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "kings_gambit",
+      "name": "Gambetto di Re",
+      "subtitle": "1. e4 e5 2. f4",
+      "root": "kg_root",
+      "tags": [
+        "e4",
+        "gambetto"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "queens_gambit",
+      "name": "Gambetto di Donna",
+      "subtitle": "1. d4 d5 2. c4",
+      "root": "qg_root",
+      "tags": [
+        "d4",
+        "classica"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "slav",
+      "name": "Slava",
+      "subtitle": "1. d4 d5 2. c4 c6",
+      "root": "slav_root",
+      "tags": [
+        "d4",
+        "solida"
+      ],
+      "status": "stub"
+    },
+    {
+      "id": "kings_indian",
+      "name": "Indiana del Re",
+      "subtitle": "1. d4 Nf6 2. c4 g6",
+      "root": "kingsindian_root",
+      "tags": [
+        "d4",
+        "dinamica"
+      ],
+      "status": "stub"
+    }
+  ],
+  "nodes": {
+    "italian_root": {
+      "id": "italian_root",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Obiettivo: prendere spazio al centro e sviluppare rapidamente. Con 1.e4 entri nella famiglia dei giochi aperti: sviluppo, iniziativa, diagonali attive.",
+      "plans": {
+        "w": [
+          "1) Centro e sviluppo (Nf3, Bc4/Bb5)",
+          "2) Arrocco rapido",
+          "3) Preparare d4 al momento giusto"
+        ],
+        "b": [
+          "Rispondere al centro e sviluppare senza perdere tempi"
+        ]
+      },
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Prendi spazio e apri linee a alfiere e regina. Imposti il tema: sviluppo rapido + lotta per d5.",
+          "leadsTo": "italian_after_1_e4"
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Mossa buona, ma ti porta in un sistema diverso (giochi di Donna). Per l’Italiana serve 1.e4."
+        },
+        {
+          "san": "f3",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Indebolisce e3/g3 e blocca lo sviluppo naturale del cavallo g1. Non crea un piano sano."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_1_e4": {
+      "id": "italian_after_1_e4",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq - 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.e4",
+      "idea": "Nero sceglie: simmetria (...e5) per un gioco aperto, oppure una difesa asimmetrica (Siciliana/Francese/Caro-Kann) che cambia struttura e piani.",
+      "moves": [
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Contesti subito il centro e accetti un gioco di sviluppo rapido: nasce la famiglia dell’Italiana/Spagnola/Scotch.",
+          "leadsTo": "italian_after_1...e5"
+        },
+        {
+          "san": "c5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Siciliana: ottima, ma è un’altra storia (strutture asimmetriche). Qui il percorso Italiana si interrompe."
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Francese: solida e strategica, ma non è più un gioco aperto."
+        },
+        {
+          "san": "c6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Caro-Kann: solida, struttura diversa. Fuori dal percorso Italiano."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_1...e5": {
+      "id": "italian_after_1...e5",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo 1...e5",
+      "idea": "Con centro simmetrico, l’iniziativa nasce dal vantaggio di sviluppo. Bianco: sviluppa senza perdere tempi e prepara arrocco.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Mossa modello: sviluppi, attacchi e5, prepari Bc4/Bb5 e arrocco.",
+          "leadsTo": "italian_after_2_Nf3"
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Apertura del Alfiere: sviluppi, ma senza il cavallo su f3 puoi permettere ...Nf6 con più libertà."
+        },
+        {
+          "san": "Qh5",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Idea 'trappola' (attacco rapido) ma spesso porta la regina in mezzo e rallenta lo sviluppo: stai studiando aperture per crescere, non per sperare in errori."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_2_Nf3": {
+      "id": "italian_after_2_Nf3",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 2.Nf3",
+      "idea": "Nero deve sostenere e5 e sviluppare. La risposta più naturale è ...Nc6: difende e5 e controlla d4.",
+      "moves": [
+        {
+          "san": "Nc6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo con tempo: difendi e5 e metti un pezzo al centro. È la strada che porta a Italiana/Spagnola/Scotch.",
+          "leadsTo": "italian_after_2...Nc6"
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Difesa Philidor: solida ma più passiva. Strutture e piani cambiano."
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Difesa Russa (Petrov): ottima, ma è un ramo diverso dai piani tipici dell’Italiana."
+        },
+        {
+          "san": "f6",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Difesa Damiano: indebolisce e6/g6 e lascia e5 vulnerabile. Bianco può punire con Nxe5 ottenendo iniziativa.",
+          "leadsTo": "italian_damiano_after_2...f6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_damiano_after_2...f6": {
+      "id": "italian_damiano_after_2...f6",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp2pp/5p2/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Errore tipico: ...f6 (Damiano)",
+      "idea": "Tema: quando l’avversario indebolisce case e lascia un pedone centrale senza difese solide, spesso puoi 'toccarlo' con un pezzo sviluppato e guadagnare tempi.",
+      "moves": [
+        {
+          "san": "Nxe5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Punizione tematica: il cavallo sviluppato cattura e5. Nero ha creato debolezze e la sua struttura non è pronta a reggere l’iniziativa.",
+          "leadsTo": "italian_damiano_after_3_Nxe5"
+        }
+      ],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_damiano_after_3_Nxe5": {
+      "id": "italian_damiano_after_3_Nxe5",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp2pp/5p2/4N3/4P3/8/PPPP1PPP/RNBQKB1R b KQkq - 0 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 3.Nxe5",
+      "idea": "Non serve calcolare come un motore: il concetto è che l’avversario ha creato buchi e ora inseguire il cavallo costa tempi e peggiora il re.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_after_2...Nc6": {
+      "id": "italian_after_2...Nc6",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Bivio dei giochi aperti",
+      "idea": "Scegli dove mettere l’alfiere: Bc4 → Italiana (pressione su f7), Bb5 → Spagnola (pressione su c6), d4 → Scotch (apri il centro).",
+      "moves": [
+        {
+          "san": "Bc4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Italiana: sviluppo naturale e pressione su f7. Il tuo piano tipico: arrocco + c3/d3 e break d4.",
+          "leadsTo": "italian_after_3_Bc4"
+        },
+        {
+          "san": "Bb5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Spagnola: ottima, ma stai entrando in un altro percorso (diversi piani e strutture)."
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Scotch: immediata rottura centrale. Buona, ma diverso dai temi dell’Italiana classica."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_3_Bc4": {
+      "id": "italian_after_3_Bc4",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Posizione chiave dell’Italiana",
+      "idea": "Nero deve sviluppare e gestire la pressione su f7. Risposte naturali: ...Bc5 (simmetria) o ...Nf6 (Due Cavalli).",
+      "moves": [
+        {
+          "san": "Bc5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Risposta classica: sviluppi e punti su f2. Entrambi completano sviluppo e poi decidono quando rompere con d4/d5.",
+          "leadsTo": "italian_after_3...Bc5"
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Due Cavalli: più tattica. È un ramo diverso ma totalmente sensato."
+        },
+        {
+          "san": "Qh4",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Errore grave: la regina si espone e il cavallo può catturarla. Lezione: niente 'attacchi' ignorando la sicurezza dei pezzi.",
+          "leadsTo": "italian_trap_after_3...Qh4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_trap_after_3...Qh4": {
+      "id": "italian_trap_after_3...Qh4",
+      "openingId": "italian",
+      "fen": "r1b1kbnr/pppp1ppp/2n5/4p3/2B1P2q/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Punizione: regina esposta",
+      "idea": "Tema: se un pezzo pesante entra troppo presto, chiediti sempre: 'posso guadagnare materiale con sviluppo?'",
+      "moves": [
+        {
+          "san": "Nxh4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Semplice e definitivo: catturi la regina. Fine della storia."
+        }
+      ],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_after_3...Bc5": {
+      "id": "italian_after_3...Bc5",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Italiana: primi piani",
+      "idea": "Qui non devi 'indovinare mosse': devi costruire una posizione. Piano tipico: completa sviluppo, arrocco, prepara d4 senza regalare pedoni.",
+      "moves": [
+        {
+          "san": "c3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Mossa-ponte: prepara d4 al momento giusto e controlla d4. Ti costruisci il centro invece di forzare tattiche.",
+          "leadsTo": "italian_after_4_c3"
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Ottima: metti il re al sicuro. Poi spesso c3/d3 e d4 quando sei pronto."
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Pianissimo: struttura più lenta e solida. Buona se vuoi una partita manovrata."
+        },
+        {
+          "san": "Qh5",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Attacco lampo su f7: spesso porta la regina fuori tempo. Se l’avversario difende con calma, resti indietro di sviluppo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_4_c3": {
+      "id": "italian_after_4_c3",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 4.c3",
+      "idea": "Bianco minaccia d4. Nero deve decidere come incontrare la rottura centrale: sviluppare (...Nf6) o consolidare (...d6).",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: prepari arrocco e controlli d5/e4. Ora il tema diventa: quando e come reagire a d4.",
+          "leadsTo": "italian_after_4...Nf6"
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Solido: riduci l’impatto di d4 e vai verso Pianissimo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_4...Nf6": {
+      "id": "italian_after_4...Nf6",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R w KQkq - 1 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Preparare e colpire il centro",
+      "idea": "Adesso il piano 'da manuale' è d4: colpisci il centro quando hai abbastanza pezzi sviluppati per sostenerlo.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Break centrale: trasformi il vantaggio di sviluppo in spazio e iniziativa. Da qui si entra nella fase di transizione verso il medio gioco.",
+          "leadsTo": "italian_after_5_d4"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Scelta più tranquilla: mantieni struttura solida e giochi una partita manovrata."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_5_d4": {
+      "id": "italian_after_5_d4",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2BPP3/2P2N2/PP3PPP/RNBQK2R b KQkq - 0 5",
+      "turn": "b",
+      "stars": 1,
+      "title": "Transizione: apertura → medio gioco",
+      "idea": "Questo è già 'il senso' dell’Italiana: non memorizzare, ma capire quando rompere al centro. Da qui in poi servono rami (…exd4, …d5, …Bb6, …Nxe4...) che aggiungeremo ai livelli ⭐⭐⭐ e ⭐⭐⭐⭐⭐.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "ruy_root": {
+      "id": "ruy_root",
+      "openingId": "ruy_lopez",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_root": {
+      "id": "sicilian_root",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "french_root": {
+      "id": "french_root",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "caro_root": {
+      "id": "caro_root",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "kg_root": {
+      "id": "kg_root",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "qg_root": {
+      "id": "qg_root",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "slav_root": {
+      "id": "slav_root",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "kingsindian_root": {
+      "id": "kingsindian_root",
+      "openingId": "kings_indian",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Stub",
+      "idea": "Dataset in arrivo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    }
+  }
+}
