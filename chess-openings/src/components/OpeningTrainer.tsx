@@ -25,7 +25,7 @@ function promotionIfNeeded(piece: string, targetSquare: string) {
 
 type NodeState =
   | { type: "book"; nodeId: string }
-  | { type: "free" }; // fuori dataset (continui senza guida)
+  | { type: "free" }; // fuori percorso (continui senza guida)
 
 export function OpeningTrainer(props: {
   openingId: string;
@@ -175,7 +175,7 @@ export function OpeningTrainer(props: {
       pushMessage({
         by: "system",
         title: "Fuori percorso",
-        text: "La risposta era nel dataset, ma la posizione successiva non è ancora descritta. Puoi continuare in modalità libera o ricominciare."
+        text: "La risposta era nel percorso, ma la posizione successiva non è ancora descritta. Puoi continuare in modalità libera o ricominciare."
       });
     }
   }
@@ -235,8 +235,8 @@ export function OpeningTrainer(props: {
         by: "system",
         title: option ? "Nodo non ancora descritto" : "Fuori percorso",
         text: option
-          ? "Questa mossa è nel dataset, ma la posizione successiva non è ancora descritta. Continuiamo in modalità libera."
-          : "Questa deviazione non è coperta dal dataset. Continuiamo senza guida finché non ricominci."
+          ? "Questa mossa è nel percorso, ma la posizione successiva non è ancora descritta. Continuiamo in modalità libera."
+          : "Questa deviazione non è coperta dal percorso. Continuiamo senza guida finché non ricominci."
       });
     }
 

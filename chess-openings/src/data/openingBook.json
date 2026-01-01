@@ -230,7 +230,7 @@
           "san": "Nc6",
           "kind": "repertoire",
           "stars": 1,
-          "why": "Sviluppo con tempo: difendi e5 e metti un pezzo al centro. E' la strada che porta a Italiana/Spagnola/Scotch.",
+          "why": "Sviluppo con tempo: difendi e5 e metti un pezzo al centro. È la strada che porta a Italiana/Spagnola/Scotch.",
           "leadsTo": "italian_after_2...Nc6"
         },
         {
@@ -490,8 +490,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"
@@ -503,8 +503,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"
@@ -516,8 +516,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"
@@ -529,8 +529,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"
@@ -542,8 +542,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"
@@ -555,8 +555,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"
@@ -568,8 +568,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"
@@ -581,8 +581,8 @@
       "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
       "turn": "w",
       "stars": 1,
-      "title": "Stub",
-      "idea": "Dataset in arrivo.",
+      "title": "In arrivo",
+      "idea": "Contenuti in arrivo.",
       "moves": [],
       "auto": {
         "pick": "none"

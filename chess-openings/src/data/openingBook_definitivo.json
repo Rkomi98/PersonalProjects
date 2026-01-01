@@ -1,0 +1,5601 @@
+{
+  "version": 2,
+  "openings": [
+    {
+      "id": "italian",
+      "name": "Italiana",
+      "subtitle": "1. e4 e5 2. Nf3 Nc6 3. Bc4",
+      "root": "italian_root",
+      "tags": [
+        "e4",
+        "giochi aperti"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "ruy_lopez",
+      "name": "Spagnola (Ruy Lopez)",
+      "subtitle": "1. e4 e5 2. Nf3 Nc6 3. Bb5",
+      "root": "ruy_root",
+      "tags": [
+        "e4",
+        "giochi aperti"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "sicilian",
+      "name": "Siciliana",
+      "subtitle": "1. e4 c5",
+      "root": "sicilian_root",
+      "tags": [
+        "e4",
+        "asimmetria"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "french",
+      "name": "Francese",
+      "subtitle": "1. e4 e6",
+      "root": "french_root",
+      "tags": [
+        "e4",
+        "strutture pedonali"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "caro_kann",
+      "name": "Caro-Kann",
+      "subtitle": "1. e4 c6",
+      "root": "caro_kann_root",
+      "tags": [
+        "e4",
+        "solida"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "kings_gambit",
+      "name": "Gambetto di Re",
+      "subtitle": "1. e4 e5 2. f4",
+      "root": "kings_gambit_root",
+      "tags": [
+        "e4",
+        "gambetto"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "queens_gambit",
+      "name": "Gambetto di Donna",
+      "subtitle": "1. d4 d5 2. c4",
+      "root": "queens_gambit_root",
+      "tags": [
+        "d4",
+        "classica"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "slav",
+      "name": "Slava",
+      "subtitle": "1. d4 d5 2. c4 c6",
+      "root": "slav_root",
+      "tags": [
+        "d4",
+        "solida"
+      ],
+      "status": "ready"
+    },
+    {
+      "id": "kings_indian",
+      "name": "Indiana del Re",
+      "subtitle": "1. d4 Nf6 2. c4 g6",
+      "root": "kings_indian_root",
+      "tags": [
+        "d4",
+        "dinamica"
+      ],
+      "status": "ready"
+    }
+  ],
+  "nodes": {
+    "italian_root": {
+      "id": "italian_root",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Obiettivo: guadagnare spazio al centro e sviluppare i pezzi in fretta. Con 1.e4 apri subito le linee per alfiere e regina.",
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ti prendi il centro e apri le linee per alfiere e regina. Il tema è sviluppo rapido e pressione su d5.",
+          "leadsTo": "italian_after_1_e4",
+          "tags": [
+            "centro",
+            "sviluppo"
+          ]
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Mossa buona, ma porta in un sistema diverso (giochi di Donna). Per l'Italiana serve 1.e4."
+        },
+        {
+          "san": "f3",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Indebolisce e3/g3 e blocca lo sviluppo del cavallo g1. Non aiuta a sviluppare."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Sviluppa i pezzi e guadagna spazio al centro (Nf3, Bc4/Bb5)",
+          "Arrocco rapido",
+          "Preparare d4 al momento giusto"
+        ],
+        "b": [
+          "Controllare il centro e sviluppare senza sprecare tempi"
+        ]
+      }
+    },
+    "italian_after_1_e4": {
+      "id": "italian_after_1_e4",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.e4",
+      "idea": "Il Nero può scegliere: rispondere con ...e5 e restare nei giochi aperti, oppure entrare in una difesa diversa (Siciliana/Francese/Caro-Kann).",
+      "moves": [
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Contesti subito il centro e resti in un gioco aperto: si entra nei rami Italiana/Spagnola/Scotch.",
+          "leadsTo": "italian_after_1...e5"
+        },
+        {
+          "san": "c5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Siciliana: ottima, ma è un'altra struttura. Qui il percorso Italiana si interrompe."
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Francese: solida e strategica, ma non è più un gioco aperto."
+        },
+        {
+          "san": "c6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Caro-Kann: solida, ma struttura diversa. Fuori dal percorso Italiana."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_1...e5": {
+      "id": "italian_after_1...e5",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo 1...e5",
+      "idea": "Con centro simmetrico vince chi sviluppa meglio: il Bianco porta fuori i pezzi e prepara l'arrocco.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppi, attacchi e5 e prepari Bc4/Bb5 e arrocco.",
+          "leadsTo": "italian_after_2_Nf3",
+          "tags": [
+            "sviluppo",
+            "pressione e5"
+          ]
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Apertura dell'Alfiere: sviluppi subito, ma dai al Nero più libertà con ...Nf6."
+        },
+        {
+          "san": "Qh5",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Attacco rapido, ma spesso porta la regina in mezzo e rallenta lo sviluppo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_2_Nf3": {
+      "id": "italian_after_2_Nf3",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 2.Nf3",
+      "idea": "Il Nero deve difendere e5 e sviluppare. La risposta più naturale è ...Nc6: difende e5 e controlla d4.",
+      "moves": [
+        {
+          "san": "Nc6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo con tempo: difendi e5 e metti un pezzo al centro. È la strada che porta a Italiana/Spagnola/Scotch.",
+          "leadsTo": "italian_after_2...Nc6"
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Difesa Philidor: solida ma più passiva. Strutture e piani cambiano."
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Difesa Russa (Petrov): ottima, ma è un ramo diverso dai piani tipici dell'Italiana."
+        },
+        {
+          "san": "f6",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Difesa Damiano: indebolisce e6/g6 e lascia e5 vulnerabile. Il Bianco può punire con Nxe5.",
+          "leadsTo": "italian_damiano_after_2...f6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_damiano_after_2...f6": {
+      "id": "italian_damiano_after_2...f6",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp2pp/5p2/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Errore tipico: 2...f6 (Damiano)",
+      "idea": "Idea chiave: se l'avversario indebolisce il centro e lascia un pedone scoperto, spesso puoi prenderlo con un pezzo sviluppato e guadagnare tempi.",
+      "moves": [
+        {
+          "san": "Nxe5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Punizione tipica: il cavallo prende e5. Il Nero ha creato debolezze e non è pronto a reggere l'iniziativa.",
+          "leadsTo": "italian_damiano_after_3_Nxe5"
+        }
+      ],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_damiano_after_3_Nxe5": {
+      "id": "italian_damiano_after_3_Nxe5",
+      "openingId": "italian",
+      "fen": "rnbqkbnr/pppp2pp/5p2/4N3/4P3/8/PPPP1PPP/RNBQKB1R b KQkq - 0 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 3.Nxe5",
+      "idea": "Il concetto: il Nero deve inseguire il cavallo e il re resta al centro. Tu sei avanti di sviluppo.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_after_2...Nc6": {
+      "id": "italian_after_2...Nc6",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Bivio dei giochi aperti",
+      "idea": "Scegli dove mettere l'alfiere: Bc4 (Italiana), Bb5 (Spagnola), d4 (Scotch).",
+      "moves": [
+        {
+          "san": "Bc4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Italiana: sviluppo naturale e pressione su f7. Piano tipico: arrocco, c3/d3 e d4.",
+          "leadsTo": "italian_after_3_Bc4"
+        },
+        {
+          "san": "Bb5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Spagnola: ottima, ma stai entrando in un altro percorso (diversi piani e strutture)."
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Scotch: immediata rottura centrale. Buona, ma diverso dai temi dell’Italiana classica."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_3_Bc4": {
+      "id": "italian_after_3_Bc4",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Posizione chiave dell’Italiana",
+      "idea": "Bianco punta su f7. Nero deve sviluppare e scegliere: ...Bc5 (simmetria) o ...Nf6 (Due Cavalli).",
+      "moves": [
+        {
+          "san": "Bc5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Classica: sviluppi e punti su f2. Dopo, entrambi decidono quando rompere al centro (d4/d5).",
+          "leadsTo": "italian_after_3...Bc5"
+        },
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Due Cavalli: più tattica e concreta. Devi sapere come gestire Ng5 e il tema d5.",
+          "leadsTo": "italian_twoknights_after_3...Nf6"
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Pianissimo: struttura più lenta e solida (meno tattica immediata).",
+          "leadsTo": "italian_pianissimo_after_3...d6"
+        },
+        {
+          "san": "Qh4",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Errore grave: la regina entra troppo presto. Idea chiave: la regina è un bersaglio; spesso la punisci con sviluppo (Nxh4).",
+          "leadsTo": "italian_trap_after_3...Qh4"
+        },
+        {
+          "san": "Nd4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Idea-trappola (Blackburne Shilling): tenta tattiche invece di sviluppo. A livello intermedio impari a neutralizzarla con calma.",
+          "leadsTo": "italian_blackburne_after_3...Nd4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_trap_after_3...Qh4": {
+      "id": "italian_trap_after_3...Qh4",
+      "openingId": "italian",
+      "fen": "r1b1kbnr/pppp1ppp/2n5/4p3/2B1P2q/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Punizione: regina esposta",
+      "idea": "Idea chiave: se un pezzo pesante esce troppo presto, chiediti sempre: 'posso guadagnare materiale con un pezzo sviluppato?'",
+      "moves": [
+        {
+          "san": "Nxh4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Semplice: catturi la regina. Lezione: sviluppo + minacce semplici battono le 'furbate'.",
+          "leadsTo": "italian_trap_after_4_Nxh4"
+        }
+      ],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_trap_after_4_Nxh4": {
+      "id": "italian_trap_after_4_Nxh4",
+      "openingId": "italian",
+      "fen": "r1b1kbnr/pppp1ppp/2n5/4p3/2B1P2N/8/PPPP1PPP/RNBQK2R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 4.Nxh4",
+      "idea": "Hai vinto materiale. Da qui il piano è 'tecnico': semplifica, completa sviluppo e non regalare contropiede.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_pianissimo_after_3...d6": {
+      "id": "italian_pianissimo_after_3...d6",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Italiana Pianissimo: 3...d6",
+      "idea": "Nero evita immediate complicazioni. Bianco costruisce lentamente: d3, c3, O-O, Re1 e poi d4 quando è pronto.",
+      "moves": [
+        {
+          "san": "d3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Consolidamento: sostieni e4 e prepari sviluppo armonico senza scoprire il re.",
+          "leadsTo": "italian_pianissimo_after_4_d3"
+        },
+        {
+          "san": "c3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Idea simile (preparare d4), ma spesso prima metti in sicurezza il re con O-O o d3."
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sempre sano: sicurezza del re prima di aprire il centro."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_pianissimo_after_4_d3": {
+      "id": "italian_pianissimo_after_4_d3",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/ppp2ppp/2np4/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Pianissimo: costruzione",
+      "idea": "Partita più manovrata. Obiettivo: completare sviluppo e scegliere *quando* rompere al centro con c3 e d4.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: controlli e4 e prepari arrocco.",
+          "leadsTo": "italian_pianissimo_after_4...Nf6"
+        },
+        {
+          "san": "Be7",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sviluppo: prepara arrocco, ma di solito ...Nf6 arriva presto."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "O-O, c3, Re1, Nbd2-f1-g3",
+          "Spinta d4 quando i pezzi sostengono"
+        ],
+        "b": [
+          "...Nf6, ...Be7, ...O-O",
+          "Colpire il centro con ...d5 o ...f5 in alcune linee"
+        ]
+      }
+    },
+    "italian_pianissimo_after_4...Nf6": {
+      "id": "italian_pianissimo_after_4...Nf6",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2ppp/2np1n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQK2R w KQkq - 1 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Pianissimo: sviluppi completati",
+      "idea": "Ora Bianco decide il piano: (A) O-O e gioco manovrato, (B) c3 e d4 per aprire il centro quando pronto.",
+      "moves": [
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Metti il re al sicuro. Poi Re1, c3 e manovre (Nbd2-f1-g3).",
+          "leadsTo": "italian_pianissimo_after_5_O-O"
+        },
+        {
+          "san": "c3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Prepari d4, ma occhio: aprire il centro col re al centro è rischioso."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_pianissimo_after_5_O-O": {
+      "id": "italian_pianissimo_after_5_O-O",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2ppp/2np1n2/4p3/2B1P3/3P1N2/PPP2PPP/RNBQ1RK1 b kq - 2 5",
+      "turn": "b",
+      "stars": 1,
+      "title": "Transizione Pianissimo → medio gioco",
+      "idea": "Questo ramo insegna *pazienza*: accumulare piccoli miglioramenti e scegliere il momento del break d4. Struttura tipica: centro stabile, manovre dei cavalli.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_after_3...Bc5": {
+      "id": "italian_after_3...Bc5",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Italiana: primi piani",
+      "idea": "Qui non devi 'indovinare mosse': devi costruire. Piano tipico: arrocco e preparare d4 (spesso con c3).",
+      "moves": [
+        {
+          "san": "c3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Mossa-ponte: prepara d4 e controlla d4. Costruisci il centro prima di aprirlo.",
+          "leadsTo": "italian_after_4_c3"
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Ottima: re al sicuro. Poi spesso c3/d3 e d4 quando pronto."
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Pianissimo: più lenta e solida, meno tattica immediata."
+        },
+        {
+          "san": "b4",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Gambetto Evans: offri un pedone per guadagnare tempi di sviluppo e iniziativa (stile 'attacco').",
+          "leadsTo": "italian_evans_after_4_b4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_4_c3": {
+      "id": "italian_after_4_c3",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 4.c3",
+      "idea": "Bianco minaccia d4. Nero decide come reagire: sviluppare (...Nf6) o consolidare (...d6).",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: prepari arrocco e controlli e4/d5. Idea chiave: come incontrare d4.",
+          "leadsTo": "italian_after_4...Nf6"
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Solido: riduci l’impatto di d4 e vai verso Pianissimo/strutture più chiuse.",
+          "leadsTo": "italian_after_4...d6"
+        },
+        {
+          "san": "Bb6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Ritiri l’alfiere per evitare d4 con tempo. Più 'posizionale', ma meno comune."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_4...d6": {
+      "id": "italian_after_4...d6",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/ppp2ppp/2np4/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Italiana: struttura più solida (...d6)",
+      "idea": "Nero sostiene e5 e prepara ...Nf6 e arrocco. Bianco può scegliere Pianissimo (d3) o preparare d4 con calma.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "È possibile aprire il centro, ma spesso conviene completare lo sviluppo prima di forzare."
+        },
+        {
+          "san": "d3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Linea 'pianissimo': costruisci e scegli il momento della rottura d4."
+        },
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sicurezza prima di rompere al centro."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_4...Nf6": {
+      "id": "italian_after_4...Nf6",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2B1P3/2P2N2/PP1P1PPP/RNBQK2R w KQkq - 1 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Preparare e colpire il centro",
+      "idea": "Piano 'da manuale': d4 quando hai abbastanza pezzi sviluppati per sostenerlo. In alternativa, Pianissimo con d3.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Break centrale: trasformi tempi di sviluppo in spazio e iniziativa.",
+          "leadsTo": "italian_after_5_d4"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Scelta più tranquilla: struttura solida e partita manovrata."
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Metti il re al sicuro: poi d4 con più supporto."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_5_d4": {
+      "id": "italian_after_5_d4",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b1p3/2BPP3/2P2N2/PP3PPP/RNBQK2R b KQkq d3 0 5",
+      "turn": "b",
+      "stars": 3,
+      "title": "Dopo 5.d4: nodo di calcolo 'umano'",
+      "idea": "Dopo il break centrale, la domanda è: Nero apre il centro (…exd4) o lo mantiene (…Bb6/…d6)? Qui impari i *meccanismi* più che le mosse.",
+      "moves": [
+        {
+          "san": "exd4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Risposta più comune: accetti la rottura e chiarisci il centro. Nasce una struttura 'aperta' con sviluppo rapido.",
+          "leadsTo": "italian_after_5...exd4"
+        },
+        {
+          "san": "Bb6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Ritiro: mantieni tensione e provi a non aprire subito. Più rara, ma sensata."
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Consolidi e rimandi la decisione sul centro (più chiuso)."
+        },
+        {
+          "san": "Nxe4",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Idea tattica avanzata: prendi e4 ma devi essere pronto a dxc5 e tattiche sul centro. (Da studiare a ⭐⭐⭐⭐⭐).",
+          "leadsTo": "italian_after_5...Nxe4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_5...exd4": {
+      "id": "italian_after_5...exd4",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b5/2BpP3/2P2N2/PP3PPP/RNBQK2R w KQkq - 0 6",
+      "turn": "w",
+      "stars": 3,
+      "title": "Centro aperto: cattura su d4",
+      "idea": "Ora Bianco decide *come* riprendere: di solito con il pedone c (cxd4) per mantenere un forte centro e sviluppo fluido.",
+      "moves": [
+        {
+          "san": "cxd4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Ripresa 'da manuale': mantieni un duo centrale e apri linee per pezzi (Alfiere c1, Torre c1).",
+          "leadsTo": "italian_after_6_cxd4"
+        },
+        {
+          "san": "e5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Avanzata: più rara, cambia struttura e richiede calcolo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_6_cxd4": {
+      "id": "italian_after_6_cxd4",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/2b5/2BPP3/5N2/PP3PPP/RNBQK2R b KQkq - 0 6",
+      "turn": "b",
+      "stars": 3,
+      "title": "Dopo 6.cxd4",
+      "idea": "Struttura tipica: Bianco ha un centro mobile (pedoni su e4 e d4). Nero cerca pressione e tempi con scacchi e sviluppo.",
+      "moves": [
+        {
+          "san": "Bb4+",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Check tematico: guadagni un tempo sullo sviluppo e metti pressione su e4/c3.",
+          "leadsTo": "italian_after_6...Bb4+"
+        },
+        {
+          "san": "Nxe4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Tattica: prendere e4. Richiede precisione perché il centro aperto punisce mosse lente."
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo semplice: sicurezza prima di tattiche."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_6...Bb4+": {
+      "id": "italian_after_6...Bb4+",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/8/1bBPP3/5N2/PP3PPP/RNBQK2R w KQkq - 1 7",
+      "turn": "w",
+      "stars": 3,
+      "title": "Gestire lo scacco: ...Bb4+",
+      "idea": "Idea chiave: rispondere allo scacco sviluppando un pezzo, se possibile (Nc3) o bloccando (Bd2) senza perdere tempi.",
+      "moves": [
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo con tempo: pari lo scacco e aggiungi un pezzo al centro. È la risposta più 'pulita'.",
+          "leadsTo": "italian_after_7_Nc3"
+        },
+        {
+          "san": "Bd2",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Solido: pari lo scacco, ma può bloccare lo sviluppo naturale dell’alfiere c1."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_7_Nc3": {
+      "id": "italian_after_7_Nc3",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n2n2/8/1bBPP3/2N2N2/PP3PPP/R1BQK2R b KQkq - 2 7",
+      "turn": "b",
+      "stars": 3,
+      "title": "Transizione: apertura → medio gioco (centro mobile)",
+      "idea": "Qui 'finisce l’apertura' e inizia la partita: Bianco ha più spazio, Nero punta a colpire il centro e completare sviluppo. Piani: O-O, d5/dxe5, mettere torri al centro.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_after_5...Nxe4": {
+      "id": "italian_after_5...Nxe4",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n5/2b1p3/2BPn3/2P2N2/PP3PPP/RNBQK2R w KQkq - 0 6",
+      "turn": "w",
+      "stars": 5,
+      "title": "Tattica avanzata: ...Nxe4",
+      "idea": "Tema avanzato: il centro è in tensione. Se Nero prende e4, Bianco spesso guadagna tempi aprendo linee o catturando c5. Qui serve studio di tattica e tempi (senza engine: ragiona su sviluppo e re).",
+      "moves": [
+        {
+          "san": "dxc5",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Prendi l’alfiere su c5 e usi il centro per guadagnare tempi. Ora il tema è: sviluppo rapido e punire la fuoriuscita del cavallo.",
+          "leadsTo": "italian_after_6_dxc5"
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Sicurezza prima, ma devi fare attenzione: Nero ha preso un pedone centrale e può consolidare."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_after_6_dxc5": {
+      "id": "italian_after_6_dxc5",
+      "openingId": "italian",
+      "fen": "r1bqk2r/pppp1ppp/2n5/2P1p3/2B1n3/2P2N2/PP3PPP/RNBQK2R b KQkq - 0 6",
+      "turn": "b",
+      "stars": 5,
+      "title": "Centro tattico: recupero pezzo/tempo",
+      "idea": "A questo livello l’obiettivo è capire i tempi: chi sviluppa con minacce mentre l’altro 'raccoglie' pezzi/pedoni. Bianco punta a convertire tempi in iniziativa.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_twoknights_after_3...Nf6": {
+      "id": "italian_twoknights_after_3...Nf6",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p3/2B1P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Due Cavalli: 3...Nf6",
+      "idea": "Qui nasce una partita più tattica. Bianco può scegliere Ng5 (attacco immediato) oppure giocare più 'piano' con d3/O-O.",
+      "moves": [
+        {
+          "san": "Ng5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Mossa critica: minacci f7 e forzi Nero a rispondere con energia (…d5).",
+          "leadsTo": "italian_twoknights_after_4_Ng5"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Trasposizione verso Pianissimo: rinunci alla linea più tattica."
+        },
+        {
+          "san": "Nc3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo: può trasporre verso altri schemi. Meno teorico di Ng5."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_4_Ng5": {
+      "id": "italian_twoknights_after_4_Ng5",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/pppp1ppp/2n2n2/4p1N1/2B1P3/8/PPPP1PPP/RNBQK2R b KQkq - 5 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "Idea chiave: pressione su f7",
+      "idea": "Bianco minaccia Nxf7. Nero risponde quasi sempre con ...d5, colpendo al centro e l’alfiere c4.",
+      "moves": [
+        {
+          "san": "d5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Risposta tematica: contro-minaccia al centro e guadagni tempi sull’alfiere.",
+          "leadsTo": "italian_twoknights_after_4...d5"
+        },
+        {
+          "san": "Bc5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Più lenta: spesso concede troppo. A livello intermedio impari la risposta 'energica' ...d5."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_4...d5": {
+      "id": "italian_twoknights_after_4...d5",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2ppp/2n2n2/3pp1N1/2B1P3/8/PPPP1PPP/RNBQK2R w KQkq d6 0 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Due Cavalli: ...d5 colpisce il centro",
+      "idea": "Ora Bianco deve decidere: catturare (exd5) e portare la partita su linee teoriche, oppure ritirare l’alfiere e accettare un gioco diverso.",
+      "moves": [
+        {
+          "san": "exd5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Accetti lo scontro centrale: è la linea principale. Il tema è: tempi e sviluppo.",
+          "leadsTo": "italian_twoknights_after_5_exd5"
+        },
+        {
+          "san": "Bxd5",
+          "kind": "typical_error",
+          "stars": 3,
+          "why": "Sembra naturale ma spesso perde tempi/materiale: il cavallo può catturare il vescovo e Nero guadagna sviluppo."
+        },
+        {
+          "san": "Bb3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Ritiro: riduci tatticità ma lasci a Nero un buon centro."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_5_exd5": {
+      "id": "italian_twoknights_after_5_exd5",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2ppp/2n2n2/3Pp1N1/2B5/8/PPPP1PPP/RNBQK2R b KQkq - 0 5",
+      "turn": "b",
+      "stars": 3,
+      "title": "Dopo 5.exd5",
+      "idea": "Nero deve scegliere come recuperare. La linea più solida è ...Na5 (insegue l’alfiere e evita il Fried Liver).",
+      "moves": [
+        {
+          "san": "Na5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Linea solida: insegui l’alfiere e riduci le tattiche immediate su f7.",
+          "leadsTo": "italian_twoknights_after_5...Na5"
+        },
+        {
+          "san": "Nxd5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Permette il tema del Fried Liver (Nxf7). È giocabile ma richiede teoria/difesa precisa.",
+          "leadsTo": "italian_twoknights_after_5...Nxd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_5...Na5": {
+      "id": "italian_twoknights_after_5...Na5",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2ppp/5n2/n2Pp1N1/2B5/8/PPPP1PPP/RNBQK2R w KQkq - 1 6",
+      "turn": "w",
+      "stars": 3,
+      "title": "Inseguire l’alfiere: ...Na5",
+      "idea": "Bianco spesso dà uno scacco (Bb5+) per guadagnare tempo e guidare la struttura. Idea chiave: tempi utili mentre Nero sposta lo stesso pezzo.",
+      "moves": [
+        {
+          "san": "Bb5+",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Scacco tematico: guadagni tempo e costringi ...c6 o ...Bd7.",
+          "leadsTo": "italian_twoknights_after_6_Bb5+"
+        },
+        {
+          "san": "Bd3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Ritiro più tranquillo: perdi parte dell’iniziativa."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_6_Bb5+": {
+      "id": "italian_twoknights_after_6_Bb5+",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2ppp/5n2/nB1Pp1N1/8/8/PPPP1PPP/RNBQK2R b KQkq - 2 6",
+      "turn": "b",
+      "stars": 3,
+      "title": "Gestire lo scacco in Due Cavalli",
+      "idea": "Nero spesso risponde con ...c6, guadagnando un tempo sull’alfiere e ricostruendo il centro.",
+      "moves": [
+        {
+          "san": "c6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Risposta standard: contesti lo scacco e guadagni spazio/tempo.",
+          "leadsTo": "italian_twoknights_after_6...c6"
+        },
+        {
+          "san": "Bd7",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Alternativa più passiva: spesso concede più libertà a Bianco."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_6...c6": {
+      "id": "italian_twoknights_after_6...c6",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/pp3ppp/2p2n2/nB1Pp1N1/8/8/PPPP1PPP/RNBQK2R w KQkq - 0 7",
+      "turn": "w",
+      "stars": 3,
+      "title": "Dopo ...c6: scegliere la struttura",
+      "idea": "Bianco può catturare su c6 e forzare una struttura asimmetrica (bxc6), oppure ritirare l’alfiere. Idea chiave: quale medio gioco vuoi?",
+      "moves": [
+        {
+          "san": "dxc6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Prendi e crei una struttura asimmetrica. Poi sviluppo e sicurezza del re restano prioritari.",
+          "leadsTo": "italian_twoknights_after_7_dxc6"
+        },
+        {
+          "san": "Ba4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Ritiro: mantieni il pedone su d5 come punto di tensione."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_7_dxc6": {
+      "id": "italian_twoknights_after_7_dxc6",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/pp3ppp/2P2n2/nB2p1N1/8/8/PPPP1PPP/RNBQK2R b KQkq - 0 7",
+      "turn": "b",
+      "stars": 3,
+      "title": "Transizione Due Cavalli → medio gioco",
+      "idea": "A questo punto le varianti si allargano. Concetto chiave: sviluppo rapido e re al sicuro, perché la struttura è già sbilanciata.",
+      "moves": [
+        {
+          "san": "bxc6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Ripresa naturale: Nero apre la colonna b e ottiene centro/linee per i pezzi.",
+          "leadsTo": "italian_twoknights_after_7...bxc6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_7...bxc6": {
+      "id": "italian_twoknights_after_7...bxc6",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/p4ppp/2p2n2/nB2p1N1/8/8/PPPP1PPP/RNBQK2R w KQkq - 0 8",
+      "turn": "w",
+      "stars": 3,
+      "title": "Struttura asimmetrica: bxc6",
+      "idea": "Struttura tipica: Nero ha pedoni doppiati in c, ma linee aperte e gioco attivo. Bianco: sfrutta tempi e sicurezza del re.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_blackburne_after_3...Nd4": {
+      "id": "italian_blackburne_after_3...Nd4",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/pppp1ppp/8/4p3/2BnP3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Blackburne Shilling: 3...Nd4 (idea-trappola)",
+      "idea": "Nero provoca tattiche e spera in errori (es. Nxe5?). La lezione: non farti trascinare in tattiche senza sviluppo; rispondi con mosse solide.",
+      "moves": [
+        {
+          "san": "Nxd4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "La risposta più semplice: elimini il cavallo avanzato e togli l’idea-trappola.",
+          "leadsTo": "italian_blackburne_after_4_Nxd4"
+        },
+        {
+          "san": "c3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Scacci il cavallo e costruisci il centro, ma occhio a tempi/tattiche se lasci il cavallo su d4 troppo a lungo."
+        },
+        {
+          "san": "Nxe5",
+          "kind": "typical_error",
+          "stars": 3,
+          "why": "Greedy: spesso cade in trappole tattiche. Idea chiave: non prendere pedoni/pezzi se non hai calcolato le conseguenze."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_blackburne_after_4_Nxd4": {
+      "id": "italian_blackburne_after_4_Nxd4",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/pppp1ppp/8/4p3/2BNP3/8/PPPP1PPP/RNBQK2R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "Neutralizzata l’idea-trappola",
+      "idea": "Hai spento la tattica: ora completa sviluppo e gioca una partita 'normale'.",
+      "moves": [
+        {
+          "san": "exd4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Ripresa naturale: Nero riprende e ottiene un centro aperto. Ora sviluppo e sicurezza contano più di tutto.",
+          "leadsTo": "italian_blackburne_after_4...exd4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_blackburne_after_4...exd4": {
+      "id": "italian_blackburne_after_4...exd4",
+      "openingId": "italian",
+      "fen": "r1bqkbnr/pppp1ppp/8/8/2BpP3/8/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Dopo ...exd4",
+      "idea": "Struttura aperta: Bianco spesso continua con d3/c3 e arrocco. Focus: sviluppo fluido e non inseguire trucchi.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_evans_after_4_b4": {
+      "id": "italian_evans_after_4_b4",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/2b1p3/1PB1P3/5N2/P1PP1PPP/RNBQK2R b KQkq b3 0 4",
+      "turn": "b",
+      "stars": 5,
+      "title": "Gambetto Evans: 4.b4",
+      "idea": "Idea: sacrificare un pedone per guadagnare tempi contro l’alfiere c5 e costruire un attacco con sviluppo rapidissimo.",
+      "moves": [
+        {
+          "san": "Bxb4",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Accettato: Nero prende il pedone. Ora Bianco deve usare i tempi per sviluppo e centro.",
+          "leadsTo": "italian_evans_after_4...Bxb4"
+        },
+        {
+          "san": "Bb6",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Declinato: Nero evita di prendere. Bianco spesso ottiene spazio e sviluppo comodo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "c3+d4 per un centro enorme",
+          "O-O e Re1 con pressione centrale",
+          "Attacco rapido sul re se Nero perde tempi"
+        ],
+        "b": [
+          "Accettare e consolidare: ...Bxb4, ...Ba5, ...d6",
+          "Restituire il pedone al momento giusto per completare sviluppo"
+        ]
+      }
+    },
+    "italian_evans_after_4...Bxb4": {
+      "id": "italian_evans_after_4...Bxb4",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/5N2/P1PP1PPP/RNBQK2R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 5,
+      "title": "Evans accettato",
+      "idea": "Bianco ora deve giocare 'con i tempi': caccia l’alfiere e costruisce il centro.",
+      "moves": [
+        {
+          "san": "c3",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Caccia l’alfiere e prepara d4 con enorme effetto sul centro.",
+          "leadsTo": "italian_evans_after_5_c3"
+        },
+        {
+          "san": "a3",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Più lento: preferisci immediatamente c3 per guadagnare tempo sull’alfiere."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_evans_after_5_c3": {
+      "id": "italian_evans_after_5_c3",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/4p3/1bB1P3/2P2N2/P2P1PPP/RNBQK2R b KQkq - 0 5",
+      "turn": "b",
+      "stars": 5,
+      "title": "Evans: guadagno di tempo",
+      "idea": "Nero deve scegliere dove ritirare l’alfiere. Bianco mira a d4 e sviluppo rapidissimo.",
+      "moves": [
+        {
+          "san": "Ba5",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Ritiro tipico: mantieni l’alfiere sulla diagonale.",
+          "leadsTo": "italian_evans_after_5...Ba5"
+        },
+        {
+          "san": "Be7",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Ritiro più passivo: spesso concede più iniziativa a Bianco."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_evans_after_5...Ba5": {
+      "id": "italian_evans_after_5...Ba5",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/b3p3/2B1P3/2P2N2/P2P1PPP/RNBQK2R w KQkq - 1 6",
+      "turn": "w",
+      "stars": 5,
+      "title": "Evans: pronto per il centro",
+      "idea": "Ora la spinta d4 è il cuore del gambetto: apri linee mentre Nero è in ritardo di sviluppo.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Break centrale: trasformi il pedone sacrificato in linee aperte e iniziativa.",
+          "leadsTo": "italian_evans_after_6_d4"
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Sicuro, ma spesso in Evans vuoi subito aprire il centro se i pezzi lo sostengono."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_evans_after_6_d4": {
+      "id": "italian_evans_after_6_d4",
+      "openingId": "italian",
+      "fen": "r1bqk1nr/pppp1ppp/2n5/b3p3/2BPP3/2P2N2/P4PPP/RNBQK2R b KQkq d3 0 6",
+      "turn": "b",
+      "stars": 5,
+      "title": "Evans: transizione verso attacco",
+      "idea": "Da qui le varianti sono ampie. Il concetto chiave resta: sviluppo rapido + centro aperto = iniziativa. Senza engine, valuta sempre tempi e sicurezza del re.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "ruy_root": {
+      "id": "ruy_root",
+      "openingId": "ruy_lopez",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Ruy Lopez (Spagnola): nasce da 1.e4 e5 2.Nf3 Nc6 3.Bb5. Idea chiave: pressione sul cavallo c6 (che difende e5) e partita spesso più manovrata dell’Italiana.",
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Avvii i giochi aperti. La Spagnola nasce dopo ...e5 e ...Nc6.",
+          "leadsTo": "ruy_after_1_e4"
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Buona, ma porta a strutture di Donna. Qui stai costruendo un repertorio e4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Sviluppo + arrocco",
+          "Pressione su e5 (Re1, c3, d4 al momento giusto)",
+          "Possibile gioco lungo/manovrato"
+        ],
+        "b": [
+          "Sostenere e5 e guadagnare spazio con ...a6 e ...b5",
+          "Sviluppo armonico (...Nf6, ...Be7, ...O-O)",
+          "Controgioco al centro (...d5 o ...c5)"
+        ]
+      }
+    },
+    "ruy_after_1_e4": {
+      "id": "ruy_after_1_e4",
+      "openingId": "ruy_lopez",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.e4",
+      "idea": "Per entrare in Spagnola, Nero risponde con ...e5 e mantiene un gioco aperto e simmetrico.",
+      "moves": [
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Centro simmetrico: la Spagnola nasce proprio da qui.",
+          "leadsTo": "ruy_after_1...e5"
+        },
+        {
+          "san": "c5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Siciliana: ottima ma cambia completamente piani/strutture."
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Francese: struttura più chiusa."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_1...e5": {
+      "id": "ruy_after_1...e5",
+      "openingId": "ruy_lopez",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo 1...e5",
+      "idea": "Bianco sviluppa con tempo utile: Nf3 attacca e5 e prepara Bb5.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppi e attacchi e5. È la porta d’ingresso a Spagnola/Italiana/Scotch.",
+          "leadsTo": "ruy_after_2_Nf3"
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Porta verso Italiana, non Spagnola."
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Porta verso Center Game / Scotch dopo ...exd4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_2_Nf3": {
+      "id": "ruy_after_2_Nf3",
+      "openingId": "ruy_lopez",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 2.Nf3",
+      "idea": "La risposta più naturale è ...Nc6: difendi e5 e sviluppi.",
+      "moves": [
+        {
+          "san": "Nc6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo modello: difendi e5 e controlli d4.",
+          "leadsTo": "ruy_after_2...Nc6"
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Petrov: ottima ma è un altro percorso."
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Philidor: più solida/passiva."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_2...Nc6": {
+      "id": "ruy_after_2...Nc6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/4p3/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Scelta dell’alfiere",
+      "idea": "Ora Bianco decide: Bb5 (Spagnola), Bc4 (Italiana), d4 (Scotch).",
+      "moves": [
+        {
+          "san": "Bb5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Spagnola: pin sul cavallo c6 e pressione indiretta su e5. Spesso porta a partite manovrate.",
+          "leadsTo": "ruy_after_3_Bb5"
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Italiana: attacco su f7 e idee più dirette."
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Scotch: rottura centrale immediata."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_3_Bb5": {
+      "id": "ruy_after_3_Bb5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/pppp1ppp/2n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Spagnola: nodo chiave",
+      "idea": "Nero di solito gioca ...a6 per chiedere alfiere e guadagnare spazio. Alternative: ...Nf6 (Berlin), ...d6 (Steinitz), ...Bc5 (Classica).",
+      "moves": [
+        {
+          "san": "a6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Difesa Morphy: guadagni spazio e inizi a decidere la struttura con ...b5.",
+          "leadsTo": "ruy_after_3...a6"
+        },
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Berlin: linea molto solida con finali/manovre tipiche. Richiede studio (⭐⭐⭐).",
+          "leadsTo": "ruy_berlin_after_3...Nf6"
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Steinitz: più chiusa, concede spazio ma è solida."
+        },
+        {
+          "san": "Bc5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Classica: sviluppo rapido, ma meno comune della Morphy."
+        },
+        {
+          "san": "f6",
+          "kind": "typical_error",
+          "stars": 3,
+          "why": "Indebolisce e6/g6 e non sviluppa. Idea chiave: non difendere e5 creando buchi e perdendo tempi."
+        },
+        {
+          "san": "f5",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Schliemann/Jaenisch: scelta aggressiva (⭐⭐⭐⭐⭐), cambia carattere della partita."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_3...a6": {
+      "id": "ruy_after_3...a6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/1ppp1ppp/p1n5/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo 3...a6",
+      "idea": "Bianco decide: ritirare (Ba4) per mantenere pressione, oppure cambiare (Bxc6) per entrare nell’Exchange Variation.",
+      "moves": [
+        {
+          "san": "Ba4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ritiro standard: mantieni il tema di pressione e conservi l’alfiere attivo.",
+          "leadsTo": "ruy_after_4_Ba4"
+        },
+        {
+          "san": "Bxc6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Exchange Variation: cambi il cavallo difensore e accetti una struttura diversa. Piano spesso più 'tecnico'.",
+          "leadsTo": "ruy_exchange_after_4_Bxc6"
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Trasposizione verso schemi più italiani (meno tipico della Spagnola)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_4_Ba4": {
+      "id": "ruy_after_4_Ba4",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/1ppp1ppp/p1n5/4p3/B3P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 1 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 4.Ba4",
+      "idea": "Nero sviluppa: ...Nf6 attacca e4 e prepara arrocco. A volte ...b5 subito per guadagnare spazio.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: attacchi e4 e prepari arrocco.",
+          "leadsTo": "ruy_after_4...Nf6"
+        },
+        {
+          "san": "b5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Guadagni spazio e chiedi all’alfiere di scegliere (Bb3). Spesso segue ...Nf6.",
+          "leadsTo": "ruy_after_4...b5"
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Più solido/chiuso."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_4...b5": {
+      "id": "ruy_after_4...b5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/2pp1ppp/p1n5/1p2p3/B3P3/5N2/PPPP1PPP/RNBQK2R w KQkq b6 0 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Spazio sul lato di Donna: ...b5",
+      "idea": "Nero guadagna spazio e spesso segue con ...Nf6 e ...Be7. Bianco di solito va in Bb3.",
+      "moves": [
+        {
+          "san": "Bb3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ritiro naturale: mantieni l’alfiere sulla diagonale a2–g8.",
+          "leadsTo": "ruy_after_5_Bb3_from_b5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_5_Bb3_from_b5": {
+      "id": "ruy_after_5_Bb3_from_b5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/2pp1ppp/p1n5/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQK2R b KQkq - 1 5",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo ...b5 e Bb3",
+      "idea": "Struttura tipica Morphy: Nero sviluppa ...Nf6 e ...Be7, Bianco arrocca e prepara Re1/c3/d4.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo standard: attacchi e4 e prepari arrocco.",
+          "leadsTo": "ruy_after_5...Nf6_via_b5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_5...Nf6_via_b5": {
+      "id": "ruy_after_5...Nf6_via_b5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/2pp1ppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQK2R w KQkq - 2 6",
+      "turn": "w",
+      "stars": 1,
+      "title": "Nodo: Nero attacca e4",
+      "idea": "Bianco di solito arrocca. Poi il gioco è spesso manovrato: Re1, c3, d4 quando pronto.",
+      "moves": [
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Metti il re al sicuro e difendi e4 indirettamente (torre f1 può aiutare).",
+          "leadsTo": "ruy_after_6_O-O_via_b5"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Più chiuso: struttura solida e meno teoria immediata."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_6_O-O_via_b5": {
+      "id": "ruy_after_6_O-O_via_b5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/2pp1ppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQ1RK1 b kq - 3 6",
+      "turn": "b",
+      "stars": 1,
+      "title": "Transizione Morphy (via ...b5)",
+      "idea": "Ora spesso ...Be7 e ...O-O. Piano bianco: Re1, c3, d4 al momento giusto (non forzare).",
+      "moves": [
+        {
+          "san": "Be7",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo standard: prepari arrocco e stabilizzi.",
+          "leadsTo": "ruy_after_6...Be7_via_b5"
+        },
+        {
+          "san": "Nxe4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Open Ruy: catturi e4 ma entri in tattiche precise. (⭐⭐⭐)",
+          "leadsTo": "ruy_open_after_6...Nxe4_via_b5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_after_6...Be7_via_b5": {
+      "id": "ruy_after_6...Be7_via_b5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/2ppbppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQ1RK1 w kq - 4 7",
+      "turn": "w",
+      "stars": 1,
+      "title": "Closed Ruy: impostare il piano",
+      "idea": "Ora Bianco spesso gioca Re1; Nero arrocca e poi decide ...d6, ...b4, ...Na5, ...c5. È una scuola di manovre.",
+      "moves": [
+        {
+          "san": "Re1",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Difendi e4 e prepari d4. Metti una torre su una colonna centrale.",
+          "leadsTo": "ruy_closed_after_7_Re1"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sistema più tranquillo (simile a Pianissimo)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_closed_after_7_Re1": {
+      "id": "ruy_closed_after_7_Re1",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/2ppbppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQR1K1 b kq - 5 7",
+      "turn": "b",
+      "stars": 1,
+      "title": "Closed Ruy: Re1",
+      "idea": "Idea chiave: consolidare e4 e scegliere quando aprire con d4. Nero spesso risponde con ...O-O e poi ...d6.",
+      "moves": [
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Re al sicuro: ora entrambi possono iniziare le manovre tipiche.",
+          "leadsTo": "ruy_closed_after_7...O-O"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_closed_after_7...O-O": {
+      "id": "ruy_closed_after_7...O-O",
+      "openingId": "ruy_lopez",
+      "fen": "r1bq1rk1/2ppbppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQR1K1 w - - 6 8",
+      "turn": "w",
+      "stars": 3,
+      "title": "Closed Ruy: struttura e piani (⭐⭐⭐)",
+      "idea": "Struttura tipica: centro stabile e manovre. Bianco: c3, h3, d4 quando pronto. Nero: ...d6, ...Na5, ...c5 o ...Re8 e ...Bf8. Non è 'memoria', è *piano*.",
+      "moves": [
+        {
+          "san": "c3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Prepari d4 in modo solido: prima costruisci, poi rompi.",
+          "leadsTo": "ruy_closed_after_8_c3"
+        },
+        {
+          "san": "h3",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Mossa di 'profilassi' avanzata: impedisci ...Bg4 e prepari manovre."
+        },
+        {
+          "san": "d4",
+          "kind": "typical_error",
+          "stars": 3,
+          "why": "Spesso troppo presto: se rompi senza supporto, puoi perdere e4 o subire tattiche. Prima c3/Re1."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "c3 per supportare d4",
+          "h3 per togliere ...Bg4",
+          "Manovre: Nbd2-f1-g3, a4 per fermare ...b4"
+        ],
+        "b": [
+          "...d6 e ...Re8 per sostenere e5",
+          "...Na5 per colpire Bb3",
+          "...c5 per controgioco al centro/lato di Donna"
+        ]
+      }
+    },
+    "ruy_closed_after_8_c3": {
+      "id": "ruy_closed_after_8_c3",
+      "openingId": "ruy_lopez",
+      "fen": "r1bq1rk1/2ppbppp/p1n2n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 b - - 0 8",
+      "turn": "b",
+      "stars": 3,
+      "title": "Closed Ruy: pronto per d4",
+      "idea": "Ora la rottura d4 è più realistica perché i pezzi sostengono il centro. A ⭐⭐⭐⭐⭐ aggiungerai rami come ...d6 e ...Na5 con manovre lunghe.",
+      "moves": [
+        {
+          "san": "d6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Consolidi e5 e prepari ...Re8 / ...Na5. È un classico.",
+          "leadsTo": "ruy_closed_after_8...d6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_closed_after_8...d6": {
+      "id": "ruy_closed_after_8...d6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bq1rk1/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 w - - 0 9",
+      "turn": "w",
+      "stars": 5,
+      "title": "Closed Ruy (⭐⭐⭐⭐⭐): manovre tipiche",
+      "idea": "Qui l’apertura diventa 'scuola di scacchi': manovre lente, profilassi, scelta del break d4. Struttura: centro stabile; il gioco si decide su tempi e miglioramenti di pezzi.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "ruy_open_after_6...Nxe4_via_b5": {
+      "id": "ruy_open_after_6...Nxe4_via_b5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/2pp1ppp/p1n5/1p2p3/4n3/1B3N2/PPPP1PPP/RNBQ1RK1 w kq - 0 7",
+      "turn": "w",
+      "stars": 3,
+      "title": "Open Ruy: ...Nxe4 (⭐⭐⭐)",
+      "idea": "Nero prende e4 e accetta tattiche. Bianco di solito risponde con d4 per sfruttare il vantaggio di sviluppo e attaccare il centro.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Colpisci il centro: trasformi tempi in iniziativa e cerchi di recuperare il pedone.",
+          "leadsTo": "ruy_open_after_7_d4"
+        },
+        {
+          "san": "Re1",
+          "kind": "typical_error",
+          "stars": 3,
+          "why": "Troppo lento qui: se non colpisci subito, Nero consolida il pedone e spegne l’iniziativa."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_open_after_7_d4": {
+      "id": "ruy_open_after_7_d4",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/2pp1ppp/p1n5/1p2p3/3Pn3/1B3N2/PPP2PPP/RNBQ1RK1 b kq d3 0 7",
+      "turn": "b",
+      "stars": 3,
+      "title": "Open Ruy: d4 è il tema",
+      "idea": "Da qui molte continuazioni esistono. Concetto: iniziativa vs pedone. Senza engine, valuta sempre: chi ha tempi di sviluppo e re più sicuro?",
+      "moves": [
+        {
+          "san": "d5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Reazione centrale: Nero contrattacca e prova a neutralizzare l’iniziativa.",
+          "leadsTo": "ruy_open_after_7...d5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_open_after_7...d5": {
+      "id": "ruy_open_after_7...d5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/2p2ppp/p1n5/1p1pp3/3Pn3/1B3N2/PPP2PPP/RNBQ1RK1 w kq d6 0 8",
+      "turn": "w",
+      "stars": 3,
+      "title": "Open Ruy: centro esplosivo",
+      "idea": "È una linea di calcolo. Il punto didattico: quando il centro si apre, tempi e sviluppo contano più della 'memoria'.",
+      "moves": [
+        {
+          "san": "dxe5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Linea tipica per entrare nelle semplificazioni e recuperare materiale/tempi.",
+          "leadsTo": "ruy_open_transition"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_open_transition": {
+      "id": "ruy_open_transition",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/2p2ppp/p1n5/1p1pP3/4n3/1B3N2/PPP2PPP/RNBQ1RK1 b kq - 0 8",
+      "turn": "b",
+      "stars": 3,
+      "title": "Transizione Open Ruy → medio gioco",
+      "idea": "Qui il percorso completo andrebbe molto in profondità. A ⭐⭐⭐⭐⭐ il focus è capire: sviluppo, sicurezza del re e quando semplificare.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "ruy_berlin_after_3...Nf6": {
+      "id": "ruy_berlin_after_3...Nf6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/pppp1ppp/2n2n2/1B2p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 4 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Berlin Defense: 3...Nf6",
+      "idea": "Difesa solidissima. Nero attacca e4 e punta a una struttura robusta; spesso si arriva a finali 'tecnici' con idee chiare.",
+      "moves": [
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Scelta principale: metti il re al sicuro e chiedi a Nero come gestire e4.",
+          "leadsTo": "ruy_berlin_after_4_O-O"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Anti-Berlin: eviti la teoria e giochi una struttura più tranquilla."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_berlin_after_4_O-O": {
+      "id": "ruy_berlin_after_4_O-O",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/pppp1ppp/2n2n2/1B2p3/4P3/5N2/PPPP1PPP/RNBQ1RK1 b kq - 5 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "Berlin: dopo 4.O-O",
+      "idea": "Nero spesso cattura e4: ...Nxe4. Il concetto: accetti una semplificazione e giochi su struttura/tempi.",
+      "moves": [
+        {
+          "san": "Nxe4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Berlin main: Nero prende e4 e invita Bianco a dimostrare l’iniziativa.",
+          "leadsTo": "ruy_berlin_after_4...Nxe4"
+        },
+        {
+          "san": "Be7",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Linee più tranquille: meno teoriche."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_berlin_after_4...Nxe4": {
+      "id": "ruy_berlin_after_4...Nxe4",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/pppp1ppp/2n5/1B2p3/4n3/5N2/PPPP1PPP/RNBQ1RK1 w kq - 0 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Berlin: pedone e4 preso",
+      "idea": "Bianco di solito spinge d4 per colpire il cavallo e aprire linee. Il punto non è 'trovare la mossa': è capire che d4 crea tempi.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Colpisci il centro e guadagni tempo sul cavallo in e4.",
+          "leadsTo": "ruy_berlin_after_5_d4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_berlin_after_5_d4": {
+      "id": "ruy_berlin_after_5_d4",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/pppp1ppp/2n5/1B2p3/3Pn3/5N2/PPP2PPP/RNBQ1RK1 b kq d3 0 5",
+      "turn": "b",
+      "stars": 5,
+      "title": "Berlin (⭐⭐⭐⭐⭐): concetti di finale",
+      "idea": "Berlin spesso porta a strutture semplificate. A questo livello studi: coppia degli alfieri, struttura pedonale, re attivo nel finale, e quando cambiare le donne.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "ruy_exchange_after_4_Bxc6": {
+      "id": "ruy_exchange_after_4_Bxc6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/1ppp1ppp/p1B5/4p3/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "Exchange Variation: 4.Bxc6",
+      "idea": "Bianco cambia il cavallo che difende e5. Idea chiave: semplificazione e vantaggio strutturale (a volte) più che attacco diretto.",
+      "moves": [
+        {
+          "san": "dxc6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Recapture tipica: mantieni struttura solida e apri la diagonale dell’alfiere c8.",
+          "leadsTo": "ruy_exchange_after_4...dxc6"
+        },
+        {
+          "san": "bxc6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Alternativa: apre la colonna b e cambia la struttura sul lato di Donna."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_exchange_after_4...dxc6": {
+      "id": "ruy_exchange_after_4...dxc6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/1pp2ppp/p1p5/4p3/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Struttura Exchange",
+      "idea": "Struttura: Nero ha un pedone su c6 che sostiene d5; Bianco spesso mira a d4 e a un finale leggermente più 'pulito'.",
+      "moves": [
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo e sicurezza prima: poi d4 per colpire e5 e ottenere spazio.",
+          "leadsTo": "ruy_exchange_after_5_O-O"
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "È un’idea chiave, ma spesso prima metti in sicurezza il re."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_exchange_after_5_O-O": {
+      "id": "ruy_exchange_after_5_O-O",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkbnr/1pp2ppp/p1p5/4p3/4P3/5N2/PPPP1PPP/RNBQ1RK1 b kq - 1 5",
+      "turn": "b",
+      "stars": 5,
+      "title": "Exchange (⭐⭐⭐⭐⭐): piani tipici",
+      "idea": "Piani: Bianco cerca un vantaggio nel finale/struttura; Nero cerca attivazione degli alfieri e controgioco al centro. Qui la crescita è capire quali cambi favoriscono chi.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_root": {
+      "id": "sicilian_root",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Siciliana: 1.e4 c5. Idea chiave: asimmetria. Nero non risponde 'specchio' (...e5) ma crea una struttura sbilanciata e gioco su colonne c/d.",
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Entri nelle Siciliane solo da 1.e4.",
+          "leadsTo": "sicilian_after_1_e4"
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Buona, ma porta a un’altra famiglia (d4)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Sviluppo rapido + controllo d4",
+          "Spinta d4 (Open Sicilian) oppure sistemi anti-siciliani",
+          "Spesso attacco sul re se Nero arrocca corto"
+        ],
+        "b": [
+          "Pressione su d4",
+          "Controgioco sul lato di Donna (…a6/…b5) o centro (…d5/…e5)",
+          "Gestire tempi: sviluppo prima di inseguire pedoni"
+        ]
+      }
+    },
+    "sicilian_after_1_e4": {
+      "id": "sicilian_after_1_e4",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.e4",
+      "idea": "Nero sceglie l’asimmetria con ...c5: combattimento per d4 e controgioco immediato.",
+      "moves": [
+        {
+          "san": "c5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Siciliana: asimmetria e lotta per d4.",
+          "leadsTo": "sicilian_after_1...c5"
+        },
+        {
+          "san": "e5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Porta ai giochi aperti (Italiana/Spagnola)."
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Francese: struttura più chiusa."
+        },
+        {
+          "san": "c6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Caro-Kann: solida."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_1...c5": {
+      "id": "sicilian_after_1...c5",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/8/PPPP1PPP/RNBQKBNR w KQkq c6 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Siciliana: primo bivio",
+      "idea": "Bianco decide: Open Sicilian (Nf3 + d4) oppure Anti-Siciliane (c3, Bb5+, Nc3...).",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Mossa 'principale': sviluppi e prepari d4 (Open Sicilian).",
+          "leadsTo": "sicilian_after_2_Nf3"
+        },
+        {
+          "san": "c3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Alapin: anti-siciliana solida, punta a d4 senza concedere ...cxd4 con tempo.",
+          "leadsTo": "sicilian_alapin_after_2_c3"
+        },
+        {
+          "san": "Nc3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Siciliana chiusa: partita più manovrata, meno teoria di open lines."
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Bowdler: sviluppo rapido, ma spesso concede a Nero un gioco comodo se difende con calma."
+        },
+        {
+          "san": "Qh5",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Regina troppo presto: perdi tempi e spesso aiuti lo sviluppo nero."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_2_Nf3": {
+      "id": "sicilian_after_2_Nf3",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Preparare d4",
+      "idea": "Nero decide la 'variante siciliana' con ...d6, ...Nc6 o ...e6. Qui scegliamo ...d6 come strada più comune.",
+      "moves": [
+        {
+          "san": "d6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Struttura classica: controlli e5 e prepari ...Nf6 e (spesso) ...a6 o ...g6.",
+          "leadsTo": "sicilian_after_2...d6"
+        },
+        {
+          "san": "Nc6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Linee con ...Nc6 (Classical/Sveshnikov/Rossolimo). Qui lo usiamo per entrare nel Rossolimo con Bb5.",
+          "leadsTo": "sicilian_rossolimo_after_2...Nc6"
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Taimanov/Kan: struttura con ...e6 e spesso ...a6 o ...Nc6."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_2...d6": {
+      "id": "sicilian_after_2...d6",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "...d6: struttura di base",
+      "idea": "Ora l’idea principale è 3.d4: apri il centro e combatti per le case centrali. È la strada per capire davvero la Siciliana.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Open Sicilian: sacrifichi temporaneamente un pedone per sviluppo e controllo del centro.",
+          "leadsTo": "sicilian_after_3_d4"
+        },
+        {
+          "san": "Bb5+",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Moscow: sviluppo con scacco. Eviti alcune linee Open e studi struttura/idee.",
+          "leadsTo": "sicilian_moscow_after_3_Bb5+"
+        },
+        {
+          "san": "c3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Alapin con trasposizione: struttura più 'posizionale'."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_3_d4": {
+      "id": "sicilian_after_3_d4",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pppp/3p4/2p5/3PP3/5N2/PPP2PPP/RNBQKB1R b KQkq d3 0 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Open Sicilian: 3.d4",
+      "idea": "Nero quasi sempre cattura: ...cxd4. Così nasce la struttura tipica con colonne semi-aperte.",
+      "moves": [
+        {
+          "san": "cxd4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Accetti lo scontro centrale e apri linee. È la risposta standard.",
+          "leadsTo": "sicilian_after_3...cxd4"
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Rara come move order: di solito prima catturi su d4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_3...cxd4": {
+      "id": "sicilian_after_3...cxd4",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pppp/3p4/8/3pP3/5N2/PPP2PPP/RNBQKB1R w KQkq - 0 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo ...cxd4",
+      "idea": "Bianco recupera con un pezzo: Nxd4 è la ripresa più naturale (sviluppi con tempo).",
+      "moves": [
+        {
+          "san": "Nxd4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ripresa modello: sviluppi e controlli il centro.",
+          "leadsTo": "sicilian_after_4_Nxd4"
+        },
+        {
+          "san": "Qxd4",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Regina troppo presto: diventa bersaglio e perdi tempi."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_4_Nxd4": {
+      "id": "sicilian_after_4_Nxd4",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pppp/3p4/8/3NP3/8/PPP2PPP/RNBQKB1R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Nodo: Nero sviluppa con tempo",
+      "idea": "La mossa tipica è ...Nf6: attacchi e4 e continui sviluppo. Poi Bianco spesso gioca Nc3.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: pressione su e4 e controllo del centro.",
+          "leadsTo": "sicilian_after_4...Nf6"
+        },
+        {
+          "san": "g6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Accelerated Dragon: sviluppo fianchetto, struttura diversa.",
+          "leadsTo": "sicilian_accdragon_after_4...g6"
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Schemi con ...e6: struttura più flessibile."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_4...Nf6": {
+      "id": "sicilian_after_4...Nf6",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/pp2pppp/3p1n2/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 1 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo ...Nf6",
+      "idea": "Bianco difende e4 e controlla d5 con Nc3. Da qui Nero sceglie il 'tipo' di Siciliana: Najdorf (...a6) o Dragon (...g6) sono le più famose.",
+      "moves": [
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: sostieni e4 e prepari piani (Be3/Bg5/Be2).",
+          "leadsTo": "sicilian_after_5_Nc3"
+        },
+        {
+          "san": "Bd3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sviluppo, ma meno flessibile rispetto a Nc3 (non controlli d5 allo stesso modo)."
+        },
+        {
+          "san": "f3",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Idea avanzata (English/Yugoslav): supportare e4 e preparare attacco sul re."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_after_5_Nc3": {
+      "id": "sicilian_after_5_Nc3",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/pp2pppp/3p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 2 5",
+      "turn": "b",
+      "stars": 3,
+      "title": "Open Sicilian: scelta della struttura (⭐⭐⭐)",
+      "idea": "Ora Nero decide: Najdorf (...a6), Dragon (...g6), Scheveningen (...e6). Ogni scelta cambia i piani tipici.",
+      "moves": [
+        {
+          "san": "a6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Najdorf: prepara ...b5 e spesso ...e5. Controgioco lato di Donna + flessibilità.",
+          "leadsTo": "sicilian_najdorf_after_5...a6"
+        },
+        {
+          "san": "g6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Dragon: fianchetto e pressione sulla diagonale a1–h8. Spesso partite a rovesciamento d’ala.",
+          "leadsTo": "sicilian_dragon_after_5...g6"
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Scheveningen: struttura con ...e6 e ...d6, solida ma dinamica.",
+          "leadsTo": "sicilian_schev_after_5...e6"
+        },
+        {
+          "san": "Nc6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Classical: sviluppo e pressione su d4/e5."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_najdorf_after_5...a6": {
+      "id": "sicilian_najdorf_after_5...a6",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6",
+      "turn": "w",
+      "stars": 3,
+      "title": "Najdorf: 5...a6",
+      "idea": "Najdorf = flessibilità. Nero prepara ...b5 e spesso ...e5. Bianco sceglie un piano: Be3 (English Attack), Bg5 (pressure), Be2 (Classical).",
+      "moves": [
+        {
+          "san": "Be3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "English Attack: sviluppo + idea f3/Qd2 e spesso arrocco lungo → attacco sul re.",
+          "leadsTo": "sicilian_najdorf_after_6_Be3"
+        },
+        {
+          "san": "Bg5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Piani di pressione: metti un pezzo attivo e spesso punti al controllo di d5.",
+          "leadsTo": "sicilian_najdorf_after_6_Bg5"
+        },
+        {
+          "san": "Be2",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Classical: arrocco corto e partita più 'posizionale'."
+        },
+        {
+          "san": "f4",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Attacco rapido (tattico): richiede buon timing per non indebolire troppo il re."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_najdorf_after_6_Be3": {
+      "id": "sicilian_najdorf_after_6_Be3",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/1p2pppp/p2p1n2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6",
+      "turn": "b",
+      "stars": 3,
+      "title": "Najdorf: English Attack setup",
+      "idea": "Bianco punta a costruire un attacco con f3, Qd2 e spesso O-O-O. Nero di solito risponde con ...e6 e sviluppo rapido.",
+      "moves": [
+        {
+          "san": "e6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Mossa classica: apri la diagonale dell’alfiere f8 e controlli d5.",
+          "leadsTo": "sicilian_najdorf_after_6...e6"
+        },
+        {
+          "san": "b5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Controgioco immediato sul lato di Donna. Spesso dopo ...e6 o in parallelo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_najdorf_after_6...e6": {
+      "id": "sicilian_najdorf_after_6...e6",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 0 7",
+      "turn": "w",
+      "stars": 5,
+      "title": "Najdorf (⭐⭐⭐⭐⭐): scelta del piano",
+      "idea": "Decision point: Bianco spesso decide tra (A) f3/Qd2/O-O-O (attacco), (B) Be2/O-O (più solido). Nero: ...Be7, ...b5, ...Bb7, break ...d5 o ...e5.",
+      "moves": [
+        {
+          "san": "f3",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "English Attack: supporti e4, prepari g4 e arrocco lungo (spesso).",
+          "leadsTo": "sicilian_najdorf_after_7_f3"
+        },
+        {
+          "san": "Be2",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Linee più solide: arrocco corto, controllo del centro, partita strategica."
+        },
+        {
+          "san": "Qd2",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Spesso accompagna f3: prepara O-O-O e connette i pezzi."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_najdorf_after_7_f3": {
+      "id": "sicilian_najdorf_after_7_f3",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/1p3ppp/p2ppn2/8/3NP3/2N1BP2/PPP3PP/R2QKB1R b KQkq - 0 7",
+      "turn": "b",
+      "stars": 5,
+      "title": "English Attack: struttura tipica",
+      "idea": "Struttura: Bianco costruisce attacco sul re (g4/h4, O-O-O); Nero spinge sul lato di Donna (...b5, ...b4) e cerca break centrali (...d5). È 'corsa' tra ali.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_najdorf_after_6_Bg5": {
+      "id": "sicilian_najdorf_after_6_Bg5",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/1p2pppp/p2p1n2/6B1/3NP3/2N5/PPP2PPP/R2QKB1R b KQkq - 1 6",
+      "turn": "b",
+      "stars": 3,
+      "title": "Najdorf: 6.Bg5",
+      "idea": "Piano: pressione sul cavallo f6 e controllo di d5. Nero spesso risponde con ...e6 e ...Be7, oppure con ...Nbd7.",
+      "moves": [
+        {
+          "san": "e6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo e controllo: prepara ...Be7 e arrocco.",
+          "leadsTo": "sicilian_najdorf_bg5_after_6...e6"
+        },
+        {
+          "san": "Nbd7",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Solido: sostieni f6 e prepari ...e5 o ...e6."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_najdorf_bg5_after_6...e6": {
+      "id": "sicilian_najdorf_bg5_after_6...e6",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/1p3ppp/p2ppn2/6B1/3NP3/2N5/PPP2PPP/R2QKB1R w KQkq - 0 7",
+      "turn": "w",
+      "stars": 5,
+      "title": "Najdorf Bg5 (⭐⭐⭐⭐⭐): piani",
+      "idea": "Concetto avanzato: capire quando cambiare su f6, quando spingere f4, e come rispondere al controgioco ...b5/...Bb7. Molte partite ruotano attorno alla casa d5.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_dragon_after_5...g6": {
+      "id": "sicilian_dragon_after_5...g6",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/pp2pp1p/3p1np1/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6",
+      "turn": "w",
+      "stars": 3,
+      "title": "Dragon: 5...g6",
+      "idea": "Fianchetto: Nero punta sulla diagonale a1–h8 e controgioco sul lato di Donna. Bianco spesso sceglie l’attacco Yugoslav con Be3/Qd2/f3.",
+      "moves": [
+        {
+          "san": "Be3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Yugoslav setup: sviluppi e prepari Qd2 e attacco sul re.",
+          "leadsTo": "sicilian_dragon_after_6_Be3"
+        },
+        {
+          "san": "g3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Fianchetto: partita più posizionale, meno 'corsa' tra ali."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_dragon_after_6_Be3": {
+      "id": "sicilian_dragon_after_6_Be3",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/pp2pp1p/3p1np1/8/3NP3/2N1B3/PPP2PPP/R2QKB1R b KQkq - 1 6",
+      "turn": "b",
+      "stars": 3,
+      "title": "Dragon: Be3",
+      "idea": "Nero completa il fianchetto con ...Bg7. Poi Bianco spesso gioca Qd2 e f3.",
+      "moves": [
+        {
+          "san": "Bg7",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Completi il fianchetto e prepari arrocco.",
+          "leadsTo": "sicilian_dragon_after_6...Bg7"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_dragon_after_6...Bg7": {
+      "id": "sicilian_dragon_after_6...Bg7",
+      "openingId": "sicilian",
+      "fen": "rnbqk2r/pp2ppbp/3p1np1/8/3NP3/2N1B3/PPP2PPP/R2QKB1R w KQkq - 2 7",
+      "turn": "w",
+      "stars": 5,
+      "title": "Dragon (⭐⭐⭐⭐⭐): rovesciamento d’ala",
+      "idea": "Decision point: Bianco spesso gioca Qd2 e O-O-O; Nero risponde con ...O-O e spinta ...Rc8/...b5. Struttura: attacco su ali opposte, centrale spesso bloccato.",
+      "moves": [
+        {
+          "san": "Qd2",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Prepara arrocco lungo e connette le torri.",
+          "leadsTo": "sicilian_dragon_after_7_Qd2"
+        },
+        {
+          "san": "Be2",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Arrocco corto: scelta più prudente, meno rischio ma anche meno iniziativa diretta."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_dragon_after_7_Qd2": {
+      "id": "sicilian_dragon_after_7_Qd2",
+      "openingId": "sicilian",
+      "fen": "rnbqk2r/pp2ppbp/3p1np1/8/3NP3/2N1B3/PPPQ1PPP/R3KB1R b KQkq - 3 7",
+      "turn": "b",
+      "stars": 5,
+      "title": "Yugoslav: pronto per O-O-O",
+      "idea": "Obiettivo didattico: imparare la logica 'castling opposti'. Bianco attacca con h4/h5, g4; Nero spinge ...b5/...b4 e usa colonna c.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_schev_after_5...e6": {
+      "id": "sicilian_schev_after_5...e6",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/pp3ppp/3ppn2/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 0 6",
+      "turn": "w",
+      "stars": 3,
+      "title": "Scheveningen: 5...e6",
+      "idea": "Struttura solida: pedoni su d6 ed e6. Nero controlla d5 e resta flessibile. Bianco spesso sviluppa Be2/Be3 e O-O.",
+      "moves": [
+        {
+          "san": "Be2",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo classico: arrocco corto e pressione centrale.",
+          "leadsTo": "sicilian_schev_after_6_Be2"
+        },
+        {
+          "san": "Be3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Può trasporre verso attacchi più aggressivi."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_schev_after_6_Be2": {
+      "id": "sicilian_schev_after_6_Be2",
+      "openingId": "sicilian",
+      "fen": "rnbqkb1r/pp3ppp/3ppn2/8/3NP3/2N5/PPP1BPPP/R1BQK2R b KQkq - 1 6",
+      "turn": "b",
+      "stars": 5,
+      "title": "Scheveningen (⭐⭐⭐⭐⭐): piani",
+      "idea": "Piani: Bianco spesso arrocca corto e prepara f4/f5; Nero cerca ...Be7, ...O-O, ...Nc6 e break ...d5. Struttura: controllo di d5 è centrale.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_alapin_after_2_c3": {
+      "id": "sicilian_alapin_after_2_c3",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp1ppppp/8/2p5/4P3/2P5/PP1P1PPP/RNBQKBNR b KQkq - 0 2",
+      "turn": "b",
+      "stars": 3,
+      "title": "Alapin: 2.c3 (⭐⭐⭐)",
+      "idea": "Anti-siciliana solida: prepari d4 senza permettere a Nero di guadagnare un tempo con ...cxd4 e ...Nf6 su d4.",
+      "moves": [
+        {
+          "san": "d5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Risposta principale: Nero contesta subito il centro.",
+          "leadsTo": "sicilian_alapin_after_2...d5"
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo: Nero attacca e4 e resta flessibile."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_alapin_after_2...d5": {
+      "id": "sicilian_alapin_after_2...d5",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pppp/8/2pp4/4P3/2P5/PP1P1PPP/RNBQKBNR w KQkq d6 0 3",
+      "turn": "w",
+      "stars": 3,
+      "title": "Alapin: ...d5",
+      "idea": "Ora Bianco spesso gioca exd5 o e5. Idea chiave: decidere la struttura centrale (aperta o chiusa).",
+      "moves": [
+        {
+          "san": "exd5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Apri il centro e costringi Nero a riprendere: partita più 'classica'.",
+          "leadsTo": "sicilian_alapin_after_3_exd5"
+        },
+        {
+          "san": "e5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Centro chiuso: cambi piani e guadagni spazio."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_alapin_after_3_exd5": {
+      "id": "sicilian_alapin_after_3_exd5",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pppp/8/2pP4/8/2P5/PP1P1PPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Alapin: centro aperto",
+      "idea": "Nero di solito riprende con ...Qxd5 o ...Nf6. A livello avanzato studi tempi e sviluppo: la regina fuori presto può essere bersaglio.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_rossolimo_after_2...Nc6": {
+      "id": "sicilian_rossolimo_after_2...Nc6",
+      "openingId": "sicilian",
+      "fen": "r1bqkbnr/pp1ppppp/2n5/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R w KQkq - 2 3",
+      "turn": "w",
+      "stars": 3,
+      "title": "Rossolimo: ...Nc6 (⭐⭐⭐)",
+      "idea": "Invece di ...d6, Nero sviluppa ...Nc6. Bianco può scegliere Bb5 (Rossolimo) per un gioco più strategico e meno 'open theory'.",
+      "moves": [
+        {
+          "san": "Bb5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Rossolimo: sviluppi e metti pressione su c6. Spesso punti a cambiare su c6 e giocare su struttura.",
+          "leadsTo": "sicilian_rossolimo_after_3_Bb5"
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Open Sicilian con move order diversa: molto teorica."
+        },
+        {
+          "san": "c3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Alapin con trasposizione: scelta solida."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_rossolimo_after_3_Bb5": {
+      "id": "sicilian_rossolimo_after_3_Bb5",
+      "openingId": "sicilian",
+      "fen": "r1bqkbnr/pp1ppppp/2n5/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 3 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Rossolimo: 3.Bb5",
+      "idea": "Idea chiave: gioco 'posizionale' con possibili cambi su c6 e struttura nera alterata. Nero spesso risponde con ...g6 o ...e6.",
+      "moves": [
+        {
+          "san": "g6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Fianchetto: struttura tipo Accelerated Dragon ma con Bb5 inserito.",
+          "leadsTo": "sicilian_rossolimo_after_3...g6"
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Struttura flessibile: Taimanov/Kan style."
+        },
+        {
+          "san": "d6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Struttura più classica."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_rossolimo_after_3...g6": {
+      "id": "sicilian_rossolimo_after_3...g6",
+      "openingId": "sicilian",
+      "fen": "r1bqkbnr/pp1ppp1p/2n3p1/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 4",
+      "turn": "w",
+      "stars": 5,
+      "title": "Rossolimo (⭐⭐⭐⭐⭐): struttura e piani",
+      "idea": "Obiettivo: riconoscere la struttura dopo Bxc6 e d4/c3. Bianco spesso gioca c3 e d4 con controllo del centro; Nero cerca controgioco su colonna c e sulla diagonale g7.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_moscow_after_3_Bb5+": {
+      "id": "sicilian_moscow_after_3_Bb5+",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pppp/3p4/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 1 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Moscow: 3.Bb5+ (⭐⭐⭐)",
+      "idea": "Qui il pedone d è già su d6, quindi l’alfiere su b5 *dà davvero scacco*. Nero spesso risponde con ...Nd7 (sviluppo e blocco).",
+      "moves": [
+        {
+          "san": "Nd7",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Risposta tipica: sviluppi e togli lo scacco senza indebolirti troppo.",
+          "leadsTo": "sicilian_moscow_after_3...Nd7"
+        },
+        {
+          "san": "Bd7",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Alternativa: blocchi lo scacco con l’alfiere, ma puoi concedere il cambio e perdere tempo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_moscow_after_3...Nd7": {
+      "id": "sicilian_moscow_after_3...Nd7",
+      "openingId": "sicilian",
+      "fen": "r1bqkbnr/pp1npppp/3p4/1Bp5/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Moscow: ...Nd7",
+      "idea": "Bianco può cambiare su d7 per alterare struttura e ridurre teoria, oppure ritirare l’alfiere e giocare una partita 'normale' di Siciliana.",
+      "moves": [
+        {
+          "san": "Bxd7+",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Cambio tipico: semplifichi e cambi la struttura nera. Ottimo per studiare idee/strutture.",
+          "leadsTo": "sicilian_moscow_after_4_Bxd7+"
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Ritiri la tensione: meno immediato, ma possibile."
+        },
+        {
+          "san": "c3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sistema: costruisci il centro senza entrare in open theory."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_moscow_after_4_Bxd7+": {
+      "id": "sicilian_moscow_after_4_Bxd7+",
+      "openingId": "sicilian",
+      "fen": "r1bqkbnr/pp1Bpppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQK2R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "Moscow: cambio su d7",
+      "idea": "Nero di solito riprende con la regina: ...Qxd7. Tema didattico: regina ricattura = sviluppo rallentato ma struttura più solida.",
+      "moves": [
+        {
+          "san": "Qxd7",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Ripresa più comune: mantieni il re al centro per ora e poi completi sviluppo.",
+          "leadsTo": "sicilian_moscow_after_4...Qxd7"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_moscow_after_4...Qxd7": {
+      "id": "sicilian_moscow_after_4...Qxd7",
+      "openingId": "sicilian",
+      "fen": "r1b1kbnr/pp1qpppp/3p4/2p5/4P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 5,
+      "title": "Moscow (⭐⭐⭐⭐⭐): piani",
+      "idea": "Struttura: spesso si arriva a posizioni più 'posizionali' rispetto all’Open Sicilian. Bianco: sviluppo rapido e d4/c3; Nero: completare sviluppo e cercare controgioco su colonna c.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_accdragon_after_4...g6": {
+      "id": "sicilian_accdragon_after_4...g6",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pp1p/3p2p1/8/3NP3/8/PPP2PPP/RNBQKB1R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Accelerated Dragon: 4...g6",
+      "idea": "Fianchetto con move order diversa. Idea chiave: sviluppo rapido e pressione sulla diagonale a1–h8. Bianco spesso continua con Nc3 e Be3 o c4 (Maroczy).",
+      "moves": [
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo naturale: mantieni opzioni (Be3/c4).",
+          "leadsTo": "sicilian_accdragon_after_5_Nc3"
+        },
+        {
+          "san": "c4",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Maroczy Bind: chiudi l’espansione nera e giochi più strategico. (⭐⭐⭐⭐⭐)",
+          "leadsTo": "sicilian_accdragon_after_5_c4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_accdragon_after_5_Nc3": {
+      "id": "sicilian_accdragon_after_5_Nc3",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pp1p/3p2p1/8/3NP3/2N5/PPP2PPP/R1BQKB1R b KQkq - 1 5",
+      "turn": "b",
+      "stars": 3,
+      "title": "Accelerated Dragon: sviluppo",
+      "idea": "Nero completa spesso con ...Bg7 e ...Nc6. Bianco sceglie: attacco (Be3/Qd2) o controllo (c4).",
+      "moves": [
+        {
+          "san": "Bg7",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Completi il fianchetto.",
+          "leadsTo": "sicilian_accdragon_after_5...Bg7"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "sicilian_accdragon_after_5...Bg7": {
+      "id": "sicilian_accdragon_after_5...Bg7",
+      "openingId": "sicilian",
+      "fen": "rnbqk1nr/pp2ppbp/3p2p1/8/3NP3/2N5/PPP2PPP/R1BQKB1R w KQkq - 2 6",
+      "turn": "w",
+      "stars": 5,
+      "title": "Accelerated Dragon (⭐⭐⭐⭐⭐): piani",
+      "idea": "Piani tipici: Nero cerca ...Nc6 e break ...d5; Bianco può prevenire con c4 (Maroczy) e poi sviluppare con Be3/Be2 e O-O.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "sicilian_accdragon_after_5_c4": {
+      "id": "sicilian_accdragon_after_5_c4",
+      "openingId": "sicilian",
+      "fen": "rnbqkbnr/pp2pp1p/3p2p1/8/2PNP3/8/PP3PPP/RNBQKB1R b KQkq c3 0 5",
+      "turn": "b",
+      "stars": 5,
+      "title": "Maroczy Bind: c4 (⭐⭐⭐⭐⭐)",
+      "idea": "Struttura chiusa: Bianco limita ...d5 e controlla case chiave. Nero cerca controgioco con ...Nc6, ...Bg7, ...a6/…b5 e manovre.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "french_root": {
+      "id": "french_root",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Difesa Francese: 1.e4 e6 2.d4 d5. Idea chiave: struttura più chiusa rispetto a ...e5. Nero mira a colpire il centro bianco (catena) con ...c5 e ...f6.",
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Entri in Francese se Nero risponde ...e6.",
+          "leadsTo": "french_after_1_e4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Spazio al centro (e5/d4 o sviluppo con Nc3)",
+          "Sviluppo armonico e scelta del piano (attacco re o pressione centro)",
+          "Gestire la coppia di alfieri e la cattiva/buona diagonale dell’alfiere c8"
+        ],
+        "b": [
+          "Colpire la base della catena con ...c5 e ...f6",
+          "Liberare l’alfiere c8 (tema 'alfiere cattivo')",
+          "Controgioco su colonne semi-aperte"
+        ]
+      }
+    },
+    "french_after_1_e4": {
+      "id": "french_after_1_e4",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.e4",
+      "idea": "Nero risponde con ...e6: prepara ...d5 e una struttura più chiusa.",
+      "moves": [
+        {
+          "san": "e6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Difesa Francese: struttura e piani specifici.",
+          "leadsTo": "french_after_1...e6"
+        },
+        {
+          "san": "e5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Giochi aperti (Italiana/Spagnola)."
+        },
+        {
+          "san": "c5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Siciliana."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_after_1...e6": {
+      "id": "french_after_1...e6",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pppp1ppp/4p3/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Francese: preparare il centro",
+      "idea": "Bianco gioca d4 per costruire un grande centro. Nero risponde quasi sempre ...d5 per contestarlo.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Centro: imposti la lotta su d4/e5.",
+          "leadsTo": "french_after_2_d4"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "King’s Indian Attack: sistema più 'universale', meno confronto diretto."
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Trasposizioni possibili, ma di solito vuoi d4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_after_2_d4": {
+      "id": "french_after_2_d4",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pppp1ppp/4p3/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3 0 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 2.d4",
+      "idea": "Nero gioca ...d5: la struttura chiave della Francese.",
+      "moves": [
+        {
+          "san": "d5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Contesti il centro e prepari ...c5 e ...f6.",
+          "leadsTo": "french_after_2...d5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_after_2...d5": {
+      "id": "french_after_2...d5",
+      "openingId": "french",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq d6 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Nodo: scegliere la variante (Bianco)",
+      "idea": "Bianco decide la struttura: Advance (e5) → catena chiusa, Classical/Winawer (Nc3) → più teoria, Tarrasch (Nd2) → più flessibile, Exchange (exd5) → semplificazione.",
+      "moves": [
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Advance: guadagni spazio e accetti una partita più strategica/chiusa.",
+          "leadsTo": "french_advance_after_3_e5"
+        },
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Classical/Winawer: varianti principali e molto teoriche.",
+          "leadsTo": "french_classical_after_3_Nc3"
+        },
+        {
+          "san": "Nd2",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Tarrasch: eviti Winawer e giochi piani più 'posizionali'.",
+          "leadsTo": "french_tarrasch_after_3_Nd2"
+        },
+        {
+          "san": "exd5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Exchange: struttura simmetrica e partita più tranquilla.",
+          "leadsTo": "french_exchange_after_3_exd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_advance_after_3_e5": {
+      "id": "french_advance_after_3_e5",
+      "openingId": "french",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3pP3/3P4/8/PPP2PPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Advance: 3.e5",
+      "idea": "Struttura: catena bianca e5–d4. Nero attacca la base con ...c5 e spesso ...f6. Bianco spesso sostiene con c3 e sviluppa pezzi dietro la catena.",
+      "moves": [
+        {
+          "san": "c5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Colpisci subito d4: tema fondamentale della Francese.",
+          "leadsTo": "french_advance_after_3...c5"
+        },
+        {
+          "san": "f6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Break tematico: attacca la base e5. Richiede buon timing (⭐⭐⭐)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_advance_after_3...c5": {
+      "id": "french_advance_after_3...c5",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pp3ppp/4p3/2ppP3/3P4/8/PPP2PPP/RNBQKBNR w KQkq c6 0 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Advance: ...c5",
+      "idea": "Bianco spesso gioca c3 per sostenere d4. La lezione: quando hai una catena, devi sostenere la base e sviluppare dietro di essa.",
+      "moves": [
+        {
+          "san": "c3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sostieni d4 e prepari sviluppo (Bd3, Nf3).",
+          "leadsTo": "french_advance_after_4_c3"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sviluppo, ma se non sostieni d4 rischi di perdere il centro."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_advance_after_4_c3": {
+      "id": "french_advance_after_4_c3",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pp3ppp/4p3/2ppP3/3P4/2P5/PP3PPP/RNBQKBNR b KQkq - 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Advance: costruzione del centro",
+      "idea": "Nero spesso gioca ...Nc6 o ...Qb6 per attaccare d4. Bianco deve sviluppare senza perdere il centro.",
+      "moves": [
+        {
+          "san": "Nc6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo: aumenti pressione su d4/e5.",
+          "leadsTo": "french_advance_after_4...Nc6"
+        },
+        {
+          "san": "Qb6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Attacco tematico su d4/b2: costringi Bianco a decisioni precise. (⭐⭐⭐)",
+          "leadsTo": "french_advance_after_4...Qb6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_advance_after_4...Nc6": {
+      "id": "french_advance_after_4...Nc6",
+      "openingId": "french",
+      "fen": "r1bqkbnr/pp3ppp/2n1p3/2ppP3/3P4/2P5/PP3PPP/RNBQKBNR w KQkq - 1 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Advance: sviluppo e pressione su d4",
+      "idea": "Bianco di solito sviluppa Nf3 e Bd3, e poi decide se spingere dxc5 o mantenere la tensione. Nero cerca break ...f6 e controgioco.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: difendi d4 e prepari arrocco.",
+          "leadsTo": "french_advance_after_5_Nf3"
+        },
+        {
+          "san": "Bd3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sviluppo attivo, ma spesso Nf3 prima è più flessibile."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_advance_after_5_Nf3": {
+      "id": "french_advance_after_5_Nf3",
+      "openingId": "french",
+      "fen": "r1bqkbnr/pp3ppp/2n1p3/2ppP3/3P4/2P2N2/PP3PPP/RNBQKB1R b KQkq - 2 5",
+      "turn": "b",
+      "stars": 3,
+      "title": "Advance (⭐⭐⭐): piani tipici",
+      "idea": "Piani: Bianco spesso attacca sul lato di Re (f4, Bd3, O-O) o cerca spazio; Nero colpisce la base con ...f6 e usa colonna c per controgioco.",
+      "moves": [
+        {
+          "san": "Qb6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Pressione su d4 e b2: costringi Bianco a essere preciso.",
+          "leadsTo": "french_advance_after_5...Qb6"
+        },
+        {
+          "san": "Bd7",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo: prepara ...Qb6 o ...Rc8 e ...cxd4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_advance_after_4...Qb6": {
+      "id": "french_advance_after_4...Qb6",
+      "openingId": "french",
+      "fen": "rnb1kbnr/pp3ppp/1q2p3/2ppP3/3P4/2P5/PP3PPP/RNBQKBNR w KQkq - 1 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Advance: ...Qb6 (⭐⭐⭐)",
+      "idea": "Attacco tematico su d4 e b2. Bianco deve difendere senza perdere tempi (es. Nf3, Bd3, a3/Qb3 a seconda delle linee).",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "french_advance_after_5...Qb6": {
+      "id": "french_advance_after_5...Qb6",
+      "openingId": "french",
+      "fen": "r1b1kbnr/pp3ppp/1qn1p3/2ppP3/3P4/2P2N2/PP3PPP/RNBQKB1R w KQkq - 3 6",
+      "turn": "w",
+      "stars": 5,
+      "title": "Advance (⭐⭐⭐⭐⭐): struttura e rotture",
+      "idea": "Struttura: catena e5–d4. Piani avanzati: Nero cerca ...f6 e pressione su d4; Bianco spesso punta a f4/f5 o a rompere al centro con c4 (se possibile).",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "french_classical_after_3_Nc3": {
+      "id": "french_classical_after_3_Nc3",
+      "openingId": "french",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Classical: 3.Nc3 (⭐⭐⭐)",
+      "idea": "Qui Nero sceglie: Winawer (...Bb4) o Classical (...Nf6). Entrambe sono varianti 'principali'.",
+      "moves": [
+        {
+          "san": "Bb4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Winawer: fissi il cavallo e prepari una struttura molto caratteristica.",
+          "leadsTo": "french_winawer_after_3...Bb4"
+        },
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Classical: sviluppo e pressione su e4.",
+          "leadsTo": "french_classical_nf6_after_3...Nf6"
+        },
+        {
+          "san": "dxe4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Rubinstein: semplifica il centro, partita più tecnica."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_winawer_after_3...Bb4": {
+      "id": "french_winawer_after_3...Bb4",
+      "openingId": "french",
+      "fen": "rnbqk1nr/ppp2ppp/4p3/3p4/1b1PP3/2N5/PPP2PPP/R1BQKBNR w KQkq - 2 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Winawer: 3...Bb4",
+      "idea": "Nero mette pressione su c3 e spesso accetta strutture con pedoni doppiati in c per Bianco. Bianco può scegliere 4.e5 o 4.a3.",
+      "moves": [
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Avanzi e guadagni spazio: struttura chiusa e piani aggressivi.",
+          "leadsTo": "french_winawer_after_4_e5"
+        },
+        {
+          "san": "a3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Chiedi subito la decisione sull’alfiere: struttura diversa, molta teoria."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_winawer_after_4_e5": {
+      "id": "french_winawer_after_4_e5",
+      "openingId": "french",
+      "fen": "rnbqk1nr/ppp2ppp/4p3/3pP3/1b1P4/2N5/PPP2PPP/R1BQKBNR b KQkq - 0 4",
+      "turn": "b",
+      "stars": 5,
+      "title": "Winawer (⭐⭐⭐⭐⭐): struttura",
+      "idea": "Struttura tipica: centro chiuso; Nero cerca break ...c5 e ...f6, Bianco spesso punta a attacco lato di Re e gestione dell’alfiere 'cattivo' nero.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "french_classical_nf6_after_3...Nf6": {
+      "id": "french_classical_nf6_after_3...Nf6",
+      "openingId": "french",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR w KQkq - 2 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Classical: 3...Nf6",
+      "idea": "Nero sviluppa e attacca e4. Bianco spesso spinge e5 oppure sviluppa Bg5.",
+      "moves": [
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Steinitz: guadagni spazio e crei struttura chiusa.",
+          "leadsTo": "french_classical_nf6_after_4_e5"
+        },
+        {
+          "san": "Bg5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Pin e pressione: partita più aperta, molte idee tattiche."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_classical_nf6_after_4_e5": {
+      "id": "french_classical_nf6_after_4_e5",
+      "openingId": "french",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3pP3/3P4/2N5/PPP2PPP/R1BQKBNR b KQkq - 0 4",
+      "turn": "b",
+      "stars": 5,
+      "title": "Classical (⭐⭐⭐⭐⭐): piani su catena",
+      "idea": "Struttura: catena e5–d4. Nero spesso gioca ...Nfd7 e prepara ...c5 e ...f6. Bianco: sviluppo dietro catena e piani sul lato di Re.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "french_tarrasch_after_3_Nd2": {
+      "id": "french_tarrasch_after_3_Nd2",
+      "openingId": "french",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/3PP3/8/PPPN1PPP/R1BQKBNR b KQkq - 1 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Tarrasch: 3.Nd2 (⭐⭐⭐)",
+      "idea": "Eviti Winawer e mantieni il centro flessibile. Nero spesso gioca ...c5 per colpire d4.",
+      "moves": [
+        {
+          "san": "c5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Colpisci il centro: tema costante della Francese.",
+          "leadsTo": "french_tarrasch_after_3...c5"
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo: altre trasposizioni possibili."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_tarrasch_after_3...c5": {
+      "id": "french_tarrasch_after_3...c5",
+      "openingId": "french",
+      "fen": "rnbqkbnr/pp3ppp/4p3/2pp4/3PP3/8/PPPN1PPP/R1BQKBNR w KQkq c6 0 4",
+      "turn": "w",
+      "stars": 5,
+      "title": "Tarrasch (⭐⭐⭐⭐⭐): strutture",
+      "idea": "A questo livello studi strutture come IQP e catene centrali derivanti da exd5/cxd5. L’obiettivo è capire quali cambi favoriscono chi.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "french_exchange_after_3_exd5": {
+      "id": "french_exchange_after_3_exd5",
+      "openingId": "french",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3P4/3P4/8/PPP2PPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Exchange: 3.exd5",
+      "idea": "Struttura simmetrica: riduci teoria e giochi una partita 'classica'. Non è un errore: è una scelta di stile.",
+      "moves": [
+        {
+          "san": "exd5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ripresa naturale: struttura simmetrica e sviluppo armonico.",
+          "leadsTo": "french_exchange_after_3...exd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "french_exchange_after_3...exd5": {
+      "id": "french_exchange_after_3...exd5",
+      "openingId": "french",
+      "fen": "rnbqkbnr/ppp2ppp/8/3p4/3P4/8/PPP2PPP/RNBQKBNR w KQkq - 0 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Exchange (⭐⭐⭐): piani",
+      "idea": "Idea chiave: in strutture simmetriche il vantaggio nasce da tempi e piccoli miglioramenti. Studia sviluppo, rotture ...c5 e c4, e maggioranza pedonale.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "caro_kann_root": {
+      "id": "caro_kann_root",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Caro-Kann: 1.e4 c6 2.d4 d5. Idea chiave: Nero vuole un centro solido e sviluppare l’alfiere c8 'fuori' prima di chiudere con ...e6.",
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Entri in Caro-Kann se Nero risponde ...c6.",
+          "leadsTo": "caro_kann_after_1_e4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Occupare il centro e sviluppare con tempi",
+          "Scegliere struttura: Advance (e5) o Classical (Nc3)",
+          "Sfruttare eventuale ritardo di sviluppo nero"
+        ],
+        "b": [
+          "...d5 subito, struttura solida",
+          "Sviluppare l’alfiere in f5 o g4",
+          "Transizione a un medio gioco solido/endgame-friendly"
+        ]
+      }
+    },
+    "caro_kann_after_1_e4": {
+      "id": "caro_kann_after_1_e4",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.e4",
+      "idea": "Nero gioca ...c6 per preparare ...d5 senza esporre e5 come nei giochi aperti.",
+      "moves": [
+        {
+          "san": "c6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Caro-Kann: prepari ...d5 con struttura solida.",
+          "leadsTo": "caro_kann_after_1...c6"
+        },
+        {
+          "san": "e5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Giochi aperti."
+        },
+        {
+          "san": "c5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Siciliana."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_after_1...c6": {
+      "id": "caro_kann_after_1...c6",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp1ppppp/2p5/8/4P3/8/PPPP1PPP/RNBQKBNR w KQkq - 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Caro-Kann: costruire il centro",
+      "idea": "Bianco quasi sempre gioca d4. Nero risponde ...d5 e nasce la struttura.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Centro: spazio e controllo.",
+          "leadsTo": "caro_kann_after_2_d4"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Trasposizioni, ma d4 è più diretto."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_after_2_d4": {
+      "id": "caro_kann_after_2_d4",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp1ppppp/2p5/8/3PP3/8/PPP2PPP/RNBQKBNR b KQkq d3 0 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 2.d4",
+      "idea": "Nero gioca ...d5: contestazione immediata del centro.",
+      "moves": [
+        {
+          "san": "d5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Struttura Caro-Kann: solida e flessibile.",
+          "leadsTo": "caro_kann_after_2...d5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_after_2...d5": {
+      "id": "caro_kann_after_2...d5",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPP2PPP/RNBQKBNR w KQkq d6 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Scegliere la variante (Bianco)",
+      "idea": "Bianco decide: Classical (Nc3), Modern (Nd2), Advance (e5), Exchange (exd5).",
+      "moves": [
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Classical: spesso porta a ...dxe4 e sviluppo dell’alfiere nero in f5.",
+          "leadsTo": "caro_kann_classical_after_3_Nc3"
+        },
+        {
+          "san": "Nd2",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Modern: simile ma più flessibile, evita alcune linee.",
+          "leadsTo": "caro_kann_modern_after_3_Nd2"
+        },
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Advance: spazio, struttura chiusa. Nero cerca ...c5 e ...Bf5.",
+          "leadsTo": "caro_kann_advance_after_3_e5"
+        },
+        {
+          "san": "exd5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Exchange: struttura simmetrica, partita più tranquilla.",
+          "leadsTo": "caro_kann_exchange_after_3_exd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_classical_after_3_Nc3": {
+      "id": "caro_kann_classical_after_3_Nc3",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3p4/3PP3/2N5/PPP2PPP/R1BQKBNR b KQkq - 1 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Classical: 3.Nc3",
+      "idea": "Nero spesso cattura su e4: ...dxe4. Bianco riprende con Nxe4 e Nero sviluppa l’alfiere in f5.",
+      "moves": [
+        {
+          "san": "dxe4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Chiarisci il centro: struttura tipica della Caro-Kann.",
+          "leadsTo": "caro_kann_classical_after_3...dxe4"
+        },
+        {
+          "san": "g6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Gurgenidze/Modern: struttura diversa."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_classical_after_3...dxe4": {
+      "id": "caro_kann_classical_after_3...dxe4",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/8/3Pp3/2N5/PPP2PPP/R1BQKBNR w KQkq - 0 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo ...dxe4",
+      "idea": "Bianco riprende con Nxe4. Idea chiave: sviluppo naturale e pressione sul centro.",
+      "moves": [
+        {
+          "san": "Nxe4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ripresa modello: sviluppi e controlli d6/f6.",
+          "leadsTo": "caro_kann_classical_after_4_Nxe4"
+        },
+        {
+          "san": "f3",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Difesa artificiale: indebolisce e3 e rallenta sviluppo. In Caro-Kann, vuoi sviluppo pulito."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_classical_after_4_Nxe4": {
+      "id": "caro_kann_classical_after_4_Nxe4",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/8/3PN3/8/PPP2PPP/R1BQKBNR b KQkq - 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 4.Nxe4",
+      "idea": "Nero sviluppa spesso l’alfiere c8 in f5: uno dei temi più importanti della Caro-Kann.",
+      "moves": [
+        {
+          "san": "Bf5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Alfiere attivo prima di ...e6. Tema chiave della Caro-Kann.",
+          "leadsTo": "caro_kann_classical_after_4...Bf5"
+        },
+        {
+          "san": "Nd7",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Tartakower: sviluppo solido, prepara ...Ngf6 e ...e6. (⭐⭐⭐)",
+          "leadsTo": "caro_kann_tartakower_after_4...Nd7"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_classical_after_4...Bf5": {
+      "id": "caro_kann_classical_after_4...Bf5",
+      "openingId": "caro_kann",
+      "fen": "rn1qkbnr/pp2pppp/2p5/5b2/3PN3/8/PPP2PPP/R1BQKBNR w KQkq - 1 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Classical: ...Bf5 (⭐⭐⭐)",
+      "idea": "Bianco spesso gioca Ng3 per attaccare l’alfiere e sviluppare. Nero ritira in g6 e prepara ...e6 e ...Nd7.",
+      "moves": [
+        {
+          "san": "Ng3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Attacchi l’alfiere e sviluppi. Piano classico.",
+          "leadsTo": "caro_kann_classical_after_5_Ng3"
+        },
+        {
+          "san": "Bd3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo diretto: puoi cambiare l’alfiere nero, ma concedi a Nero tempo per consolidare."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_classical_after_5_Ng3": {
+      "id": "caro_kann_classical_after_5_Ng3",
+      "openingId": "caro_kann",
+      "fen": "rn1qkbnr/pp2pppp/2p5/5b2/3P4/6N1/PPP2PPP/R1BQKBNR b KQkq - 2 5",
+      "turn": "b",
+      "stars": 3,
+      "title": "Cacciare l’alfiere",
+      "idea": "Nero di solito ritira in g6. Idea chiave: Caro-Kann è spesso 'solida': Bianco cerca spazio/iniziativa, Nero mira a struttura sana.",
+      "moves": [
+        {
+          "san": "Bg6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Ritiro tipico: mantieni l’alfiere e struttura solida.",
+          "leadsTo": "caro_kann_classical_after_5...Bg6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_classical_after_5...Bg6": {
+      "id": "caro_kann_classical_after_5...Bg6",
+      "openingId": "caro_kann",
+      "fen": "rn1qkbnr/pp2pppp/2p3b1/8/3P4/6N1/PPP2PPP/R1BQKBNR w KQkq - 3 6",
+      "turn": "w",
+      "stars": 5,
+      "title": "Caro-Kann (⭐⭐⭐⭐⭐): piani e finali",
+      "idea": "Piani avanzati: Bianco può spingere h4-h5 per guadagnare spazio, o sviluppare con Nf3/Bd3/O-O. Nero: ...e6, ...Nd7, ...Ngf6 e gioco solido spesso verso finali favorevoli.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "caro_kann_tartakower_after_4...Nd7": {
+      "id": "caro_kann_tartakower_after_4...Nd7",
+      "openingId": "caro_kann",
+      "fen": "r1bqkbnr/pp1npppp/2p5/8/3PN3/8/PPP2PPP/R1BQKBNR w KQkq - 1 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Tartakower: ...Nd7 (⭐⭐⭐)",
+      "idea": "Nero prepara ...Ngf6 e spesso ...e6 senza esporre l’alfiere in f5 subito. Più solido/meno teorico in alcune linee.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo naturale: metti il re al sicuro e poi scegli il piano.",
+          "leadsTo": "caro_kann_tartakower_after_5_Nf3"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_tartakower_after_5_Nf3": {
+      "id": "caro_kann_tartakower_after_5_Nf3",
+      "openingId": "caro_kann",
+      "fen": "r1bqkbnr/pp1npppp/2p5/8/3PN3/5N2/PPP2PPP/R1BQKB1R b KQkq - 2 5",
+      "turn": "b",
+      "stars": 5,
+      "title": "Tartakower (⭐⭐⭐⭐⭐): piani",
+      "idea": "Piani: Nero spesso completa sviluppo con ...Ngf6, ...e6, ...Be7 e arrocco. Bianco: pressione su d6/f7, oppure gioco posizionale su colonne centrali.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "caro_kann_advance_after_3_e5": {
+      "id": "caro_kann_advance_after_3_e5",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3pP3/3P4/8/PPP2PPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Advance: 3.e5 (⭐⭐⭐)",
+      "idea": "Bianco guadagna spazio. Nero di solito sviluppa l’alfiere con ...Bf5 e poi colpisce il centro con ...c5.",
+      "moves": [
+        {
+          "san": "Bf5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Tema Caro-Kann: alfiere fuori prima di ...e6.",
+          "leadsTo": "caro_kann_advance_after_3...Bf5"
+        },
+        {
+          "san": "c5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Break immediato: colpisci d4, ma spesso prima sviluppi l’alfiere."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_advance_after_3...Bf5": {
+      "id": "caro_kann_advance_after_3...Bf5",
+      "openingId": "caro_kann",
+      "fen": "rn1qkbnr/pp2pppp/2p5/3pPb2/3P4/8/PPP2PPP/RNBQKBNR w KQkq - 1 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Advance: ...Bf5",
+      "idea": "Bianco spesso sviluppa Nf3 e Bd3, oppure gioca h4 per guadagnare spazio. Nero mira a ...e6 e ...c5.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo naturale e flessibile.",
+          "leadsTo": "caro_kann_advance_after_4_Nf3"
+        },
+        {
+          "san": "h4",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Idea avanzata: guadagni spazio e metti in crisi l’alfiere. (⭐⭐⭐⭐⭐)"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_advance_after_4_Nf3": {
+      "id": "caro_kann_advance_after_4_Nf3",
+      "openingId": "caro_kann",
+      "fen": "rn1qkbnr/pp2pppp/2p5/3pPb2/3P4/5N2/PPP2PPP/RNBQKB1R b KQkq - 2 4",
+      "turn": "b",
+      "stars": 5,
+      "title": "Advance (⭐⭐⭐⭐⭐): strutture e piani",
+      "idea": "Struttura chiusa: Bianco ha spazio, Nero cerca liberazione con ...c5 e ...e6. Studia timing: quando spingere c4, quando giocare Bd3 e arrocco, e come rispondere al controgioco nero.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "caro_kann_modern_after_3_Nd2": {
+      "id": "caro_kann_modern_after_3_Nd2",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3p4/3PP3/8/PPPN1PPP/R1BQKBNR b KQkq - 1 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Modern: 3.Nd2 (⭐⭐⭐)",
+      "idea": "Eviti alcune linee e mantieni opzioni (c3, Ngf3). Nero spesso gioca ...dxe4 come nel Classical.",
+      "moves": [
+        {
+          "san": "dxe4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Chiarisci il centro e imposti struttura Caro-Kann.",
+          "leadsTo": "caro_kann_modern_after_3...dxe4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_modern_after_3...dxe4": {
+      "id": "caro_kann_modern_after_3...dxe4",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/8/3Pp3/8/PPPN1PPP/R1BQKBNR w KQkq - 0 4",
+      "turn": "w",
+      "stars": 5,
+      "title": "Modern (⭐⭐⭐⭐⭐): piani",
+      "idea": "Bianco spesso riprende con Nxe4 e sviluppa; nero può scegliere ...Bf5 o ...Nd7. A livello avanzato studi trasposizioni tra Modern e Classical.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "caro_kann_exchange_after_3_exd5": {
+      "id": "caro_kann_exchange_after_3_exd5",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3P4/3P4/8/PPP2PPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Exchange: 3.exd5",
+      "idea": "Semplificazione: struttura simmetrica. Ottima per imparare finali/posizioni 'pulite'.",
+      "moves": [
+        {
+          "san": "cxd5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Riprendi col pedone c: ottieni una struttura sana e sviluppo naturale.",
+          "leadsTo": "caro_kann_exchange_after_3...cxd5"
+        },
+        {
+          "san": "Qxd5",
+          "kind": "typical_error",
+          "stars": 1,
+          "why": "Regina troppo presto: diventa bersaglio e perdi tempi."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "caro_kann_exchange_after_3...cxd5": {
+      "id": "caro_kann_exchange_after_3...cxd5",
+      "openingId": "caro_kann",
+      "fen": "rnbqkbnr/pp2pppp/8/3p4/3P4/8/PPP2PPP/RNBQKBNR w KQkq - 0 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Exchange (⭐⭐⭐): piani",
+      "idea": "In strutture simmetriche, il vantaggio nasce da tempi e attività. Studia sviluppo, rotture (c4) e come creare un piano senza 'attacco'.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "kings_gambit_root": {
+      "id": "kings_gambit_root",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Gambetto di Re: 1.e4 e5 2.f4. Bianco sacrifica un pedone per aprire la colonna f e ottenere sviluppo/attacco. Apertura tattica: tempi e sicurezza del re sono tutto.",
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Il Gambetto di Re nasce da 1.e4 e ...e5.",
+          "leadsTo": "kings_gambit_after_1_e4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Aprire linee (colonna f, diagonale c4–f7)",
+          "Sviluppo rapidissimo (Nf3, Bc4, O-O)",
+          "Attacco sul re se Nero perde tempi con pedoni"
+        ],
+        "b": [
+          "Accettare e consolidare o declinare",
+          "Restituire il pedone al momento giusto per completare sviluppo",
+          "Punire se Bianco espone troppo il re"
+        ]
+      }
+    },
+    "kings_gambit_after_1_e4": {
+      "id": "kings_gambit_after_1_e4",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.e4",
+      "idea": "Nero gioca ...e5 per entrare nei giochi aperti. Da lì puoi scegliere 2.f4.",
+      "moves": [
+        {
+          "san": "e5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Giochi aperti: necessario per Gambetto di Re.",
+          "leadsTo": "kings_gambit_after_1...e5"
+        },
+        {
+          "san": "c5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Siciliana: diversa."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_after_1...e5": {
+      "id": "kings_gambit_after_1...e5",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Entrare nel Gambetto di Re",
+      "idea": "Bianco può scegliere 2.f4: mossa ambiziosa e tattica. In alternativa 2.Nf3 porta a Italiana/Spagnola.",
+      "moves": [
+        {
+          "san": "f4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Gambetto di Re: offri un pedone per iniziativa e linee aperte.",
+          "leadsTo": "kings_gambit_after_2_f4"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sviluppo classico: porta a Italiana/Spagnola."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_after_2_f4": {
+      "id": "kings_gambit_after_2_f4",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppp1ppp/8/4p3/4PP2/8/PPPP2PP/RNBQKBNR b KQkq f3 0 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Gambetto di Re: 2.f4",
+      "idea": "Nero decide: accettare (…exf4), declinare (…Bc5/…d5) o rispondere con sistemi solidi. L’Accepted è il percorso più didattico.",
+      "moves": [
+        {
+          "san": "exf4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Accettato: Nero prende il pedone e prova a consolidare.",
+          "leadsTo": "kings_gambit_after_2...exf4"
+        },
+        {
+          "san": "Bc5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Declined (Classical): sviluppo e pressione su f2. Meno tattico immediato.",
+          "leadsTo": "kings_gambit_declined_after_2...Bc5"
+        },
+        {
+          "san": "d5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Falkbeer Countergambit: Nero contro-sacrifica al centro. (⭐⭐⭐)",
+          "leadsTo": "kings_gambit_falkbeer_after_2...d5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_after_2...exf4": {
+      "id": "kings_gambit_after_2...exf4",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppp1ppp/8/8/4Pp2/8/PPPP2PP/RNBQKBNR w KQkq - 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Accettato: ...exf4",
+      "idea": "Bianco deve sviluppare e recuperare iniziativa. Nf3 è la mossa modello: attacca e5, prepara Bc4 e arrocco.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo con tempo: attacchi e5 e impedisci ...Qh4+ in molte linee.",
+          "leadsTo": "kings_gambit_after_3_Nf3"
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sviluppo aggressivo, ma lascia il re più esposto ad alcuni temi."
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Centro: controgioco immediato, ma richiede buon calcolo."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_after_3_Nf3": {
+      "id": "kings_gambit_after_3_Nf3",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppp1ppp/8/8/4Pp2/5N2/PPPP2PP/RNBQKB1R b KQkq - 1 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 3.Nf3",
+      "idea": "Nero spesso difende il pedone f4 e spinge ...g5. Idea chiave: Nero sposta pedoni davanti al re; Bianco cerca linee aperte per attaccare.",
+      "moves": [
+        {
+          "san": "g5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Difesa classica: proteggi f4 e guadagni spazio, ma indebolisci il re.",
+          "leadsTo": "kings_gambit_after_3...g5"
+        },
+        {
+          "san": "d5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Controgioco centrale: cerca di spegnere l’iniziativa."
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo: difesa più 'posizionale'."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_after_3...g5": {
+      "id": "kings_gambit_after_3...g5",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppp1p1p/8/6p1/4Pp2/5N2/PPPP2PP/RNBQKB1R w KQkq g6 0 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Classical Defense: ...g5",
+      "idea": "Bianco può giocare h4 per sfidare la catena g5-f4, oppure Bc4 per sviluppo e pressione su f7.",
+      "moves": [
+        {
+          "san": "h4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sfidi subito g5: tema tipico per aprire linee sul re nero.",
+          "leadsTo": "kings_gambit_after_4_h4"
+        },
+        {
+          "san": "Bc4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo attivo: punta a f7, ma non apri subito la catena g5-f4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_after_4_h4": {
+      "id": "kings_gambit_after_4_h4",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppp1p1p/8/6p1/4Pp1P/5N2/PPPP2P1/RNBQKB1R b KQkq h3 0 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "Sfida immediata: 4.h4",
+      "idea": "Nero decide se mantenere la struttura con ...g4 o accettare il cambio con ...gxh4. In entrambi i casi il tema è: linee aperte vs re esposto.",
+      "moves": [
+        {
+          "san": "g4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Spingi: difendi f3 e mantieni pedone f4. Ma crei debolezze e lasci case dietro.",
+          "leadsTo": "kings_gambit_after_4...g4"
+        },
+        {
+          "san": "gxh4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Accetti: apri colonna h/g. Bianco spesso recupera con Rxh4 o Bxf4 più avanti."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_after_4...g4": {
+      "id": "kings_gambit_after_4...g4",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/pppp1p1p/8/8/4PppP/5N2/PPPP2P1/RNBQKB1R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 5,
+      "title": "Gambetto di Re (⭐⭐⭐⭐⭐): attacco e tempi",
+      "idea": "Qui le varianti sono molto tattiche. Obiettivo didattico: imparare a valutare *tempo vs materiale*. Bianco spesso gioca Ne5, d4, Bc4 e cerca di aprire linee contro il re nero.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "kings_gambit_declined_after_2...Bc5": {
+      "id": "kings_gambit_declined_after_2...Bc5",
+      "openingId": "kings_gambit",
+      "fen": "rnbqk1nr/pppp1ppp/8/2b1p3/4PP2/8/PPPP2PP/RNBQKBNR w KQkq - 1 3",
+      "turn": "w",
+      "stars": 3,
+      "title": "Declined: 2...Bc5 (⭐⭐⭐)",
+      "idea": "Nero non prende f4 e sviluppa subito. Bianco ha guadagnato spazio sul lato di Re ma deve fare attenzione alla sicurezza del re.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo e controllo: riduci tattiche su Qh4+ e prepari arrocco.",
+          "leadsTo": "kings_gambit_declined_after_3_Nf3"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_declined_after_3_Nf3": {
+      "id": "kings_gambit_declined_after_3_Nf3",
+      "openingId": "kings_gambit",
+      "fen": "rnbqk1nr/pppp1ppp/8/2b1p3/4PP2/5N2/PPPP2PP/RNBQKB1R b KQkq - 2 3",
+      "turn": "b",
+      "stars": 5,
+      "title": "Declined (⭐⭐⭐⭐⭐): piani",
+      "idea": "Idea chiave: Bianco ha un pedone avanzato f4 che può essere forza o debolezza. Studia come sviluppare e quando spingere f5 o cambiare al centro con c3/d4.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "kings_gambit_falkbeer_after_2...d5": {
+      "id": "kings_gambit_falkbeer_after_2...d5",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/ppp2ppp/8/3pp3/4PP2/8/PPPP2PP/RNBQKBNR w KQkq d6 0 3",
+      "turn": "w",
+      "stars": 3,
+      "title": "Falkbeer Countergambit: 2...d5 (⭐⭐⭐)",
+      "idea": "Nero contro-attacca al centro. Concetto: in apertura spesso il centro conta più dei pedoni laterali. Bianco può prendere o spingere e5.",
+      "moves": [
+        {
+          "san": "exd5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Accetti e apri il centro: poi sviluppo rapido e attenzione al re.",
+          "leadsTo": "kings_gambit_falkbeer_after_3_exd5"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo: metti in sicurezza il re e prepari di rispondere al centro con d4 o exd5."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_gambit_falkbeer_after_3_exd5": {
+      "id": "kings_gambit_falkbeer_after_3_exd5",
+      "openingId": "kings_gambit",
+      "fen": "rnbqkbnr/ppp2ppp/8/3Pp3/5P2/8/PPPP2PP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 5,
+      "title": "Falkbeer (⭐⭐⭐⭐⭐): piani",
+      "idea": "Strutture complesse: a livello avanzato studi sviluppo rapido e come evitare che il re bianco resti al centro con linee aperte.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "queens_gambit_root": {
+      "id": "queens_gambit_root",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Gambetto di Donna: 1.d4 d5 2.c4. Bianco offre il pedone c per deviare il pedone d e ottenere controllo del centro. Strutture: molto più strategiche rispetto a 1.e4.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Il Gambetto di Donna nasce da 1.d4.",
+          "leadsTo": "queens_gambit_after_1_d4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Pressione su d5 e controllo e4",
+          "Sviluppo armonico (Nc3, Nf3, Bg5/Bf4)",
+          "Rottura centrale e4 al momento giusto"
+        ],
+        "b": [
+          "Sostenere d5 o accettare e restituire il pedone in modo attivo",
+          "Sviluppo solido e controgioco con ...c5 o ...e5",
+          "Gestire struttura (minority attack vs break centrali)"
+        ]
+      }
+    },
+    "queens_gambit_after_1_d4": {
+      "id": "queens_gambit_after_1_d4",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.d4",
+      "idea": "Nero spesso risponde ...d5 (simmetria) oppure ...Nf6 (Indiane). Per Gambetto di Donna, il percorso è ...d5.",
+      "moves": [
+        {
+          "san": "d5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Imposti la struttura del Gambetto di Donna.",
+          "leadsTo": "queens_gambit_after_1...d5"
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Indiane: porta a KID, Nimzo, ecc."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_after_1...d5": {
+      "id": "queens_gambit_after_1...d5",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Invito al Gambetto di Donna",
+      "idea": "2.c4 è la mossa chiave: offri il pedone c per controllare d5 e preparare un centro forte.",
+      "moves": [
+        {
+          "san": "c4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Gambetto di Donna: metti pressione su d5 e controlli il centro.",
+          "leadsTo": "queens_gambit_after_2_c4"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sistema: puoi trasporre, ma il gambetto nasce da c4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_after_2_c4": {
+      "id": "queens_gambit_after_2_c4",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq c3 0 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Gambetto di Donna: 2.c4",
+      "idea": "Nero decide: Declined (...e6) = struttura classica e solida; Accepted (...dxc4) = Nero prende e poi cerca sviluppo e restituzione. Slav (...c6) è un’altra famiglia (la studiamo a parte).",
+      "moves": [
+        {
+          "san": "e6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Queen’s Gambit Declined: struttura solida, partita strategica.",
+          "leadsTo": "queens_gambit_qgd_after_2...e6"
+        },
+        {
+          "san": "dxc4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Queen’s Gambit Accepted: Nero prende e prova a consolidare.",
+          "leadsTo": "queens_gambit_qga_after_2...dxc4"
+        },
+        {
+          "san": "c6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Slav: struttura diversa (apertura separata)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_qgd_after_2...e6": {
+      "id": "queens_gambit_qgd_after_2...e6",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "QGD: 2...e6",
+      "idea": "Nero sostiene d5 e prepara ...Nf6 e ...Be7. Bianco sviluppa e decide come mettere pressione su d5.",
+      "moves": [
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo principale: supporti d5/e4 e prepari Nf3/Bg5.",
+          "leadsTo": "queens_gambit_qgd_after_3_Nc3"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sistema più flessibile: eviti alcune linee, ma spesso trasponi."
+        },
+        {
+          "san": "cxd5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Exchange Variation: semplifichi struttura e giochi su piani lunghi.",
+          "leadsTo": "queens_gambit_exchange_after_3_cxd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_qgd_after_3_Nc3": {
+      "id": "queens_gambit_qgd_after_3_Nc3",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR b KQkq - 1 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "QGD: sviluppo principale",
+      "idea": "Nero sviluppa Nf6. Da lì Bianco spesso gioca Bg5 o Nf3.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo standard: controlli e4 e prepari arrocco.",
+          "leadsTo": "queens_gambit_qgd_after_3...Nf6"
+        },
+        {
+          "san": "Be7",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Possibile, ma di solito Nf6 è più naturale."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_qgd_after_3...Nf6": {
+      "id": "queens_gambit_qgd_after_3...Nf6",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "QGD: scegliere il piano",
+      "idea": "Bianco spesso gioca Bg5 (pin) o Nf3 (sviluppo). Il piano generale: completare sviluppo e preparare e4.",
+      "moves": [
+        {
+          "san": "Bg5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Pin: metti pressione su f6 e sostieni e4 più avanti.",
+          "leadsTo": "queens_gambit_qgd_after_4_Bg5"
+        },
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo solido: prepari arrocco e pressione al centro.",
+          "leadsTo": "queens_gambit_qgd_after_4_Nf3"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_qgd_after_4_Nf3": {
+      "id": "queens_gambit_qgd_after_4_Nf3",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3p4/2PP4/2N2N2/PP2PPPP/R1BQKB1R b KQkq - 3 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "QGD (⭐⭐⭐): piani",
+      "idea": "Struttura classica: pedoni d4/c4 vs d5/e6. Piani: Bianco spesso prepara e4; Nero cerca ...c5 o ...e5 per controgioco.",
+      "moves": [
+        {
+          "san": "Be7",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo standard: prepara arrocco.",
+          "leadsTo": "queens_gambit_qgd_after_4...Be7"
+        },
+        {
+          "san": "c5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Break centrale: contesti d4. (Tarrasch/QGD structures)",
+          "leadsTo": "queens_gambit_qgd_after_4...c5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_qgd_after_4_Bg5": {
+      "id": "queens_gambit_qgd_after_4_Bg5",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkb1r/ppp2ppp/4pn2/3p2B1/2PP4/2N5/PP2PPPP/R2QKBNR b KQkq - 3 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "QGD: linea con Bg5 (⭐⭐⭐)",
+      "idea": "Piano: pressione su f6 e preparazione di e4. Nero spesso risponde con ...Be7 e ...O-O.",
+      "moves": [
+        {
+          "san": "Be7",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Rompi il pin e prepari arrocco.",
+          "leadsTo": "queens_gambit_qgd_after_4...Be7_from_Bg5"
+        },
+        {
+          "san": "h6",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Chiedi una decisione all’alfiere, ma può creare debolezze."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_qgd_after_4...Be7": {
+      "id": "queens_gambit_qgd_after_4...Be7",
+      "openingId": "queens_gambit",
+      "fen": "rnbqk2r/ppp1bppp/4pn2/3p4/2PP4/2N2N2/PP2PPPP/R1BQKB1R w KQkq - 4 5",
+      "turn": "w",
+      "stars": 5,
+      "title": "QGD (⭐⭐⭐⭐⭐): transizione",
+      "idea": "Qui entrano piani lunghi (minority attack, break e4/c5). A livello avanzato studi: quali finali favoriscono chi e come usare le colonne semi-aperte.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "queens_gambit_qgd_after_4...c5": {
+      "id": "queens_gambit_qgd_after_4...c5",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkb1r/pp3ppp/4pn2/2pp4/2PP4/2N2N2/PP2PPPP/R1BQKB1R w KQkq c6 0 5",
+      "turn": "w",
+      "stars": 5,
+      "title": "QGD/Tarrasch (⭐⭐⭐⭐⭐): break ...c5",
+      "idea": "Break centrale: Nero contesta d4. Strutture spesso portano a isolani o IQP. Studia: case deboli e attività dei pezzi.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "queens_gambit_qgd_after_4...Be7_from_Bg5": {
+      "id": "queens_gambit_qgd_after_4...Be7_from_Bg5",
+      "openingId": "queens_gambit",
+      "fen": "rnbqk2r/ppp1bppp/4pn2/3p2B1/2PP4/2N5/PP2PPPP/R2QKBNR w KQkq - 4 5",
+      "turn": "w",
+      "stars": 5,
+      "title": "QGD Bg5 (⭐⭐⭐⭐⭐): piani",
+      "idea": "Idea chiave: decidere quando cambiare su f6, quando giocare e4, e come reagire al break nero ...c5. Molte partite sono di manovra e profilassi.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "queens_gambit_exchange_after_3_cxd5": {
+      "id": "queens_gambit_exchange_after_3_cxd5",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp2ppp/4p3/3P4/3P4/8/PP2PPPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Exchange Variation (⭐⭐⭐)",
+      "idea": "Semplifichi la tensione: la struttura diventa più simmetrica. Piani tipici: minority attack per Bianco, break ...c5 per Nero.",
+      "moves": [
+        {
+          "san": "exd5",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Ripresa naturale.",
+          "leadsTo": "queens_gambit_exchange_after_3...exd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_exchange_after_3...exd5": {
+      "id": "queens_gambit_exchange_after_3...exd5",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp2ppp/8/3p4/3P4/8/PP2PPPP/RNBQKBNR w KQkq - 0 4",
+      "turn": "w",
+      "stars": 5,
+      "title": "Exchange (⭐⭐⭐⭐⭐): piani lunghi",
+      "idea": "A questo livello impari 'piani da struttura': minority attack (b4-b5), controllo e4, e come usare colonne c/e. Non è tattica: è strategia.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "queens_gambit_qga_after_2...dxc4": {
+      "id": "queens_gambit_qga_after_2...dxc4",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp1pppp/8/8/2pP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3",
+      "turn": "w",
+      "stars": 3,
+      "title": "QGA: 2...dxc4 (⭐⭐⭐)",
+      "idea": "Nero prende il pedone e spesso prova a mantenerlo per qualche mossa. Bianco di solito gioca e3 e recupera con Bxc4.",
+      "moves": [
+        {
+          "san": "e3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Prepari Bxc4 e costruisci il centro.",
+          "leadsTo": "queens_gambit_qga_after_3_e3"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Sviluppo, ma spesso e3 è più diretto per recuperare."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "queens_gambit_qga_after_3_e3": {
+      "id": "queens_gambit_qga_after_3_e3",
+      "openingId": "queens_gambit",
+      "fen": "rnbqkbnr/ppp1pppp/8/8/2pP4/4P3/PP3PPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 5,
+      "title": "QGA (⭐⭐⭐⭐⭐): recupero e piani",
+      "idea": "Idea chiave: Bianco recupera il pedone con Bxc4 e poi mira a un centro forte (d4/e4). Nero cerca sviluppo rapido e controgioco con ...c5 o ...e5.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "slav_root": {
+      "id": "slav_root",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Difesa Slava: 1.d4 d5 2.c4 c6. Nero sostiene d5 con il pedone c: struttura solida e flessibile, spesso con alfiere c8 libero.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Per entrare in Slava serve 1.d4 e ...d5.",
+          "leadsTo": "slav_after_1_d4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Sviluppo e pressione su d5",
+          "Scelta: sistemi con Nc3/Nf3 e idee e4",
+          "Capire quando prendere su d5 e quando mantenere tensione"
+        ],
+        "b": [
+          "Struttura solida: ...c6 supporta ...d5",
+          "Sviluppare l’alfiere c8 (a volte in f5/g4)",
+          "Decidere tra Slav pura (...dxc4) o Semi-Slav (...e6)"
+        ]
+      }
+    },
+    "slav_after_1_d4": {
+      "id": "slav_after_1_d4",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.d4",
+      "idea": "Nero gioca ...d5 per entrare in sistemi classici. Poi 2.c4 invita Slava/QGD.",
+      "moves": [
+        {
+          "san": "d5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Struttura classica: prepara Slava con ...c6.",
+          "leadsTo": "slav_after_1...d5"
+        },
+        {
+          "san": "Nf6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Indiane: altro percorso."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_after_1...d5": {
+      "id": "slav_after_1...d5",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/ppp1pppp/8/3p4/3P4/8/PPP1PPPP/RNBQKBNR w KQkq d6 0 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Invito a 2.c4",
+      "idea": "Con 2.c4 proponi il Gambetto di Donna. Nero può scegliere Slava con ...c6.",
+      "moves": [
+        {
+          "san": "c4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Gambetto di Donna: necessario per entrare in Slava.",
+          "leadsTo": "slav_after_2_c4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_after_2_c4": {
+      "id": "slav_after_2_c4",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/ppp1pppp/8/3p4/2PP4/8/PP2PPPP/RNBQKBNR b KQkq c3 0 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Slava: 2...c6",
+      "idea": "Nero sostiene d5 e mantiene l’alfiere c8 libero. È una delle difese più solide contro 1.d4.",
+      "moves": [
+        {
+          "san": "c6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Difesa Slava: struttura solida e flessibile.",
+          "leadsTo": "slav_after_2...c6"
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "QGD: altro percorso."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_after_2...c6": {
+      "id": "slav_after_2...c6",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3p4/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Nodo: sviluppo del Bianco",
+      "idea": "Bianco di solito sviluppa Nf3 e Nc3. Il punto: mantenere pressione su d5 e preparare e4.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: controlli e5/d4 e prepari arrocco.",
+          "leadsTo": "slav_after_3_Nf3"
+        },
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo diretto: spesso trasponi, ma cambia alcune possibilità di Nero.",
+          "leadsTo": "slav_after_3_Nc3"
+        },
+        {
+          "san": "cxd5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Exchange Slav: struttura simmetrica, partita più tranquilla.",
+          "leadsTo": "slav_exchange_after_3_cxd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_after_3_Nf3": {
+      "id": "slav_after_3_Nf3",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3p4/2PP4/5N2/PP2PPPP/RNBQKB1R b KQkq - 1 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Slava: Nf3",
+      "idea": "Nero sviluppa spesso Nf6. Poi Bianco gioca Nc3 e decide la pressione su d5.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo naturale: controlli e4.",
+          "leadsTo": "slav_after_3...Nf6"
+        },
+        {
+          "san": "dxc4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Slav Accepted: prendi c4 e provi a tenere il pedone per qualche mossa.",
+          "leadsTo": "slav_accepted_after_3...dxc4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_after_3...Nf6": {
+      "id": "slav_after_3...Nf6",
+      "openingId": "slav",
+      "fen": "rnbqkb1r/pp2pppp/2p2n2/3p4/2PP4/5N2/PP2PPPP/RNBQKB1R w KQkq - 2 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Slava: ...Nf6",
+      "idea": "Bianco di solito gioca Nc3. Da qui Nero sceglie tra Slav pura (...dxc4) e Semi-Slav (...e6).",
+      "moves": [
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo standard: supporti e4 e metti pressione su d5.",
+          "leadsTo": "slav_after_4_Nc3"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_after_4_Nc3": {
+      "id": "slav_after_4_Nc3",
+      "openingId": "slav",
+      "fen": "rnbqkb1r/pp2pppp/2p2n2/3p4/2PP4/2N2N2/PP2PPPP/R1BQKB1R b KQkq - 3 4",
+      "turn": "b",
+      "stars": 3,
+      "title": "Slava (⭐⭐⭐): scelta della struttura",
+      "idea": "Nero può (A) accettare con ...dxc4 oppure (B) entrare in Semi-Slav con ...e6. Entrambe sono grandi famiglie teoriche.",
+      "moves": [
+        {
+          "san": "dxc4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Slav Accepted: prendi c4 e poi sviluppi/cerchi di difendere il pedone.",
+          "leadsTo": "slav_accepted_after_4...dxc4"
+        },
+        {
+          "san": "e6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Semi-Slav: struttura molto solida e complessa (⭐⭐⭐→⭐⭐⭐⭐⭐).",
+          "leadsTo": "slav_semislav_after_4...e6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_accepted_after_4...dxc4": {
+      "id": "slav_accepted_after_4...dxc4",
+      "openingId": "slav",
+      "fen": "rnbqkb1r/pp2pppp/2p2n2/8/2pP4/2N2N2/PP2PPPP/R1BQKB1R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "Slav Accepted (⭐⭐⭐)",
+      "idea": "Nero prende c4. Bianco spesso risponde con a4 o e3 per recuperare il pedone con Bxc4.",
+      "moves": [
+        {
+          "san": "a4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Impedisci ...b5 e rendi difficile difendere il pedone c4.",
+          "leadsTo": "slav_accepted_after_5_a4"
+        },
+        {
+          "san": "e3",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Prepari Bxc4, sviluppo più 'classico'."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_accepted_after_5_a4": {
+      "id": "slav_accepted_after_5_a4",
+      "openingId": "slav",
+      "fen": "rnbqkb1r/pp2pppp/2p2n2/8/P1pP4/2N2N2/1P2PPPP/R1BQKB1R b KQkq a3 0 5",
+      "turn": "b",
+      "stars": 5,
+      "title": "Slav Accepted (⭐⭐⭐⭐⭐): piani",
+      "idea": "Idea chiave: recupero del pedone e sviluppo. Nero cerca controgioco con ...Bf5 e ...e6; Bianco punta a centro e4 e attività.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "slav_semislav_after_4...e6": {
+      "id": "slav_semislav_after_4...e6",
+      "openingId": "slav",
+      "fen": "rnbqkb1r/pp3ppp/2p1pn2/3p4/2PP4/2N2N2/PP2PPPP/R1BQKB1R w KQkq - 0 5",
+      "turn": "w",
+      "stars": 5,
+      "title": "Semi-Slav (⭐⭐⭐⭐⭐): struttura",
+      "idea": "Struttura: pedoni su d5/c6/e6. Molta teoria (Meran, Botvinnik, ecc.). A questo livello l’obiettivo è capire i piani: ...dxc4, ...Nbd7, ...Bb4, e quando rompere con ...c5 o ...e5.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "slav_after_3_Nc3": {
+      "id": "slav_after_3_Nc3",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR b KQkq - 1 3",
+      "turn": "b",
+      "stars": 3,
+      "title": "Slava: 3.Nc3 (⭐⭐⭐)",
+      "idea": "Trasposizioni frequenti con 3.Nf3. Nero di solito sviluppa Nf6 e poi decide la struttura.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo standard.",
+          "leadsTo": "slav_after_3...Nf6_from_Nc3"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_after_3...Nf6_from_Nc3": {
+      "id": "slav_after_3...Nf6_from_Nc3",
+      "openingId": "slav",
+      "fen": "rnbqkb1r/pp2pppp/2p2n2/3p4/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4",
+      "turn": "w",
+      "stars": 5,
+      "title": "Slava (⭐⭐⭐⭐⭐): piani",
+      "idea": "Stesse idee: pressione su d5 e preparare e4. A livello avanzato studi anche la scelta dell’alfiere c8 (Bf5/Bg4) e le reazioni al gambetto.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "slav_exchange_after_3_cxd5": {
+      "id": "slav_exchange_after_3_cxd5",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pp2pppp/2p5/3P4/3P4/8/PP2PPPP/RNBQKBNR b KQkq - 0 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Exchange Slav",
+      "idea": "Struttura simmetrica dopo ...cxd5. Partita più 'tecnica': vantaggio da tempi e attività.",
+      "moves": [
+        {
+          "san": "cxd5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ripresa naturale: simmetria e sviluppo.",
+          "leadsTo": "slav_exchange_after_3...cxd5"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_exchange_after_3...cxd5": {
+      "id": "slav_exchange_after_3...cxd5",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pp2pppp/8/3p4/3P4/8/PP2PPPP/RNBQKBNR w KQkq - 0 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Exchange Slav (⭐⭐⭐): piani",
+      "idea": "Obiettivo didattico: imparare piani da struttura simmetrica (break e4/c4, sviluppo armonico).",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "kings_indian_root": {
+      "id": "kings_indian_root",
+      "openingId": "kings_indian",
+      "fen": "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+      "turn": "w",
+      "stars": 1,
+      "title": "Posizione iniziale",
+      "idea": "Difesa Indiana di Re: 1.d4 Nf6 2.c4 g6 3.Nc3 Bg7. Nero lascia il centro a Bianco e poi lo attacca con ...d6 e ...e5 (o ...c5). Apertura strategica e dinamica.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Entri nelle Indiane da 1.d4.",
+          "leadsTo": "kings_indian_after_1_d4"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      },
+      "plans": {
+        "w": [
+          "Centro grande (e4/d4)",
+          "Spazio e sviluppo, spesso attacco lato di Donna",
+          "Gestire il break nero ...e5 o ...c5"
+        ],
+        "b": [
+          "Fianchetto e pressione su diagonale",
+          "Break ...e5 e attacco al centro",
+          "Controgioco lato di Re (…f5) in molte strutture"
+        ]
+      }
+    },
+    "kings_indian_after_1_d4": {
+      "id": "kings_indian_after_1_d4",
+      "openingId": "kings_indian",
+      "fen": "rnbqkbnr/pppppppp/8/8/3P4/8/PPP1PPPP/RNBQKBNR b KQkq d3 0 1",
+      "turn": "b",
+      "stars": 1,
+      "title": "Dopo 1.d4",
+      "idea": "Nero risponde con ...Nf6: flessibile, può portare a molte difese indiane.",
+      "moves": [
+        {
+          "san": "Nf6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Inizio tipico delle Indiane: sviluppo e controllo e4.",
+          "leadsTo": "kings_indian_after_1...Nf6"
+        },
+        {
+          "san": "d5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Simmetrico: porta a QGD/Slava."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_1...Nf6": {
+      "id": "kings_indian_after_1...Nf6",
+      "openingId": "kings_indian",
+      "fen": "rnbqkb1r/pppppppp/5n2/8/3P4/8/PPP1PPPP/RNBQKBNR w KQkq - 1 2",
+      "turn": "w",
+      "stars": 1,
+      "title": "Strada verso la KID",
+      "idea": "Bianco gioca spesso c4. Nero risponde g6 per fianchetto.",
+      "moves": [
+        {
+          "san": "c4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Controlli d5 e prepari Nc3/e4.",
+          "leadsTo": "kings_indian_after_2_c4"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sistemi: puoi trasporre."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_2_c4": {
+      "id": "kings_indian_after_2_c4",
+      "openingId": "kings_indian",
+      "fen": "rnbqkb1r/pppppppp/5n2/8/2PP4/8/PP2PPPP/RNBQKBNR b KQkq c3 0 2",
+      "turn": "b",
+      "stars": 1,
+      "title": "Nero fianchetta: ...g6",
+      "idea": "...g6 prepara ...Bg7 e pressione sulla diagonale lunga.",
+      "moves": [
+        {
+          "san": "g6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "KID/Grünfeld move order: fianchetto.",
+          "leadsTo": "kings_indian_after_2...g6"
+        },
+        {
+          "san": "e6",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Nimzo/Queen’s Indian: altro percorso."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_2...g6": {
+      "id": "kings_indian_after_2...g6",
+      "openingId": "kings_indian",
+      "fen": "rnbqkb1r/pppppp1p/5np1/8/2PP4/8/PP2PPPP/RNBQKBNR w KQkq - 0 3",
+      "turn": "w",
+      "stars": 1,
+      "title": "Dopo 2...g6",
+      "idea": "Bianco sviluppa Nc3 e spesso imposta e4. Nero completa con ...Bg7.",
+      "moves": [
+        {
+          "san": "Nc3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sviluppo standard: sostieni e4 e controlli d5.",
+          "leadsTo": "kings_indian_after_3_Nc3"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sviluppo: può trasporre verso sistemi senza Nc3 immediato."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_3_Nc3": {
+      "id": "kings_indian_after_3_Nc3",
+      "openingId": "kings_indian",
+      "fen": "rnbqkb1r/pppppp1p/5np1/8/2PP4/2N5/PP2PPPP/R1BQKBNR b KQkq - 1 3",
+      "turn": "b",
+      "stars": 1,
+      "title": "Nero completa: ...Bg7",
+      "idea": "...Bg7 è la mossa naturale. Poi Bianco spesso gioca e4 costruendo un grande centro.",
+      "moves": [
+        {
+          "san": "Bg7",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Fianchetto completo: pressione sulla diagonale.",
+          "leadsTo": "kings_indian_after_3...Bg7"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_3...Bg7": {
+      "id": "kings_indian_after_3...Bg7",
+      "openingId": "kings_indian",
+      "fen": "rnbqk2r/ppppppbp/5np1/8/2PP4/2N5/PP2PPPP/R1BQKBNR w KQkq - 2 4",
+      "turn": "w",
+      "stars": 1,
+      "title": "Bianco costruisce il centro",
+      "idea": "La mossa più ambiziosa è e4: Bianco prende spazio. Nero di solito risponde con ...d6 per preparare ...e5.",
+      "moves": [
+        {
+          "san": "e4",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Centro grande: prepari d4-e4 e spazio.",
+          "leadsTo": "kings_indian_after_4_e4"
+        },
+        {
+          "san": "Nf3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sistema più moderato: non prendi tutto lo spazio subito."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_4_e4": {
+      "id": "kings_indian_after_4_e4",
+      "openingId": "kings_indian",
+      "fen": "rnbqk2r/ppppppbp/5np1/8/2PPP3/2N5/PP3PPP/R1BQKBNR b KQkq e3 0 4",
+      "turn": "b",
+      "stars": 1,
+      "title": "Centro grande: e4",
+      "idea": "Nero gioca ...d6 per preparare ...e5. La KID classica nasce così.",
+      "moves": [
+        {
+          "san": "d6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "KID classica: prepari ...e5 e attacco al centro.",
+          "leadsTo": "kings_indian_after_4...d6"
+        },
+        {
+          "san": "d5",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Grünfeld: altro universo (non KID classica)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_4...d6": {
+      "id": "kings_indian_after_4...d6",
+      "openingId": "kings_indian",
+      "fen": "rnbqk2r/ppp1ppbp/3p1np1/8/2PPP3/2N5/PP3PPP/R1BQKBNR w KQkq - 0 5",
+      "turn": "w",
+      "stars": 3,
+      "title": "KID: struttura di base (⭐⭐⭐)",
+      "idea": "Ora Bianco spesso sviluppa Nf3; Nero spesso gioca ...O-O e poi ...e5. Le strutture portano a rovesciamento d’ala: Bianco spinge sul lato di Donna, Nero sul lato di Re.",
+      "moves": [
+        {
+          "san": "Nf3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Sviluppo standard: prepari arrocco e controlli e5/g5.",
+          "leadsTo": "kings_indian_after_5_Nf3"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_5_Nf3": {
+      "id": "kings_indian_after_5_Nf3",
+      "openingId": "kings_indian",
+      "fen": "rnbqk2r/ppp1ppbp/3p1np1/8/2PPP3/2N2N2/PP3PPP/R1BQKB1R b KQkq - 1 5",
+      "turn": "b",
+      "stars": 3,
+      "title": "KID: completare sviluppo",
+      "idea": "Nero di solito arrocca corto: ...O-O. Poi spesso ...e5. Bianco spesso gioca Be2 e O-O.",
+      "moves": [
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Re al sicuro: prepari ...e5 e gioco dinamico.",
+          "leadsTo": "kings_indian_after_5...O-O"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "kings_indian_after_5...O-O": {
+      "id": "kings_indian_after_5...O-O",
+      "openingId": "kings_indian",
+      "fen": "rnbq1rk1/ppp1ppbp/3p1np1/8/2PPP3/2N2N2/PP3PPP/R1BQKB1R w KQ - 2 6",
+      "turn": "w",
+      "stars": 5,
+      "title": "KID (⭐⭐⭐⭐⭐): piani tipici",
+      "idea": "Tema avanzato: rovesciamento d’ala. Se Nero gioca ...e5 e Bianco chiude con d5, nasce la struttura classica (Mar del Plata): Bianco spinge c4-c5/b4/a4; Nero spinge ...f5 e attacca il re.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "italian_twoknights_after_5...Nxd5": {
+      "id": "italian_twoknights_after_5...Nxd5",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2ppp/2n5/3np1N1/2B5/8/PPPP1PPP/RNBQK2R w KQkq - 0 6",
+      "turn": "w",
+      "stars": 5,
+      "title": "Due Cavalli: ...Nxd5 (Fried Liver territory) ⭐⭐⭐⭐⭐",
+      "idea": "Qui entrano tattiche famose (Fried Liver / Traxler ecc.). Il punto didattico: in posizioni aperte con re al centro, ogni tempo conta. Studia sicurezza del re e sviluppo prima di 'cacciare pedoni'.",
+      "moves": [
+        {
+          "san": "Nxf7",
+          "kind": "repertoire",
+          "stars": 5,
+          "why": "Fried Liver: linea tattica molto concreta. Da studiare con attenzione.",
+          "leadsTo": "italian_twoknights_after_6_Nxf7"
+        },
+        {
+          "san": "d4",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Alternativa: colpisci il centro invece di entrare nella tattica più famosa."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "italian_twoknights_after_6_Nxf7": {
+      "id": "italian_twoknights_after_6_Nxf7",
+      "openingId": "italian",
+      "fen": "r1bqkb1r/ppp2Npp/2n5/3np3/2B5/8/PPPP1PPP/RNBQK2R b KQkq - 0 6",
+      "turn": "b",
+      "stars": 5,
+      "title": "Fried Liver: Nxf7 ⭐⭐⭐⭐⭐",
+      "idea": "Qui le varianti sono molto ampie. A questo livello studia: (1) dove sta il re nero, (2) quali pezzi sono sviluppati, (3) come convertire l’iniziativa in materiale o attacco.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "slav_accepted_after_3...dxc4": {
+      "id": "slav_accepted_after_3...dxc4",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pp2pppp/2p5/8/2pP4/5N2/PP2PPPP/RNBQKB1R w KQkq - 0 4",
+      "turn": "w",
+      "stars": 3,
+      "title": "Slav Accepted: 3...dxc4 (⭐⭐⭐)",
+      "idea": "Nero prende c4 prima di sviluppare ...Nf6. Bianco spesso gioca e3 e recupera con Bxc4, oppure a4 per impedire ...b5.",
+      "moves": [
+        {
+          "san": "e3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Prepari Bxc4 e sviluppo armonico.",
+          "leadsTo": "slav_accepted_after_4_e3"
+        },
+        {
+          "san": "a4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Impedisci ...b5 e rendi difficile difendere c4."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "slav_accepted_after_4_e3": {
+      "id": "slav_accepted_after_4_e3",
+      "openingId": "slav",
+      "fen": "rnbqkbnr/pp2pppp/2p5/8/2pP4/4PN2/PP3PPP/RNBQKB1R b KQkq - 0 4",
+      "turn": "b",
+      "stars": 5,
+      "title": "Slav Accepted (⭐⭐⭐⭐⭐): piani",
+      "idea": "Bianco recupera spesso con Bxc4 e poi mira a e4. Nero: sviluppo rapido e controgioco con ...b5 (se possibile) o break ...c5.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "ruy_after_4...Nf6": {
+      "id": "ruy_after_4...Nf6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/1ppp1ppp/p1n2n2/4p3/B3P3/5N2/PPPP1PPP/RNBQK2R w KQkq - 2 5",
+      "turn": "w",
+      "stars": 1,
+      "title": "Morphy mainline: 4...Nf6",
+      "idea": "Nero attacca e4 e sviluppa. Bianco di solito arrocca e poi inizia il gioco manovrato tipico della Spagnola.",
+      "moves": [
+        {
+          "san": "O-O",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Sicurezza del re e difesa indiretta di e4.",
+          "leadsTo": "ruy_main_after_5_O-O"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sistema più chiuso (anti-teoria)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_main_after_5_O-O": {
+      "id": "ruy_main_after_5_O-O",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/1ppp1ppp/p1n2n2/4p3/B3P3/5N2/PPPP1PPP/RNBQ1RK1 b kq - 3 5",
+      "turn": "b",
+      "stars": 1,
+      "title": "Morphy mainline: 5.O-O",
+      "idea": "Ora Nero spesso gioca ...Be7 (Closed Ruy). Da lì Bianco gioca Re1 e si entra nei piani lunghi.",
+      "moves": [
+        {
+          "san": "Be7",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Chiuso: sviluppo solido e preparazione arrocco.",
+          "leadsTo": "ruy_main_after_5...Be7"
+        },
+        {
+          "san": "Nxe4",
+          "kind": "playable",
+          "stars": 3,
+          "why": "Open Ruy: entri in tattiche precise (⭐⭐⭐).",
+          "leadsTo": "ruy_open_after_5...Nxe4_main"
+        },
+        {
+          "san": "b5",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Puoi guadagnare spazio, ma di solito ...Be7 prima è più comune."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_main_after_5...Be7": {
+      "id": "ruy_main_after_5...Be7",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/1pppbppp/p1n2n2/4p3/B3P3/5N2/PPPP1PPP/RNBQ1RK1 w kq - 4 6",
+      "turn": "w",
+      "stars": 1,
+      "title": "Closed Ruy: ...Be7",
+      "idea": "Bianco di solito gioca Re1 per difendere e4 e preparare d4. Nero spesso risponde con ...b5 e ...d6.",
+      "moves": [
+        {
+          "san": "Re1",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Difendi e4 e prepari il break d4 al momento giusto.",
+          "leadsTo": "ruy_main_after_6_Re1"
+        },
+        {
+          "san": "d3",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Sistema più tranquillo (simile a pianissimo)."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_main_after_6_Re1": {
+      "id": "ruy_main_after_6_Re1",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/1pppbppp/p1n2n2/4p3/B3P3/5N2/PPPP1PPP/RNBQR1K1 b kq - 5 6",
+      "turn": "b",
+      "stars": 1,
+      "title": "Closed Ruy: Re1",
+      "idea": "Nero spesso gioca ...b5 per guadagnare spazio e togliere casa all’alfiere. Poi Bianco va in Bb3.",
+      "moves": [
+        {
+          "san": "b5",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Guadagni spazio e inizi le manovre tipiche.",
+          "leadsTo": "ruy_main_after_6...b5"
+        },
+        {
+          "san": "O-O",
+          "kind": "playable",
+          "stars": 1,
+          "why": "Arrocco possibile anche subito, ma ...b5 è molto tipico."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_main_after_6...b5": {
+      "id": "ruy_main_after_6...b5",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/2ppbppp/p1n2n2/1p2p3/B3P3/5N2/PPPP1PPP/RNBQR1K1 w kq b6 0 7",
+      "turn": "w",
+      "stars": 1,
+      "title": "...b5: spazio e tempo",
+      "idea": "Bianco quasi sempre ritira l’alfiere in Bb3. Struttura tipica della Spagnola chiusa.",
+      "moves": [
+        {
+          "san": "Bb3",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Ritiro standard: mantieni l’alfiere sulla diagonale.",
+          "leadsTo": "ruy_main_after_7_Bb3"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_main_after_7_Bb3": {
+      "id": "ruy_main_after_7_Bb3",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/2ppbppp/p1n2n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQR1K1 b kq - 1 7",
+      "turn": "b",
+      "stars": 1,
+      "title": "Closed Ruy: struttura tipica",
+      "idea": "Nero spesso gioca ...d6 per sostenere e5 e preparare ...O-O. Da qui entrano manovre lunghe.",
+      "moves": [
+        {
+          "san": "d6",
+          "kind": "repertoire",
+          "stars": 1,
+          "why": "Consolidi e5 e prepari sviluppo finale.",
+          "leadsTo": "ruy_main_after_7...d6"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_main_after_7...d6": {
+      "id": "ruy_main_after_7...d6",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/2p1bppp/p1np1n2/1p2p3/4P3/1B3N2/PPPP1PPP/RNBQR1K1 w kq - 0 8",
+      "turn": "w",
+      "stars": 3,
+      "title": "Closed Ruy (⭐⭐⭐): pronto per manovre",
+      "idea": "Ora spesso seguono ...O-O, c3, h3, e manovre dei cavalli. A ⭐⭐⭐⭐⭐ entri in Chigorin/Breyer/Zaitsev ecc.",
+      "moves": [
+        {
+          "san": "c3",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Prepari d4 e dai una casa a d2 per il cavallo.",
+          "leadsTo": "ruy_main_after_8_c3"
+        },
+        {
+          "san": "h3",
+          "kind": "playable",
+          "stars": 5,
+          "why": "Profilassi avanzata: togli Bg4 e prepari manovre."
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_main_after_8_c3": {
+      "id": "ruy_main_after_8_c3",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqk2r/2p1bppp/p1np1n2/1p2p3/4P3/1BP2N2/PP1P1PPP/RNBQR1K1 b kq - 0 8",
+      "turn": "b",
+      "stars": 5,
+      "title": "Closed Ruy (⭐⭐⭐⭐⭐): transizione",
+      "idea": "Da qui le linee sono moltissime. Il focus del trainer: capire piani (d4 quando pronto) e profilassi. Non è un’apertura da 'memoria', ma da comprensione.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    },
+    "ruy_open_after_5...Nxe4_main": {
+      "id": "ruy_open_after_5...Nxe4_main",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/1ppp1ppp/p1n5/4p3/B3n3/5N2/PPPP1PPP/RNBQ1RK1 w kq - 0 6",
+      "turn": "w",
+      "stars": 3,
+      "title": "Open Ruy (mainline move order) ⭐⭐⭐",
+      "idea": "Nero prende e4: Bianco deve reagire col centro (d4) per guadagnare tempi e recuperare il pedone.",
+      "moves": [
+        {
+          "san": "d4",
+          "kind": "repertoire",
+          "stars": 3,
+          "why": "Colpisci il cavallo e apri linee.",
+          "leadsTo": "ruy_open_after_6_d4_main"
+        }
+      ],
+      "auto": {
+        "pick": "first_repertoire"
+      }
+    },
+    "ruy_open_after_6_d4_main": {
+      "id": "ruy_open_after_6_d4_main",
+      "openingId": "ruy_lopez",
+      "fen": "r1bqkb1r/1ppp1ppp/p1n5/4p3/B2Pn3/5N2/PPP2PPP/RNBQ1RK1 b kq d3 0 6",
+      "turn": "b",
+      "stars": 5,
+      "title": "Open Ruy (⭐⭐⭐⭐⭐): centro aperto",
+      "idea": "Linee di calcolo e tempi. A questo livello studi come convertire il vantaggio di sviluppo e quando semplificare.",
+      "moves": [],
+      "auto": {
+        "pick": "none"
+      }
+    }
+  }
+}

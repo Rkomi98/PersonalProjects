@@ -16,7 +16,7 @@ export function classifyMove(
   const opt = findMoveOption(node, san, level);
   if (opt) return { kind: opt.kind, option: opt };
 
-  // legale ma non nel dataset: in base siamo tolleranti (è "giocabile" ma fuori repertorio)
+  // legale ma non nel percorso: in base siamo tolleranti (è "giocabile" ma fuori repertorio)
   return { kind: "playable" };
 }
 

@@ -7,7 +7,7 @@ export function OpeningList(props: {
   return (
     <div className="screen">
       <h1 className="title">Scegli un'apertura</h1>
-      <p className="subtitle">Percorso guidato, pensato per mobile e utilizzabile anche offline, senza motore.</p>
+      <p className="subtitle">Percorsi guidati per studiare le aperture, pensati per mobile e disponibili anche offline.</p>
 
       <div className="list">
         {props.openings.map(o => (
@@ -17,7 +17,7 @@ export function OpeningList(props: {
             onClick={() => props.onSelect(o.id)}
           >
             <div className="card-title">
-              {o.name} {o.status === "stub" ? "🧩" : "⭐"}
+              {o.name} {o.status === "stub" ? "⏳" : "✅"}
             </div>
             {o.subtitle && <div className="card-sub">{o.subtitle}</div>}
             {o.tags && <div className="card-tags">{o.tags.join(" • ")}</div>}
