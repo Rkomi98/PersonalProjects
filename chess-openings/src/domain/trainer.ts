@@ -34,8 +34,8 @@ export function pickAutoMove(node: OpeningNode, level: Stars): MoveOption | unde
 
 export function kindLabel(kind: MoveKind): string {
   switch (kind) {
-    case "repertoire": return "Mossa di repertorio";
-    case "playable": return "Mossa giocabile";
+    case "repertoire": return "Mossa consigliata";
+    case "playable": return "Mossa ok";
     case "typical_error": return "Errore tipico";
   }
 }

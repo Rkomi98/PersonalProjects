@@ -13,7 +13,7 @@ export type FeedbackMsg = {
 export function FeedbackPanel(props: { messages: FeedbackMsg[] }) {
   return (
     <div className="feedback">
-      <h2 className="section-title">Feedback</h2>
+      <h2 className="section-title">Commenti</h2>
 
       {props.messages.length === 0 ? (
         <div className="muted">Fai una mossa per iniziare.</div>
@@ -22,7 +22,7 @@ export function FeedbackPanel(props: { messages: FeedbackMsg[] }) {
           {props.messages.map(m => (
             <div key={m.id} className={`msg ${m.by}`}>
               <div className="msg-head">
-                <span className="msg-by">{m.by === "user" ? "Tu" : "Guida"}</span>
+                <span className="msg-by">{m.by === "user" ? "Tu" : "Coach"}</span>
                 {m.kind && (
                   <span className="msg-kind">
                     {kindEmoji(m.kind)} {kindLabel(m.kind)}

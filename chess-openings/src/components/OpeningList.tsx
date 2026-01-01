@@ -6,8 +6,8 @@ export function OpeningList(props: {
 }) {
   return (
     <div className="screen">
-      <h1 className="title">Aperture</h1>
-      <p className="subtitle">Scegli un percorso guidato (mobile-first, offline, no engine).</p>
+      <h1 className="title">Scegli un'apertura</h1>
+      <p className="subtitle">Percorso guidato, pensato per mobile e utilizzabile anche offline, senza motore.</p>
 
       <div className="list">
         {props.openings.map(o => (
@@ -21,7 +21,7 @@ export function OpeningList(props: {
             </div>
             {o.subtitle && <div className="card-sub">{o.subtitle}</div>}
             {o.tags && <div className="card-tags">{o.tags.join(" • ")}</div>}
-            {o.status === "stub" && <div className="card-hint">Dataset in arrivo</div>}
+            {o.status === "stub" && <div className="card-hint">Contenuti in arrivo</div>}
           </button>
         ))}
       </div>

@@ -162,7 +162,7 @@ export function OpeningTrainer(props: {
       by: "system",
       san: auto.san,
       kind: auto.kind,
-      title: node.title ?? "Risposta",
+      title: node.title ?? "Risposta del libro",
       text: auto.why
     });
 
@@ -175,7 +175,7 @@ export function OpeningTrainer(props: {
       pushMessage({
         by: "system",
         title: "Fuori percorso",
-        text: "La risposta era nel dataset, ma la posizione successiva non è ancora modellata. Puoi continuare in free mode oppure riavviare."
+        text: "La risposta era nel dataset, ma la posizione successiva non è ancora descritta. Puoi continuare in modalità libera o ricominciare."
       });
     }
   }
@@ -203,8 +203,8 @@ export function OpeningTrainer(props: {
         by: "user",
         san: move.san,
         kind: "playable",
-        title: "Free mode",
-        text: "Mossa legale, ma sei fuori dal dataset di questa apertura. Per feedback più preciso, torna nel percorso o riavvia."
+        title: "Modalità libera",
+        text: "Mossa legale, ma sei fuori dal percorso di questa apertura. Per feedback più preciso, torna nel percorso o ricomincia."
       });
       return true;
     }
@@ -222,7 +222,7 @@ export function OpeningTrainer(props: {
       san: move.san,
       kind,
       title: node.title ?? "La tua mossa",
-      text: option?.why ?? "Mossa legale. In livello base siamo tolleranti: se vuoi restare nel percorso, prova una mossa di repertorio."
+      text: option?.why ?? "Mossa legale. A livello base siamo permissivi: se vuoi restare nel percorso, prova una mossa consigliata."
     });
 
     // Avanza nel libro se possibile, altrimenti entri in free mode (per non desincronizzare nodo/posizione)
@@ -233,10 +233,10 @@ export function OpeningTrainer(props: {
 
       pushMessage({
         by: "system",
-        title: option ? "Nodo non ancora modellato" : "Fuori percorso (deviazione)",
+        title: option ? "Nodo non ancora descritto" : "Fuori percorso",
         text: option
-          ? "Questa mossa è nel dataset, ma la posizione successiva non è ancora descritta. Continuiamo in free mode."
-          : "Questa deviazione non è coperta dal dataset. Continuiamo senza guida fino al restart."
+          ? "Questa mossa è nel dataset, ma la posizione successiva non è ancora descritta. Continuiamo in modalità libera."
+          : "Questa deviazione non è coperta dal dataset. Continuiamo senza guida finché non ricominci."
       });
     }
 
@@ -246,8 +246,8 @@ export function OpeningTrainer(props: {
   if (!opening) {
     return (
       <div className="screen">
-        <button className="ghost" onClick={props.onBack}>← Aperture</button>
-        <div className="muted">Apertura non trovata.</div>
+        <button className="ghost" onClick={props.onBack}>← Torna alle aperture</button>
+        <div className="muted">Apertura non trovata, torna indietro.</div>
       </div>
     );
   }
@@ -255,7 +255,7 @@ export function OpeningTrainer(props: {
   return (
     <div className="screen">
       <div className="topbar">
-        <button className="ghost" onClick={props.onBack}>← Aperture</button>
+        <button className="ghost" onClick={props.onBack}>← Torna alle aperture</button>
         <div className="topbar-title">
           <div className="title">{opening.name}</div>
           <div className="subtitle">{opening.subtitle}</div>
@@ -276,7 +276,7 @@ export function OpeningTrainer(props: {
         </div>
 
         <div className="control">
-          <span className="label">Alleni</span>
+          <span className="label">Ti alleni con</span>
           <select
             value={props.trainingSide}
             onChange={(e) => props.onChangeSide(e.target.value as Side)}
@@ -286,8 +286,8 @@ export function OpeningTrainer(props: {
           </select>
         </div>
 
-        <button className="btn" onClick={undoLastTurn} disabled={!canUndo}>Undo</button>
-        <button className="btn" onClick={restart}>Restart</button>
+        <button className="btn" onClick={undoLastTurn} disabled={!canUndo}>Annulla</button>
+        <button className="btn" onClick={restart}>Ricomincia</button>
       </div>
 
       <div className="board-wrap">
@@ -302,14 +302,14 @@ export function OpeningTrainer(props: {
 
       {currentNode?.idea && (
         <div className="idea">
-          <h2 className="section-title">Idea della posizione</h2>
+          <h2 className="section-title">Cosa cercare</h2>
           <div className="idea-text">{currentNode.idea}</div>
 
           {(currentNode.plans?.w?.length || currentNode.plans?.b?.length) && (
             <div className="plans">
               {currentNode.plans?.w?.length ? (
                 <div>
-                  <div className="plans-title">Piani Bianco</div>
+                  <div className="plans-title">Piani del Bianco</div>
                   <ul>
                     {currentNode.plans.w.map((p, i) => <li key={i}>{p}</li>)}
                   </ul>
@@ -318,7 +318,7 @@ export function OpeningTrainer(props: {
 
               {currentNode.plans?.b?.length ? (
                 <div>
-                  <div className="plans-title">Piani Nero</div>
+                  <div className="plans-title">Piani del Nero</div>
                   <ul>
                     {currentNode.plans.b.map((p, i) => <li key={i}>{p}</li>)}
                   </ul>
