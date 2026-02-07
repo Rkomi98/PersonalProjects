@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MedStudent RPG - Gastroenterologia</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <div class="bg-shape bg-shape-a"></div>
+    <div class="bg-shape bg-shape-b"></div>
+
+    <header class="topbar">
+      <div>
+        <p class="kicker">RPG Narrativo Didattico</p>
+        <h1 id="season-title"></h1>
+      </div>
+      <button id="reset-progress" class="ghost-btn">Reset Progressi</button>
+    </header>
+
+    <main class="layout">
+      <section class="panel panel-main">
+        <p id="chapter-title" class="chapter-title"></p>
+        <p id="scene-type" class="scene-type"></p>
+        <p id="transition" class="transition hidden"></p>
+        <p id="speaker" class="speaker"></p>
+        <p id="narrative" class="narrative"></p>
+        <p id="exam-hook" class="exam-hook"></p>
+
+        <div id="options" class="options"></div>
+        <button id="advance" class="primary-btn hidden">Prosegui</button>
+
+        <article id="feedback" class="feedback hidden">
+          <h2 id="feedback-title"></h2>
+          <p id="feedback-text"></p>
+          <p id="feedback-exam"></p>
+          <p id="feedback-source"></p>
+        </article>
+      </section>
+
+      <aside class="panel panel-side">
+        <section>
+          <h2>Camilla</h2>
+          <ul id="profile" class="profile"></ul>
+        </section>
+
+        <section>
+          <h2>Stat</h2>
+          <ul id="stats" class="stats-list"></ul>
+        </section>
+
+        <section>
+          <h2>Specchio Pallavolo</h2>
+          <div id="mirrors" class="mirrors"></div>
+        </section>
+
+        <section>
+          <h2>Mappa Stagione</h2>
+          <ul id="chapters" class="chapters"></ul>
+        </section>
+
+        <section>
+          <h2>Fonte Scientifica</h2>
+          <p id="source-book-title" class="source-book"></p>
+          <p id="source-book-path" class="source-path"></p>
+          <pre id="source-scene" class="source-scene"></pre>
+        </section>
+      </aside>
+    </main>
+
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>
