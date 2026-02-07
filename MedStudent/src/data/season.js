@@ -31,7 +31,7 @@ export const season = {
           type: "narrative",
           speaker: "Narratore",
           text:
-            "Ore 06:40. Palestra quasi vuota. Camilla ha appena finito la battuta in salto con le sue Under, poi corre in reparto per il tirocinio di gastroenterologia. Oggi sente che la stagione si decide su due campi: il parquet e l'esame.",
+            "Ore 06:40. Palestra semi-vuota, scarpe che stridono sul parquet. Camilla chiude l'ultimo esercizio con le Under, si cambia al volo e parte per il reparto: oggi la partita vera e' doppia, corsia ed esame.",
           examHook:
             "Target didattico: problem solving clinico (diagnosi, monitoraggio, terapia, educazione).",
           sourceKey: "problem_solving_framework"
@@ -41,7 +41,7 @@ export const season = {
           type: "narrative",
           speaker: "Ingegnere",
           text:
-            "'Niente improvvisazione: SBAR, priorita e catena decisionale. Primo caso del turno: donna 58 anni con dolore epigastrico, sazieta precoce, calo ponderale e feci picee occasionali.'",
+            "'Ti voglio lucida, non perfetta. SBAR in testa e priorita chiare. Primo caso del turno: donna di 58 anni con dolore epigastrico, sazieta precoce, calo ponderale e feci picee occasionali.'",
           examHook:
             "Il docente vuole struttura: Situation, Background, Assessment, Recommendation.",
           sourceKey: "problem_solving_framework"
@@ -50,26 +50,32 @@ export const season = {
           id: "s3",
           type: "choice",
           prompt:
-            "Fine allenamento serale. Prima di ripassare i sanguinamenti digestivi, Camilla decide come gestire energia e focus.",
+            "Fine allenamento. Camilla e' stanca ma deve ancora ripassare i sanguinamenti digestivi: come gestisce energia e focus?",
           options: [
             {
-              text: "Beve una IPA e ripassa subito.",
+              text: "Una IPA veloce e poi dritta sui quiz.",
               effects: { morale: 6, balance: -5 },
               tags: ["ipa_taken"],
               feedback:
-                "Morale su, ma il corpo risente la fatica. Nella dispensa l'alcol e' citato tra i trigger da evitare nei sintomi da reflusso."
+                "Ti tira su il morale, ma il corpo resta in debito. In dispensa l'alcol rientra tra i trigger da evitare nei sintomi da reflusso.",
+              transitionLine:
+                "Camilla sente la testa accendersi subito, ma lo stomaco le ricorda che domani si paga tutto."
             },
             {
-              text: "Salta la IPA, idratazione e 40 minuti di sonno.",
+              text: "Niente IPA: acqua, doccia e 40 minuti di sonno.",
               effects: { balance: 8, determination: 3 },
               feedback:
-                "Recupero fisico solido: migliora la tenuta quando la pressione aumenta."
+                "Scelta pulita. Recupero fisico migliore e piu' tenuta quando la pressione sale.",
+              transitionLine:
+                "Rientra in reparto con il cervello piu' acceso e la sensazione di avere margine vero."
             },
             {
-              text: "Fa video-analisi con la squadra Under e poi pianifica lo studio.",
+              text: "Video-analisi con le Under e poi planning studio.",
               effects: { leadership: 7, determination: 4, balance: -2 },
               feedback:
-                "Leadership in crescita: la squadra migliora, ma il margine di recupero fisico resta stretto."
+                "Leadership forte: la squadra cresce, ma il recupero fisico resta tirato.",
+              transitionLine:
+                "Le ragazze escono piu' ordinate dal campo. Camilla invece arriva al caso con addosso tutta la giornata."
             }
           ],
           sourceKey: "reflux_lifestyle"
@@ -78,32 +84,42 @@ export const season = {
           id: "s4",
           type: "quiz_mcq",
           prompt:
-            "Quiz d'esame. Donna 58 anni: dolore epigastrico, sazieta precoce, -6 kg in 6 mesi, Hb 9 g/dL, feci picee occasionali. Quale elemento NON e' un sintomo d'allarme che giustifica EGDS nel contesto descritto?",
+            "Mini-simulazione d'esame. Donna 58 anni: dolore epigastrico, sazieta precoce, -6 kg in 6 mesi, Hb 9 g/dL, feci picee occasionali. Quale elemento NON e' red flag che da solo giustifica EGDS in questo contesto?",
           options: [
             {
               text: "Eta >45 anni nel contesto clinico",
               correct: false,
-              why: "Nel caso in dispensa e' considerato elemento che rafforza l'indicazione ad approfondire."
+              why: "Qui non va bene: nel caso della dispensa questo elemento rafforza l'indicazione all'approfondimento.",
+              transitionLine:
+                "Camilla si ferma un secondo, rilegge il caso e capisce dove si era fatta trascinare."
             },
             {
               text: "Anemia",
               correct: false,
-              why: "Anemia e' red flag e richiede approfondimento endoscopico nel contesto."
+              why: "No: anemia e' red flag e nel contesto clinico richiede approfondimento endoscopico.",
+              transitionLine:
+                "Segna l'errore e non si abbatte: meglio correggere qui che davanti al docente."
             },
             {
               text: "Stipsi",
               correct: true,
-              why: "Nel quiz della dispensa e' l'opzione corretta: la stipsi, da sola, non giustifica EGDS del tratto superiore."
+              why: "Esatto. Nel quiz della dispensa la risposta corretta e' stipsi: da sola non giustifica EGDS del tratto superiore.",
+              transitionLine:
+                "Punto preso. Camilla sente il ritmo giusto e passa alla decisione clinica successiva."
             },
             {
               text: "Calo ponderale non intenzionale",
               correct: false,
-              why: "Il calo ponderale non intenzionale e' sintomo d'allarme."
+              why: "No: calo ponderale non intenzionale e' sintomo d'allarme.",
+              transitionLine:
+                "Errore utile: ora il concetto di red flag le resta molto piu' nitido."
             },
             {
               text: "Melena",
               correct: false,
-              why: "La melena e' indicativa di possibile sanguinamento GI superiore."
+              why: "No: la melena orienta verso possibile sanguinamento GI superiore.",
+              transitionLine:
+                "Camilla si riallinea subito: sul sanguinamento non ci si puo' permettere confusione."
             }
           ],
           onCorrect: { knowledge: 10, determination: 4 },
@@ -116,22 +132,28 @@ export const season = {
           id: "s5",
           type: "quiz_clinical",
           prompt:
-            "Scelta clinica narrativa. Paziente con melena osservata, ipoteso e tachicardico. Qual e' la prima priorita?",
+            "Scelta clinica narrativa. Paziente con melena osservata, ipoteso e tachicardico: qual e' la tua prima mossa?",
           options: [
             {
               text: "Stabilizzazione emodinamica: accessi venosi robusti + fluidi, poi gestione vie aeree se necessaria.",
               correct: true,
-              why: "La dispensa indica questo come primo passaggio in acuto."
+              why: "Corretto: in acuto la dispensa mette prima stabilizzazione emodinamica (e vie aeree se necessario), poi timing endoscopico.",
+              transitionLine:
+                "Scelta da reparto vero: prima metti in sicurezza, poi vai a cercare la causa."
             },
             {
               text: "EGDS immediata prima di qualunque stabilizzazione.",
               correct: false,
-              why: "EGDS e' cruciale, ma dopo priorita ABC e stabilizzazione iniziale."
+              why: "Non e' la priorita iniziale: EGDS e' cruciale, ma dopo ABC e stabilizzazione.",
+              transitionLine:
+                "Camilla lo segna in grande: mai inseguire l'esame strumentale saltando la sicurezza del paziente."
             },
             {
               text: "Attendere solo esami ematici prima di intervenire.",
               correct: false,
-              why: "Ritarda una fase tempo-dipendente in un quadro potenzialmente instabile."
+              why: "No: aspettare soltanto gli esami ritarda una fase tempo-dipendente in un quadro potenzialmente instabile.",
+              transitionLine:
+                "Respira, rilegge ABC e riparte: qui il tempo clinico conta piu' della teoria perfetta."
             }
           ],
           onCorrect: { knowledge: 9, leadership: 5 },
@@ -145,22 +167,28 @@ export const season = {
           id: "s6",
           type: "quiz_reasoning",
           prompt:
-            "Ragionamento clinico. Diarrea da oltre 6 settimane. Quale elemento orienta verso forma infiammatoria?",
+            "Ragionamento clinico. Diarrea oltre 6 settimane: quale dato dell'anamnesi/esami orienta verso forma infiammatoria?",
           options: [
             {
               text: "Feci con sangue e muco, con calprotectina fecale elevata.",
               correct: true,
-              why: "In dispensa e' il pattern tipico di diarrea infiammatoria (Crohn/rettocolite ulcerosa)."
+              why: "Giusto: in dispensa e' il pattern tipico della diarrea infiammatoria (Crohn/rettocolite ulcerosa).",
+              transitionLine:
+                "Camilla collega i pezzi: sintomo, marker fecale, ipotesi clinica. Ragionamento pulito."
             },
             {
               text: "Diarrea solo dopo latte, senza alterazioni infiammatorie fecali.",
               correct: false,
-              why: "Non orienta in prima battuta a un fenotipo infiammatorio."
+              why: "Questo quadro non orienta in prima battuta a fenotipo infiammatorio.",
+              transitionLine:
+                "Errore tecnico, ma utile: ora distingue meglio i quadri infiammatori da quelli non infiammatori."
             },
             {
               text: "Assenza di calo ponderale, alvo regolare notturno e nessun sangue.",
               correct: false,
-              why: "Quadro poco coerente con diarrea infiammatoria attiva."
+              why: "Poco coerente con diarrea infiammatoria attiva.",
+              transitionLine:
+                "Camilla si riallinea subito: il ragionamento clinico si aggiusta passo dopo passo."
             }
           ],
           onCorrect: { knowledge: 8, determination: 3 },
@@ -174,7 +202,7 @@ export const season = {
           type: "narrative",
           speaker: "Osteopata",
           text:
-            "'Hai gestito priorita e ragionamento. Ora ricordati il sistema completo: stress, sonno, carico fisico, aderenza allo studio. Se crolli fuori dal reparto, crolli anche al caso clinico.'",
+            "'Bel lavoro. Hai tenuto insieme priorita e ragionamento. Adesso proteggi il sistema: stress, sonno, carico fisico, continuita di studio. Se vai in riserva fuori dal reparto, vai in riserva anche all'orale.'",
           examHook:
             "Nessun game over: gli errori diventano recupero guidato.",
           sourceKey: "problem_solving_framework"

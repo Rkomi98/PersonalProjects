@@ -8,6 +8,7 @@ const elements = {
   seasonTitle: document.querySelector("#season-title"),
   chapterTitle: document.querySelector("#chapter-title"),
   sceneType: document.querySelector("#scene-type"),
+  transition: document.querySelector("#transition"),
   speaker: document.querySelector("#speaker"),
   narrative: document.querySelector("#narrative"),
   examHook: document.querySelector("#exam-hook"),
@@ -190,6 +191,7 @@ function renderOptions(scene, snapshot) {
 
 function renderComplete(snapshot) {
   elements.sceneType.textContent = "Capitolo completato";
+  elements.transition.classList.add("hidden");
   elements.speaker.textContent = "Contadino";
   elements.narrative.textContent =
     "'Hai chiuso il primo set. I prossimi capitoli sono pronti in roadmap: si continua senza uscire dalla dispensa.'";
@@ -223,6 +225,13 @@ function render() {
   }
 
   elements.sceneType.textContent = sceneLabel(scene.type);
+  if (snapshot.state.transitionLine) {
+    elements.transition.textContent = snapshot.state.transitionLine;
+    elements.transition.classList.remove("hidden");
+  } else {
+    elements.transition.classList.add("hidden");
+    elements.transition.textContent = "";
+  }
   elements.speaker.textContent = scene.speaker || "Sistema";
   elements.narrative.textContent = scene.text || scene.prompt || "";
   elements.examHook.textContent = scene.examHook || "";

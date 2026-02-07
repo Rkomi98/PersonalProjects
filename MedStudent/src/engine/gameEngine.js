@@ -27,6 +27,7 @@ export class GameEngine {
       sceneIndex: 0,
       stats,
       tags: {},
+      transitionLine: null,
       pendingFeedback: null,
       history: []
     };
@@ -123,6 +124,7 @@ export class GameEngine {
     let feedback = {
       title: "Scelta registrata",
       text: option.feedback || "Decisione acquisita.",
+      transitionLine: option.transitionLine || scene.transitionLine || null,
       exam: scene.teacherAsk || null,
       sourcePrimary: this.getSourceEntry(scene.sourceKey),
       sourceSecondary: this.getSourceEntry(scene.extraSourceKey),
@@ -170,6 +172,7 @@ export class GameEngine {
     if (!chapter) return { done: true };
 
     if (this.state.pendingFeedback) {
+      this.state.transitionLine = this.state.pendingFeedback.transitionLine || null;
       this.state.pendingFeedback = null;
     }
 
