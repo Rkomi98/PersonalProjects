@@ -62,6 +62,7 @@ jobs:
           cp -r Experiments deploy/
           cp -r SecretSanta deploy/
           cp -r IrrigatoreSmart deploy/
+          cp -r MedStudent deploy/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
