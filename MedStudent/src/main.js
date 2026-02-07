@@ -17,6 +17,7 @@ const elements = {
   feedback: document.querySelector("#feedback"),
   feedbackTitle: document.querySelector("#feedback-title"),
   feedbackText: document.querySelector("#feedback-text"),
+  feedbackStats: document.querySelector("#feedback-stats"),
   feedbackExam: document.querySelector("#feedback-exam"),
   feedbackSource: document.querySelector("#feedback-source"),
   profile: document.querySelector("#profile"),
@@ -90,9 +91,11 @@ function renderChapters(snapshot) {
   season.chapters.forEach((chapter, index) => {
     const item = document.createElement("li");
     const current = index === snapshot.state.chapterIndex;
+    const completed = snapshot.state.completedChapterIds?.includes(chapter.id);
 
     item.className = chapter.status;
     if (current) item.classList.add("active");
+    if (completed) item.classList.add("completed");
 
     const title = document.createElement("strong");
     title.textContent = chapter.title;
@@ -120,6 +123,12 @@ function renderFeedback(snapshot) {
   elements.feedback.classList.remove("hidden");
   elements.feedbackTitle.textContent = feedback.title;
   elements.feedbackText.textContent = feedback.text;
+  const deltaParts = Object.entries(feedback.statDelta || {})
+    .filter(([, delta]) => delta !== 0)
+    .map(([stat, delta]) => `${season.stats[stat]?.label || stat} ${delta > 0 ? "+" : ""}${delta}`);
+  elements.feedbackStats.textContent = deltaParts.length
+    ? `Variazione stat: ${deltaParts.join(" | ")}`
+    : "Variazione stat: nessuna";
   elements.feedbackExam.textContent = feedback.exam ? `Focus docente: ${feedback.exam}` : "";
 
   const sources = [];
@@ -162,41 +171,58 @@ function renderOptions(scene, snapshot) {
 
   if (!scene) return;
 
-  if (snapshot.feedback) {
-    elements.advance.textContent = "Continua";
-    elements.advance.classList.remove("hidden");
-    return;
-  }
-
   if (scene.type === "narrative") {
     elements.advance.textContent = "Prosegui";
     elements.advance.classList.remove("hidden");
     return;
   }
 
-  elements.advance.classList.add("hidden");
+  if (snapshot.feedback) {
+    elements.advance.textContent = "Continua";
+    elements.advance.classList.remove("hidden");
+  } else {
+    elements.advance.classList.add("hidden");
+  }
 
   scene.options.forEach((option, index) => {
     const button = document.createElement("button");
     button.type = "button";
     button.className = "option-btn";
     button.textContent = option.text;
-    button.addEventListener("click", () => {
-      engine.answer(index);
-      render();
-    });
+
+    if (snapshot.feedback) {
+      button.disabled = true;
+      button.classList.add("option-locked");
+      if (index === snapshot.feedback.selectedOptionIndex) {
+        button.classList.add("option-selected");
+      }
+
+      if (scene.type.startsWith("quiz_")) {
+        if (index === snapshot.feedback.correctOptionIndex) {
+          button.classList.add("option-correct");
+        }
+        if (snapshot.feedback.correct === false && index === snapshot.feedback.selectedOptionIndex) {
+          button.classList.add("option-wrong");
+        }
+      }
+    } else {
+      button.addEventListener("click", () => {
+        engine.answer(index);
+        render();
+      });
+    }
     elements.options.appendChild(button);
   });
 }
 
 function renderComplete(snapshot) {
-  elements.sceneType.textContent = "Capitolo completato";
+  elements.sceneType.textContent = "Stagione completata";
   elements.transition.classList.add("hidden");
-  elements.speaker.textContent = "Contadino";
+  elements.speaker.textContent = "Team Tutor";
   elements.narrative.textContent =
-    "'Hai chiuso il primo set. I prossimi capitoli sono pronti in roadmap: si continua senza uscire dalla dispensa.'";
+    "Camilla chiude la stagione completa: 12 capitoli giocati, errori convertiti in recupero, ragionamento clinico piu' solido.";
   elements.examHook.textContent =
-    "Fine capitolo 1. Riapri la partita con Reset o prosegui estendendo i capitoli pianificati.";
+    "Riparti con Reset per una nuova run o continua ad aggiungere casi avanzati restando sulla dispensa.";
   clearChildren(elements.options);
   elements.advance.classList.add("hidden");
   elements.feedback.classList.add("hidden");

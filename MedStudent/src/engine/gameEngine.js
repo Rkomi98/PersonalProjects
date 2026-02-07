@@ -1,4 +1,5 @@
 const STORAGE_KEY = "medstudent-rpg-save-v1";
+const DEFAULT_WRONG_QUIZ_MALUS = { knowledge: -2 };
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -6,6 +7,16 @@ function clamp(value, min, max) {
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
+}
+
+function mergeDelta(target, incoming = {}) {
+  Object.entries(incoming).forEach(([key, value]) => {
+    target[key] = (target[key] || 0) + value;
+  });
+}
+
+function hasAnyDelta(delta = {}) {
+  return Object.values(delta).some((value) => value !== 0);
 }
 
 export class GameEngine {
@@ -28,6 +39,7 @@ export class GameEngine {
       stats,
       tags: {},
       transitionLine: null,
+      completedChapterIds: [],
       pendingFeedback: null,
       history: []
     };
@@ -101,11 +113,16 @@ export class GameEngine {
   }
 
   applyEffects(effects = {}) {
+    const applied = {};
     Object.entries(effects).forEach(([stat, delta]) => {
       const def = this.season.stats[stat];
       if (!def || typeof this.state.stats[stat] !== "number") return;
-      this.state.stats[stat] = clamp(this.state.stats[stat] + delta, def.min, def.max);
+      const before = this.state.stats[stat];
+      const after = clamp(before + delta, def.min, def.max);
+      this.state.stats[stat] = after;
+      applied[stat] = (applied[stat] || 0) + (after - before);
     });
+    return applied;
   }
 
   addTags(tags = []) {
@@ -128,11 +145,14 @@ export class GameEngine {
       exam: scene.teacherAsk || null,
       sourcePrimary: this.getSourceEntry(scene.sourceKey),
       sourceSecondary: this.getSourceEntry(scene.extraSourceKey),
+      selectedOptionIndex: optionIndex,
+      statDelta: {},
       correct: null
     };
+    const statDelta = {};
 
     if (scene.type === "choice") {
-      this.applyEffects(option.effects);
+      mergeDelta(statDelta, this.applyEffects(option.effects));
       this.addTags(option.tags);
       this.state.history.push({ sceneId: scene.id, type: scene.type, optionIndex });
     }
@@ -144,14 +164,23 @@ export class GameEngine {
       if (correct) {
         feedback.title = "Risposta corretta";
         feedback.text = option.why;
-        this.applyEffects(scene.onCorrect);
+        mergeDelta(statDelta, this.applyEffects(scene.onCorrect));
       } else {
         feedback.title = "Risposta da recuperare";
         feedback.text = `${option.why} Recupero: rivedi il razionale e riparti subito, senza game over.`;
-        this.applyEffects(scene.onWrong);
+        mergeDelta(statDelta, this.applyEffects(scene.onWrong));
+        mergeDelta(statDelta, this.applyEffects(scene.wrongMalus || DEFAULT_WRONG_QUIZ_MALUS));
+
+        // Se un errore non porta a malus su conoscenza, forziamo almeno -1 (quando possibile).
+        const knowledgeDelta = statDelta.knowledge || 0;
+        if (knowledgeDelta >= 0) {
+          mergeDelta(statDelta, this.applyEffects({ knowledge: -(knowledgeDelta + 1) }));
+        }
       }
 
-      const correctOption = scene.options.find((item) => item.correct);
+      const correctOptionIndex = scene.options.findIndex((item) => item.correct);
+      const correctOption = scene.options[correctOptionIndex];
+      feedback.correctOptionIndex = correctOptionIndex >= 0 ? correctOptionIndex : null;
       feedback.correctAnswer = correctOption ? correctOption.text : null;
       this.state.history.push({
         sceneId: scene.id,
@@ -160,6 +189,23 @@ export class GameEngine {
         correct
       });
     }
+
+    if (!hasAnyDelta(statDelta)) {
+      const fallbackSequence = scene.type.startsWith("quiz_")
+        ? feedback.correct
+          ? [{ determination: 1 }, { knowledge: 1 }, { morale: 1 }, { leadership: 1 }, { balance: 1 }]
+          : [{ knowledge: -1 }, { determination: -1 }, { morale: -1 }, { leadership: -1 }, { balance: -1 }]
+        : [{ determination: 1 }, { morale: 1 }, { leadership: 1 }, { knowledge: 1 }, { balance: 1 }];
+
+      for (const fallback of fallbackSequence) {
+        const applied = this.applyEffects(fallback);
+        if (hasAnyDelta(applied)) {
+          mergeDelta(statDelta, applied);
+          break;
+        }
+      }
+    }
+    feedback.statDelta = statDelta;
 
     this.state.pendingFeedback = feedback;
     this.save();
@@ -181,6 +227,19 @@ export class GameEngine {
       this.state.sceneIndex = nextSceneIndex;
       this.save();
       return { done: false };
+    }
+
+    if (!this.state.completedChapterIds.includes(chapter.id)) {
+      this.state.completedChapterIds.push(chapter.id);
+    }
+
+    const nextChapterIndex = this.state.chapterIndex + 1;
+    if (this.season.chapters[nextChapterIndex]) {
+      this.state.chapterIndex = nextChapterIndex;
+      this.state.sceneIndex = 0;
+      this.state.transitionLine = `Nuovo capitolo: ${this.season.chapters[nextChapterIndex].title}`;
+      this.save();
+      return { done: false, chapterAdvanced: true };
     }
 
     this.save();

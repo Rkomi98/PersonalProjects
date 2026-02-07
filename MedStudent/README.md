@@ -63,5 +63,5 @@ Per aggiungere nuovi episodi didattici:
 3. Collega ogni scena a una fonte in `src/data/sourceBook.js` con `sourceKey` (e opzionale `extraSourceKey`).
 
 ## Stato attuale
-- Capitolo 1: completo e giocabile (incipit + personaggio + caso clinico + prima scelta significativa + quiz + feedback + recupero).
-- Capitoli 2-12: roadmap strutturata su programma dispensa (pagine base gia' collegate).
+- Stagione completa giocabile: 12 capitoli, ciascuno con scena narrativa, scelta, quiz, scelta clinica, ragionamento, feedback e recupero.
+- Progressione automatica capitolo per capitolo con salvataggio locale dello stato.

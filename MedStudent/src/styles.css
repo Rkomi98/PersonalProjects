@@ -176,6 +176,31 @@ h1 {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
+.option-btn:disabled {
+  cursor: default;
+  transform: none;
+  box-shadow: none;
+}
+
+.option-locked {
+  opacity: 0.88;
+}
+
+.option-selected {
+  border-color: #7a8b8b;
+  background: #f2f5f5;
+}
+
+.option-correct {
+  border-color: #5a9c63;
+  background: #e9f7eb;
+}
+
+.option-wrong {
+  border-color: #b55a5a;
+  background: #faecec;
+}
+
 .primary-btn {
   background: var(--accent);
   color: #fff;
@@ -290,6 +315,11 @@ h1 {
 .chapters li.active {
   border-color: #6d9f9f;
   box-shadow: inset 0 0 0 1px #7eb3b3;
+}
+
+.chapters li.completed {
+  border-color: #95b782;
+  background: #f4faee;
 }
 
 .chapters li.planned {
