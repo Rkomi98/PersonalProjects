@@ -1,5 +1,7 @@
 pdf/
 *.pdf
+*.pptx
+.DS_Store
 *.env
 Slide Generator/slide/
 Slide Generator/output/

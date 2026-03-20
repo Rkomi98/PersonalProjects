@@ -1,0 +1,5 @@
+# Python 3.10+ consigliato (datapizza-ai non supporta versioni precedenti)
+python-pptx>=0.6.21
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+datapizza-ai>=0.1.0

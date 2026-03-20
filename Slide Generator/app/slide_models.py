@@ -1,85 +1,79 @@
-"""Typed models passed to datapizza's structured responses and PPT builder."""
+"""Typed models for Datapizza slide generation and PPT assembly."""
 from __future__ import annotations
 
-from pydantic import BaseModel, Field
+from enum import Enum
+
+from pydantic import BaseModel, Field, model_validator
 
 
-class SlideVisual(BaseModel):
-    """Describe a suggested visual asset for the slide."""
+class SlideType(str, Enum):
+    """Supported Datapizza slide categories."""
 
-    type: str = Field(
-        ...,
-        description="Tipo di visual da usare (grafico, illustrazione, icona, quote, timeline).",
-    )
-    description: str = Field(
-        ..., description="Spiega cosa dovrebbe mostrare il visual in massimo 2 frasi."
-    )
-    svg_markup: str | None = Field(
+    TITLE = "title"
+    SECTION = "section"
+    CONTENT = "content"
+    BULLETS = "bullets"
+    CLOSING = "closing"
+
+
+class DatapizzaSlide(BaseModel):
+    """Single slide in the Claude/Gemini handoff format requested by the user."""
+
+    slide_type: SlideType = Field(..., description="Tipo della slide.")
+    title: str = Field(..., description="Titolo della slide.")
+    subtitle: str | None = Field(
         default=None,
-        description="SVG inline completo (<svg>...</svg>) in stile Datapizza o null se non necessario.",
+        description="Sottotitolo opzionale, usato solo per title o section.",
     )
-    caption: str | None = Field(
+    body: str | None = Field(
         default=None,
-        description="Breve descrizione da mostrare in slide accanto all'SVG.",
-    )
-
-
-class SlideContent(BaseModel):
-    """Single slide specification returned by the LLM."""
-
-    layout: str = Field(
-        default="split",
-        description=(
-            "Layout suggerito: 'text_only', 'split' (testo+visual) oppure 'visual_full' "
-            "per slide guidata interamente dal visual."
-        ),
-    )
-    title: str = Field(
-        ..., description="Titolo della slide in sentence case massimo 8 parole."
-    )
-    key_message: str | None = Field(
-        default=None,
-        description="Frase incisiva che riassume il valore principale della slide.",
+        description="Testo principale della slide, massimo 3 righe per una content slide.",
     )
     bullets: list[str] = Field(
         default_factory=list,
-        description="Elenco di bullet point brevi (max 14 parole) già pronti per la slide.",
+        description="Elenco puntato, massimo 4 elementi.",
     )
-    insights: list[str] | None = Field(
-        default=None,
-        description="Approfondimenti opzionali con dati/quote per dare autorevolezza alla slide.",
+    speaker_notes: str = Field(
+        ...,
+        description="Note per il relatore, aggiuntive rispetto al contenuto visivo.",
     )
-    visual: SlideVisual | None = Field(
-        default=None,
-        description="Suggerimento del visual da inserire nella slide.",
+    image_prompt: str = Field(
+        ...,
+        description=(
+            "Prompt dettagliato per generare un SVG illustrativo in stile Datapizza. "
+            "Deve includere canvas 'SVG 800x500px, viewBox 0 0 800 500'."
+        ),
     )
-    speaker_notes: str | None = Field(
-        default=None,
-        description="Note per lo speaker con tono colloquiale (massimo 3 frasi).",
-    )
+
+    @property
+    def is_internal(self) -> bool:
+        return self.slide_type in {SlideType.CONTENT, SlideType.BULLETS}
+
+    @model_validator(mode="after")
+    def validate_shape(self) -> "DatapizzaSlide":
+        if self.slide_type in {SlideType.TITLE, SlideType.SECTION}:
+            self.bullets = []
+            self.body = self.body or None
+        if self.slide_type == SlideType.CONTENT:
+            self.bullets = []
+        if self.slide_type == SlideType.BULLETS:
+            self.body = self.body or None
+            self.bullets = self.bullets[:4]
+        if self.slide_type == SlideType.CLOSING:
+            self.subtitle = self.subtitle or None
+            self.bullets = []
+            self.body = self.body or None
+        return self
 
 
 class SlideDeck(BaseModel):
-    """Overall structure of the deck produced by the LLM."""
+    """Structured container returned by datapizza-AI."""
 
-    deck_title: str = Field(..., description="Titolo della presentazione per la cover.")
-    subtitle: str | None = Field(
-        default=None, description="Sottotitolo o payoff della presentazione."
-    )
-    summary: str = Field(
-        ..., description="Paragrafo introduttivo di massimo 60 parole riassuntive."
-    )
-    slides: list[SlideContent] = Field(
-        ..., description="Lista ordinata di slide dalla intro alla chiusura."
-    )
-    closing_message: str | None = Field(
-        default=None, description="Ultimo messaggio o call-to-action della presentazione."
+    slides: list[DatapizzaSlide] = Field(
+        ...,
+        description="Array ordinato delle slide della presentazione.",
     )
 
-    @property
-    def cover_title(self) -> str:
-        return self.deck_title
-
-    @property
-    def cover_subtitle(self) -> str:
-        return self.subtitle or ""
+    def as_output_array(self) -> list[dict]:
+        """Return the exact array shape expected downstream."""
+        return [slide.model_dump(mode="json") for slide in self.slides]

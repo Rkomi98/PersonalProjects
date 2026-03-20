@@ -1,0 +1,2 @@
+# Conversione SVG → PNG per PowerPoint (richiede librerie di sistema Cairo su macOS)
+cairosvg>=2.7.0

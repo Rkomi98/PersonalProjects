@@ -2,19 +2,22 @@
 
 from .settings import AppSettings, load_settings
 from .layouts import load_layout_plan
-from .slide_models import SlideContent, SlideDeck, SlideVisual
+from .gemini_assets import GeminiAssetManager
+from .slide_models import DatapizzaSlide, SlideDeck, SlideType
 from .slide_service import SlideGenerationService
 from .ppt_builder import SlideDeckWriter, SlideStyle
-from .prompts import load_style_prompt
+from .prompts import load_datapizza_skill_context, load_style_prompt
 
 __all__ = [
     "AppSettings",
-    "SlideContent",
+    "DatapizzaSlide",
+    "GeminiAssetManager",
     "SlideDeck",
     "SlideDeckWriter",
     "SlideGenerationService",
     "SlideStyle",
-    "SlideVisual",
+    "SlideType",
+    "load_datapizza_skill_context",
     "load_settings",
     "load_style_prompt",
     "load_layout_plan",

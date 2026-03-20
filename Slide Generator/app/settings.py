@@ -22,6 +22,9 @@ class AppSettings:
     cover_logo_path: Path
     output_dir: Path
     svg_output_dir: Path
+    gemini_prompt_dir: Path
+    gemini_asset_dir: Path
+    datapizza_skill_path: Path
     openai_api_key: str
     openai_model: str
     default_slide_count: int = 8
@@ -59,6 +62,11 @@ def load_settings(
     resolved_output_dir.mkdir(parents=True, exist_ok=True)
     svg_output_dir = resolved_output_dir / "svg"
     svg_output_dir.mkdir(parents=True, exist_ok=True)
+    gemini_prompt_dir = resolved_output_dir / "gemini_prompts"
+    gemini_prompt_dir.mkdir(parents=True, exist_ok=True)
+    gemini_asset_dir = resolved_output_dir / "gemini_assets"
+    gemini_asset_dir.mkdir(parents=True, exist_ok=True)
+    datapizza_skill_path = base_dir / "Materiale a supporto" / "datapizza-slides.skill"
 
     return AppSettings(
         base_dir=base_dir,
@@ -70,6 +78,9 @@ def load_settings(
         cover_logo_path=cover_logo_path,
         output_dir=resolved_output_dir,
         svg_output_dir=svg_output_dir,
+        gemini_prompt_dir=gemini_prompt_dir,
+        gemini_asset_dir=gemini_asset_dir,
+        datapizza_skill_path=datapizza_skill_path,
         openai_api_key=api_key,
         openai_model=selected_model,
     )
