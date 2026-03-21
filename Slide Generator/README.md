@@ -16,6 +16,7 @@ cd "Slide Generator"
 source .venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
+npm install
 ```
 
 Opzionale, per convertire gli SVG in PNG dentro PowerPoint:
@@ -52,7 +53,9 @@ Il `dry-run` stampa solo l'array JSON, senza testo aggiuntivo.
 2. `SlideGenerationService` usa `datapizza-AI` + OpenAI con schema Pydantic
 3. il deck viene salvato come JSON in `output/slides_*.json`
 4. per le slide `content` e `bullets` vengono creati prompt Gemini in `output/gemini_prompts/`
-5. il builder cerca gli SVG corrispondenti in `output/gemini_assets/` e li inserisce nel `.pptx` se presenti
+5. se `GEMINI_API_KEY` e il client `datapizza-ai-clients-google` sono disponibili, vengono generati anche gli SVG in `output/gemini_assets/` (opzionale: `GEMINI_SVG_MAX_TOKENS`, default `16384`, se servono risposte più lunghe)
+6. il builder PptxGenJS scrive il `.pptx` e include gli SVG nel pacchetto PowerPoint
+7. se PptxGenJS non è disponibile, il progetto ripiega sul builder Python legacy
 
 ## Cartelle Gemini
 
@@ -61,6 +64,9 @@ Il progetto usa queste convenzioni:
 - Prompt Gemini: `output/gemini_prompts/slide_XX.txt`
 - Manifest: `output/gemini_prompts/manifest.json`
 - SVG generati da Gemini: `output/gemini_assets/slide_XX.svg`
+- Riepilogo token (ultima run): `output/gemini_assets/gemini_svg_usage.json` — in console viene stampata anche una riga riassuntiva
+
+**Stima costo Gemini (opzionale):** nel `.env`, `GEMINI_INPUT_USD_PER_MTOKEN` e `GEMINI_OUTPUT_USD_PER_MTOKEN` = prezzo in USD per **milione** di token (dalla [tabella prezzi Google AI](https://ai.google.dev/pricing) per il tuo modello). Se non le imposti, restano comunque i conteggi token nel JSON e in console.
 
 Formato consigliato dei prompt:
 
@@ -92,6 +98,17 @@ Output:
 - `output/gemini_assets/slide_XX.svg` (da popolare con Gemini)
 - `output/deck_YYYYMMDD_HHMM.pptx`
 
+Dipendenza Gemini via datapizza:
+
+```bash
+.venv/bin/pip install datapizza-ai-clients-google
+```
+
+Default modelli:
+
+- OpenAI: `gpt-5.4-mini`
+- Gemini: `gemini-3.1-pro-preview`
+
 ## Skill Datapizza
 
 Il generatore carica anche il pacchetto `Materiale a supporto/datapizza-slides.skill` e ne incorpora:
@@ -101,6 +118,12 @@ Il generatore carica anche il pacchetto `Materiale a supporto/datapizza-slides.s
 - estratto di `dp-03-workflow.md`
 
 Questo contesto viene passato al prompt del modello per restare allineato alle convenzioni Datapizza.
+
+## Output PPTX
+
+- La pipeline principale usa `PptxGenJS`, non `python-pptx`, per preservare gli SVG nel pacchetto `.pptx`
+- Le slide interne (`content` e `bullets`) vengono montate come visual full-slide quando esiste `slide_XX.svg`
+- PowerPoint mantiene comunque un PNG fallback interno per compatibilità, ma nel file resta anche l'asset SVG
 
 ## Note operative
 

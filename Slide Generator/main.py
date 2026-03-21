@@ -10,6 +10,9 @@ from typing import Optional
 
 from app import (
     GeminiAssetManager,
+    GeminiGeneratorConfig,
+    GeminiSVGService,
+    PptxGenJSWriter,
     SlideDeckWriter,
     SlideGenerationService,
     SlideStyle,
@@ -122,20 +125,55 @@ def main() -> None:
         asset_dir=settings.gemini_asset_dir,
     )
     manifest_path = gemini_manager.export(deck.slides)
+    generated_svgs = []
+    if settings.gemini_api_key:
+        try:
+            gemini_service = GeminiSVGService(
+                GeminiGeneratorConfig(
+                    api_key=settings.gemini_api_key,
+                    model_name=settings.gemini_model,
+                    max_output_tokens=settings.gemini_svg_max_tokens,
+                ),
+                asset_dir=settings.gemini_asset_dir,
+            )
+            generated_svgs, gemini_usage_summary = gemini_service.generate_for_slides(
+                deck.slides, overwrite=True
+            )
+            if gemini_usage_summary.records:
+                usage_path = settings.gemini_asset_dir / "gemini_svg_usage.json"
+                gemini_usage_summary.write_json(usage_path)
+                print(gemini_usage_summary.format_console_line())
+        except RuntimeError as exc:
+            raise SystemExit(str(exc))
+        except Exception as exc:
+            print(f"Avviso: generazione Gemini non riuscita, continuo senza SVG ({exc})")
 
-    writer = SlideDeckWriter(
-        style=SlideStyle(),
-        logo_path=settings.logo_path,
-        cover_logo_path=settings.cover_logo_path,
-        svg_output_dir=settings.svg_output_dir,
-        gemini_asset_manager=gemini_manager,
-    )
     output_path = args.output or (settings.output_dir / f"deck_{timestamp}.pptx")
-    pptx_path = writer.build(deck, output_path)
+    try:
+        pptx_path = PptxGenJSWriter(
+            script_path=settings.base_dir / "app" / "pptxgen_builder.js",
+            logo_path=settings.logo_path,
+            cover_logo_path=settings.cover_logo_path,
+            gemini_asset_dir=settings.gemini_asset_dir,
+        ).build(
+            slides_json_path=json_output_path,
+            output_path=output_path,
+        )
+    except Exception as exc:
+        print(f"Avviso: builder PptxGenJS non riuscito, uso fallback python-pptx ({exc})")
+        writer = SlideDeckWriter(
+            style=SlideStyle(),
+            logo_path=settings.logo_path,
+            cover_logo_path=settings.cover_logo_path,
+            svg_output_dir=settings.svg_output_dir,
+            gemini_asset_manager=gemini_manager,
+        )
+        pptx_path = writer.build(deck, output_path)
 
     print(f"JSON slide salvato in: {json_output_path}")
     print(f"Prompt Gemini salvati in: {settings.gemini_prompt_dir}")
     print(f"Manifest Gemini salvato in: {manifest_path}")
+    print(f"SVG Gemini generati: {len(generated_svgs)}")
     print(f"SVG Gemini attesi in: {settings.gemini_asset_dir}")
     print(f"Presentazione salvata in: {pptx_path}")
 

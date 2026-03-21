@@ -1,0 +1,9 @@
+{
+  "name": "slide-generator",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Datapizza slide generator with PptxGenJS SVG-aware PPTX output",
+  "dependencies": {
+    "pptxgenjs": "^4.0.1"
+  }
+}

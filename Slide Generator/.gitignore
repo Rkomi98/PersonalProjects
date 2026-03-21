@@ -41,6 +41,7 @@ Thumbs.db
 *.swp
 *.swo
 *~
+node_modules/
 
 # Generated / local output (also listed in repo root .gitignore)
 slide/

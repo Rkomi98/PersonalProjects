@@ -140,61 +140,79 @@ class SlideDeckWriter:
 
     def _render_title_slide(self, prs: Presentation, slide, slide_data: DatapizzaSlide) -> None:
         self._add_logo(slide, prs)
-        self._add_logo(slide, prs, bottom=True, icon=True)
+        self._add_cover_icon(slide, prs)
         self._add_corner_grid(slide)
 
-        title_box = slide.shapes.add_textbox(Inches(1.1), Inches(1.8), Inches(8.8), Inches(2.4))
+        label_box = slide.shapes.add_textbox(Inches(1.1), Inches(1.45), Inches(4.5), Inches(0.35))
+        label_frame = label_box.text_frame
+        label_frame.text = "DATAPIZZA AI4BUILDERS"
+        label_run = label_frame.paragraphs[0].runs[0]
+        label_run.font.name = self.style.title_font
+        label_run.font.size = Pt(10)
+        label_run.font.bold = True
+        label_run.font.color.rgb = self.style.rgb(self.style.title_blue_hex)
+
+        title_box = slide.shapes.add_textbox(Inches(1.1), Inches(1.85), Inches(8.8), Inches(2.6))
         frame = title_box.text_frame
         frame.clear()
         p = frame.paragraphs[0]
         p.text = slide_data.title
         run = p.runs[0]
         run.font.name = self.style.title_font
-        run.font.size = Pt(28)
+        run.font.size = Pt(34)
         run.font.bold = True
         run.font.color.rgb = self.style.rgb(self.style.brand_red_hex)
 
         if slide_data.subtitle:
             sub_box = slide.shapes.add_textbox(
-                Inches(1.1), Inches(4.25), Inches(8.5), Inches(1.1)
+                Inches(1.1), Inches(4.4), Inches(7.9), Inches(1.1)
             )
             sub_frame = sub_box.text_frame
             sub_frame.text = slide_data.subtitle
             sub_run = sub_frame.paragraphs[0].runs[0]
             sub_run.font.name = self.style.body_font
-            sub_run.font.size = Pt(18)
+            sub_run.font.size = Pt(17)
             sub_run.font.color.rgb = self.style.rgb(self.style.text_hex)
 
     def _render_section_slide(self, prs: Presentation, slide, slide_data: DatapizzaSlide) -> None:
         self._add_logo(slide, prs)
         self._add_corner_grid(slide)
 
-        label = slide.shapes.add_textbox(Inches(1.0), Inches(1.6), Inches(2.2), Inches(0.4))
+        label = slide.shapes.add_textbox(Inches(1.0), Inches(1.8), Inches(2.2), Inches(0.4))
         label_frame = label.text_frame
         label_frame.text = "SECTION"
         label_run = label_frame.paragraphs[0].runs[0]
         label_run.font.name = self.style.title_font
-        label_run.font.size = Pt(9)
+        label_run.font.size = Pt(10)
         label_run.font.bold = True
         label_run.font.color.rgb = self.style.rgb(self.style.title_blue_hex)
 
-        title_box = slide.shapes.add_textbox(Inches(1.0), Inches(2.2), Inches(8.8), Inches(1.6))
+        title_box = slide.shapes.add_textbox(Inches(1.0), Inches(2.28), Inches(8.4), Inches(1.7))
         title_frame = title_box.text_frame
         title_frame.text = slide_data.title
         title_run = title_frame.paragraphs[0].runs[0]
         title_run.font.name = self.style.title_font
-        title_run.font.size = Pt(24)
+        title_run.font.size = Pt(30)
         title_run.font.bold = True
         title_run.font.color.rgb = self.style.rgb(self.style.brand_red_hex)
 
         if slide_data.subtitle:
-            sub_box = slide.shapes.add_textbox(Inches(1.0), Inches(3.75), Inches(8.2), Inches(1.0))
+            sub_box = slide.shapes.add_textbox(Inches(1.0), Inches(3.45), Inches(7.6), Inches(1.0))
             sub_frame = sub_box.text_frame
             sub_frame.text = slide_data.subtitle
             sub_run = sub_frame.paragraphs[0].runs[0]
             sub_run.font.name = self.style.body_font
-            sub_run.font.size = Pt(16)
+            sub_run.font.size = Pt(15)
             sub_run.font.color.rgb = self.style.rgb(self.style.text_hex)
+
+        arrow_box = slide.shapes.add_textbox(Inches(11.2), Inches(5.2), Inches(1.0), Inches(0.5))
+        arrow_frame = arrow_box.text_frame
+        arrow_frame.text = ">>"
+        arrow_run = arrow_frame.paragraphs[0].runs[0]
+        arrow_run.font.name = self.style.title_font
+        arrow_run.font.size = Pt(22)
+        arrow_run.font.bold = True
+        arrow_run.font.color.rgb = self.style.rgb(self.style.title_blue_hex)
 
     def _render_closing_slide(self, prs: Presentation, slide, slide_data: DatapizzaSlide) -> None:
         self._add_logo(slide, prs)
@@ -223,21 +241,17 @@ class SlideDeckWriter:
     def _render_content_slide(
         self, prs: Presentation, slide, slide_data: DatapizzaSlide, slide_index: int
     ) -> None:
-        self._add_logo(slide, prs)
-        self._add_title_and_subtitle(slide, slide_data)
-
-        text_box = slide.shapes.add_textbox(Inches(0.9), Inches(2.2), Inches(5.0), Inches(2.6))
-        frame = text_box.text_frame
-        frame.clear()
-        frame.word_wrap = True
-        if slide_data.body:
-            paragraph = frame.paragraphs[0]
-            paragraph.text = slide_data.body
-            paragraph.font.name = self.style.body_font
-            paragraph.font.size = Pt(20)
-            paragraph.font.color.rgb = self.style.rgb(self.style.body_hex)
-
-        self._render_visual_or_placeholder(slide, slide_data, slide_index, is_bullets=False)
+        image_path = self._resolve_visual_path(slide_index)
+        if image_path:
+            slide.shapes.add_picture(
+                str(image_path),
+                0,
+                0,
+                width=prs.slide_width,
+                height=prs.slide_height,
+            )
+            return
+        self._render_full_slide_placeholder(prs, slide, slide_data)
 
     def _render_bullets_slide(
         self, prs: Presentation, slide, slide_data: DatapizzaSlide, slide_index: int
@@ -268,6 +282,17 @@ class SlideDeckWriter:
             run.font.color.rgb = self.style.rgb(self.style.body_hex)
 
         self._render_visual_or_placeholder(slide, slide_data, slide_index, is_bullets=True)
+
+    def _add_cover_icon(self, slide, prs: Presentation) -> None:
+        path = self.cover_logo_path
+        if not path or not path.exists():
+            return
+        slide.shapes.add_picture(
+            str(path),
+            prs.slide_width - Inches(3.2),
+            Inches(3.75),
+            width=Inches(1.95),
+        )
 
     def _add_title_and_subtitle(self, slide, slide_data: DatapizzaSlide) -> None:
         title_box = slide.shapes.add_textbox(Inches(0.85), Inches(0.75), Inches(8.6), Inches(0.7))
@@ -336,6 +361,46 @@ class SlideDeckWriter:
         body.font.name = self.style.body_font
         body.font.size = Pt(10)
         body.font.color.rgb = self.style.rgb(self.style.body_hex)
+
+    def _render_full_slide_placeholder(self, prs: Presentation, slide, slide_data: DatapizzaSlide) -> None:
+        card = slide.shapes.add_shape(
+            MSO_AUTO_SHAPE_TYPE.ROUNDED_RECTANGLE,
+            Inches(0.35),
+            Inches(0.35),
+            prs.slide_width - Inches(0.7),
+            prs.slide_height - Inches(0.7),
+        )
+        card.fill.solid()
+        card.fill.fore_color.rgb = self.style.rgb(self.style.light_hex)
+        card.line.color.rgb = self.style.rgb(self.style.border_hex)
+
+        title_box = slide.shapes.add_textbox(Inches(0.9), Inches(0.9), Inches(11.0), Inches(0.8))
+        title_frame = title_box.text_frame
+        title_frame.text = slide_data.title
+        title_run = title_frame.paragraphs[0].runs[0]
+        title_run.font.name = self.style.title_font
+        title_run.font.size = Pt(26)
+        title_run.font.bold = True
+        title_run.font.color.rgb = self.style.rgb(self.style.title_blue_hex)
+
+        if slide_data.body:
+            body_box = slide.shapes.add_textbox(Inches(0.9), Inches(1.85), Inches(4.8), Inches(1.4))
+            body_frame = body_box.text_frame
+            body_frame.word_wrap = True
+            body_frame.text = slide_data.body
+            body_run = body_frame.paragraphs[0].runs[0]
+            body_run.font.name = self.style.body_font
+            body_run.font.size = Pt(17)
+            body_run.font.color.rgb = self.style.rgb(self.style.body_hex)
+
+        prompt_box = slide.shapes.add_textbox(Inches(5.9), Inches(1.85), Inches(5.4), Inches(3.8))
+        prompt_frame = prompt_box.text_frame
+        prompt_frame.word_wrap = True
+        prompt_frame.text = slide_data.image_prompt
+        prompt_run = prompt_frame.paragraphs[0].runs[0]
+        prompt_run.font.name = self.style.body_font
+        prompt_run.font.size = Pt(11)
+        prompt_run.font.color.rgb = self.style.rgb(self.style.body_hex)
 
     def _render_prompt_chip(self, slide, text: str) -> None:
         chip = slide.shapes.add_shape(

@@ -27,6 +27,9 @@ class AppSettings:
     datapizza_skill_path: Path
     openai_api_key: str
     openai_model: str
+    gemini_api_key: str | None
+    gemini_model: str
+    gemini_svg_max_tokens: int = 16384
     default_slide_count: int = 8
     temperature: float = 0.4
 
@@ -49,8 +52,11 @@ def load_settings(
         raise RuntimeError(
             "OPENAI_API_KEY non trovato. Imposta la variabile nell'.env o nell'ambiente."
         )
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
 
-    selected_model = model_name or os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+    selected_model = model_name or os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
+    gemini_model = os.getenv("GEMINI_MODEL", "gemini-3.1-pro-preview")
+    gemini_svg_max_tokens = int(os.getenv("GEMINI_SVG_MAX_TOKENS", "16384"))
 
     asset_dir = base_dir / "Asset"
     topic_dir = base_dir / "Topic"
@@ -83,4 +89,7 @@ def load_settings(
         datapizza_skill_path=datapizza_skill_path,
         openai_api_key=api_key,
         openai_model=selected_model,
+        gemini_api_key=gemini_api_key,
+        gemini_model=gemini_model,
+        gemini_svg_max_tokens=gemini_svg_max_tokens,
     )

@@ -47,6 +47,9 @@ def load_datapizza_skill_context(skill_path: Path) -> str:
             style_md = archive.read(
                 "datapizza-slides/resources/dp-01-style.md"
             ).decode("utf-8")
+            layouts_md = archive.read(
+                "datapizza-slides/resources/dp-02-layouts.md"
+            ).decode("utf-8")
             workflow_md = archive.read(
                 "datapizza-slides/resources/dp-03-workflow.md"
             ).decode("utf-8")
@@ -54,6 +57,7 @@ def load_datapizza_skill_context(skill_path: Path) -> str:
         return ""
 
     style_excerpt = style_md[:5000].strip()
+    layouts_excerpt = layouts_md[:5000].strip()
     workflow_excerpt = workflow_md[:3500].strip()
     return "\n\n".join(
         [
@@ -61,6 +65,8 @@ def load_datapizza_skill_context(skill_path: Path) -> str:
             skill_md,
             "# Skill Style Excerpt",
             style_excerpt,
+            "# Skill Layout Excerpt",
+            layouts_excerpt,
             "# Skill Workflow Excerpt",
             workflow_excerpt,
         ]
