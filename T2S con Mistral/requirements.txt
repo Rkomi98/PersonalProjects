@@ -1,0 +1,15 @@
+# Allineato a pyproject.toml (dipendenze runtime).
+# Chatterbox installa anche torch e molte librerie transitivamente.
+#
+# Solo librerie (senza CLI locale):
+#   uv pip install -r requirements.txt
+#
+# Progetto + CLI voxtral-backend + test (consigliato):
+#   uv pip install -e ".[dev]"
+
+chatterbox-tts==0.1.7
+datapizza-ai==0.1.0
+huggingface_hub>=1.8.0
+python-dotenv>=1.2.2
+soundfile==0.13.1
+torchaudio==2.6.0
