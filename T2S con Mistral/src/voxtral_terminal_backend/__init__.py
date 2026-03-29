@@ -1,2 +1,1 @@
-"""CLI backend per parsing markdown e voice cloning locale."""
-
+"""Terminal backend for Voxtral TTS with datapizza-ai orchestration."""
