@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Perché 1+2+3+… non vale davvero −1/12 — Datapizza</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+    svg: { fontCache: 'global' }, startup: { typeset: false }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+:root {
+  --bg: #f7f8fa;
+  --white: #ffffff;
+  --navy: #0d1b2a;
+  --navy2: #1a2e42;
+  --accent-red: #e8412a;
+  --accent-orange: #f5a623;
+  --accent-blue: #2563eb;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --border2: #d1d5db;
+  --grid-color: #e5e7eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  color: var(--navy);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+}
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events:none;
+  z-index:0;
+}
+body > * { position:relative; z-index:1; }
+
+.btn-blue { background:var(--accent-blue); color:#fff; border:none; padding:14px 28px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .15s; }
+.btn-blue:hover { background:#1d4ed8; transform:translateY(-1px); }
+.btn-blue:disabled { opacity:.3; cursor:not-allowed; transform:none; }
+.btn-dark { background:var(--navy); color:#fff; border:none; padding:14px 28px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .15s; }
+.btn-dark:hover { background:var(--navy2); transform:translateY(-1px); }
+.btn-dark:disabled { opacity:.3; cursor:not-allowed; transform:none; }
+
+.step-nav { background:var(--white); border-top:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; overflow-x:auto; scrollbar-width:none; padding:0 48px; position:sticky; top:0; z-index:100; }
+.step-nav::-webkit-scrollbar { display:none; }
+.step-tab { padding:16px 18px; white-space:nowrap; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; display:flex; align-items:center; gap:8px; border:none; background:none; font-family:'DM Sans',sans-serif; flex-shrink:0; }
+.step-tab:hover { color:var(--navy); }
+.step-tab.active { color:var(--accent-red); border-bottom:2px solid var(--accent-red); }
+.step-tab.done { color:var(--navy); }
+.snum { background:var(--bg); border:1px solid var(--border2); border-radius:5px; width:20px; height:20px; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; color:var(--muted); flex-shrink:0; }
+.step-tab.active .snum { background:var(--accent-red); color:#fff; border-color:var(--accent-red); }
+.step-tab.done .snum { background:var(--navy); color:#fff; border-color:var(--navy); }
+
+.main { max-width:1100px; margin:0 auto; padding:48px 48px 80px; }
+
+.sh { margin-bottom:32px; display:flex; align-items:flex-start; gap:16px; }
+.badge { display:inline-flex; align-items:center; padding:4px 12px; border-radius:6px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; margin-top:6px; flex-shrink:0; }
+.b-r  { background:#fee2e2; color:#dc2626; }
+.b-g  { background:#d1fae5; color:#059669; }
+.b-o  { background:#fef3c7; color:#d97706; }
+.b-bl { background:#dbeafe; color:#2563eb; }
+.b-p  { background:#f3e8ff; color:#7c3aed; }
+.b-n  { background:var(--bg); color:var(--muted); border:1px solid var(--border2); }
+.sh h2 { font-size:clamp(22px,3vw,36px); font-weight:900; letter-spacing:-.5px; line-height:1.1; }
+.sh h2 .cr { color:var(--accent-red); }
+.sh h2 .cb { color:var(--accent-blue); }
+
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:18px; }
+.grid1 { margin-bottom:18px; }
+
+.card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:24px 26px; transition:box-shadow .2s; }
+.card:hover { box-shadow:0 4px 24px rgba(13,27,42,.07); }
+.card.bl-r { border-left:3px solid var(--accent-red); }
+.card.bl-g { border-left:3px solid #059669; }
+.card.bl-o { border-left:3px solid #d97706; }
+.card.bl-b { border-left:3px solid var(--accent-blue); }
+.card.hl-r { background:#fff8f7; border-color:#fecaca; }
+.card.hl-g { background:#f0fdf4; border-color:#bbf7d0; }
+.card.hl-o { background:#fffbeb; border-color:#fde68a; }
+.card.hl-b { background:#eff6ff; border-color:#bfdbfe; }
+.ctag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:9px; color:var(--muted); }
+.ctag.r { color:var(--accent-red); }
+.ctag.g { color:#059669; }
+.ctag.o { color:#d97706; }
+.ctag.b { color:var(--accent-blue); }
+.card h3 { font-size:15px; font-weight:800; margin-bottom:9px; color:var(--navy); line-height:1.3; }
+.card p { font-size:13px; color:var(--muted); line-height:1.75; }
+.card p strong { color:var(--navy); font-weight:700; }
+
+.lcard { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:26px 30px; margin-bottom:18px; }
+.lcard .ltag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+.lcard .ltitle { font-size:15px; font-weight:800; color:var(--navy); margin-bottom:16px; }
+.eqrow { display:flex; align-items:center; gap:14px; padding:13px 0; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+.eqrow:last-child { border-bottom:none; }
+.eqlbl { font-size:11px; color:var(--muted); font-family:'DM Mono',monospace; width:110px; flex-shrink:0; }
+.eqf { flex:1; font-size:15px; min-width:200px; }
+.eqnote { font-size:11px; color:var(--muted); font-style:italic; width:180px; flex-shrink:0; text-align:right; line-height:1.4; }
+
+.darkcard { background:var(--navy); border-radius:14px; padding:30px 36px; margin-bottom:18px; color:#e2e8f0; }
+.darkcard .dtag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#475569; margin-bottom:20px; }
+.drow { display:flex; align-items:center; gap:18px; padding:13px 0; border-bottom:1px solid rgba(255,255,255,.06); flex-wrap:wrap; }
+.drow:last-child { border-bottom:none; }
+.dchip { font-size:10px; font-weight:700; padding:3px 10px; border-radius:4px; text-transform:uppercase; letter-spacing:.07em; width:86px; text-align:center; flex-shrink:0; }
+.dc-r { background:rgba(248,113,113,.15); color:#f87171; }
+.dc-g { background:rgba(110,231,183,.15); color:#6ee7b7; }
+.dc-o { background:rgba(252,211,77,.15); color:#fcd34d; }
+.dc-b { background:rgba(147,197,253,.15); color:#93c5fd; }
+.deq { flex:1; font-size:15px; color:#f1f5f9; min-width:220px; }
+.dnote { font-size:11px; color:#475569; font-style:italic; width:190px; flex-shrink:0; text-align:right; line-height:1.5; }
+
+.tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:700; margin-right:3px; }
+.tg-r { background:#fee2e2; color:#dc2626; }
+.tg-g { background:#d1fae5; color:#059669; }
+.tg-o { background:#fef3c7; color:#d97706; }
+.tg-b { background:#dbeafe; color:#2563eb; }
+
+.tcard { background:var(--white); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:18px; }
+table { width:100%; border-collapse:collapse; font-size:13.5px; }
+thead th { background:var(--bg); padding:12px 20px; text-align:left; font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--border); }
+tbody td { padding:13px 20px; border-bottom:1px solid var(--border); color:var(--muted); vertical-align:top; line-height:1.6; }
+tbody td:first-child { color:var(--navy); font-weight:700; font-size:13px; }
+tbody tr:last-child td { border-bottom:none; }
+tbody tr:hover td { background:var(--bg); }
+
+.bnav { background:var(--white); border-top:1px solid var(--border); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; position:sticky; bottom:0; z-index:99; }
+.pinfo { font-size:13px; color:var(--muted); font-weight:500; display:flex; align-items:center; gap:12px; }
+.pbar { width:120px; height:4px; background:var(--border); border-radius:99px; overflow:hidden; }
+.pfill { height:100%; background:var(--accent-red); border-radius:99px; transition:width .3s; }
+
+.panel { display:none; }
+.panel.active { display:block; animation:fadeUp .3s ease forwards; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+/* ====== HERO ====== */
+.hero { padding:56px 48px 40px; text-align:center; max-width:860px; margin:0 auto; }
+.hero-badge { display:inline-flex; align-items:center; gap:8px; background:var(--white); border:1px solid var(--border2); border-radius:20px; padding:6px 16px; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:24px; letter-spacing:.05em; text-transform:uppercase; }
+.hero-badge svg { width:16px; height:16px; }
+.hero h1 { font-size:clamp(30px,4.5vw,52px); font-weight:900; letter-spacing:-1.5px; line-height:1.08; margin-bottom:18px; }
+.hero h1 span { color:var(--accent-red); }
+.hero p { font-size:16px; color:var(--muted); max-width:560px; margin:0 auto; line-height:1.65; }
+
+/* ====== CUSTOM: slider ====== */
+.sliderbox { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:26px 30px; margin-bottom:18px; }
+.sliderbox .sbtag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+.slider-row { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+input[type=range] { flex:1; min-width:200px; -webkit-appearance:none; appearance:none; height:6px; border-radius:99px; background:var(--border); outline:none; cursor:pointer; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:22px; height:22px; border-radius:50%; background:var(--accent-red); border:3px solid #fff; box-shadow:0 1px 6px rgba(232,65,42,.4); cursor:grab; transition:transform .1s; }
+input[type=range]::-webkit-slider-thumb:hover { transform:scale(1.15); }
+input[type=range]::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--accent-red); border:3px solid #fff; box-shadow:0 1px 6px rgba(232,65,42,.4); cursor:grab; }
+.nval { font-family:'DM Mono',monospace; font-size:14px; font-weight:500; background:var(--bg); border:1px solid var(--border2); border-radius:8px; padding:8px 14px; min-width:110px; text-align:center; }
+.nval strong { color:var(--accent-red); }
+.bigres { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:22px; }
+.resbox { background:var(--bg); border:1px solid var(--border); border-radius:12px; padding:18px 22px; }
+.resbox .rlbl { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:8px; }
+.resbox .rval { font-family:'DM Mono',monospace; font-size:clamp(18px,2.6vw,28px); font-weight:700; color:var(--navy); word-break:break-all; transition:color .2s; }
+.resbox.pulse .rval { animation:pop .25s ease; }
+@keyframes pop { 0%{transform:scale(1)} 40%{transform:scale(1.06); color:var(--accent-red)} 100%{transform:scale(1)} }
+.resbox.rb-red { border-color:#fecaca; background:#fff8f7; }
+.resbox.rb-red .rval { color:var(--accent-red); }
+
+.chartcard { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:24px 26px; margin-bottom:18px; }
+.chartcard .cctag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+.chartcard svg { width:100%; height:auto; display:block; }
+.axis-lbl { font-family:'DM Mono',monospace; font-size:10px; fill:var(--muted); }
+.chart-note { font-size:12px; color:var(--muted); font-style:italic; margin-top:10px; line-height:1.6; }
+.chart-note strong { color:var(--accent-red); font-style:normal; }
+
+/* callout gigante finale */
+.finalbox { background:var(--navy); border-radius:16px; padding:44px 40px; text-align:center; color:#e2e8f0; margin-bottom:18px; position:relative; overflow:hidden; }
+.finalbox::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+.finalbox > * { position:relative; }
+.finalbox .ftag2 { font-size:10px; font-weight:700; letter-spacing:.15em; text-transform:uppercase; color:#64748b; margin-bottom:20px; }
+.finalbox .fno { font-size:clamp(17px,2.4vw,22px); font-weight:800; line-height:1.5; margin-bottom:16px; }
+.finalbox .fyes { font-size:clamp(17px,2.4vw,22px); font-weight:800; line-height:1.5; }
+.finalbox .no-w { color:#f87171; }
+.finalbox .yes-w { color:#6ee7b7; }
+
+/* zona zeta interattiva */
+.zeta-legend { display:flex; gap:18px; flex-wrap:wrap; margin-top:12px; font-size:12px; color:var(--muted); }
+.zeta-legend .li { display:flex; align-items:center; gap:7px; }
+.sw { width:14px; height:14px; border-radius:4px; flex-shrink:0; }
+.sw-blue { background:rgba(37,99,235,.25); border:1.5px solid var(--accent-blue); }
+.sw-orange { background:rgba(245,166,35,.22); border:1.5px dashed #d97706; }
+.sw-red { background:var(--accent-red); border-radius:50%; }
+
+.toggle-row { display:flex; gap:10px; margin-top:16px; flex-wrap:wrap; }
+.tbtn { border:1.5px solid var(--border2); background:var(--white); color:var(--muted); border-radius:9px; padding:9px 18px; font-family:'DM Sans',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:all .15s; }
+.tbtn:hover { border-color:var(--navy); color:var(--navy); }
+.tbtn.on { background:var(--accent-orange); border-color:var(--accent-orange); color:#fff; }
+
+.svalbox { font-family:'DM Mono',monospace; font-size:13px; background:var(--bg); border:1px solid var(--border2); border-radius:8px; padding:8px 14px; min-width:150px; text-align:center; }
+
+@media(max-width:800px){
+  .step-nav, .main, .bnav { padding-left:20px; padding-right:20px; }
+  .grid2, .grid3, .bigres { grid-template-columns:1fr; }
+  .eqnote, .dnote { display:none; }
+  .darkcard { padding:22px 18px; }
+  .hero { padding:40px 20px 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <svg width="210" height="210" viewBox="0 0 210 210" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M127.24 107.052L117.61 79.7398C117.243 78.6967 117.737 77.5226 118.747 77.0665C120.457 76.2894 122.197 75.5588 123.962 74.8788C124.195 74.7902 124.418 74.6972 124.651 74.6128C126.18 74.0384 127.721 73.5063 129.267 73.0164C130.331 72.6785 131.459 73.2487 131.83 74.3003L160.042 154.319L166.296 172.061C166.922 173.83 165.11 175.516 163.425 174.73L15.8926 105.937C14.8748 105.464 14.4229 104.256 14.8664 103.2C15.597 101.452 16.3657 99.7075 17.1681 97.9718C17.2737 97.7395 17.375 97.5072 17.4848 97.2707C18.4731 95.1464 19.512 93.0601 20.5805 91.0033C23.0004 86.3535 25.6231 81.8684 28.4316 77.5564C29.8675 75.3561 31.3541 73.2022 32.8829 71.0906C34.4329 68.9536 36.0293 66.8715 37.6721 64.8274C53.6826 44.94 73.9882 29.6686 96.4814 19.8114C98.8126 18.7936 101.161 17.8265 103.534 16.9269C105.266 16.2681 107.01 15.6388 108.763 15.0391C109.84 14.6717 111.001 15.2334 111.381 16.3061L115.82 28.8873L120.938 43.4027L125.314 55.8234C125.715 56.9552 125.09 58.2095 123.95 58.5812C122.476 59.0627 121.006 59.5737 119.541 60.1227C119.308 60.2114 119.089 60.3043 118.856 60.3888C116.47 61.301 114.126 62.2935 111.833 63.3577C97.2711 70.1277 84.5337 79.9426 74.326 92.1436C73.0928 93.6176 71.8934 95.1295 70.7362 96.671C70.0352 97.6044 68.7386 97.8071 67.8179 97.1229L58.9617 90.5219C58.0326 89.8293 57.8468 88.4863 58.5563 87.5403C59.705 86.0072 60.8875 84.5079 62.0996 83.034C73.7221 68.9029 88.2797 57.5211 104.957 49.6447C105.95 49.1759 106.427 48.0188 106.064 46.9883L102.348 36.4469C101.938 35.2898 100.637 34.745 99.5221 35.2602C80.1288 44.2558 63.2399 57.4536 49.8732 73.9159C48.2219 75.9473 46.617 78.0336 45.0755 80.1664C43.5467 82.2865 42.077 84.453 40.6538 86.6618C38.8251 89.5125 37.0851 92.4308 35.4465 95.4251C34.8552 96.5063 35.2817 97.8535 36.3756 98.3645L136.89 145.235C138.575 146.02 140.387 144.335 139.762 142.565L138.968 140.314L127.235 107.043L127.24 107.052Z" fill="#D7342B"/>
+    </svg>
+    Explainer matematico <em style="color:var(--accent-red); font-style:normal">· Datapizza</em>
+  </div>
+  <h1>Perché 1+2+3+… <span>non vale davvero</span> −1/12?</h1>
+  <p>Lo stesso simbolo viene usato per <strong>due operazioni diverse</strong>: la somma infinita ordinaria e la regolarizzazione zeta. Vediamo, passo per passo, perché non sono la stessa cosa.</p>
+</div>
+
+<!-- STEP NAV -->
+<div class="step-nav">
+  <button class="step-tab active" onclick="goTo(0)"><span class="snum">1</span> Le somme parziali</button>
+  <button class="step-tab" onclick="goTo(1)"><span class="snum">2</span> Cosa significa divergere</button>
+  <button class="step-tab" onclick="goTo(2)"><span class="snum">3</span> La funzione zeta</button>
+  <button class="step-tab" onclick="goTo(3)"><span class="snum">4</span> Continuazione analitica</button>
+  <button class="step-tab" onclick="goTo(4)"><span class="snum">5</span> Il confronto finale</button>
+</div>
+
+<div class="main">
+
+<!-- ============ PANEL 0: SOMME PARZIALI ============ -->
+<div class="panel active" id="panel-0">
+  <div class="sh">
+    <span class="badge b-r">Somma ordinaria</span>
+    <h2>Prova tu: la somma <span class="cr">non si ferma mai</span></h2>
+  </div>
+
+  <div class="grid1">
+    <div class="card bl-b">
+      <div class="ctag b">L'idea di partenza</div>
+      <p>Quando in matematica scriviamo una somma infinita, in realtà intendiamo una cosa molto concreta: sommiamo i primi $N$ termini, otteniamo la <strong>somma parziale</strong> $S_N$, e poi guardiamo cosa succede quando $N$ diventa sempre più grande. Se $S_N$ si avvicina a un numero preciso, quello è il valore della serie. Se non si avvicina a nulla, la serie <strong>diverge</strong>.</p>
+    </div>
+  </div>
+
+  <div class="lcard">
+    <div class="ltag">Definizione operativa</div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-b">somma parziale</span></span>
+      <span class="eqf">$$S_N = 1 + 2 + 3 + \dots + N = \frac{N(N+1)}{2}$$</span>
+      <span class="eqnote">formula chiusa nota fin da Gauss bambino</span>
+    </div>
+  </div>
+
+  <div class="sliderbox">
+    <div class="sbtag">Muovi lo slider e osserva $S_N$</div>
+    <div class="slider-row">
+      <span class="nval">N = <strong id="nlab">10</strong></span>
+      <input type="range" id="nslider" min="1" max="200" value="10" oninput="updateSum(this.value)">
+    </div>
+    <div class="bigres">
+      <div class="resbox" id="rb-n">
+        <div class="rlbl">Termini sommati</div>
+        <div class="rval" id="rv-n">10</div>
+      </div>
+      <div class="resbox rb-red" id="rb-s">
+        <div class="rlbl">Somma parziale S<sub>N</sub> = N(N+1)/2</div>
+        <div class="rval" id="rv-s">55</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="chartcard">
+    <div class="cctag">Andamento di S<sub>N</sub> al crescere di N</div>
+    <svg id="sumchart" viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg">
+      <!-- assi -->
+      <line x1="60" y1="270" x2="670" y2="270" stroke="#d1d5db" stroke-width="1.5"/>
+      <line x1="60" y1="270" x2="60" y2="20" stroke="#d1d5db" stroke-width="1.5"/>
+      <text x="665" y="290" class="axis-lbl" text-anchor="end">N</text>
+      <text x="20" y="30" class="axis-lbl">S_N</text>
+      <!-- linea -1/12 -->
+      <line x1="60" y1="272.5" x2="670" y2="272.5" stroke="#e8412a" stroke-width="1.5" stroke-dasharray="5 4" opacity="0.7"/>
+      <text x="666" y="284" class="axis-lbl" text-anchor="end" fill="#e8412a" style="fill:#e8412a">−1/12 (qui sotto, invisibile a questa scala)</text>
+      <!-- curva -->
+      <path id="sumpath" d="" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+      <circle id="sumdot" cx="0" cy="0" r="6" fill="#e8412a" stroke="#fff" stroke-width="2.5"/>
+      <!-- tick y dinamici -->
+      <text id="ymax" x="52" y="28" class="axis-lbl" text-anchor="end">100</text>
+      <text x="52" y="274" class="axis-lbl" text-anchor="end">0</text>
+    </svg>
+    <div class="chart-note">La curva è la parabola $S_N = N(N+1)/2$: cresce <strong>sempre più in fretta</strong>. La linea tratteggiata rossa è dove starebbe $-1/12$: appena sotto lo zero, dalla parte opposta rispetto a dove va la somma. Nessun punto della curva le si avvicina, mai.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Osservazione chiave</div>
+      <h3>La somma non si stabilizza</h3>
+      <p>Ogni volta che aggiungi un termine, $S_N$ fa un salto più grande del precedente. Non c'è nessun valore verso cui la successione si assesta: <strong>non esiste un limite finito</strong>.</p>
+    </div>
+    <div class="card bl-b">
+      <div class="ctag b">Confronto utile</div>
+      <h3>Una serie che invece converge</h3>
+      <p>Con $1 + \tfrac{1}{2} + \tfrac{1}{4} + \tfrac{1}{8} + \dots$ le somme parziali si avvicinano sempre più a $2$ e ci restano vicine. <strong>Quello</strong> è il comportamento che serve per dire "la somma vale un numero".</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PANEL 1: DIVERGENZA ============ -->
+<div class="panel" id="panel-1">
+  <div class="sh">
+    <span class="badge b-r">Divergenza</span>
+    <h2>Cosa significa che la serie <span class="cr">diverge</span></h2>
+  </div>
+
+  <div class="grid3">
+    <div class="card bl-b">
+      <div class="ctag b">1 · Il fatto</div>
+      <h3>S<sub>N</sub> cresce senza limite</h3>
+      <p>Per qualunque soglia tu fissi, anche enorme, esiste un $N$ oltre il quale $S_N$ la supera e non torna più indietro. Con $N = 10^6$ hai già superato $5 \times 10^{11}$.</p>
+    </div>
+    <div class="card bl-o">
+      <div class="ctag o">2 · La conseguenza</div>
+      <h3>Nessun numero finito</h3>
+      <p>La somma ordinaria è definita come limite delle somme parziali. Qui il limite <strong>non esiste</strong> (è $+\infty$), quindi la somma ordinaria <strong>non produce alcun numero</strong>.</p>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">3 · A maggior ragione</div>
+      <h3>Impossibile un negativo</h3>
+      <p>Ogni $S_N$ è positivo e crescente. Sommando quantità positive non puoi mai scendere sotto zero: <strong>$-1/12$ è escluso due volte</strong>, perché è finito ed è negativo.</p>
+    </div>
+  </div>
+
+  <div class="lcard">
+    <div class="ltag">In simboli</div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-r">divergenza</span></span>
+      <span class="eqf">$$\lim_{N \to \infty} S_N = \lim_{N \to \infty} \frac{N(N+1)}{2} = +\infty$$</span>
+      <span class="eqnote">questo è tutto ciò che la somma ordinaria può dire</span>
+    </div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-r">quindi</span></span>
+      <span class="eqf">$$\sum_{n=1}^{\infty} n \;\text{ diverge:}\; \text{non vale } -\tfrac{1}{12},\text{ non vale nulla}$$</span>
+      <span class="eqnote">"diverge" non è un numero, è un verdetto</span>
+    </div>
+  </div>
+
+  <div class="card bl-b">
+    <div class="ctag b">Allora da dove salta fuori −1/12?</div>
+    <p>Il numero $-1/12$ è vero, ma appartiene a <strong>un'altra procedura</strong>, che non passa per le somme parziali. Per capirla dobbiamo introdurre la protagonista: la <strong>funzione zeta di Riemann</strong>. Prossima sezione.</p>
+  </div>
+</div>
+
+<!-- ============ PANEL 2: FUNZIONE ZETA ============ -->
+<div class="panel" id="panel-2">
+  <div class="sh">
+    <span class="badge b-bl">Funzione zeta</span>
+    <h2>La serie di zeta funziona <span class="cb">solo per s &gt; 1</span></h2>
+  </div>
+
+  <div class="lcard">
+    <div class="ltag">Definizione come serie</div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-b">zeta</span></span>
+      <span class="eqf">$$\zeta(s) = \sum_{n=1}^{\infty} \frac{1}{n^s} = \frac{1}{1^s} + \frac{1}{2^s} + \frac{1}{3^s} + \dots$$</span>
+      <span class="eqnote">converge solo se s &gt; 1 (sui reali)</span>
+    </div>
+  </div>
+
+  <div class="sliderbox">
+    <div class="sbtag">Scegli s e guarda se le somme parziali di ζ si stabilizzano</div>
+    <div class="slider-row">
+      <span class="svalbox">s = <strong id="slab" style="color:var(--accent-blue)">2.0</strong></span>
+      <input type="range" id="sslider" min="-1" max="4" step="0.1" value="2" oninput="updateZeta(this.value)">
+      <span class="svalbox" id="sverdict" style="border-color:#86efac; background:#f0fdf4; color:#059669; font-weight:700">✓ converge</span>
+    </div>
+  </div>
+
+  <div class="chartcard">
+    <div class="cctag">Somme parziali di Σ 1/n<sup>s</sup> — primi 60 termini</div>
+    <svg id="zetachart" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+      <line x1="60" y1="260" x2="670" y2="260" stroke="#d1d5db" stroke-width="1.5"/>
+      <line x1="60" y1="260" x2="60" y2="20" stroke="#d1d5db" stroke-width="1.5"/>
+      <text x="665" y="280" class="axis-lbl" text-anchor="end">termini sommati</text>
+      <line id="zlimline" x1="60" y1="0" x2="670" y2="0" stroke="#059669" stroke-width="1.5" stroke-dasharray="5 4" opacity="0"/>
+      <text id="zlimlab" x="666" y="0" class="axis-lbl" text-anchor="end" style="fill:#059669" opacity="0"></text>
+      <path id="zetapath" d="" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round"/>
+      <text id="zymax" x="52" y="28" class="axis-lbl" text-anchor="end"></text>
+      <text x="52" y="264" class="axis-lbl" text-anchor="end">0</text>
+    </svg>
+    <div class="chart-note" id="zetanote">Con $s = 2$ la curva si appiattisce rapidamente verso $\pi^2/6 \approx 1{,}645$: la serie converge e $\zeta(2)$ è ben definita come somma.</div>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-g hl-g">
+      <div class="ctag g">Dove la serie funziona</div>
+      <h3>s &gt; 1: i termini calano abbastanza in fretta</h3>
+      <p>Se $s > 1$, i termini $1/n^s$ diventano piccoli così velocemente che la somma si stabilizza. Esempio: $\zeta(2) = \pi^2/6$. Qui la formula come serie è <strong>perfettamente legittima</strong>.</p>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Dove la serie si rompe</div>
+      <h3>s = −1: la sostituzione diretta non è lecita</h3>
+      <p>Prova a mettere $s = -1$ nella formula: $1/n^{-1} = n$, e ottieni esattamente $1+2+3+\dots$, che come abbiamo visto <strong>diverge</strong>. La serie, per $s \le 1$, semplicemente <strong>non definisce nulla</strong>.</p>
+    </div>
+  </div>
+
+  <div class="lcard">
+    <div class="ltag">Il passaggio proibito</div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-r">non lecito</span></span>
+      <span class="eqf">$$\zeta(-1) \stackrel{?}{=} \sum_{n=1}^{\infty} \frac{1}{n^{-1}} = \sum_{n=1}^{\infty} n = 1+2+3+\dots \;\to\; \text{diverge}$$</span>
+      <span class="eqnote">la formula-serie vale solo dentro il suo dominio</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ PANEL 3: CONTINUAZIONE ANALITICA ============ -->
+<div class="panel" id="panel-3">
+  <div class="sh">
+    <span class="badge b-o">Continuazione analitica</span>
+    <h2>Estendere ζ <span class="co" style="color:#d97706">oltre la zona valida</span></h2>
+  </div>
+
+  <div class="card bl-b" style="margin-bottom:18px">
+    <div class="ctag b">L'idea, senza tecnicismi</div>
+    <p>La serie definisce $\zeta(s)$ solo in una regione del piano (per i complessi: $\mathrm{Re}(s) > 1$). Ma esiste <strong>un'unica funzione "liscia"</strong> (analitica) che coincide con la serie in quella regione e prosegue in modo coerente quasi ovunque nel resto del piano. Questa estensione si chiama <strong>continuazione analitica</strong>: non è una somma, è il prolungamento naturale di una funzione oltre il dominio della sua formula originale.</p>
+  </div>
+
+  <div class="chartcard">
+    <div class="cctag">Il piano di s — clicca il bottone per estendere la funzione</div>
+    <svg id="planechart" viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+      <!-- asse -->
+      <line x1="40" y1="150" x2="680" y2="150" stroke="#d1d5db" stroke-width="1.5"/>
+      <!-- zona estensione (arancio, nascosta) -->
+      <g id="extzone" opacity="0" style="transition:opacity .6s ease">
+        <rect x="40" y="60" width="420" height="180" rx="10" fill="rgba(245,166,35,.16)" stroke="#d97706" stroke-width="1.5" stroke-dasharray="6 5"/>
+        <text x="250" y="90" text-anchor="middle" class="axis-lbl" style="fill:#d97706; font-size:12px; font-weight:700">ESTENSIONE (continuazione analitica)</text>
+        <text x="250" y="106" text-anchor="middle" class="axis-lbl" style="fill:#d97706">qui la serie NON converge, ma ζ è comunque definita</text>
+      </g>
+      <!-- zona valida (blu) -->
+      <rect x="470" y="60" width="210" height="180" rx="10" fill="rgba(37,99,235,.14)" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="575" y="90" text-anchor="middle" class="axis-lbl" style="fill:#2563eb; font-size:12px; font-weight:700">ZONA VALIDA: s &gt; 1</text>
+      <text x="575" y="106" text-anchor="middle" class="axis-lbl" style="fill:#2563eb">la serie Σ 1/nˢ converge</text>
+      <!-- tick -->
+      <line x1="470" y1="144" x2="470" y2="156" stroke="#0d1b2a" stroke-width="1.5"/>
+      <text x="470" y="172" text-anchor="middle" class="axis-lbl">s = 1</text>
+      <line x1="580" y1="146" x2="580" y2="154" stroke="#9ca3af" stroke-width="1.5"/>
+      <text x="580" y="172" text-anchor="middle" class="axis-lbl">2</text>
+      <!-- punto s=-1 -->
+      <g id="zpoint" opacity="0" style="transition:opacity .6s ease .4s">
+        <circle cx="250" cy="150" r="7" fill="#e8412a" stroke="#fff" stroke-width="2.5"/>
+        <text x="250" y="200" text-anchor="middle" class="axis-lbl" style="fill:#e8412a; font-size:13px; font-weight:700">s = −1 → ζ(−1) = −1/12</text>
+        <line x1="250" y1="160" x2="250" y2="185" stroke="#e8412a" stroke-width="1.5" stroke-dasharray="3 3"/>
+      </g>
+      <!-- polo s=1 -->
+      <circle cx="470" cy="150" r="4.5" fill="#fff" stroke="#0d1b2a" stroke-width="2"/>
+    </svg>
+    <div class="toggle-row">
+      <button class="tbtn" id="extbtn" onclick="toggleExt()">▶ Estendi la funzione</button>
+    </div>
+    <div class="zeta-legend">
+      <span class="li"><span class="sw sw-blue"></span> dominio della serie</span>
+      <span class="li"><span class="sw sw-orange"></span> continuazione analitica</span>
+      <span class="li"><span class="sw sw-red"></span> il punto s = −1</span>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-o hl-o">
+      <div class="ctag o">Cosa si può fare nell'estensione</div>
+      <h3>Valutare ζ(−1)</h3>
+      <p>Nella zona estesa la funzione zeta ha un valore ben definito in $s=-1$, calcolato <strong>senza sommare la serie</strong> (ad esempio tramite l'equazione funzionale di Riemann). Il risultato è:</p>
+      <div style="text-align:center; font-size:19px; margin-top:12px; color:#d97706; font-weight:700">$$\zeta(-1) = -\frac{1}{12}$$</div>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Cosa NON significa</div>
+      <h3>Non è la somma della serie</h3>
+      <p>$\zeta(-1)$ è il valore della <strong>funzione estesa</strong> in quel punto. Non è il limite delle somme parziali di $1+2+3+\dots$, che non esiste. Sono due oggetti diversi che, per un abuso di notazione, vengono scritti con lo stesso simbolo.</p>
+    </div>
+  </div>
+
+  <div class="card bl-b">
+    <div class="ctag b">Perché se ne parla comunque</div>
+    <p>Questa assegnazione, detta <strong>regolarizzazione zeta</strong>, è utile davvero: compare in fisica teorica, ad esempio nell'effetto Casimir e in teoria delle stringhe, dove serve un modo coerente per estrarre una parte finita da espressioni divergenti. Ma anche lì il significato è "valore regolarizzato", <strong>mai</strong> "somma ordinaria".</p>
+  </div>
+</div>
+
+<!-- ============ PANEL 4: CONFRONTO ============ -->
+<div class="panel" id="panel-4">
+  <div class="sh">
+    <span class="badge b-g">Confronto</span>
+    <h2>Due procedure, <span class="cr">due significati</span></h2>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-b hl-b">
+      <div class="ctag b">Somma ordinaria</div>
+      <h3>$1+2+3+4+\dots$</h3>
+      <p><strong>Oggetto:</strong> la serie dei numeri naturali.<br>
+      <strong>Metodo:</strong> limite delle somme parziali $S_N = \frac{N(N+1)}{2}$.<br>
+      <strong>Risultato:</strong> diverge a $+\infty$. Nessun valore finito, tantomeno negativo.</p>
+    </div>
+    <div class="card bl-o hl-o">
+      <div class="ctag o">Regolarizzazione zeta</div>
+      <h3>$\zeta(-1)$ per continuazione analitica</h3>
+      <p><strong>Oggetto:</strong> la funzione $\zeta(s)$ estesa oltre il dominio della serie.<br>
+      <strong>Metodo:</strong> continuazione analitica, non somma di termini.<br>
+      <strong>Risultato:</strong> $\zeta(-1) = -\tfrac{1}{12}$, un valore della funzione, non della serie.</p>
+    </div>
+  </div>
+
+  <div class="tcard">
+    <table>
+      <thead>
+        <tr><th></th><th style="color:#2563eb">Somma ordinaria</th><th style="color:#d97706">Regolarizzazione zeta</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Oggetto</td><td>$1+2+3+4+\dots$</td><td>continuazione analitica di $\zeta(s)$</td></tr>
+        <tr><td>Metodo</td><td>limite delle somme parziali</td><td>estensione della funzione oltre il dominio della serie</td></tr>
+        <tr><td>Domanda a cui risponde</td><td>"a cosa si avvicinano le somme parziali?"</td><td>"che valore ha la funzione estesa in $s=-1$?"</td></tr>
+        <tr><td>Risultato</td><td>diverge a $+\infty$</td><td>$\zeta(-1) = -1/12$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="finalbox">
+    <div class="ftag2">// Il punto da portare a casa</div>
+    <div class="fno"><span class="no-w">✕ Non è vero</span> che la somma ordinaria $1+2+3+4+\dots$ vale $-\tfrac{1}{12}$.</div>
+    <div class="fyes"><span class="yes-w">✓ È vero</span> che la <strong>regolarizzazione zeta</strong> di quella serie assegna il valore $-\tfrac{1}{12}$.</div>
+  </div>
+
+  <div class="card bl-r">
+    <div class="ctag r">La radice dell'equivoco</div>
+    <p>Il simbolo informale $1+2+3+\dots = -\tfrac{1}{12}$ mette insieme due operazioni con lo stesso segno di uguaglianza. Ma l'uguale della somma ordinaria e l'uguale della regolarizzazione <strong>non sono lo stesso uguale</strong>. Ogni volta che vedi quella formula, la domanda giusta da fare è: <strong>"uguale secondo quale procedura?"</strong></p>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- BOTTOM NAV -->
+<div class="bnav">
+  <button class="btn-dark" id="btn-prev" onclick="nav(-1)">← Precedente</button>
+  <div class="pinfo">
+    <div class="pbar"><div class="pfill" id="pfill" style="width:20%"></div></div>
+    <span id="ptxt">Passo 1 di 5</span>
+  </div>
+  <button class="btn-blue" id="btn-next" onclick="nav(1)">Successivo →</button>
+</div>
+
+<script>
+/* ===== Navigazione ===== */
+let cur = 0;
+const TOT = 5;
+
+function goTo(idx) {
+  document.getElementById('panel-' + cur).classList.remove('active');
+  cur = idx;
+  document.getElementById('panel-' + cur).classList.add('active');
+  const tabs = document.querySelectorAll('.step-tab');
+  tabs.forEach((t, i) => {
+    t.classList.remove('active', 'done');
+    if (i < cur) t.classList.add('done');
+    if (i === cur) t.classList.add('active');
+  });
+  document.getElementById('btn-prev').disabled = cur === 0;
+  document.getElementById('btn-next').disabled = cur === TOT - 1;
+  document.getElementById('ptxt').textContent = 'Passo ' + (cur+1) + ' di ' + TOT;
+  document.getElementById('pfill').style.width = ((cur+1)/TOT*100) + '%';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('panel-' + cur)]);
+}
+function nav(dir) { goTo(Math.max(0, Math.min(TOT - 1, cur + dir))); }
+document.getElementById('btn-prev').disabled = true;
+
+/* ===== Panel 0: slider somme parziali ===== */
+const fmt = new Intl.NumberFormat('it-IT');
+
+function updateSum(nv) {
+  const N = parseInt(nv, 10);
+  const S = N * (N + 1) / 2;
+  document.getElementById('nlab').textContent = N;
+  document.getElementById('rv-n').textContent = N;
+  document.getElementById('rv-s').textContent = fmt.format(S);
+  const box = document.getElementById('rb-s');
+  box.classList.remove('pulse'); void box.offsetWidth; box.classList.add('pulse');
+  drawSumChart(N);
+}
+
+function drawSumChart(N) {
+  const x0 = 60, x1 = 670, y0 = 270, y1 = 30;
+  const maxN = Math.max(N, 10);
+  const maxS = maxN * (maxN + 1) / 2;
+  let d = '';
+  const steps = 120;
+  for (let i = 0; i <= steps; i++) {
+    const n = maxN * i / steps;
+    const s = n * (n + 1) / 2;
+    const px = x0 + (x1 - x0) * (n / maxN);
+    const py = y0 - (y0 - y1) * (s / maxS);
+    d += (i === 0 ? 'M' : 'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+  }
+  document.getElementById('sumpath').setAttribute('d', d);
+  const dotS = N * (N + 1) / 2;
+  document.getElementById('sumdot').setAttribute('cx', x0 + (x1 - x0));
+  document.getElementById('sumdot').setAttribute('cy', y0 - (y0 - y1) * (dotS / maxS));
+  document.getElementById('ymax').textContent = fmt.format(maxS);
+}
+
+/* ===== Panel 2: zeta partial sums ===== */
+function updateZeta(sv) {
+  const s = parseFloat(sv);
+  document.getElementById('slab').textContent = s.toFixed(1);
+  const verdict = document.getElementById('sverdict');
+  const converges = s > 1;
+  if (converges) {
+    verdict.textContent = '✓ converge';
+    verdict.style.borderColor = '#86efac'; verdict.style.background = '#f0fdf4'; verdict.style.color = '#059669';
+  } else {
+    verdict.textContent = '✕ diverge';
+    verdict.style.borderColor = '#fca5a5'; verdict.style.background = '#fff8f7'; verdict.style.color = '#e8412a';
+  }
+  drawZetaChart(s, converges);
+  updateZetaNote(s, converges);
+}
+
+function drawZetaChart(s, converges) {
+  const x0 = 60, x1 = 670, y0 = 260, y1 = 30;
+  const NTERMS = 60;
+  const sums = []; let acc = 0;
+  for (let n = 1; n <= NTERMS; n++) { acc += Math.pow(n, -s); sums.push(acc); }
+  const maxS = sums[NTERMS - 1];
+  let d = '';
+  for (let i = 0; i < NTERMS; i++) {
+    const px = x0 + (x1 - x0) * (i / (NTERMS - 1));
+    const py = y0 - (y0 - y1) * (sums[i] / maxS);
+    d += (i === 0 ? 'M' : 'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+  }
+  document.getElementById('zetapath').setAttribute('d', d);
+  document.getElementById('zymax').textContent = maxS > 1000 ? maxS.toExponential(1).replace('e+','·10^') : maxS.toFixed(2);
+  const limline = document.getElementById('zlimline');
+  const limlab = document.getElementById('zlimlab');
+  if (converges) {
+    // stima del limite: somma parziale + coda approssimata
+    const tail = Math.pow(NTERMS, 1 - s) / (s - 1);
+    const limEst = maxS + tail;
+    const scaleMax = Math.max(maxS, limEst) * 1.05;
+    // ridisegna con scala che include il limite
+    let d2 = '';
+    for (let i = 0; i < NTERMS; i++) {
+      const px = x0 + (x1 - x0) * (i / (NTERMS - 1));
+      const py = y0 - (y0 - y1) * (sums[i] / scaleMax);
+      d2 += (i === 0 ? 'M' : 'L') + px.toFixed(1) + ' ' + py.toFixed(1) + ' ';
+    }
+    document.getElementById('zetapath').setAttribute('d', d2);
+    document.getElementById('zymax').textContent = scaleMax.toFixed(2);
+    const ly = y0 - (y0 - y1) * (limEst / scaleMax);
+    limline.setAttribute('y1', ly); limline.setAttribute('y2', ly); limline.setAttribute('opacity', '0.8');
+    limlab.setAttribute('y', ly - 6); limlab.textContent = 'valore limite ≈ ' + limEst.toFixed(3);
+    limlab.setAttribute('opacity', '1');
+  } else {
+    limline.setAttribute('opacity', '0');
+    limlab.setAttribute('opacity', '0');
+  }
+}
+
+function updateZetaNote(s, converges) {
+  const el = document.getElementById('zetanote');
+  if (s >= 1.9 && s <= 2.1) {
+    el.innerHTML = 'Con $s = 2$ la curva si appiattisce rapidamente verso $\\pi^2/6 \\approx 1{,}645$: la serie converge e $\\zeta(2)$ è ben definita come somma.';
+  } else if (converges) {
+    el.innerHTML = 'Con $s = ' + s.toFixed(1).replace('.', '{,}') + '$ le somme parziali si <strong>stabilizzano</strong>: la serie converge e definisce $\\zeta(' + s.toFixed(1).replace('.', '{,}') + ')$.';
+  } else if (s > 0) {
+    el.innerHTML = 'Con $s = ' + s.toFixed(1).replace('.', '{,}') + '$ i termini calano troppo lentamente: la curva <strong>continua a salire</strong> e la serie diverge. La formula non definisce nulla qui.';
+  } else {
+    el.innerHTML = 'Con $s = ' + s.toFixed(1).replace('.', '{,}') + '$ i termini addirittura <strong>crescono</strong>: la serie esplode. Per $s = -1$ è esattamente $1+2+3+\\dots$';
+  }
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]);
+}
+
+/* ===== Panel 3: toggle estensione ===== */
+let extOn = false;
+function toggleExt() {
+  extOn = !extOn;
+  document.getElementById('extzone').setAttribute('opacity', extOn ? '1' : '0');
+  document.getElementById('zpoint').setAttribute('opacity', extOn ? '1' : '0');
+  const b = document.getElementById('extbtn');
+  b.classList.toggle('on', extOn);
+  b.textContent = extOn ? '↺ Nascondi estensione' : '▶ Estendi la funzione';
+}
+
+/* ===== Init ===== */
+window.addEventListener('load', () => {
+  drawSumChart(10);
+  drawZetaChart(2, true);
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+});
+</script>
+</body>
+</html>
