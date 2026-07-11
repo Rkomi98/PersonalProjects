@@ -1,0 +1,2124 @@
+<title>AI Literacy a Cernusco</title>
+<style>
+  :root {
+    --bg: #FAF5EA;
+    --bg-raised: #FFFDF6;
+    --bg-raised-2: #F5EEDD;
+    --ink: #14231C;
+    --ink-soft: #48533F;
+    --ink-faint: #6E7461;
+    --line: #E3D6B4;
+    --line-strong: #CDB985;
+    --accent: #2E7D4F;
+    --accent-ink: #14432B;
+    --accent-soft: #DAEDDD;
+    --ochre: #CE7126;
+    --ochre-ink: #6E3410;
+    --ochre-soft: #F3DEC4;
+    --wine: #8E2F44;
+    --wine-ink: #5C1D2C;
+    --wine-soft: #F1DBE0;
+    --replica: #5B5F49;
+    --replica-soft: #E6E2CD;
+    --spring: #3C8B52;
+    --spring-ink: #1B4A2E;
+    --spring-soft: #DCEEDF;
+    --autumn: #B9631E;
+    --autumn-ink: #6E3410;
+    --autumn-soft: #F2E0C9;
+    --shadow: rgba(35, 24, 12, 0.20);
+    --shadow-soft: rgba(35, 24, 12, 0.11);
+    --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, "Noto Serif", serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", "Courier New", monospace;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --maxw: 1040px;
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16130F;
+      --bg-raised: #201B15;
+      --bg-raised-2: #282219;
+      --ink: #F3ECDD;
+      --ink-soft: #CBC0AA;
+      --ink-faint: #988C71;
+      --line: #3A3226;
+      --line-strong: #4C4232;
+      --accent: #5BC488;
+      --accent-ink: #BCEED2;
+      --accent-soft: #1E3327;
+      --ochre: #F59E4B;
+      --ochre-ink: #FBDCAB;
+      --ochre-soft: #3D2A17;
+      --wine: #E4728C;
+      --wine-ink: #F8CBD6;
+      --wine-soft: #3B2028;
+      --replica: #ABAC8E;
+      --replica-soft: #2C2A20;
+      --spring: #6FD79A;
+      --spring-ink: #D3F5E1;
+      --spring-soft: #1C3527;
+      --autumn: #F2A65E;
+      --autumn-ink: #FBE1C2;
+      --autumn-soft: #3D2C18;
+      --shadow: rgba(0, 0, 0, 0.5);
+      --shadow-soft: rgba(0, 0, 0, 0.32);
+      color-scheme: dark;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #16130F;
+    --bg-raised: #201B15;
+    --bg-raised-2: #282219;
+    --ink: #F3ECDD;
+    --ink-soft: #CBC0AA;
+    --ink-faint: #988C71;
+    --line: #3A3226;
+    --line-strong: #4C4232;
+    --accent: #5BC488;
+    --accent-ink: #BCEED2;
+    --accent-soft: #1E3327;
+    --ochre: #F59E4B;
+    --ochre-ink: #FBDCAB;
+    --ochre-soft: #3D2A17;
+    --wine: #E4728C;
+    --wine-ink: #F8CBD6;
+    --wine-soft: #3B2028;
+    --replica: #ABAC8E;
+    --replica-soft: #2C2A20;
+    --spring: #6FD79A;
+    --spring-ink: #D3F5E1;
+    --spring-soft: #1C3527;
+    --autumn: #F2A65E;
+    --autumn-ink: #FBE1C2;
+    --autumn-soft: #3D2C18;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --shadow-soft: rgba(0, 0, 0, 0.32);
+    color-scheme: dark;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #FAF5EA;
+    --bg-raised: #FFFDF6;
+    --bg-raised-2: #F5EEDD;
+    --ink: #14231C;
+    --ink-soft: #48533F;
+    --ink-faint: #6E7461;
+    --line: #E3D6B4;
+    --line-strong: #CDB985;
+    --accent: #2E7D4F;
+    --accent-ink: #14432B;
+    --accent-soft: #DAEDDD;
+    --ochre: #CE7126;
+    --ochre-ink: #6E3410;
+    --ochre-soft: #F3DEC4;
+    --wine: #8E2F44;
+    --wine-ink: #5C1D2C;
+    --wine-soft: #F1DBE0;
+    --replica: #5B5F49;
+    --replica-soft: #E6E2CD;
+    --spring: #3C8B52;
+    --spring-ink: #1B4A2E;
+    --spring-soft: #DCEEDF;
+    --autumn: #B9631E;
+    --autumn-ink: #6E3410;
+    --autumn-soft: #F2E0C9;
+    --shadow: rgba(35, 24, 12, 0.20);
+    --shadow-soft: rgba(35, 24, 12, 0.11);
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { max-width: 100%; overflow-x: hidden; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--ochre-soft); color: var(--ink); }
+
+  a { color: var(--accent); }
+
+  /* passaggio dolce tra i temi al cambio di data-theme, solo se l'utente non ha chiesto meno movimento */
+  @media (prefers-reduced-motion: no-preference) {
+    body, a, section.block, .hero, .hero__instructions, .stage, .stop, .stop__sig,
+    .tag, .chip, .card__sig, .fee-note, .sked-row, .redirect-note, .needs__col,
+    .film__sig, .closing__card, .fallback-box textarea, .theme-toggle,
+    h1, h2, h3, h4, .eyebrow, .rights-note {
+      transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+    }
+  }
+
+  .wrap {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 clamp(18px, 5vw, 40px);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    margin: 0;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+
+  p { margin: 0 0 0.9em; }
+  p:last-child { margin-bottom: 0; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 2px;
+    background: var(--ochre);
+    transform: rotate(45deg);
+    flex: 0 0 auto;
+  }
+
+  /* ---------- TOGGLE TEMA ---------- */
+  .theme-toggle {
+    position: fixed;
+    top: clamp(12px, 3vw, 22px);
+    right: clamp(12px, 3vw, 22px);
+    z-index: 900;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-raised);
+    background: color-mix(in srgb, var(--bg-raised) 82%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 14px var(--shadow-soft);
+    color: var(--ink);
+    cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--accent); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .theme-toggle svg { width: 22px; height: 22px; flex: 0 0 auto; }
+  .theme-toggle .icon-moon { display: block; }
+  .theme-toggle .icon-sun { display: none; }
+  @media (prefers-color-scheme: dark) {
+    .theme-toggle .icon-moon { display: none; }
+    .theme-toggle .icon-sun { display: block; }
+  }
+  :root[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+  :root[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+  :root[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+  :root[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    position: relative;
+    padding: clamp(52px, 9vw, 92px) 0 clamp(30px, 6vw, 48px);
+    background:
+      radial-gradient(ellipse 1000px 480px at 88% -14%, var(--autumn-soft) 0%, transparent 58%),
+      radial-gradient(ellipse 820px 460px at 4% 108%, var(--spring-soft) 0%, transparent 62%),
+      radial-gradient(ellipse 640px 340px at 58% -6%, var(--wine-soft) 0%, transparent 68%),
+      repeating-linear-gradient(115deg, var(--shadow-soft) 0px, var(--shadow-soft) 1px, transparent 1px, transparent 34px),
+      var(--bg);
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+
+  .hero__inner { position: relative; z-index: 1; max-width: 720px; }
+
+  .hero h1 {
+    font-size: clamp(2.3rem, 6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+
+  .hero__sub {
+    margin-top: 1.1rem;
+    font-size: clamp(1.02rem, 2vw, 1.18rem);
+    color: var(--ink-soft);
+    max-width: 60ch;
+  }
+
+  .hero__instructions {
+    margin-top: 1.7rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-sm);
+    font-size: 0.96rem;
+    color: var(--ink-soft);
+    max-width: 62ch;
+  }
+
+  .shelf {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    margin-top: clamp(30px, 6vw, 46px);
+    height: 46px;
+    opacity: 0.9;
+  }
+  .shelf i {
+    display: block;
+    border-radius: 3px 3px 0 0;
+    flex: 0 0 auto;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block { padding: clamp(44px, 7vw, 76px) 0; }
+  section.block + section.block { border-top: 1px solid var(--line); }
+
+  .section-head { margin-bottom: clamp(26px, 4vw, 40px); max-width: 68ch; }
+  .section-head h2 { font-size: clamp(1.55rem, 3.4vw, 2.05rem); margin-top: 0.4rem; }
+  .section-head p { color: var(--ink-soft); margin-top: 0.7rem; font-size: 1.02rem; }
+
+  /* ---------- REVEAL ---------- */
+  .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.is-visible { opacity: 1; transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+
+  /* ---------- TIMELINE ---------- */
+  .timeline-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    margin-bottom: 18px;
+    padding: 10px 16px;
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+  }
+  .legend__item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    white-space: normal;
+  }
+  .legend__swatch {
+    flex: 0 0 auto;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 1px solid transparent;
+  }
+  .legend__swatch--aula { background: var(--accent); }
+  .legend__swatch--kit { background: var(--ochre); }
+  .legend__swatch--replica { background: transparent; border: 1.5px dashed var(--replica); }
+  .legend__swatch--cinema { background: var(--wine); }
+
+  .timeline {
+    display: flex;
+    gap: clamp(14px, 3vw, 26px);
+    align-items: stretch;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    scrollbar-width: thin;
+  }
+
+  .stage {
+    flex: 1 1 0;
+    min-width: 230px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-top: 4px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 18px 18px 20px;
+    position: relative;
+  }
+  .stage--autumn { border-top-color: var(--autumn); }
+  .stage--spring { border-top-color: var(--spring); }
+
+  .stage__label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .stage--autumn .stage__label { color: var(--autumn-ink); }
+  .stage--spring .stage__label { color: var(--spring-ink); }
+  .stage__icon { flex: 0 0 auto; }
+
+  .stage__sub {
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    margin: 0 0 14px;
+  }
+
+  .stage__stops { display: flex; flex-direction: column; gap: 8px; }
+  .stop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 8px 10px;
+    border-radius: 9px;
+    background: var(--accent-soft);
+    border: 1px solid var(--line);
+  }
+  .stop__sig {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.86rem;
+    color: var(--accent-ink);
+    background: var(--bg-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    padding: 1px 7px;
+    min-width: 2.4em;
+    text-align: center;
+    flex: 0 0 auto;
+  }
+  .stop__title { font-size: 0.86rem; color: var(--ink-soft); }
+  .stop--kit { background: var(--ochre-soft); }
+  .stop--kit .stop__sig { color: var(--ochre-ink); }
+  .stop--replica { background: transparent; border-style: dashed; opacity: 0.9; }
+  .stop--replica .stop__sig { color: var(--replica); border-color: var(--line); }
+  .stop--replica .stop__title { color: var(--ink-faint); font-size: 0.8rem; }
+  .stop--sub { margin-left: 22px; padding: 6px 10px; }
+  .stop__connector { color: var(--ink-faint); font-size: 0.9rem; flex: 0 0 auto; }
+
+  .stop__audience {
+    font-size: 0.72rem;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    white-space: normal;
+  }
+  .stop__kitchip {
+    font-size: 0.72rem;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--ochre-soft);
+    color: var(--ochre-ink);
+    white-space: normal;
+  }
+  .stop__note-inline {
+    flex-basis: 100%;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+
+  .stage__note {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    font-style: italic;
+  }
+  .stage-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--ink-faint);
+    font-size: 1.4rem;
+    flex: 0 0 auto;
+    padding: 0 2px;
+  }
+
+  @media (max-width: 720px) {
+    .timeline { flex-direction: column; overflow-x: visible; }
+    .stage-arrow { transform: rotate(90deg); padding: 4px 0; }
+    .timeline-legend { gap: 8px 14px; }
+  }
+
+  /* ---------- CATALOG ---------- */
+  .catalog { display: flex; flex-direction: column; gap: 16px; }
+
+  .card {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 3px var(--shadow-soft);
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+    overflow: hidden;
+  }
+  .card:hover { box-shadow: 0 14px 30px var(--shadow); transform: translateY(-4px); }
+  @media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
+
+  .card--aula { border-left: 4px solid var(--accent); }
+  .card--kit { border-left: 4px dashed var(--ochre); }
+  .card--replica { border-left: 4px dotted var(--replica); opacity: 0.94; }
+
+  .card--aula:hover { border-color: var(--accent); }
+  .card--kit:hover { border-color: var(--ochre); }
+  .card--replica:hover { border-color: var(--replica); }
+
+  .card__head {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 14px 16px;
+    align-items: start;
+    padding: 18px 20px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font: inherit;
+    color: inherit;
+  }
+  .card__head:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+
+  .card__sig {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    padding: 6px 12px;
+    min-width: 3.4em;
+    text-align: center;
+    align-self: center;
+  }
+  .card--kit .card__sig { color: var(--ochre-ink); background: var(--ochre-soft); }
+  .card--replica .card__sig { color: var(--replica); background: var(--replica-soft); }
+
+  .card__main { min-width: 0; }
+  .card__toptags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 6px; }
+  .tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+    background: var(--bg-raised-2);
+  }
+  .tag--aula { color: var(--accent-ink); border-color: var(--accent); }
+  .tag--kit { color: var(--ochre-ink); border-color: var(--ochre); }
+  .tag--replica { color: var(--replica); border-style: dashed; }
+
+  .card__title { font-size: 1.18rem; margin-bottom: 4px; }
+  .card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 14px;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .card__meta span { white-space: normal; }
+  .card__temi {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .card__side { display: flex; flex-direction: column; align-items: flex-end; gap: 10px; }
+  .chevron {
+    width: 22px; height: 22px;
+    color: var(--ink-faint);
+    transition: transform 0.25s ease;
+    flex: 0 0 auto;
+  }
+  .card.is-open .chevron { transform: rotate(180deg); }
+
+  .interest-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    font-weight: 600;
+    padding: 7px 12px;
+    border-radius: 999px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-raised-2);
+    color: var(--ink-soft);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .interest-btn svg { width: 14px; height: 14px; flex: 0 0 auto; }
+  .interest-btn:hover { border-color: var(--accent); }
+  .interest-btn.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--bg-raised);
+  }
+  .interest-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .card__collapse {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s ease;
+  }
+  .card.is-open .card__collapse { grid-template-rows: 1fr; }
+  .card__collapse-inner { overflow: hidden; }
+  .card__body { padding: 4px 20px 24px; border-top: 1px solid var(--line); margin-top: 2px; }
+
+  .fee-note {
+    margin: 16px 0;
+    padding: 10px 14px;
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    display: inline-block;
+  }
+  .fee-note strong { color: var(--ink); }
+
+  h4.subhead {
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin: 22px 0 12px;
+  }
+
+  /* schedule */
+  .sked { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .sked-row {
+    display: grid;
+    grid-template-columns: minmax(84px, max-content) 1fr;
+    gap: 4px 16px;
+    padding: 10px 0;
+    border-left: 2px solid var(--line);
+    padding-left: 16px;
+    margin-left: 4px;
+    position: relative;
+  }
+  .sked-row::before {
+    content: "";
+    position: absolute;
+    left: -5px; top: 16px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--bg-raised);
+    border: 2px solid var(--line-strong);
+  }
+  .sked-time {
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    color: var(--ink-faint);
+    padding-top: 2px;
+    overflow-wrap: break-word;
+  }
+  .sked-label { font-weight: 700; font-size: 0.94rem; margin-bottom: 2px; }
+  .sked-content { font-size: 0.92rem; color: var(--ink-soft); }
+  .sked-row--exercise {
+    border-left-color: var(--ochre);
+    background: var(--ochre-soft);
+    border-radius: 0 10px 10px 0;
+  }
+  .sked-row--exercise::before { border-color: var(--ochre); }
+  .sked-row--exercise .sked-label { color: var(--ochre-ink); }
+  .sked-row--pausa {
+    grid-template-columns: 84px 1fr;
+    padding: 4px 0;
+    opacity: 0.65;
+  }
+  .sked-row--pausa::before { width: 5px; height: 5px; }
+  .sked-row--pausa .sked-label { font-weight: 400; font-style: italic; font-size: 0.82rem; }
+
+  .redirect-note {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 12px 14px;
+    background: var(--replica-soft);
+    border: 1px dashed var(--line-strong);
+    border-radius: var(--radius-sm);
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+  .redirect-note svg { width: 18px; height: 18px; flex: 0 0 auto; margin-top: 2px; color: var(--replica); }
+
+  /* cosa serve */
+  .needs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 10px; }
+  @media (max-width: 680px) { .needs { grid-template-columns: 1fr; } }
+  .needs__col {
+    background: var(--bg-raised-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 14px 15px;
+  }
+  .needs__head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    margin-bottom: 9px;
+    color: var(--ink);
+  }
+  .needs__head svg { width: 18px; height: 18px; color: var(--accent); flex: 0 0 auto; }
+  .needs__col ul { margin: 0; padding-left: 18px; font-size: 0.86rem; color: var(--ink-soft); display: flex; flex-direction: column; gap: 6px; }
+  .needs__col li::marker { color: var(--ink-faint); }
+
+  /* ---------- CINEMA ---------- */
+  .films { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 8px; }
+  @media (max-width: 760px) { .films { grid-template-columns: 1fr; } }
+
+  .film {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 0;
+    overflow: hidden;
+    box-shadow: 0 1px 3px var(--shadow-soft);
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+  }
+  .film:hover { box-shadow: 0 14px 30px var(--shadow); transform: translateY(-4px); border-color: var(--wine); }
+  @media (prefers-reduced-motion: reduce) { .film:hover { transform: none; } }
+
+  .film__art {
+    height: 108px;
+    background: var(--wine-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+  }
+  .film__art svg { width: 100%; height: 100%; }
+
+  .film__body { padding: 18px 20px 20px; }
+  .film__toprow { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .film__sig {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--wine-ink);
+    background: var(--wine-soft);
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    padding: 4px 10px;
+  }
+  .film__titleline h3 { font-size: 1.12rem; display: inline; }
+  .film__yearregia { font-size: 0.84rem; color: var(--ink-faint); margin-top: 2px; }
+  .film__meta { font-size: 0.82rem; color: var(--ink-faint); margin: 6px 0 10px; display: flex; flex-wrap: wrap; gap: 4px 12px; }
+  .film__perche { font-size: 0.92rem; color: var(--ink-soft); margin-bottom: 10px; }
+  .film__extra { font-size: 0.84rem; color: var(--ink-soft); }
+  .film__extra strong { color: var(--ink); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.06em; font-family: var(--font-mono); font-weight: 600; }
+  .film__extra p { margin: 2px 0 10px; }
+  .film__foot { display: flex; justify-content: flex-end; margin-top: 6px; }
+
+  .rights-note {
+    margin-top: 24px;
+    font-size: 0.8rem;
+    color: var(--ink-faint);
+    max-width: 70ch;
+    line-height: 1.5;
+  }
+
+  /* ---------- STICKY BAR ---------- */
+  .sticky-bar {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 40;
+    background: var(--bg-raised-2);
+    border-top: 2px solid var(--line-strong);
+    box-shadow: 0 -12px 32px var(--shadow);
+    padding: 12px clamp(16px, 4vw, 32px);
+    transform: translateY(110%);
+    transition: transform 0.3s ease, background-color 0.25s ease, border-color 0.25s ease;
+  }
+  .sticky-bar.is-visible { transform: translateY(0); }
+  @media (prefers-reduced-motion: reduce) { .sticky-bar { transition: none; } }
+
+  .sticky-bar__inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; flex: 1 1 260px; }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--accent-soft);
+    border: 1px solid var(--line-strong);
+    color: var(--accent-ink);
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 5px 6px 5px 11px;
+    border-radius: 999px;
+  }
+  .chip button {
+    border: none;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.9rem;
+    line-height: 1;
+    padding: 0;
+  }
+  .chip button:hover { background: rgba(0,0,0,0.08); }
+
+  .copy-btn {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 0.92rem;
+    padding: 10px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--ochre);
+    background: var(--ochre);
+    color: #1A0D02;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: filter 0.2s ease, transform 0.15s ease, background-color 0.25s ease, border-color 0.25s ease;
+  }
+  .copy-btn:hover { filter: brightness(1.08); }
+  .copy-btn:active { transform: scale(0.98); }
+  .copy-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+  .copy-btn.is-copied { background: var(--accent); border-color: var(--accent); color: var(--bg-raised); }
+
+  .fallback-box {
+    max-width: var(--maxw);
+    margin: 10px auto 0;
+    display: none;
+  }
+  .fallback-box.is-visible { display: block; }
+  .fallback-box textarea {
+    width: 100%;
+    min-height: 64px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--line-strong);
+    background: var(--bg-raised-2);
+    color: var(--ink);
+    resize: vertical;
+  }
+  .fallback-box p { font-size: 0.8rem; color: var(--ink-faint); margin: 6px 0 0; }
+
+  /* ---------- CHIUSURA ---------- */
+  .closing {
+    padding: clamp(46px, 8vw, 72px) 0 clamp(90px, 12vw, 120px);
+  }
+  .closing__card {
+    max-width: 62ch;
+    padding: 28px clamp(20px, 4vw, 34px);
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    position: relative;
+  }
+  .closing__card p { color: var(--ink-soft); font-size: 1.02rem; }
+  .closing__sign {
+    margin-top: 18px;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.08rem;
+    color: var(--ink);
+  }
+
+  .foot-space { height: 8px; }
+
+  @media (max-width: 480px) {
+    .card__head { grid-template-columns: auto 1fr; }
+    .card__side { grid-column: 1 / -1; flex-direction: row; justify-content: space-between; align-items: center; }
+  }
+</style>
+
+<script>
+(function () {
+  "use strict";
+  try {
+    var saved = window.localStorage.getItem("cernusco-theme");
+    if (saved === "dark" || saved === "light") {
+      document.documentElement.setAttribute("data-theme", saved);
+    }
+  } catch (e) {
+    /* localStorage non disponibile: si segue semplicemente prefers-color-scheme */
+  }
+})();
+</script>
+
+<button class="theme-toggle" id="themeToggle" type="button" aria-label="Cambia tema">
+  <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.2" y1="4.2" x2="5.9" y2="5.9"></line><line x1="18.1" y1="18.1" x2="19.8" y2="19.8"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.2" y1="19.8" x2="5.9" y2="18.1"></line><line x1="18.1" y1="5.9" x2="19.8" y2="4.2"></line></svg>
+  <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z"></path></svg>
+</button>
+
+<div class="hero">
+  <div class="wrap hero__inner reveal is-visible">
+    <span class="eyebrow">Biblioteca di Cernusco sul Naviglio</span>
+    <h1>AI Literacy a Cernusco sul Naviglio</h1>
+    <p class="hero__sub">Un programma di workshop pensato con la vostra biblioteca, per raccontare l'intelligenza artificiale a chi la usa già senza saperlo bene, e a chi non l'ha ancora provata.</p>
+    <div class="hero__instructions">Sfogliate il programma con calma: trovate le lezioni in aula, i kit da fare a casa e un piccolo ciclo cinema. Segnate le sigle delle attività che vi interessano e scrivetemi su WhatsApp: qui sotto trovate anche un bottone che vi prepara già il messaggio pronto da inviare.</div>
+    <div class="shelf" aria-hidden="true">
+      <i style="width:14px;height:26px;background:var(--accent);"></i>
+      <i style="width:10px;height:38px;background:var(--ochre);"></i>
+      <i style="width:18px;height:20px;background:var(--wine);"></i>
+      <i style="width:9px;height:44px;background:var(--accent);"></i>
+      <i style="width:13px;height:30px;background:var(--replica);"></i>
+      <i style="width:11px;height:34px;background:var(--ochre);"></i>
+      <i style="width:16px;height:24px;background:var(--wine);"></i>
+      <i style="width:10px;height:40px;background:var(--accent);"></i>
+      <i style="width:20px;height:18px;background:var(--ochre);"></i>
+      <i style="width:9px;height:36px;background:var(--wine);"></i>
+      <i style="width:15px;height:28px;background:var(--accent);"></i>
+      <i style="width:11px;height:32px;background:var(--replica);"></i>
+      <i style="width:13px;height:22px;background:var(--ochre);"></i>
+      <i style="width:9px;height:42px;background:var(--accent);"></i>
+      <i style="width:17px;height:26px;background:var(--wine);"></i>
+    </div>
+  </div>
+</div>
+
+<section class="block">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Il percorso in un colpo d'occhio</span>
+      <h2>Da autunno a primavera</h2>
+      <p>Due tappe in aula in autunno, cinque in primavera, due kit da svolgere a casa e due repliche di riserva, pronte a entrare in gioco solo se una lezione va sold-out. La sigla è il codice che ci serve per capirci al volo.</p>
+    </div>
+
+    <div class="timeline-legend reveal">
+      <span class="legend__item"><span class="legend__swatch legend__swatch--aula" aria-hidden="true"></span>Lezione in aula</span>
+      <span class="legend__item"><span class="legend__swatch legend__swatch--kit" aria-hidden="true"></span>Kit da fare a casa</span>
+      <span class="legend__item"><span class="legend__swatch legend__swatch--replica" aria-hidden="true"></span>Replica (si attiva solo a sold-out)</span>
+      <span class="legend__item"><span class="legend__swatch legend__swatch--cinema" aria-hidden="true"></span>Serata cinema</span>
+    </div>
+
+    <div class="timeline reveal">
+      <div class="stage stage--autumn">
+        <span class="stage__label">
+          <svg class="stage__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4c-5 2-8 6.5-8 10.5A6.5 6.5 0 0 0 12 21a6.5 6.5 0 0 0 8-6.5C20 10.5 17 6 12 4z"></path><path d="M12 21V9"></path></svg>
+          <span>Autunno</span>
+        </span>
+        <p class="stage__sub">2 lezioni in aula + 2 kit da fare a casa</p>
+        <div class="stage__stops">
+          <div class="stop stop--aula">
+            <span class="stop__sig">A0</span><span class="stop__title">AI Literacy</span>
+            <span class="stop__audience">per tutti</span>
+          </div>
+          <div class="stop stop--replica stop--sub">
+            <span class="stop__connector" aria-hidden="true">↳</span><span class="stop__sig">A0R</span>
+            <span class="stop__title">— stessa lezione di A0: si aggiunge solo se A0 va esaurita, per chi resta in lista d'attesa</span>
+          </div>
+          <div class="stop stop--aula">
+            <span class="stop__sig">A1</span><span class="stop__title">Studiare con l'AI</span>
+            <span class="stop__audience">studenti e laureandi</span>
+          </div>
+          <div class="stop stop--kit">
+            <span class="stop__sig">A2</span><span class="stop__title">NotebookLM, kit</span>
+            <span class="stop__audience">per gli iscritti</span>
+            <span class="stop__kitchip">consegnato a fine A1</span>
+          </div>
+          <div class="stop stop--kit">
+            <span class="stop__sig">A3</span><span class="stop__title">Fact-checking, kit</span>
+            <span class="stop__audience">per gli iscritti</span>
+            <span class="stop__kitchip">consegnato a fine A1</span>
+          </div>
+        </div>
+        <span class="stage__note">I kit si fanno a casa con le soluzioni commentate in arrivo dopo due settimane</span>
+      </div>
+
+      <div class="stage-arrow" aria-hidden="true">→</div>
+
+      <div class="stage stage--spring">
+        <span class="stage__label">
+          <svg class="stage__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"></path><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"></path><path d="M12 15c0-3-3-5-6-5 0 3 3 5 6 5z"></path></svg>
+          <span>Primavera</span>
+        </span>
+        <p class="stage__sub">5 lezioni in aula</p>
+        <div class="stage__stops">
+          <div class="stop stop--aula">
+            <span class="stop__sig">P0</span><span class="stop__title">AI Literacy, aggiornata</span>
+            <span class="stop__audience">per tutti</span>
+            <span class="stop__note-inline">È la A0 riproposta a primavera con esempi aggiornati, per chi entra a metà anno.</span>
+          </div>
+          <div class="stop stop--replica stop--sub">
+            <span class="stop__connector" aria-hidden="true">↳</span><span class="stop__sig">P0R</span>
+            <span class="stop__title">— stessa lezione di P0: si aggiunge solo se P0 va esaurita</span>
+          </div>
+          <div class="stop stop--aula">
+            <span class="stop__sig">P1</span><span class="stop__title">CV e colloqui</span>
+            <span class="stop__audience">chi cerca lavoro</span>
+          </div>
+          <div class="stop stop--aula">
+            <span class="stop__sig">P2</span><span class="stop__title">Dati e grafici</span>
+            <span class="stop__audience">curiosi di dati</span>
+          </div>
+          <div class="stop stop--aula">
+            <span class="stop__sig">P3</span><span class="stop__title">Etica e governance</span>
+            <span class="stop__audience">cittadini e genitori</span>
+          </div>
+          <div class="stop stop--aula">
+            <span class="stop__sig">P4</span><span class="stop__title">Scrivere con l'AI</span>
+            <span class="stop__audience">chi scrive, cioè tutti</span>
+          </div>
+        </div>
+        <span class="stage__note">Cinque temi verticali: si possono scegliere tutti o solo alcuni</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="catalogo">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Il catalogo</span>
+      <h2>Undici attività da comporre</h2>
+      <p>Sette lezioni in aula, due kit da svolgere a casa, due repliche di riserva. Toccate una card per aprirla: dentro trovate la scaletta completa, il compenso indicativo e cosa serve da parte di tutti.</p>
+    </div>
+
+    <div class="catalog">
+
+      <!-- A0 -->
+      <article class="card card--aula reveal" data-sigla="A0" data-title="AI Literacy">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">A0</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Autunno</span></span>
+            <h3 class="card__title">AI Literacy</h3>
+            <span class="card__meta"><span>Ciclo: Autunno</span><span>3 ore</span><span>Capienza: 30 (espandibile a 40-50)</span><span>Target: Universitari, giovani adulti, cittadinanza</span><span>Formato: Lezione + demo + esercizio</span></span>
+            <span class="card__temi">Cos'è l'AI e cos'è la GenAI, come funziona un LLM senza matematica, allucinazioni dal vivo, prompt buoni e cattivi, panoramica tool, privacy</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — A0, AI Literacy (3h)</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Accoglienza</div><div class="sked-content">Presentazione, obiettivi del ciclo, sondaggio a mano alzata: chi ha già usato ChatGPT e per cosa</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:10–1:35</span><div><div class="sked-label">Teoria</div><div class="sked-content">AI vs AI generativa, come funziona un modello linguistico (intuizione, zero matematica), cosa sa e cosa non può sapere</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:35–1:55</span><div><div class="sked-label">Demo dal vivo</div><div class="sked-content">Prompt buoni e cattivi sullo stesso compito, un'allucinazione provocata e smascherata in diretta, come verificare una risposta</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:55–2:05</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">2:05–2:35</span><div><div class="sked-label">Esercizio</div><div class="sked-content">Esercizio di brainstorming</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:35–2:50</span><div><div class="sked-label">Soluzione esercizio</div><div class="sked-content">Introduzione alla Reverse Interaction</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:50–3:00</span><div><div class="sked-label">Giro di Tavolo</div><div class="sked-content">Q&amp;A, consegna mini-glossario e scheda prompt, anteprima dei laboratori verticali</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul>
+                <li>Proiettore o schermo grande con ingresso HDMI e casse audio per le demo dal vivo</li>
+                <li>Sedie disposte a platea, tutte rivolte verso lo schermo</li>
+                <li>Wi-Fi di cortesia per chi vuole seguire da telefono: comodo ma non indispensabile, la lezione regge anche offline</li>
+                <li>Microfono se la sala supera le 40 persone</li>
+                <li>Possibilità di fare qualche fotocopia per il mini-glossario e la scheda prompt di fine lezione</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Smartphone, facoltativo, solo per provare un prompt durante la demo</li>
+                <li>Nessun account da creare prima: si arriva a mani vuote</li>
+                <li>Blocco e penna per chi vuole prendere appunti</li>
+                <li>Curiosità e qualche domanda pronta, anche scomoda</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>Slide e demo pronte, con esempi aggiornati alla stagione autunnale</li>
+                <li>Un caso di allucinazione testato in anticipo, per farlo scattare a comando durante la demo</li>
+                <li>Mini-glossario e scheda prompt stampati per tutti i partecipanti</li>
+                <li>Piano B con screenshot e video delle demo, nel caso il Wi-Fi non regga</li>
+                <li>Laptop e adattatori propri</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- A0R -->
+      <article class="card card--replica reveal" data-sigla="A0R" data-title="AI Literacy (replica)">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">A0R</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--replica">Si attiva a sold-out</span><span class="tag">Autunno</span></span>
+            <h3 class="card__title">AI Literacy — replica</h3>
+            <span class="card__meta"><span>Ciclo: Autunno</span><span>3 ore</span><span>Capienza: 30 (espandibile a 40-50)</span><span>Target: Lista d'attesa / nuovi iscritti</span><span>Formato: Lezione + demo + esercizio</span></span>
+            <span class="card__temi">Stessa scaletta di A0 con esempi aggiornati. Si attiva solo se A0 va sold-out</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 250 €</strong> (si attiva solo a sold-out della lezione core)</div>
+
+          <h4 class="subhead">Scaletta</h4>
+          <div class="redirect-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10l-5 5 5 5"></path><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+            <span>Stessa scaletta di A0 con esempi aggiornati. Si attiva solo se A0 va sold-out.</span>
+          </div>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul><li>Stessi materiali di A0: proiettore, sedie a platea, eventuale microfono</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul><li>Stessi materiali di A0: smartphone facoltativo, nessun account richiesto</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul><li>Stessa scaletta di A0, solo con gli esempi più freschi: nessuna preparazione aggiuntiva da parte della sede</li></ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- A1 -->
+      <article class="card card--aula reveal" data-sigla="A1" data-title="Studiare con l'AI">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">A1</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Autunno</span></span>
+            <h3 class="card__title">Studiare con l'AI (con modulo tesi e relazioni)</h3>
+            <span class="card__meta"><span>Ciclo: Autunno</span><span>3 ore</span><span>Capienza: 25</span><span>Target: Studenti universitari e superiori avanzate, laureandi</span><span>Formato: Laboratorio guidato</span></span>
+            <span class="card__temi">AI come tutor: spiegazioni multilivello, appunti in mappe e schemi, farsi interrogare, preparazione esami. Modulo finale su tesi: scaletta, domande di ricerca, revisione, simulazione orale</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — A1, Studiare con l'AI (con modulo tesi)</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Setup</div><div class="sked-content">Connessione device, verifica account, patto d'aula: l'AI è un tutor, non un bigino</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:10–0:30</span><div><div class="sked-label">Metodo</div><div class="sked-content">Deep Research vs Ricerca web. Definizioni e quando usare cosa. Spiegazioni multilivello (dal semplice all'avanzato), active recall con l'AI, come trasformare appunti in mappe e schemi.</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:30–0:50</span><div><div class="sked-label">Showcase NotebookLM</div><div class="sked-content">Dimostrazione pratica di NotebookLM: come caricare appunti e dispense, generare riassunti e mappe concettuali, farsi interrogare dall'AI con domande mirate sul materiale caricato</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">0:50–1:20</span><div><div class="sked-label">Esercizio 1</div><div class="sked-content">Ognuno lavora sui propri appunti o su materiale fornito: da testo a mappa/schema, poi farsi interrogare dall'AI e valutare le domande</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:20–1:30</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:30–1:55</span><div><div class="sked-label">Modulo tesi e relazioni</div><div class="sked-content">Dalla domanda di ricerca alla scaletta, revisione di un paragrafo (cosa chiedere e cosa no), simulazione dell'orale come role play</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:55–2:15</span><div><div class="sked-label">Showcase Role Play</div><div class="sked-content">Come impostare un role play efficace con l'AI: definire il ruolo del modello (commissario, relatore, tutor), dare contesto, chiedere feedback costruttivo sulle risposte</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">2:15–2:45</span><div><div class="sked-label">Esercizio 2</div><div class="sked-content">A scelta: revisione guidata di un proprio testo/paragrafo oppure simulazione orale con l'AI su un argomento d'esame</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:45–3:00</span><div><div class="sked-label">Chiusura</div><div class="sked-content">Debrief e consegna del kit da portare a casa: prompt di studio, template scaletta tesi, scheda revisione. Consegna e presentazione dei due kit per casa: A2 (NotebookLM sui propri documenti) e A3 (fact-checking)</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul>
+                <li>Wi-Fi stabile e capiente per 25 persone connesse insieme: qui è indispensabile, non un optional</li>
+                <li>Tavoli disposti a isole, con spazio per aprire un portatile davanti a ognuno</li>
+                <li>Prese multiple o ciabatte per chi arriva con la batteria scarica</li>
+                <li>Proiettore o schermo per lo showcase di NotebookLM e per il role play</li>
+                <li>Possibilità di stampare le schede di fine giornata (template scaletta tesi, scheda revisione)</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Portatile o tablet: lo smartphone si può usare ma è scomodo per scrivere e caricare documenti</li>
+                <li>Un account gratuito a un chatbot (ChatGPT o Gemini) già creato da casa, prima dell'incontro</li>
+                <li>I propri appunti o dispense su cui lavorare, anche in PDF</li>
+                <li>Un account Google, per provare la demo di NotebookLM</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>Showcase di NotebookLM preparato con materiale di esempio già caricato</li>
+                <li>Materiali per il modulo tesi: scalette tipo, domande di ricerca guida</li>
+                <li>Schede per l'esercizio 1 e l'esercizio 2, pronte da distribuire</li>
+                <li>Template scaletta tesi e scheda revisione, stampati per la consegna finale</li>
+                <li>I kit A2 e A3 già pronti, da consegnare a fine giornata</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- A2 -->
+      <article class="card card--kit reveal" data-sigla="A2" data-title="AI, documenti e NotebookLM">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">A2</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--kit">Compito a casa</span><span class="tag">Autunno</span></span>
+            <h3 class="card__title">AI, documenti e NotebookLM (kit a casa)</h3>
+            <span class="card__meta"><span>Ciclo: Autunno</span><span>A casa</span><span>Capienza: Tutti gli iscritti</span><span>Target: Universitari, tesisti, lettori forti</span><span>Formato: Kit guidato autonomo + restituzione</span></span>
+            <span class="card__temi">Kit consegnato a fine A1: mini-guida a NotebookLM, esercizi sui propri documenti con verifica delle citazioni, confronto tra fonti, audio overview, checklist su limiti e privacy. Soluzioni commentate dopo 2 settimane e restituzione al primo incontro utile</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 150 €</strong> (preparazione del kit e correzione comprese)</div>
+
+          <h4 class="subhead">Scaletta — A2, AI, documenti e NotebookLM (kit compito a casa)</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">Parte 1</span><div><div class="sked-label">Mini-guida al primo notebook</div><div class="sked-content">Come entrare con l'account Google, creare il primo notebook e caricare le fonti. Due pagine con screenshot, pensate per farcela da soli in 15 minuti</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">Parte 2</span><div><div class="sked-label">Esercizio — I miei documenti</div><div class="sked-content">Caricare 2-3 documenti propri (dispense, articoli, un contratto, un verbale) e porre 5 domande. Per ogni risposta: aprire la citazione e controllare che dica davvero quello che l'AI sostiene</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">Parte 3</span><div><div class="sked-label">Esercizio — Due fonti in disaccordo</div><div class="sked-content">Caricare i due documenti forniti nel kit, che dicono cose diverse sullo stesso tema: chiedere un confronto e osservare come lo strumento gestisce il disaccordo</div></div></li>
+            <li class="sked-row"><span class="sked-time">Parte 4</span><div><div class="sked-label">Audio overview e guida allo studio</div><div class="sked-content">Generare dai propri materiali una guida allo studio e una audio overview da ascoltare in mobilità. Istruzioni passo passo e criteri per giudicare il risultato</div></div></li>
+            <li class="sked-row"><span class="sked-time">Parte 5</span><div><div class="sked-label">Limiti e privacy</div><div class="sked-content">Checklist: cosa caricare e cosa no (dati personali, documenti di lavoro riservati), dove lo strumento è affidabile e dove inventa</div></div></li>
+            <li class="sked-row"><span class="sked-time">Restituzione</span><div><div class="sked-label">Soluzioni e confronto</div><div class="sked-content">Soluzioni commentate inviate dopo 2 settimane insieme a quelle del kit A3; 20-30 minuti di discussione comune in apertura del primo incontro utile</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul><li>Nulla: si svolge a casa. Solo fotocopie del kit se la biblioteca preferisce la versione cartacea</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Un dispositivo qualunque a casa: pc, tablet o anche solo smartphone</li>
+                <li>Un account Google gratuito per usare NotebookLM</li>
+                <li>2-3 documenti personali da caricare (dispense, articoli, un contratto, un verbale)</li>
+                <li>Circa un'ora libera: il kit è pensato per stare in piedi da solo, senza relatore accanto</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>Mini-guida con screenshot, pensata per farcela da soli in 15 minuti</li>
+                <li>I due documenti "in disaccordo" per l'esercizio guidato sul confronto tra fonti</li>
+                <li>Soluzioni commentate, da inviare dopo due settimane insieme a quelle di A3</li>
+                <li>Checklist su limiti e privacy, già stampata dentro il kit</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- A3 -->
+      <article class="card card--kit reveal" data-sigla="A3" data-title="Ricerca web e fact-checking">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">A3</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--kit">Compito a casa</span><span class="tag">Autunno</span></span>
+            <h3 class="card__title">Ricerca web e fact-checking (kit a casa)</h3>
+            <span class="card__meta"><span>Ciclo: Autunno</span><span>A casa</span><span>Capienza: Tutti gli iscritti</span><span>Target: Studenti, cittadini, docenti</span><span>Formato: Kit di esercizi autonomo + restituzione</span></span>
+            <span class="card__temi">Kit consegnato a fine A1: quiz vero/falso, mini-guida su come "cerca" l'AI, una notizia da verificare con checklist fonti, immagini generate e reverse image search. Soluzioni commentate dopo 2 settimane e restituzione in apertura del primo incontro utile</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 150 €</strong> (preparazione del kit e correzione comprese)</div>
+
+          <h4 class="subhead">Scaletta — A3, Ricerca web e fact-checking (kit compito a casa)</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">Parte 1</span><div><div class="sked-label">Quiz di apertura</div><div class="sked-content">5 notizie da giudicare da soli: vere o false? Un titolo clickbait vero, una statistica inventata ma plausibile, un'immagine AI spacciata per foto. Le soluzioni sono in fondo al kit: prima si prova, poi si controlla</div></div></li>
+            <li class="sked-row"><span class="sked-time">Parte 2</span><div><div class="sked-label">Mini-guida</div><div class="sked-content">Come "cerca" l'AI: il modello non naviga davvero, genera risposte probabili. Differenza tra risposta plausibile e risposta fondata, perché il tono sicuro inganna. Due pagine, esempi concreti</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">Parte 3</span><div><div class="sked-label">Esercizio — Verifica guidata</div><div class="sked-content">Una notizia da verificare con la checklist fonti: chi lo dice? Quando è stata pubblicata? Chi altro lo conferma? Esiste una fonte primaria? Spazio per annotare il percorso fatto</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">Parte 4</span><div><div class="sked-label">Esercizio — Immagini e deepfake</div><div class="sked-content">Riconoscere una foto generata (mani, testi, sfondi incoerenti, riflessi) e provare la reverse image search dallo smartphone con Google Lens e TinEye su 3 casi reali proposti nel kit</div></div></li>
+            <li class="sked-row"><span class="sked-time">Parte 5</span><div><div class="sked-label">La checklist personale</div><div class="sked-content">Costruire la propria checklist di verifica: 5-6 domande da farsi sempre prima di condividere una notizia. Modello precompilato da completare e tenere sul telefono</div></div></li>
+            <li class="sked-row"><span class="sked-time">Restituzione</span><div><div class="sked-label">Soluzioni e confronto</div><div class="sked-content">Soluzioni commentate del quiz e degli esercizi inviate dopo 2 settimane; 20-30 minuti di discussione in apertura del primo incontro utile (o consegna in biblioteca per chi non prosegue)</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul><li>Nulla: si svolge a casa. Solo fotocopie del kit se la biblioteca preferisce la versione cartacea</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Uno smartphone, per provare la reverse image search con Google Lens e TinEye</li>
+                <li>Un dispositivo per il quiz e gli esercizi scritti</li>
+                <li>La voglia di provare a rispondere prima di andare a guardare le soluzioni</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>Kit impaginato con le 5 notizie del quiz iniziale, scelte e verificate in anticipo</li>
+                <li>I 3 casi immagine per l'esercizio su foto generate e deepfake</li>
+                <li>Mini-guida su come "cerca" davvero un'AI, con esempi concreti</li>
+                <li>Soluzioni commentate, pronte da inviare dopo due settimane</li>
+                <li>La checklist personale, già stampata, da tenere sul telefono</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- P0 -->
+      <article class="card card--aula reveal" data-sigla="P0" data-title="AI Literacy (primavera)">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">P0</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Primavera</span></span>
+            <h3 class="card__title">AI Literacy — versione aggiornata</h3>
+            <span class="card__meta"><span>Ciclo: Primavera</span><span>3 ore</span><span>Capienza: 30 (espandibile a 40-50)</span><span>Target: Nuovi iscritti, cittadini, studenti</span><span>Formato: Lezione + demo + esercizio</span></span>
+            <span class="card__temi">Stesso impianto di A0 con esempi e tool aggiornati al periodo. Apre il ciclo primaverile per chi entra dopo</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — P0, AI Literacy versione aggiornata</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">—</span><div><div class="sked-label">Scaletta</div><div class="sked-content">Stessa struttura di A0, con esempi, demo e panoramica tool aggiornati alla primavera. Pensata per chi entra nel percorso a metà anno</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul><li>Stessi materiali di A0: proiettore con HDMI e audio, sedie a platea, microfono se la sala è grande</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul><li>Stessi materiali di A0: smartphone facoltativo, nessun account richiesto</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul><li>Stessa scaletta di A0, aggiornata con esempi e strumenti di primavera: nessuna preparazione ex novo</li></ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- P0R -->
+      <article class="card card--replica reveal" data-sigla="P0R" data-title="AI Literacy (replica primavera)">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">P0R</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--replica">Si attiva a sold-out</span><span class="tag">Primavera</span></span>
+            <h3 class="card__title">AI Literacy — replica primavera</h3>
+            <span class="card__meta"><span>Ciclo: Primavera</span><span>3 ore</span><span>Capienza: 30 (espandibile a 40-50)</span><span>Target: Lista d'attesa / nuovi iscritti</span><span>Formato: Lezione + demo + esercizio</span></span>
+            <span class="card__temi">Stessa scaletta di P0. Si attiva solo se P0 va sold-out</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 250 €</strong> (si attiva solo a sold-out della lezione core)</div>
+
+          <h4 class="subhead">Scaletta</h4>
+          <div class="redirect-note">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 10l-5 5 5 5"></path><path d="M20 4v7a4 4 0 0 1-4 4H4"></path></svg>
+            <span>Stessa scaletta di P0. Si attiva solo se P0 va sold-out.</span>
+          </div>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul><li>Stessi materiali di P0: proiettore, sedie a platea, eventuale microfono</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul><li>Stessi materiali di P0: smartphone facoltativo, nessun account richiesto</li></ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul><li>Stessa scaletta di P0, solo con gli esempi più freschi: nessuna preparazione aggiuntiva</li></ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- P1 -->
+      <article class="card card--aula reveal" data-sigla="P1" data-title="AI per CV e colloqui">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">P1</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Primavera</span></span>
+            <h3 class="card__title">AI per CV, colloqui e primo lavoro</h3>
+            <span class="card__meta"><span>Ciclo: Primavera</span><span>2 ore e mezza</span><span>Capienza: 25</span><span>Target: Giovani adulti, neolaureati, persone in transizione</span><span>Formato: Laboratorio professionale</span></span>
+            <span class="card__temi">CV e sistemi ATS, riscrivere il proprio CV senza standardizzarsi, lettere motivazionali, LinkedIn, role play di colloquio con l'AI</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — P1, AI per CV, colloqui e primo lavoro</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Setup</div><div class="sked-content">Connessione device. Chi ha un CV lo apre (va bene anche una bozza o il profilo LinkedIn). Chi non ce l'ha usa un template fornito: nessuno resta a guardare</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:10–0:20</span><div><div class="sked-label">Giro di tavolo veloce</div><div class="sked-content">Ognuno dice in 30 secondi: cosa cerca e qual è l'ostacolo più grande che sente. Serve a calibrare gli esempi e a far emergere che le paure sono condivise</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:20–0:40</span><div><div class="sked-label">Teoria</div><div class="sked-content">Cosa guarda davvero chi seleziona nei primi 6 secondi. Come funzionano i filtri ATS (parole chiave, formattazione che rompe tutto). Il rischio CV fotocopia: perché l'AI tende a produrre testi generici e come evitarlo. Esempi di bullet point prima/dopo con il metodo azione-risultato-impatto</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">0:40–1:10</span><div><div class="sked-label">Esercizio 1</div><div class="sked-content">Ognuno riscrive 2-3 bullet point del proprio CV con l'AI. Regola: non accettare la prima versione, chiedere almeno 2 alternative e scegliere. Chi finisce prima prova ad adattare il CV a un annuncio reale (ne forniamo 3-4 di settori diversi)</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:10–1:20</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:20–1:40</span><div><div class="sked-label">Teoria + demo</div><div class="sked-content">Lettera motivazionale che non puzza di AI: dare contesto specifico, togliere i superlativi, aggiungere un dettaglio vero. Demo live: riscrittura di una lettera generica in una credibile. LinkedIn: headline che dice cosa fai (non "appassionato di"), about che racconta una traiettoria</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:40–2:00</span><div><div class="sked-label">Showcase Role Play</div><div class="sked-content">Come impostare un colloquio simulato con l'AI che sia utile davvero. Dimostrazione dal vivo: definire il ruolo (HR, manager tecnico, founder), dare contesto sull'azienda e il ruolo, chiedere domande difficili e poi feedback. Cosa funziona e cosa no: l'AI non ti interrompe, non legge il linguaggio del corpo, ma può preparare alle domande scomode</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">2:00–2:25</span><div><div class="sked-label">Esercizio 2</div><div class="sked-content">Ognuno simula un colloquio con l'AI sull'annuncio che ha scelto. Obiettivo: arrivare a 3 domande e ricevere feedback sulle risposte. Chi vuole condivide una domanda che l'ha messo in difficoltà e come l'ha gestita</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:25–2:30</span><div><div class="sked-label">Chiusura</div><div class="sked-content">Una cosa che portate a casa da oggi. Consegna kit: template CV testato ATS, griglia con le 10 domande più frequenti e come prepararle, prompt colloquio. Debrief finale</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul>
+                <li>Wi-Fi stabile per 25 persone connesse insieme, indispensabile per lavorare sul proprio CV</li>
+                <li>Tavoli a isole, con spazio per aprire un portatile</li>
+                <li>Prese multiple o ciabatte</li>
+                <li>Proiettore per lo showcase del role play di colloquio e per la demo della lettera motivazionale</li>
+                <li>Possibilità di stampare il template CV e la griglia delle domande di colloquio</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Portatile o tablet (lo smartphone va bene come ripiego)</li>
+                <li>Un account gratuito a un chatbot, già creato da casa prima dell'incontro</li>
+                <li>Il proprio CV, anche solo in bozza, o il profilo LinkedIn aperto: chi non ha nulla userà un template fornito</li>
+                <li>Un annuncio di lavoro a cui sono davvero interessati, se ne hanno uno</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>Template CV già testato sui filtri ATS</li>
+                <li>3-4 annunci reali di settori diversi, da distribuire a chi non ne ha uno proprio</li>
+                <li>Esempi di bullet point prima/dopo con il metodo azione-risultato-impatto</li>
+                <li>Griglia delle 10 domande di colloquio più frequenti</li>
+                <li>Scaletta del role play di colloquio simulato con l'AI</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- P2 -->
+      <article class="card card--aula reveal" data-sigla="P2" data-title="AI e dati">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">P2</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Primavera</span></span>
+            <h3 class="card__title">AI e dati: visualizzare e raccontare informazioni</h3>
+            <span class="card__meta"><span>Ciclo: Primavera</span><span>2 ore</span><span>Capienza: 25</span><span>Target: Studenti, lavoratori, curiosi di dati</span><span>Formato: Laboratorio data literacy</span></span>
+            <span class="card__temi">Leggere grafici (assi, scale, correlazione vs causa), costruire un grafico da un dataset con l'AI, caccia al grafico fuorviante, storytelling dei dati</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — P2, AI e dati: visualizzare e raccontare</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Apertura</div><div class="sked-content">Un grafico fuorviante famoso proiettato: cosa c'è che non va? Discussione a caldo</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:10–0:35</span><div><div class="sked-label">Teoria</div><div class="sked-content">Leggere un grafico: assi tagliati, scale, campioni, correlazione non è causa. Esempi da giornali e social</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">0:35–1:05</span><div><div class="sked-label">Esercizio 1</div><div class="sked-content">Dal dataset leggero fornito a un grafico pubblicabile: pulizia guidata con l'AI e visualizzazione con Datawrapper/Fogli Google</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:05–1:15</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">1:15–1:40</span><div><div class="sked-label">Esercizio 2</div><div class="sked-content">Caccia all'errore: 4 grafici fuorvianti da smontare in coppie con la checklist data viz</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:40–2:00</span><div><div class="sked-label">Chiusura</div><div class="sked-content">Storytelling dei dati: stesso dato, due narrazioni oneste diverse. Debrief e checklist da portare a casa</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul>
+                <li>Wi-Fi stabile per accedere a Datawrapper o Google Fogli, indispensabile qui più che altrove</li>
+                <li>Tavoli a isole, con spazio per lavorare su un foglio dati</li>
+                <li>Prese multiple o ciabatte</li>
+                <li>Proiettore per mostrare in apertura il grafico fuorviante e per la caccia all'errore in coppie</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Un portatile: qui serve davvero, per lavorare su un foglio dati, lo smartphone è troppo scomodo</li>
+                <li>Un account gratuito a Datawrapper, oppure semplicemente Google Fogli</li>
+                <li>Un account a un chatbot, creato da casa prima dell'incontro</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>Il dataset leggero, già pulito e testato per l'esercizio guidato</li>
+                <li>I 4 grafici fuorvianti scelti per la caccia all'errore in coppie</li>
+                <li>La checklist data viz, stampata per tutti</li>
+                <li>Il grafico fuorviante famoso da proiettare in apertura</li>
+                <li>Un esempio di visualizzazione già pronta, da usare come riferimento</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- P3 -->
+      <article class="card card--aula reveal" data-sigla="P3" data-title="AI, etica e governance">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">P3</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Primavera</span></span>
+            <h3 class="card__title">AI, etica, copyright e governance</h3>
+            <span class="card__meta"><span>Ciclo: Primavera</span><span>3 ore</span><span>Capienza: 30</span><span>Target: Cittadini, studenti, docenti, genitori</span><span>Formato: Incontro critico con discussione</span></span>
+            <span class="card__temi">Come nascono i bias, casi etici discussi in gruppi, copyright e opere generate, privacy, AI Act in parole semplici, uso responsabile</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — P3, AI, etica, copyright e governance</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">0:00–0:15</span><div><div class="sked-label">Apertura interattiva</div><div class="sked-content">Proiezione di 3 casi reali recenti legati all'AI (un deepfake, una discriminazione algoritmica, un'opera generata contestata). Per ogni caso: "Secondo voi cosa è andato storto?" - raccolta risposte a mano alzata. Serve a far emergere che i problemi etici non sono teorici</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:15–0:45</span><div><div class="sked-label">Teoria - I bias</div><div class="sked-content">Come nascono i bias: non cattiveria, ma dati storti. Spiegazione con esempi concreti: CV filtrati che penalizzano nomi femminili, riconoscimento facciale che sbaglia sui volti scuri, generatori di immagini che stereotipano. Non è colpa dell'AI, è colpa di come l'abbiamo addestrata. Cosa possiamo fare noi: riconoscerli, segnalarli, non fidarci ciecamente</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">0:45–1:15</span><div><div class="sked-label">Esercizio 1 - Casi etici in gruppi</div><div class="sked-content">4 gruppi, 4 scenari diversi: (1) Deepfake di un personaggio pubblico - dove sta il limite? (2) Studente che usa l'AI per un compito - è copiare? (3) Azienda che usa l'AI per selezionare CV - è giusto? (4) Artista il cui stile viene copiato dall'AI - ha diritto a opporsi? Ogni gruppo ha 15 min per discutere e preparare: una posizione condivisa + una domanda che resta aperta. Poi 15 min di restituzione</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:15–1:25</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:25–1:55</span><div><div class="sked-label">Teoria - Copyright e privacy</div><div class="sked-content">A chi appartiene un'immagine generata? Chi è responsabile se l'AI scrive qualcosa di falso? I tuoi dati personali nei modelli: cosa sanno, cosa possono inferire, come proteggersi. Demo pratica: cosa succede se chiedi a ChatGPT informazioni su te stesso o su persone che conosci</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:55–2:20</span><div><div class="sked-label">Showcase - L'AI Act spiegato semplice</div><div class="sked-content">La nuova legge europea in 10 punti che contano davvero per il cittadino. Cosa cambia: sistemi vietati (scoring sociale, riconoscimento emotivo), obblighi di trasparenza ("devi sapere se stai parlando con un'AI"), diritto di spiegazione. Cosa NON cambia: l'AI può ancora sbagliare, la responsabilità finale è sempre umana</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">2:20–2:30</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">2:30–2:50</span><div><div class="sked-label">Esercizio 2 - Il decalogo condiviso</div><div class="sked-content">Costruzione collettiva di un "decalogo d'uso responsabile dell'AI" per la vita quotidiana. Ogni partecipante propone una regola, si vota, si selezionano le 10 migliori. Il decalogo viene stampato e consegnato a fine incontro come prodotto del gruppo</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:50–3:00</span><div><div class="sked-label">Chiusura civica</div><div class="sked-content">Riflessione finale: l'AI non è né buona né cattiva, amplifica quello che ci mettiamo dentro. Il nostro ruolo di cittadini: essere critici, chiedere trasparenza, non delegare le decisioni importanti. Consegna: decalogo del gruppo, scheda riassuntiva AI Act, lista di domande da farsi prima di usare un sistema AI</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul>
+                <li>Sedie disposte a platea ma facilmente raggruppabili in 4 isole per la discussione</li>
+                <li>Proiettore per i 3 casi reali di apertura e per le slide sull'AI Act</li>
+                <li>Possibilità di stampare i 4 scenari per i gruppi e il decalogo condiviso a fine incontro</li>
+                <li>Microfono se la sala è grande, per la restituzione dei gruppi</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Solo carta e penna</li>
+                <li>Voglia di discutere e di esporsi: qui non serve nessun dispositivo</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>I 3 casi reali recenti selezionati e verificati per l'apertura</li>
+                <li>I 4 scenari etici stampati, uno per gruppo</li>
+                <li>Slide sull'AI Act, riverificate a ridosso della data</li>
+                <li>Materiale per costruire il decalogo condiviso in tempo reale</li>
+                <li>Scheda riassuntiva dell'AI Act, da consegnare a fine incontro</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- P4 -->
+      <article class="card card--aula reveal" data-sigla="P4" data-title="Scrivere meglio con l'AI">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">P4</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Primavera</span></span>
+            <h3 class="card__title">Scrivere meglio con l'AI</h3>
+            <span class="card__meta"><span>Ciclo: Primavera</span><span>3 ore</span><span>Capienza: 25</span><span>Target: Studenti, lavoratori, cittadini</span><span>Formato: Laboratorio di scrittura</span></span>
+            <span class="card__temi">Bozza propria + AI come editor: tono e destinatario, email e sintesi, da documento a scaletta di presentazione, revisione incrociata in coppie</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — P4, Scrivere meglio con l'AI</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Setup</div><div class="sked-content">Connessione device. Ognuno apre un testo proprio su cui lavorare: una mail importante, un documento di lavoro, un pezzo di tesi, una bio. Chi non ha nulla usa uno dei 4 testi-tipo forniti (mail formale, post LinkedIn, paragrafo accademico, presentazione progetto)</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:10–0:20</span><div><div class="sked-label">Giro di tavolo</div><div class="sked-content">Ognuno dice in 30 secondi: che testo ha portato e cosa non lo convince. Serve a far emergere i problemi comuni: troppo lungo, tono sbagliato, non si capisce il punto</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:20–0:45</span><div><div class="sked-label">Metodo</div><div class="sked-content">Il principio base: la bozza resta tua, l'AI fa l'editor. Come dare istruzioni utili: specificare tono, destinatario, scopo e lunghezza. Perché il testo tutto-AI si riconosce subito: aggettivi generici, strutture ripetitive, assenza di dettagli concreti. Demo dal vivo: lo stesso paragrafo riscritto con prompt vaghi vs prompt precisi</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">0:45–1:15</span><div><div class="sked-label">Esercizio 1</div><div class="sked-content">Ognuno prende un paragrafo del proprio testo e lo fa riscrivere in 2 toni diversi (es. formale/diretto, tecnico/divulgativo). Obiettivo: non accettare la prima versione, ma confrontare, scegliere pezzi da entrambe, chiedere una terza via. Chi finisce prima prova a far sintetizzare un testo lungo mantenendo i punti chiave</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:15–1:25</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:25–1:50</span><div><div class="sked-label">Showcase Revisione</div><div class="sked-content">Dimostrazione dal vivo di una revisione strutturata in 3 passaggi: (1) chiarezza - "riscrivi le frasi più lunghe di 25 parole", (2) ridondanze - "elimina ripetizioni e riempi-testo", (3) refusi e grammatica. Come chiedere spiegazioni sulle modifiche proposte. Quando fidarsi e quando no: l'AI corregge bene la forma, meno il contenuto tecnico</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">1:50–2:20</span><div><div class="sked-label">Esercizio 2</div><div class="sked-content">Revisione guidata del proprio testo completo con il metodo dei 3 passaggi. Ognuno annota: cosa ha tenuto, cosa ha scartato, cosa l'ha sorpreso. Chi ha un testo breve può provare a trasformarlo in scaletta per una presentazione orale</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">2:20–2:30</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">2:30–2:50</span><div><div class="sked-label">Esercizio 3 - Revisione incrociata</div><div class="sked-content">In coppie: ognuno passa il proprio testo originale (non la versione rivista) al compagno. Il compagno usa l'AI per proporre 3 modifiche e deve motivarle a voce. Poi si confrontano le due revisioni: quella fatta da soli e quella fatta dall'altro. Cosa cambia con uno sguardo esterno?</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:50–3:00</span><div><div class="sked-label">Chiusura</div><div class="sked-content">Giro finale: una cosa che avete scoperto sul vostro modo di scrivere. Consegna kit: template con i prompt di revisione testati, checklist dei 3 passaggi, esempi di testi prima/dopo. Debrief: scrivere con l'AI non è barare, è avere un editor sempre disponibile</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul>
+                <li>Wi-Fi stabile per 25 persone connesse insieme</li>
+                <li>Tavoli a isole, comodi anche per affiancare le coppie nella revisione incrociata finale</li>
+                <li>Prese multiple o ciabatte</li>
+                <li>Proiettore per la demo dal vivo della revisione in 3 passaggi</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Portatile o tablet (lo smartphone va bene come ripiego)</li>
+                <li>Un account gratuito a un chatbot, creato da casa prima dell'incontro</li>
+                <li>Un proprio testo vero da portare: una mail, un paragrafo di tesi, un post, una bio. Chi non ha nulla userà uno dei 4 testi-tipo forniti</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>I 4 testi-tipo di riserva (mail formale, post LinkedIn, paragrafo accademico, presentazione progetto)</li>
+                <li>Template con i prompt di revisione già testati</li>
+                <li>Checklist dei 3 passaggi di revisione, stampata</li>
+                <li>Esempi di testi prima/dopo per la demo dal vivo</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section class="block" id="cinema">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">L'angolo cinema</span>
+      <h2>Quattro serate, quattro sguardi sull'AI</h2>
+      <p>Accanto ai workshop, un piccolo ciclo di serate cinema: quattro film che raccontano l'AI da angolazioni diverse, ognuno seguito da un'introduzione e da un dibattito guidato da Mirko. Sono pensate per allargare il pubblico oltre chi già frequenta i laboratori, con un formato più leggero e una serata sola, non un percorso da seguire per intero.</p>
+    </div>
+
+    <div class="films reveal">
+
+      <!-- F1 Her -->
+      <article class="film" data-sigla="F1" data-title="Her">
+        <div class="film__art" style="background: var(--wine-soft);">
+          <svg viewBox="0 0 400 108" preserveAspectRatio="none" aria-hidden="true">
+            <g stroke="var(--wine)" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.75">
+              <line x1="30" y1="54" x2="30" y2="54"></line>
+              <line x1="50" y1="40" x2="50" y2="68"></line>
+              <line x1="70" y1="24" x2="70" y2="84"></line>
+              <line x1="90" y1="46" x2="90" y2="62"></line>
+              <line x1="110" y1="14" x2="110" y2="94"></line>
+              <line x1="130" y1="34" x2="130" y2="74"></line>
+              <line x1="150" y1="8" x2="150" y2="100"></line>
+              <line x1="170" y1="30" x2="170" y2="78"></line>
+              <line x1="190" y1="18" x2="190" y2="90"></line>
+              <line x1="210" y1="40" x2="210" y2="68"></line>
+              <line x1="230" y1="12" x2="230" y2="96"></line>
+              <line x1="250" y1="32" x2="250" y2="76"></line>
+              <line x1="270" y1="20" x2="270" y2="88"></line>
+              <line x1="290" y1="44" x2="290" y2="64"></line>
+              <line x1="310" y1="28" x2="310" y2="80"></line>
+              <line x1="330" y1="48" x2="330" y2="60"></line>
+              <line x1="350" y1="38" x2="350" y2="70"></line>
+              <line x1="370" y1="50" x2="370" y2="58"></line>
+            </g>
+          </svg>
+        </div>
+        <div class="film__body">
+          <div class="film__toprow"><span class="film__sig">F1</span><span class="film__titleline"><h3>Her</h3></span></div>
+          <div class="film__yearregia">2013 — regia di Spike Jonze — 126 min</div>
+          <p class="film__perche">È il film sull'AI di oggi, non quella di fantascienza: un sistema operativo con una voce che sembra una persona vera, e un uomo che ci si affeziona senza accorgersene. Vederlo oggi, con gli assistenti vocali che abbiamo in tasca, fa un altro effetto rispetto a dieci anni fa.</p>
+          <div class="film__extra">
+            <strong>Pubblico</strong>
+            <p>Adulti e chiunque sia curioso di capire dove sta andando l'AI conversazionale</p>
+            <strong>Aggancio al corso</strong>
+            <p>Dialoga con A0 (cos'è davvero un modello linguistico, perché sembra capirci) e con P3 (l'attaccamento emotivo alle macchine, i limiti che l'AI Act pone al riconoscimento emotivo)</p>
+            <strong>Formato serata</strong>
+            <p>Introduzione di Mirko di circa 10 minuti, proiezione, dibattito guidato di 30-40 minuti</p>
+          </div>
+          <div class="film__foot">
+            <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+              <span class="interest-label">Ci interessa</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- F2 The Imitation Game -->
+      <article class="film" data-sigla="F2" data-title="The Imitation Game">
+        <div class="film__art" style="background: var(--wine-soft);">
+          <svg viewBox="0 0 400 108" aria-hidden="true">
+            <g fill="none" stroke="var(--wine)" stroke-width="2.5" opacity="0.8">
+              <circle cx="140" cy="54" r="30"></circle>
+              <circle cx="140" cy="54" r="16"></circle>
+              <circle cx="200" cy="54" r="30"></circle>
+              <circle cx="200" cy="54" r="16"></circle>
+              <circle cx="260" cy="54" r="30"></circle>
+              <circle cx="260" cy="54" r="16"></circle>
+            </g>
+            <g fill="var(--wine)" opacity="0.85">
+              <circle cx="140" cy="54" r="3.2"></circle>
+              <circle cx="200" cy="54" r="3.2"></circle>
+              <circle cx="260" cy="54" r="3.2"></circle>
+            </g>
+          </svg>
+        </div>
+        <div class="film__body">
+          <div class="film__toprow"><span class="film__sig">F2</span><span class="film__titleline"><h3>The Imitation Game</h3></span></div>
+          <div class="film__yearregia">2014 — regia di Morten Tyldum — 114 min</div>
+          <p class="film__perche">Il titolo che porta più pubblico in sala: la storia di Turing e di Enigma è nota e amata. L'aggancio vero però è un altro, ed è quello che vale la pena raccontare prima della proiezione: la domanda "le macchine possono pensare?" ha oggi 75 anni, e non è ancora chiusa.</p>
+          <div class="film__extra">
+            <strong>Pubblico</strong>
+            <p>Pubblico ampio e trasversale, anche chi non segue di solito il ciclo AI</p>
+            <strong>Aggancio al corso</strong>
+            <p>Da introdurre con una cornice storica di 10 minuti sul test di Turing, per spostare il dibattito dalla sola vicenda di Enigma alla domanda sull'AI di oggi; si collega direttamente ad A0</p>
+            <strong>Formato serata</strong>
+            <p>Introduzione storica di Mirko di circa 10 minuti, proiezione, dibattito guidato di 30-40 minuti</p>
+          </div>
+          <div class="film__foot">
+            <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+              <span class="interest-label">Ci interessa</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- F3 Ex Machina -->
+      <article class="film" data-sigla="F3" data-title="Ex Machina">
+        <div class="film__art" style="background: var(--wine-soft);">
+          <svg viewBox="0 0 400 108" aria-hidden="true">
+            <g fill="var(--wine)" opacity="0.16">
+              <rect x="150" y="10" width="100" height="88" rx="4"></rect>
+            </g>
+            <g fill="none" stroke="var(--wine)" stroke-width="2.5" opacity="0.85">
+              <polygon points="200,16 224,34 224,74 200,96 176,74 176,34"></polygon>
+              <line x1="200" y1="16" x2="200" y2="96"></line>
+              <line x1="176" y1="34" x2="224" y2="74"></line>
+              <line x1="224" y1="34" x2="176" y2="74"></line>
+            </g>
+          </svg>
+        </div>
+        <div class="film__body">
+          <div class="film__toprow"><span class="film__sig">F3</span><span class="film__titleline"><h3>Ex Machina</h3></span></div>
+          <div class="film__yearregia">2015 — regia di Alex Garland — 108 min</div>
+          <p class="film__perche">Il test di Turing messo in scena per davvero, in una stanza chiusa, con tutta la tensione che ne consegue: chi sta valutando chi, e chi sta manipolando chi. Un film che lascia addosso più domande che risposte, il che per una serata di dibattito è un pregio.</p>
+          <div class="film__extra">
+            <strong>Pubblico</strong>
+            <p>Pubblico giovane-adulto</p>
+            <strong>Aggancio al corso</strong>
+            <p>Si collega a P3 (fiducia, manipolazione, i confini di un rapporto con una macchina che sembra capirci) e ad A0 (cosa sa fare davvero un'AI rispetto a cosa sembra fare)</p>
+            <strong>Formato serata</strong>
+            <p>Introduzione di Mirko di circa 10 minuti, proiezione, dibattito guidato di 30-40 minuti</p>
+          </div>
+          <div class="film__foot">
+            <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+              <span class="interest-label">Ci interessa</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+      <!-- F4 Io e Caterina -->
+      <article class="film" data-sigla="F4" data-title="Io e Caterina">
+        <div class="film__art" style="background: var(--wine-soft);">
+          <svg viewBox="0 0 400 108" aria-hidden="true">
+            <g fill="none" stroke="var(--wine)" stroke-width="3" opacity="0.85">
+              <rect x="140" y="24" width="120" height="70" rx="10"></rect>
+              <line x1="170" y1="24" x2="155" y2="6"></line>
+              <line x1="230" y1="24" x2="245" y2="6"></line>
+            </g>
+            <g fill="none" stroke="var(--wine)" stroke-width="1.6" opacity="0.55">
+              <line x1="150" y1="42" x2="250" y2="42"></line>
+              <line x1="150" y1="54" x2="250" y2="54"></line>
+              <line x1="150" y1="66" x2="250" y2="66"></line>
+              <line x1="150" y1="78" x2="250" y2="78"></line>
+            </g>
+            <circle cx="200" cy="60" r="4" fill="var(--wine)" opacity="0.85"></circle>
+          </svg>
+        </div>
+        <div class="film__body">
+          <div class="film__toprow"><span class="film__sig">F4</span><span class="film__titleline"><h3>Io e Caterina</h3></span></div>
+          <div class="film__yearregia">1980 — regia di Alberto Sordi — 115 min</div>
+          <p class="film__perche">La chicca italiana della rassegna: Sordi e un robot domestico nel 1980, quando la parola AI non la usava nessuno. Una commedia su dipendenza e gelosia verso la macchina che oggi si guarda con un sorriso diverso, sapendo come è andata davvero a finire.</p>
+          <div class="film__extra">
+            <strong>Pubblico</strong>
+            <p>Pubblico over 60, e chiunque ami la commedia italiana</p>
+            <strong>Aggancio al corso</strong>
+            <p>Perfetta per un dibattito "cosa avevamo previsto quarant'anni fa e cosa no": si collega a P3 e alla parte più storica di A0</p>
+            <strong>Formato serata</strong>
+            <p>Introduzione di Mirko di circa 10 minuti, proiezione, dibattito guidato di 30-40 minuti</p>
+          </div>
+          <div class="film__foot">
+            <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+              <span class="interest-label">Ci interessa</span>
+            </button>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="rights-note">Per la proiezione pubblica serve verificare i diritti (di norma con una licenza ombrello tipo MPLC): un passaggio da chiarire con la biblioteca prima di fissare le date.</p>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="wrap">
+    <div class="closing__card reveal">
+      <p>Questo programma è un punto di partenza, non un impianto rigido: contenuti, esempi e strumenti si aggiornano in base a quello che emerge in aula e alle novità del settore (agenti AI, GPT e Gems personalizzati, quello che arriverà nel frattempo). Se una lezione va organizzata diversamente per voi, ne parliamo e la adattiamo.</p>
+      <p class="closing__sign">Se avete domande, dubbi o volete solo ragionare insieme su come comporre il percorso, scrivetemi pure: sono a disposizione. A presto, Mirko</p>
+    </div>
+  </div>
+</section>
+
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar__inner">
+    <div class="chips" id="chips"></div>
+    <button class="copy-btn" id="copyBtn" type="button">Copia il messaggio per Mirko</button>
+  </div>
+</div>
+<div class="fallback-box" id="fallbackBox">
+  <div class="wrap">
+    <textarea id="fallbackText" readonly aria-label="Messaggio da copiare a mano"></textarea>
+    <p>Non riesco a copiare automaticamente: selezionate il testo qui sopra e copiatelo a mano.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  // toggle manuale chiaro/scuro
+  var THEME_KEY = "cernusco-theme";
+  var themeToggle = document.getElementById("themeToggle");
+  if (themeToggle) {
+    themeToggle.addEventListener("click", function () {
+      var root = document.documentElement;
+      var current = root.getAttribute("data-theme");
+      if (!current) {
+        var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        current = prefersDark ? "dark" : "light";
+      }
+      var next = current === "dark" ? "light" : "dark";
+      root.setAttribute("data-theme", next);
+      try {
+        window.localStorage.setItem(THEME_KEY, next);
+      } catch (e) {
+        /* localStorage non disponibile: il tema resta valido solo per questa visita */
+      }
+    });
+  }
+
+  var STORAGE_KEY = "aiLiteracyCernuscoSelezioni";
+
+  function loadSelection() {
+    try {
+      var raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return {};
+      var parsed = JSON.parse(raw);
+      return (parsed && typeof parsed === "object") ? parsed : {};
+    } catch (e) {
+      return {};
+    }
+  }
+
+  function saveSelection(sel) {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(sel));
+    } catch (e) {
+      /* localStorage non disponibile: la pagina funziona comunque, solo senza persistenza */
+    }
+  }
+
+  var selection = loadSelection();
+
+  var chipsEl = document.getElementById("chips");
+  var stickyBar = document.getElementById("stickyBar");
+  var copyBtn = document.getElementById("copyBtn");
+  var fallbackBox = document.getElementById("fallbackBox");
+  var fallbackText = document.getElementById("fallbackText");
+
+  function allInterestButtons(sigla) {
+    return document.querySelectorAll('[data-sigla="' + sigla + '"] [data-interest-toggle]');
+  }
+
+  function syncButtonsFor(sigla) {
+    var active = !!selection[sigla];
+    var btns = allInterestButtons(sigla);
+    for (var i = 0; i < btns.length; i++) {
+      btns[i].classList.toggle("is-active", active);
+      btns[i].setAttribute("aria-pressed", active ? "true" : "false");
+    }
+  }
+
+  function renderChips() {
+    chipsEl.innerHTML = "";
+    var siglas = Object.keys(selection).filter(function (k) { return selection[k]; });
+    siglas.forEach(function (sigla) {
+      var chip = document.createElement("span");
+      chip.className = "chip";
+      var label = document.createElement("span");
+      label.textContent = sigla;
+      chip.appendChild(label);
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.setAttribute("aria-label", "Rimuovi " + sigla + " dalla selezione");
+      btn.textContent = "×";
+      btn.addEventListener("click", function () {
+        setSelected(sigla, false);
+      });
+      chip.appendChild(btn);
+      chipsEl.appendChild(chip);
+    });
+    var hasAny = siglas.length > 0;
+    stickyBar.classList.toggle("is-visible", hasAny);
+    if (!hasAny) {
+      fallbackBox.classList.remove("is-visible");
+    }
+  }
+
+  function setSelected(sigla, value) {
+    if (value) {
+      selection[sigla] = true;
+    } else {
+      delete selection[sigla];
+    }
+    saveSelection(selection);
+    syncButtonsFor(sigla);
+    renderChips();
+  }
+
+  function titleFor(sigla) {
+    var el = document.querySelector('[data-sigla="' + sigla + '"]');
+    return el ? el.getAttribute("data-title") : sigla;
+  }
+
+  // wire up every "Ci interessa" button
+  document.querySelectorAll("[data-interest-toggle]").forEach(function (btn) {
+    btn.addEventListener("click", function (evt) {
+      evt.stopPropagation();
+      var host = btn.closest("[data-sigla]");
+      if (!host) return;
+      var sigla = host.getAttribute("data-sigla");
+      var currentlyActive = !!selection[sigla];
+      setSelected(sigla, !currentlyActive);
+    });
+  });
+
+  // restore state on load
+  document.querySelectorAll("[data-sigla]").forEach(function (host) {
+    syncButtonsFor(host.getAttribute("data-sigla"));
+  });
+  renderChips();
+
+  // card expand/collapse
+  document.querySelectorAll(".card__head").forEach(function (head) {
+    head.addEventListener("click", function () {
+      var card = head.closest(".card");
+      var isOpen = card.classList.toggle("is-open");
+      head.setAttribute("aria-expanded", isOpen ? "true" : "false");
+    });
+  });
+
+  // copy message to Mirko
+  function buildMessage() {
+    var siglas = Object.keys(selection).filter(function (k) { return selection[k]; });
+    if (siglas.length === 0) return "";
+    var parts = siglas.map(function (s) {
+      return s + " (" + titleFor(s) + ")";
+    });
+    var joined;
+    if (parts.length === 1) {
+      joined = parts[0];
+    } else {
+      joined = parts.slice(0, -1).join(", ") + " e " + parts[parts.length - 1];
+    }
+    var verbo = siglas.length === 1 ? "ci piacerebbe" : "ci piacerebbero";
+    return "Ciao Mirko! Dalla biblioteca di Cernusco: " + verbo + " " + joined + ".";
+  }
+
+  copyBtn.addEventListener("click", function () {
+    var msg = buildMessage();
+    if (!msg) return;
+    var done = function () {
+      var original = "Copia il messaggio per Mirko";
+      copyBtn.textContent = "Copiato!";
+      copyBtn.classList.add("is-copied");
+      fallbackBox.classList.remove("is-visible");
+      window.setTimeout(function () {
+        copyBtn.textContent = original;
+        copyBtn.classList.remove("is-copied");
+      }, 2200);
+    };
+    var showFallback = function () {
+      fallbackText.value = msg;
+      fallbackBox.classList.add("is-visible");
+      fallbackText.focus();
+      fallbackText.select();
+    };
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).then(done).catch(showFallback);
+      } else {
+        showFallback();
+      }
+    } catch (e) {
+      showFallback();
+    }
+  });
+
+  // scroll reveal
+  try {
+    var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var revealEls = document.querySelectorAll(".reveal");
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      revealEls.forEach(function (el) { el.classList.add("is-visible"); });
+    } else {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: "0px 0px -40px 0px" });
+      revealEls.forEach(function (el) { io.observe(el); });
+      window.addEventListener("scroll", function () {
+        revealEls.forEach(function (el) {
+          if (!el.classList.contains("is-visible") && el.getBoundingClientRect().top < window.innerHeight) {
+            el.classList.add("is-visible");
+          }
+        });
+      }, { passive: true });
+    }
+  } catch (e) {
+    document.querySelectorAll(".reveal").forEach(function (el) { el.classList.add("is-visible"); });
+  }
+})();
+</script>

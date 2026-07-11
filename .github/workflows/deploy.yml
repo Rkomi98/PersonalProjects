@@ -60,6 +60,7 @@ jobs:
           cp -r chess-openings/dist/* deploy/chess-openings/
           cp -r "Dashboard partite" deploy/
           cp -r Dieta deploy/
+          cp -r Cernusco deploy/
           cp -r Experiments deploy/
           cp -r SecretSanta deploy/
           cp -r IrrigatoreSmart deploy/
