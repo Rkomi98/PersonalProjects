@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quaderno di luglio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6EFDE;
+    --paper-deep:#EEE2C4;
+    --white:#FFFDF8;
+    --ink:#2B2621;
+    --muted:#7A6F60;
+    --brick:#A63A2E;
+    --olive:#5E6B3E;
+    --mustard:#C68A22;
+    --line:#DED0AE;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 1px 1px, rgba(43,38,33,0.05) 1px, transparent 0) 0 0/16px 16px,
+      var(--paper);
+    color:var(--ink);
+    font-family:'Manrope', sans-serif;
+    min-height:100vh;
+  }
+  h1,h2,h3,.serif{font-family:'Newsreader', serif;}
+
+  a{color:inherit;}
+
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  /* Top bar */
+  .topbar{
+    padding:22px 0 10px;
+  }
+  .topbar .wrap{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+    padding-bottom:16px;
+  }
+  .wordmark{
+    font-family:'Newsreader', serif;
+    font-style:italic;
+    font-weight:600;
+    font-size:1.3rem;
+  }
+  .wordmark span{color:var(--brick);}
+  .stepper{
+    font-size:0.78rem;
+    color:var(--muted);
+    letter-spacing:0.5px;
+  }
+
+  /* Pages */
+  .page{display:none;}
+  .page.active{
+    display:block;
+    animation:rise .45s ease both;
+  }
+  @keyframes rise{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* Index page */
+  .intro{
+    padding:34px 0 8px;
+  }
+  .intro .eyebrow{
+    color:var(--brick);
+    font-weight:700;
+    font-size:0.76rem;
+    letter-spacing:2px;
+    text-transform:uppercase;
+  }
+  .intro h1{
+    font-size:2.15rem;
+    font-weight:600;
+    font-style:italic;
+    margin:8px 0 10px;
+  }
+  .intro p{
+    color:var(--muted);
+    max-width:520px;
+    font-size:1rem;
+  }
+
+  .card-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));
+    gap:20px;
+    padding:26px 0 70px;
+  }
+  .rcard{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:20px;
+    cursor:pointer;
+    position:relative;
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  }
+  .rcard:nth-child(odd){transform:rotate(-0.6deg);}
+  .rcard:nth-child(even){transform:rotate(0.6deg);}
+  .rcard:hover, .rcard:focus-visible{
+    transform:translateY(-5px) rotate(0deg);
+    box-shadow:0 16px 30px rgba(43,38,33,0.12);
+    border-color:var(--accent, var(--brick));
+    outline:none;
+  }
+  .rcard .icon{
+    width:40px;height:40px;
+    margin-bottom:14px;
+    color:var(--accent, var(--brick));
+  }
+  .rcard .icon svg{width:100%;height:100%;}
+  .rcard h2{
+    font-size:1.12rem;
+    font-weight:600;
+    font-style:italic;
+    margin:0 0 8px;
+    line-height:1.3;
+  }
+  .rcard p.teaser{
+    color:var(--muted);
+    font-size:0.86rem;
+    margin:0 0 14px;
+  }
+  .rcard .meta{
+    display:flex;
+    gap:10px;
+    font-size:0.74rem;
+    color:var(--muted);
+    font-weight:600;
+  }
+  .rcard .meta span{
+    background:var(--paper);
+    border-radius:999px;
+    padding:4px 10px;
+  }
+  .rcard .pin{
+    position:absolute;
+    top:14px; right:16px;
+    font-size:0.7rem;
+    color:var(--muted);
+    font-weight:700;
+  }
+
+  /* Detail page */
+  .detail-head{
+    padding:30px 0 18px;
+  }
+  .back{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:0.84rem;
+    font-weight:700;
+    color:var(--brick);
+    background:none;
+    border:none;
+    cursor:pointer;
+    padding:0;
+    margin-bottom:18px;
+    position:relative;
+  }
+  .back::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:-3px;
+    height:2px; width:0;
+    background:var(--brick);
+    transition:width .2s ease;
+  }
+  .back:hover::after{width:100%;}
+
+  .detail-head .kicker{
+    color:var(--brick);
+    font-weight:700;
+    font-size:0.76rem;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+  }
+  .detail-head h1{
+    font-size:1.9rem;
+    font-weight:600;
+    font-style:italic;
+    margin:8px 0 14px;
+  }
+  .meta-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .meta-row span{
+    font-size:0.78rem;
+    font-weight:700;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:6px 13px;
+  }
+
+  .progress-line{
+    height:4px;
+    background:var(--paper-deep);
+    border-radius:99px;
+    margin:20px 0 0;
+    overflow:hidden;
+  }
+  .progress-fill{
+    height:100%;
+    width:0%;
+    background:var(--olive);
+    transition:width .35s ease;
+  }
+  .progress-label{
+    font-size:0.75rem;
+    color:var(--muted);
+    margin-top:6px;
+  }
+
+  .detail-body{
+    display:grid;
+    grid-template-columns:1fr 1.4fr;
+    gap:36px;
+    padding:24px 0 70px;
+  }
+  @media (max-width:720px){
+    .detail-body{grid-template-columns:1fr;}
+  }
+
+  .section-label{
+    font-size:0.78rem;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:1px;
+    color:var(--olive);
+    margin:0 0 14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .section-label::before{
+    content:"";
+    width:16px;height:2px;
+    background:var(--mustard);
+    display:inline-block;
+  }
+
+  ul.ing{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  ul.ing li{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:11px 14px;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:10px;
+    cursor:pointer;
+    font-size:0.92rem;
+    transition:background .15s ease, opacity .15s ease;
+    user-select:none;
+  }
+  ul.ing li:hover{background:var(--paper);}
+  ul.ing li .box{
+    width:19px; height:19px;
+    border-radius:5px;
+    border:2px solid var(--olive);
+    flex:none;
+    position:relative;
+  }
+  ul.ing li .box svg{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+  }
+  ul.ing li .box svg path{
+    stroke:var(--olive);
+    stroke-width:3;
+    fill:none;
+    stroke-dasharray:20;
+    stroke-dashoffset:20;
+    transition:stroke-dashoffset .25s ease;
+  }
+  ul.ing li.done .box svg path{stroke-dashoffset:0;}
+  ul.ing li.done{opacity:0.5;}
+  ul.ing li.done .name{text-decoration:line-through;}
+  ul.ing li .name{flex:1;}
+  ul.ing li .qty{
+    font-weight:800;
+    color:var(--brick);
+    font-size:0.85rem;
+    white-space:nowrap;
+  }
+
+  ol.steps{
+    list-style:none;
+    margin:0; padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  ol.steps li{
+    display:grid;
+    grid-template-columns:32px 1fr;
+    gap:12px;
+    cursor:pointer;
+    padding:4px 0;
+  }
+  ol.steps li .num{
+    width:32px; height:32px;
+    border-radius:50%;
+    border:2px solid var(--brick);
+    color:var(--brick);
+    font-family:'Newsreader', serif;
+    font-weight:600;
+    display:flex; align-items:center; justify-content:center;
+    font-size:0.92rem;
+    transition:background .2s ease, color .2s ease;
+    flex:none;
+  }
+  ol.steps li.done .num{
+    background:var(--brick);
+    color:#fff;
+  }
+  ol.steps li.done .txt{
+    color:var(--muted);
+    text-decoration:line-through;
+  }
+  ol.steps li .txt{
+    font-size:0.94rem;
+    padding-top:4px;
+  }
+
+  .source{
+    margin-top:26px;
+    font-size:0.82rem;
+    color:var(--muted);
+    border-top:1px dashed var(--line);
+    padding-top:14px;
+  }
+  .source a{
+    color:var(--brick);
+    font-weight:700;
+    text-decoration:none;
+    border-bottom:1px solid transparent;
+    transition:border-color .15s ease;
+  }
+  .source a:hover{border-color:var(--brick);}
+
+  .nav-between{
+    display:flex;
+    justify-content:space-between;
+    padding:10px 0 60px;
+    font-size:0.85rem;
+    font-weight:700;
+  }
+  .nav-between button{
+    background:none;
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:9px 16px;
+    cursor:pointer;
+    color:var(--ink);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .nav-between button:hover{
+    border-color:var(--brick);
+    background:var(--white);
+  }
+
+  footer{
+    text-align:center;
+    color:var(--muted);
+    font-size:0.8rem;
+    padding:0 24px 40px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="wordmark">quaderno <span>di luglio</span></div>
+    <div class="stepper" id="stepper">indice &middot; 5 ricette</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- PAGINA INDICE -->
+  <section class="page active" id="page-index">
+    <div class="intro">
+      <div class="eyebrow">Menù stagionale</div>
+      <h1>Cinque ricette per la settimana</h1>
+      <p>Verdure di luglio, proteine variate, dosi precise. Scegli una ricetta per aprirla: puoi spuntare gli ingredienti mentre fai la spesa e segnare i passaggi mentre cucini.</p>
+    </div>
+
+    <div class="card-grid" id="card-grid"></div>
+  </section>
+
+  <!-- PAGINA DETTAGLIO (template ripetuto via JS) -->
+  <section class="page" id="page-detail">
+    <div class="detail-head">
+      <button class="back" id="back-btn">&larr; torna all'indice</button>
+      <div class="kicker" id="d-kicker"></div>
+      <h1 id="d-title"></h1>
+      <div class="meta-row" id="d-meta"></div>
+      <div class="progress-line"><div class="progress-fill" id="d-progress"></div></div>
+      <div class="progress-label" id="d-progress-label"></div>
+    </div>
+
+    <div class="detail-body">
+      <div>
+        <div class="section-label">Ingredienti</div>
+        <ul class="ing" id="d-ingredients"></ul>
+      </div>
+      <div>
+        <div class="section-label">Preparazione</div>
+        <ol class="steps" id="d-steps"></ol>
+        <div class="source" id="d-source"></div>
+      </div>
+    </div>
+
+    <div class="nav-between">
+      <button id="prev-btn">&larr; ricetta precedente</button>
+      <button id="next-btn">ricetta successiva &rarr;</button>
+    </div>
+  </section>
+
+</div>
+
+<footer>Dosi e passaggi ripresi dai siti originali indicati in ogni scheda &middot; spunta ingredienti e passi mentre cucini</footer>
+
+<script>
+const ICONS = {
+  chicken: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 30c-4-2-6-7-4-12 2-4 6-6 10-5 1-4 5-7 9-6 5 1 8 6 6 11 4 1 6 5 4 9-2 5-7 7-12 6"/><circle cx="19" cy="17" r="1.4" fill="currentColor" stroke="none"/><path d="M16 34c-1 4-2 7-2 7M24 35c0 4 0 7 0 7M31 33c1 4 2 6 2 6"/></svg>',
+  eggplant: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 12c6 0 10 6 10 15 0 8-5 13-10 13s-10-5-10-13c0-9 4-15 10-15z"/><path d="M24 12c0-3 2-6 5-7M29 6c1 2 3 2 4 1"/></svg>',
+  olives: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="20" r="5"/><circle cx="28" cy="16" r="5"/><circle cx="32" cy="28" r="5"/><circle cx="18" cy="32" r="5"/><path d="M16 15v-4M28 11v-3"/></svg>',
+  pasta: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 24c0-6 4-11 9-11M14 24c0-8 5-15 11-15M20 24c0-9 6-17 13-17M26 24c0-8 6-15 13-15"/><path d="M9 30h30M9 34h30"/></svg>',
+  chickpea: '<svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="16" cy="18" r="6"/><circle cx="30" cy="16" r="6"/><circle cx="34" cy="30" r="6"/><circle cx="18" cy="32" r="6"/><circle cx="27" cy="26" r="4"/></svg>'
+};
+
+const RECIPES = [
+  {
+    id:'pollo-yogurt',
+    kicker:'Piatto unico &middot; Estate',
+    title:'Insalata di pollo allo yogurt',
+    teaser:'Fresca e proteica, pronta in venti minuti, senza girare intorno al fornello.',
+    icon:'chicken', accent:'var(--brick)',
+    time:'20 min', people:'2 persone', level:'Facile',
+    ingredients:[
+      ['Petto di pollo a fettine','250 g'],
+      ['Carote a julienne','150 g'],
+      ['Yogurt magro','100 g'],
+      ['Olive nere denocciolate','40 g'],
+      ['Noci','50 g'],
+      ['Erba cipollina','q.b.'],
+      ['Sale, pepe, olio evo','q.b.']
+    ],
+    steps:[
+      'Cuoci il petto di pollo in padella o sulla piastra, poi trasferiscilo in una ciotola capiente.',
+      'Aggiungi olio, sale, pepe ed erba cipollina e mescola bene.',
+      'Unisci le olive nere denocciolate, le carote a julienne e le noci.',
+      'Aggiungi infine lo yogurt magro e amalgama fino a un composto omogeneo.',
+      'Servi subito, oppure conserva in frigo e gusta anche il giorno dopo.'
+    ],
+    sourceName:'Ricetta.it',
+    sourceUrl:'https://ricetta.it/insalata-di-pollo-allo-yogurt'
+  },
+  {
+    id:'melanzane-pizzaiola',
+    kicker:'Secondo vegetariano &middot; Estate',
+    title:'Melanzane alla pizzaiola',
+    teaser:'Melanzane grigliate, sugo profumato all\'origano, mozzarella filante.',
+    icon:'eggplant', accent:'var(--olive)',
+    time:'20 + 30 min', people:'4 persone', level:'Facile',
+    ingredients:[
+      ['Melanzane grandi','2'],
+      ['Passata di pomodoro','500 g'],
+      ['Fiordilatte','150 g'],
+      ['Aglio','2 spicchi'],
+      ['Origano, basilico fresco','q.b.'],
+      ['Parmigiano grattugiato','q.b.'],
+      ['Sale, olio evo','q.b.']
+    ],
+    steps:[
+      'Lava le melanzane e tagliale per il lungo a fette non troppo sottili, cospargendole con un pizzico di sale.',
+      'Grigliale su una piastra rovente da entrambi i lati e tienile da parte.',
+      'In un tegame fai imbiondire l\'aglio nell\'olio, versa la passata, regola di sale e lascia insaporire con l\'origano per una decina di minuti.',
+      'Immergi le melanzane grigliate nel sughetto, copri e cuoci altri dieci minuti.',
+      'Completa con fiordilatte a pezzetti e parmigiano, lasciando sciogliere il formaggio.',
+      'Lascia riposare 5-10 minuti, profuma con basilico fresco e servi.'
+    ],
+    sourceName:'Cookist',
+    sourceUrl:'https://www.cookist.it/melanzane-alla-pizzaiola-ricetta/'
+  },
+  {
+    id:'pollo-mediterranea',
+    kicker:'Secondo di carne &middot; Estate',
+    title:'Pollo alla mediterranea',
+    teaser:'Petto di pollo rosolato, sfumato al vino bianco, olive e pomodori secchi.',
+    icon:'olives', accent:'var(--mustard)',
+    time:'15 + 35 min', people:'4 persone', level:'Facile',
+    ingredients:[
+      ['Petto di pollo','800 g'],
+      ['Aglio','2 spicchi'],
+      ['Rosmarino','1 rametto'],
+      ['Vino bianco','80 ml'],
+      ['Olive verdi','120 g'],
+      ['Olive nere','130 g'],
+      ['Pomodori secchi','150 g'],
+      ['Capperi','40 g'],
+      ['Sale, pepe, olio evo','q.b.']
+    ],
+    steps:[
+      'Versa abbondante olio in una padella capiente, aggiungi il pollo, il rosmarino e l\'aglio.',
+      'Rosola a fiamma alta, girando la carne quando il primo lato è dorato.',
+      'Sfuma con il vino bianco, lascia evaporare la parte alcolica, copri e cuoci a fiamma dolce per circa 20 minuti.',
+      'Aggiungi i pomodori secchi sgocciolati, i capperi dissalati e le olive verdi e nere.',
+      'Regola di sale e pepe, lascia insaporire 2-3 minuti e servi ben caldo.'
+    ],
+    sourceName:'Cookist',
+    sourceUrl:'https://www.cookist.it/pollo-alla-mediterranea-la-ricetta/'
+  },
+  {
+    id:'pasta-zucchine',
+    kicker:'Primo freddo &middot; Estate',
+    title:'Pasta fredda con pesto di zucchine, mozzarella e pomodori secchi',
+    teaser:'Da preparare in anticipo: pesto crudo di zucchine, mozzarella e pomodori secchi.',
+    icon:'pasta', accent:'var(--olive)',
+    time:'10 + 10 min', people:'4 persone', level:'Facile',
+    ingredients:[
+      ['Pasta corta','200 g'],
+      ['Pomodori secchi','45 g'],
+      ['Mozzarella di bufala o fior di latte','130 g'],
+      ['Zucchine','280 g'],
+      ['Pinoli','30 g'],
+      ['Parmigiano grattugiato','30 g'],
+      ['Basilico','6 foglie'],
+      ['Aglio','1/2 spicchio'],
+      ['Olio evo, sale, pepe','q.b.']
+    ],
+    steps:[
+      'Cuoci la pasta in acqua bollente salata, scolala e raffreddala subito sotto l\'acqua corrente.',
+      'Per il pesto: lava e grattugia le zucchine, poi strizza bene l\'acqua in eccesso con un canovaccio.',
+      'Frulla le zucchine con parmigiano, pinoli, aglio, basilico, sale e pepe fino a una crema omogenea.',
+      'Taglia a pezzetti mozzarella e pomodori secchi.',
+      'Condisci la pasta con quattro cucchiai di pesto, poi unisci mozzarella, pomodori secchi, un filo d\'olio, sale e pepe.',
+      'Servi subito oppure conserva in frigo, ben coperta, fino a tre giorni.'
+    ],
+    sourceName:'Petitchef',
+    sourceUrl:'https://en.petitchef.com/recipes/main-dish/pasta-salad-with-zucchini-pesto-mozzarella-and-dried-tomatoes-fid-1580790'
+  },
+  {
+    id:'ceci-feta',
+    kicker:'Piatto unico &middot; Estate',
+    title:'Insalata di ceci, feta e pomodorini',
+    teaser:'Legumi, feta e pomodorini, pronta in dieci minuti senza accendere il fuoco.',
+    icon:'chickpea', accent:'var(--brick)',
+    time:'10 min', people:'4 persone', level:'Facile',
+    ingredients:[
+      ['Ceci già lessati e sgocciolati','300 g'],
+      ['Pomodorini rossi e gialli','250 g'],
+      ['Olive taggiasche snocciolate','150 g'],
+      ['Feta','200 g'],
+      ['Prezzemolo','1 ciuffo'],
+      ['Olio evo, sale','q.b.']
+    ],
+    steps:[
+      'Trita finemente il prezzemolo e raccoglilo in una ciotolina con l\'olio, mescolando bene.',
+      'Lava i pomodorini e tagliali a spicchi.',
+      'Scola la feta dal siero e riducila a dadini.',
+      'Scola i ceci, passali sotto l\'acqua corrente e raccoglili in una ciotola capiente.',
+      'Unisci ai ceci i pomodorini, la feta a dadini e le olive taggiasche.',
+      'Condisci con l\'olio aromatizzato al prezzemolo, mescola bene e regola di sale.'
+    ],
+    sourceName:'Cookist',
+    sourceUrl:'https://www.cookist.it/insalata-di-ceci-feta-e-pomodorini/'
+  }
+];
+
+const state = { checked:{}, doneSteps:{} };
+let currentIndex = 0;
+
+function buildIndex(){
+  const grid = document.getElementById('card-grid');
+  grid.innerHTML = '';
+  RECIPES.forEach((r, i) => {
+    const card = document.createElement('div');
+    card.className = 'rcard';
+    card.style.setProperty('--accent', r.accent);
+    card.tabIndex = 0;
+    card.innerHTML = `
+      <div class="pin">0${i+1}</div>
+      <div class="icon">${ICONS[r.icon]}</div>
+      <h2>${r.title}</h2>
+      <p class="teaser">${r.teaser}</p>
+      <div class="meta"><span>${r.time}</span><span>${r.people}</span></div>
+    `;
+    card.addEventListener('click', () => openDetail(i));
+    card.addEventListener('keydown', (e) => { if(e.key==='Enter') openDetail(i); });
+    grid.appendChild(card);
+  });
+}
+
+function openDetail(i){
+  currentIndex = i;
+  const r = RECIPES[i];
+  document.getElementById('page-index').classList.remove('active');
+  const detail = document.getElementById('page-detail');
+  detail.classList.remove('active'); void detail.offsetWidth; detail.classList.add('active');
+
+  document.getElementById('d-kicker').innerHTML = r.kicker;
+  document.getElementById('d-title').textContent = r.title;
+  document.getElementById('d-meta').innerHTML = `<span>${r.time}</span><span>${r.people}</span><span>${r.level}</span>`;
+  document.getElementById('stepper').textContent = `ricetta ${i+1} di ${RECIPES.length}`;
+
+  const ingList = document.getElementById('d-ingredients');
+  ingList.innerHTML = '';
+  r.ingredients.forEach(([name, qty], idx) => {
+    const key = r.id+'-ing-'+idx;
+    const li = document.createElement('li');
+    if(state.checked[key]) li.classList.add('done');
+    li.innerHTML = `<span class="box"><svg viewBox="0 0 20 20"><path d="M4 10l4 4 8-9"/></svg></span><span class="name">${name}</span><span class="qty">${qty}</span>`;
+    li.addEventListener('click', () => {
+      state.checked[key] = !state.checked[key];
+      li.classList.toggle('done');
+    });
+    ingList.appendChild(li);
+  });
+
+  const stepsList = document.getElementById('d-steps');
+  stepsList.innerHTML = '';
+  r.steps.forEach((txt, idx) => {
+    const key = r.id+'-step-'+idx;
+    const li = document.createElement('li');
+    if(state.doneSteps[key]) li.classList.add('done');
+    li.innerHTML = `<span class="num">${idx+1}</span><span class="txt">${txt}</span>`;
+    li.addEventListener('click', () => {
+      state.doneSteps[key] = !state.doneSteps[key];
+      li.classList.toggle('done');
+      updateProgress(r);
+    });
+    stepsList.appendChild(li);
+  });
+  updateProgress(r);
+
+  document.getElementById('d-source').innerHTML = `Fonte: <a href="${r.sourceUrl}" target="_blank" rel="noopener">${r.sourceName}</a>`;
+
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function updateProgress(r){
+  const total = r.steps.length;
+  let done = 0;
+  r.steps.forEach((_, idx) => { if(state.doneSteps[r.id+'-step-'+idx]) done++; });
+  const pct = Math.round((done/total)*100);
+  document.getElementById('d-progress').style.width = pct+'%';
+  document.getElementById('d-progress-label').textContent = done===total && total>0
+    ? 'Ricetta completata'
+    : `${done} di ${total} passaggi fatti`;
+}
+
+document.getElementById('back-btn').addEventListener('click', () => {
+  document.getElementById('page-detail').classList.remove('active');
+  const idx = document.getElementById('page-index');
+  idx.classList.remove('active'); void idx.offsetWidth; idx.classList.add('active');
+  document.getElementById('stepper').textContent = 'indice · 5 ricette';
+});
+
+document.getElementById('prev-btn').addEventListener('click', () => {
+  const newIndex = (currentIndex - 1 + RECIPES.length) % RECIPES.length;
+  openDetail(newIndex);
+});
+document.getElementById('next-btn').addEventListener('click', () => {
+  const newIndex = (currentIndex + 1) % RECIPES.length;
+  openDetail(newIndex);
+});
+
+buildIndex();
+</script>
+
+</body>
+</html>
