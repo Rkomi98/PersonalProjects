@@ -330,7 +330,6 @@
     border: 1px solid transparent;
   }
   .legend__swatch--aula { background: var(--accent); }
-  .legend__swatch--kit { background: var(--ochre); }
   .legend__swatch--replica { background: transparent; border: 1.5px dashed var(--replica); }
   .legend__swatch--cinema { background: var(--wine); }
 
@@ -401,8 +400,6 @@
     flex: 0 0 auto;
   }
   .stop__title { font-size: 0.86rem; color: var(--ink-soft); }
-  .stop--kit { background: var(--ochre-soft); }
-  .stop--kit .stop__sig { color: var(--ochre-ink); }
   .stop--replica { background: transparent; border-style: dashed; opacity: 0.9; }
   .stop--replica .stop__sig { color: var(--replica); border-color: var(--line); }
   .stop--replica .stop__title { color: var(--ink-faint); font-size: 0.8rem; }
@@ -416,14 +413,6 @@
     background: var(--bg-raised-2);
     border: 1px solid var(--line-strong);
     color: var(--ink-soft);
-    white-space: normal;
-  }
-  .stop__kitchip {
-    font-size: 0.72rem;
-    padding: 2px 9px;
-    border-radius: 999px;
-    background: var(--ochre-soft);
-    color: var(--ochre-ink);
     white-space: normal;
   }
   .stop__note-inline {
@@ -470,11 +459,9 @@
   @media (prefers-reduced-motion: reduce) { .card:hover { transform: none; } }
 
   .card--aula { border-left: 4px solid var(--accent); }
-  .card--kit { border-left: 4px dashed var(--ochre); }
   .card--replica { border-left: 4px dotted var(--replica); opacity: 0.94; }
 
   .card--aula:hover { border-color: var(--accent); }
-  .card--kit:hover { border-color: var(--ochre); }
   .card--replica:hover { border-color: var(--replica); }
 
   .card__head {
@@ -506,7 +493,6 @@
     text-align: center;
     align-self: center;
   }
-  .card--kit .card__sig { color: var(--ochre-ink); background: var(--ochre-soft); }
   .card--replica .card__sig { color: var(--replica); background: var(--replica-soft); }
 
   .card__main { min-width: 0; }
@@ -523,7 +509,6 @@
     background: var(--bg-raised-2);
   }
   .tag--aula { color: var(--accent-ink); border-color: var(--accent); }
-  .tag--kit { color: var(--ochre-ink); border-color: var(--ochre); }
   .tag--replica { color: var(--replica); border-style: dashed; }
 
   .card__title { font-size: 1.18rem; margin-bottom: 4px; }
@@ -887,7 +872,7 @@
     <span class="eyebrow">Biblioteca di Cernusco sul Naviglio</span>
     <h1>AI Literacy a Cernusco sul Naviglio</h1>
     <p class="hero__sub">Un programma di workshop pensato per il nostro comune, per raccontare l'intelligenza artificiale a chi la usa già senza saperlo bene, e a chi non l'ha ancora provata.</p>
-    <div class="hero__instructions">Sfogliate il programma con calma: trovate le lezioni in aula, il kit da fare a casa (A2) e un piccolo ciclo cinema. Segnate le sigle delle attività che vi interessano e scrivete a Ele o direttamente a me su WhatsApp: qui sotto trovate anche un bottone che vi prepara già il messaggio pronto da inviare.</div>
+    <div class="hero__instructions">Sfogliate il programma con calma: trovate le lezioni in aula e un piccolo ciclo cinema. Segnate le sigle delle attività che vi interessano e scrivete a Ele o direttamente a me su WhatsApp: qui sotto trovate anche un bottone che vi prepara già il messaggio pronto da inviare.</div>
     <div class="shelf" aria-hidden="true">
       <i style="width:14px;height:26px;background:var(--accent);"></i>
       <i style="width:10px;height:38px;background:var(--ochre);"></i>
@@ -913,12 +898,11 @@
     <div class="section-head reveal">
       <span class="eyebrow">Il percorso in un colpo d'occhio</span>
       <h2>Da autunno al periodo primaverile</h2>
-      <p>Tre tappe in aula in autunno, cinque in primavera, un kit da svolgere a casa e due repliche di riserva, pronte a entrare in gioco solo se una lezione va sold-out. La sigla è il codice che ci serve per capirci al volo.</p>
+      <p>Quattro tappe in aula in autunno, quattro in primavera e due repliche di riserva, pronte a entrare in gioco solo se una lezione va sold-out. La sigla è il codice che ci serve per capirci al volo.</p>
     </div>
 
     <div class="timeline-legend reveal">
       <span class="legend__item"><span class="legend__swatch legend__swatch--aula" aria-hidden="true"></span>Lezione in aula</span>
-      <span class="legend__item"><span class="legend__swatch legend__swatch--kit" aria-hidden="true"></span>Kit da fare a casa</span>
       <span class="legend__item"><span class="legend__swatch legend__swatch--replica" aria-hidden="true"></span>Replica (si attiva solo a sold-out)</span>
       <span class="legend__item"><span class="legend__swatch legend__swatch--cinema" aria-hidden="true"></span>Serata cinema</span>
     </div>
@@ -929,7 +913,7 @@
           <svg class="stage__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4c-5 2-8 6.5-8 10.5A6.5 6.5 0 0 0 12 21a6.5 6.5 0 0 0 8-6.5C20 10.5 17 6 12 4z"></path><path d="M12 21V9"></path></svg>
           <span>Autunno</span>
         </span>
-        <p class="stage__sub">3 lezioni in aula + 1 kit da fare a casa</p>
+        <p class="stage__sub">4 lezioni in aula (A1 in versione estesa)</p>
         <div class="stage__stops">
           <div class="stop stop--aula">
             <span class="stop__sig">A0</span><span class="stop__title">AI Literacy</span>
@@ -943,17 +927,16 @@
             <span class="stop__sig">A1</span><span class="stop__title">Studiare con l'AI</span>
             <span class="stop__audience">studenti e laureandi</span>
           </div>
-          <div class="stop stop--kit">
-            <span class="stop__sig">A2</span><span class="stop__title">NotebookLM, kit</span>
+          <div class="stop stop--aula">
+            <span class="stop__sig">A2</span><span class="stop__title">Ricerca web e fact-checking</span>
             <span class="stop__audience">per gli iscritti</span>
-            <span class="stop__kitchip">consegnato a fine A1</span>
           </div>
           <div class="stop stop--aula">
-            <span class="stop__sig">A3</span><span class="stop__title">Ricerca web e fact-checking</span>
-            <span class="stop__audience">per gli iscritti</span>
+            <span class="stop__sig">A3</span><span class="stop__title">Scrivere con l'AI</span>
+            <span class="stop__audience">chi scrive, cioè tutti</span>
           </div>
         </div>
-        <span class="stage__note">Il kit si fa a casa con le soluzioni commentate in arrivo dopo due settimane; A3 chiude l'autunno con una sfida a squadre in aula</span>
+        <span class="stage__note">A1 è la giornata estesa da tre ore e mezza: si lavora anche sui propri documenti con NotebookLM; A2 porta la sfida a squadre sul fact-checking; A3 chiude l'autunno con un laboratorio di scrittura</span>
       </div>
 
       <div class="stage-arrow" aria-hidden="true">→</div>
@@ -963,7 +946,7 @@
           <svg class="stage__icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-9"></path><path d="M12 12c0-4 3-6 7-6 0 4-3 6-7 6z"></path><path d="M12 15c0-3-3-5-6-5 0 3 3 5 6 5z"></path></svg>
           <span>Primavera</span>
         </span>
-        <p class="stage__sub">5 lezioni in aula</p>
+        <p class="stage__sub">4 lezioni in aula</p>
         <div class="stage__stops">
           <div class="stop stop--aula">
             <span class="stop__sig">P0</span><span class="stop__title">AI Literacy, aggiornata</span>
@@ -986,12 +969,8 @@
             <span class="stop__sig">P3</span><span class="stop__title">Etica e governance</span>
             <span class="stop__audience">cittadini e genitori</span>
           </div>
-          <div class="stop stop--aula">
-            <span class="stop__sig">P4</span><span class="stop__title">Scrivere con l'AI</span>
-            <span class="stop__audience">chi scrive, cioè tutti</span>
-          </div>
         </div>
-        <span class="stage__note">Cinque temi verticali: si possono scegliere tutti o solo alcuni</span>
+        <span class="stage__note">Quattro temi verticali: si possono scegliere tutti o solo alcuni</span>
       </div>
     </div>
   </div>
@@ -1001,8 +980,8 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Il catalogo</span>
-      <h2>Undici attività da comporre</h2>
-      <p>Otto lezioni in aula, un kit da svolgere a casa, due repliche di riserva. Toccate una card per aprirla: dentro trovate la scaletta completa, il compenso indicativo e cosa serve da parte di tutti.</p>
+      <h2>Dieci attività da comporre</h2>
+      <p>Otto lezioni in aula e due repliche di riserva. Toccate una card per aprirla: dentro trovate la scaletta completa, il compenso indicativo e cosa serve da parte di tutti.</p>
     </div>
 
     <div class="catalog">
@@ -1132,8 +1111,8 @@
           <span class="card__main">
             <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Autunno</span></span>
             <h3 class="card__title">Studiare con l'AI (con modulo tesi e relazioni)</h3>
-            <span class="card__meta"><span>Ciclo: Autunno</span><span>3 ore</span><span>Capienza: 25</span><span>Target: Studenti universitari e superiori avanzate, laureandi</span><span>Formato: Laboratorio guidato</span></span>
-            <span class="card__temi">AI come tutor: spiegazioni multilivello, appunti in mappe e schemi, farsi interrogare, preparazione esami. Modulo finale su tesi: scaletta, domande di ricerca, revisione, simulazione orale</span>
+            <span class="card__meta"><span>Ciclo: Autunno</span><span>3 ore e mezza</span><span>Capienza: 25</span><span>Target: Studenti universitari e superiori avanzate, laureandi</span><span>Formato: Laboratorio guidato</span></span>
+            <span class="card__temi">AI come tutor: spiegazioni multilivello, appunti che diventano mappe e schemi, farsi interrogare, preparazione esami. NotebookLM sui propri documenti: citazioni da verificare, fonti in disaccordo, audio overview. Modulo finale su tesi e relazioni: scaletta, revisione, simulazione orale. Gli esercizi da rifare a casa sono inclusi</span>
           </span>
           <span class="card__side">
             <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
@@ -1147,19 +1126,21 @@
         </div>
         <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
 
-          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+          <div class="fee-note"><strong>Compenso indicativo: 350 €</strong> (incontro esteso da tre ore e mezza)</div>
 
-          <h4 class="subhead">Scaletta — A1, Studiare con l'AI (con modulo tesi)</h4>
+          <h4 class="subhead">Scaletta — A1, Studiare con l'AI (con modulo tesi, 3h30)</h4>
           <ul class="sked">
-            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Accoglienza</div><div class="sked-content">Ci mettiamo comodi, sistemiamo tutto e stringiamo un patto: l'AI è un compagno di studi che ci aiuta a capire, non un sostituto per non pensare.</div></div></li>
-            <li class="sked-row"><span class="sked-time">0:10–0:30</span><div><div class="sked-label">Superare il blocco dello studio</div><div class="sked-content">Affrontare la sensazione di smarrimento davanti a centinaia di pagine. Come chiedere all'AI di spiegarci un concetto difficile "come se fossimo alle prime armi" e come usarla per stimolare la nostra memoria attiva (active recall).</div></div></li>
-            <li class="sked-row"><span class="sked-time">0:30–0:50</span><div><div class="sked-label">Un alleato per i tuoi testi (NotebookLM)</div><div class="sked-content">Esploriamo insieme NotebookLM: non per fargli scrivere le cose al posto nostro, ma per creare uno spazio di dialogo privato con i nostri appunti, dove fare domande e chiarire i dubbi più ostinati.</div></div></li>
-            <li class="sked-row sked-row--exercise"><span class="sked-time">0:50–1:20</span><div><div class="sked-label">Mani in pasta con i tuoi appunti</div><div class="sked-content">Lavoriamo sui materiali che hai portato da casa. Proviamo a trasformare un muro di testo in una mappa concettuale su misura per te, e chiediamo all'AI di interrogarci per capire dove siamo forti e cosa va rivisto.</div></div></li>
-            <li class="sked-row sked-row--pausa"><span class="sked-time">1:20–1:30</span><div><div class="sked-label">Pausa</div></div></li>
-            <li class="sked-row"><span class="sked-time">1:30–1:55</span><div><div class="sked-label">La solitudine della tesi</div><div class="sked-content">Scrivere la tesi o una relazione può far sentire soli. Vediamo come usare l'AI come specchio per confrontarsi: definire l'idea di partenza, strutturare l'indice e capire come fare domande di ricerca che abbiano senso.</div></div></li>
-            <li class="sked-row"><span class="sked-time">1:55–2:15</span><div><div class="sked-label">Vincere la paura dell'esame</div><div class="sked-content">Come simulare un colloquio o una discussione di laurea senza ansia. Impostiamo l'AI nel ruolo di un commissario esigente ma costruttivo, pronto a darci consigli preziosi su come migliorare l'esposizione.</div></div></li>
-            <li class="sked-row sked-row--exercise"><span class="sked-time">2:15–2:45</span><div><div class="sked-label">Mettiti alla prova</div><div class="sked-content">Scegli la tua sfida: prova a fare un piccolo "esame di prova" con l'AI sull'argomento che preferisci, oppure fatti aiutare a limare un paragrafo della tua tesi che ti sembra ancora debole.</div></div></li>
-            <li class="sked-row"><span class="sked-time">2:45–3:00</span><div><div class="sked-label">Saluti, promemoria e un regalo per te</div><div class="sked-content">Ci salutiamo condividendo com'è andata. Ti consegno un kit stampato da portare a casa con i migliori suggerimenti pratici, e ti presento il kit A2, una piccola guida per continuare a sperimentare NotebookLM in totale autonomia.</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Setup</div><div class="sked-content">Connessione device, verifica account Google (serve per NotebookLM), patto d'aula: l'AI è un tutor, non un bigino</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:10–0:30</span><div><div class="sked-label">Metodo</div><div class="sked-content">Deep Research vs Ricerca web. Definizioni e quando usare cosa. Spiegazioni multilivello (dal semplice all'avanzato), active recall con l'AI, come trasformare appunti in mappe e schemi.</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:30–0:50</span><div><div class="sked-label">Showcase NotebookLM</div><div class="sked-content">Dimostrazione pratica: caricare appunti e dispense, generare riassunti e mappe concettuali, farsi interrogare con domande mirate sul materiale. In chiusura si avvia la generazione di un'audio overview, da riprendere dopo la pausa</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">0:50–1:25</span><div><div class="sked-label">ESERCIZIO 1</div><div class="sked-content">Ognuno lavora sui propri appunti o documenti in NotebookLM: da testo a mappa/schema, poi 5 domande al materiale e verifica delle citazioni (aprire la fonte e controllare che dica davvero quello che l'AI sostiene)</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:25–1:35</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:35–1:55</span><div><div class="sked-label">Quando le fonti litigano</div><div class="sked-content">Due documenti che dicono cose diverse sullo stesso tema: chiedo un confronto e guardiamo come NotebookLM gestisce il disaccordo. Poi il reveal dell'audio overview avviata prima della pausa, con i criteri per giudicarla, e una checklist su cosa caricare e cosa no (privacy e documenti riservati)</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:55–2:20</span><div><div class="sked-label">Modulo tesi e relazioni</div><div class="sked-content">Dalla domanda di ricerca alla scaletta, revisione di un paragrafo (cosa chiedere e cosa no), simulazione dell'orale come role play</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:20–2:40</span><div><div class="sked-label">Showcase Role Play</div><div class="sked-content">Come impostare un role play efficace con l'AI: definire il ruolo del modello (commissario, relatore, tutor), dare contesto, chiedere feedback costruttivo sulle risposte</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">2:40–2:50</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">2:50–3:20</span><div><div class="sked-label">ESERCIZIO 2</div><div class="sked-content">A scelta: revisione guidata di un proprio testo/paragrafo oppure simulazione orale con l'AI su un argomento d'esame</div></div></li>
+            <li class="sked-row"><span class="sked-time">3:20–3:30</span><div><div class="sked-label">Chiusura</div><div class="sked-content">Debrief e consegna materiali: prompt di studio, template scaletta tesi, scheda revisione, esercizi NotebookLM in versione da casa con soluzioni commentate. A2 chiude il ciclo autunnale</div></div></li>
           </ul>
 
           <h4 class="subhead">Cosa serve</h4>
@@ -1180,6 +1161,7 @@
                 <li>Un account gratuito a un chatbot (Gemini) già creato da casa, prima dell'incontro</li>
                 <li>I propri appunti o dispense su cui lavorare, anche in PDF</li>
                 <li>Un account Google, per provare la demo di NotebookLM</li>
+                <li>2-3 documenti propri da caricare (dispense, articoli, un contratto, un verbale)</li>
               </ul>
             </div>
             <div class="needs__col">
@@ -1189,7 +1171,7 @@
                 <li>Materiali per il modulo tesi: scalette tipo, domande di ricerca guida</li>
                 <li>Schede per l'esercizio 1 e l'esercizio 2, pronte da distribuire</li>
                 <li>Template scaletta tesi e scheda revisione, stampati per la consegna finale</li>
-                <li>Il kit A2, volendo, già pronto.</li>
+                <li>Gli esercizi NotebookLM in versione da casa, con soluzioni commentate</li>
               </ul>
             </div>
           </div>
@@ -1198,72 +1180,9 @@
       </article>
 
       <!-- A2 -->
-      <article class="card card--kit reveal" data-sigla="A2" data-title="AI, documenti e NotebookLM">
+      <article class="card card--aula reveal" data-sigla="A2" data-title="Ricerca web e fact-checking">
         <button class="card__head" type="button" aria-expanded="false">
           <span class="card__sig">A2</span>
-          <span class="card__main">
-            <span class="card__toptags"><span class="tag tag--kit">Compito a casa</span><span class="tag">Autunno</span></span>
-            <h3 class="card__title">AI, documenti e NotebookLM (kit a casa)</h3>
-            <span class="card__meta"><span>Ciclo: Autunno</span><span>A casa</span><span>Capienza: Tutti gli iscritti</span><span>Target: Universitari, tesisti, lettori forti</span><span>Formato: Kit guidato autonomo + restituzione</span></span>
-            <span class="card__temi">Kit consegnato a fine A1: mini-guida a NotebookLM, esercizi sui propri documenti con verifica delle citazioni, confronto tra fonti, audio overview, checklist su limiti e privacy. Soluzioni commentate dopo 2 settimane e restituzione al primo incontro utile</span>
-          </span>
-          <span class="card__side">
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </button>
-        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
-          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
-            <span class="interest-label">Ci interessa</span>
-          </button>
-        </div>
-        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
-
-          <div class="fee-note"><strong>Compenso indicativo: 150 €</strong> (preparazione del kit e correzione comprese)</div>
-
-          <h4 class="subhead">Scaletta — A2, AI, documenti e NotebookLM (kit compito a casa)</h4>
-          <ul class="sked">
-            <li class="sked-row"><span class="sked-time">Parte 1</span><div><div class="sked-label">Mini-guida al primo notebook</div><div class="sked-content">Come entrare con l'account Google, creare il primo notebook e caricare le fonti. Due pagine con screenshot, pensate per farcela da soli in 15 minuti</div></div></li>
-            <li class="sked-row sked-row--exercise"><span class="sked-time">Parte 2</span><div><div class="sked-label">Esercizio — I miei documenti</div><div class="sked-content">Caricare 2-3 documenti propri (dispense, articoli, un contratto, un verbale) e porre 5 domande. Per ogni risposta: aprire la citazione e controllare che dica davvero quello che l'AI sostiene</div></div></li>
-            <li class="sked-row sked-row--exercise"><span class="sked-time">Parte 3</span><div><div class="sked-label">Esercizio — Due fonti in disaccordo</div><div class="sked-content">Caricare i due documenti forniti nel kit, che dicono cose diverse sullo stesso tema: chiedere un confronto e osservare come lo strumento gestisce il disaccordo</div></div></li>
-            <li class="sked-row"><span class="sked-time">Parte 4</span><div><div class="sked-label">Audio overview e guida allo studio</div><div class="sked-content">Generare dai propri materiali una guida allo studio e una audio overview da ascoltare in mobilità. Istruzioni passo passo e criteri per giudicare il risultato</div></div></li>
-            <li class="sked-row"><span class="sked-time">Parte 5</span><div><div class="sked-label">Limiti e privacy</div><div class="sked-content">Checklist: cosa caricare e cosa no (dati personali, documenti di lavoro riservati), dove lo strumento è affidabile e dove inventa</div></div></li>
-            <li class="sked-row"><span class="sked-time">Restituzione</span><div><div class="sked-label">Soluzioni e confronto</div><div class="sked-content">Soluzioni commentate inviate dopo 2 settimane; 20-30 minuti di discussione comune in apertura del primo incontro utile</div></div></li>
-          </ul>
-
-          <h4 class="subhead">Cosa serve</h4>
-          <div class="needs">
-            <div class="needs__col">
-              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
-              <ul><li>Nulla: si svolge a casa. Solo fotocopie del kit se la biblioteca preferisce la versione cartacea</li></ul>
-            </div>
-            <div class="needs__col">
-              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
-              <ul>
-                <li>Un dispositivo qualunque a casa: pc, tablet o anche solo smartphone</li>
-                <li>Un account Google gratuito per usare NotebookLM</li>
-                <li>2-3 documenti personali da caricare (dispense, articoli, un contratto, un verbale)</li>
-                <li>Circa un'ora libera: il kit è pensato per stare in piedi da solo, senza relatore accanto</li>
-              </ul>
-            </div>
-            <div class="needs__col">
-              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
-              <ul>
-                <li>Mini-guida con screenshot, pensata per farcela da soli in 15 minuti</li>
-                <li>I due documenti "in disaccordo" per l'esercizio guidato sul confronto tra fonti</li>
-                <li>Soluzioni commentate, da inviare dopo due settimane</li>
-                <li>Checklist su limiti e privacy, già stampata dentro il kit</li>
-              </ul>
-            </div>
-          </div>
-
-        </div></div></div>
-      </article>
-
-      <!-- A3 -->
-      <article class="card card--aula reveal" data-sigla="A3" data-title="Ricerca web e fact-checking">
-        <button class="card__head" type="button" aria-expanded="false">
-          <span class="card__sig">A3</span>
           <span class="card__main">
             <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Autunno</span></span>
             <h3 class="card__title">Ricerca web e fact-checking</h3>
@@ -1289,7 +1208,7 @@
             <span>Qui il punto non è fare una lezione generica sui deepfake. Il focus vero è un altro: imparare a non fidarsi troppo quando l'AI ci dà subito ragione e a riconoscere quei "fatti" che suonano benissimo, ma non hanno nessun aggancio chiaro con la realtà, con una fonte verificabile o con un contesto che si possa controllare davvero.</span>
           </div>
 
-          <h4 class="subhead">Scaletta — A3, Ricerca web e fact-checking (2h30)</h4>
+          <h4 class="subhead">Scaletta — A2, Ricerca web e fact-checking (2h30)</h4>
           <ul class="sked">
             <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Formiamo la squadra</div><div class="sked-content">Ci dividiamo in piccoli gruppi informali davanti a un tavolo e apriamo il quiz Mentimeter con QR code e codice sala. Nessun voto o giudizio: l'obiettivo è fare squadra contro i tranelli del web.</div></div></li>
             <li class="sked-row"><span class="sked-time">0:10–0:30</span><div><div class="sked-label">Il gioco delle verità (e delle bugie)</div><div class="sked-content">Proiettiamo 5 notizie incredibili: quante sono vere e quante inventate? Votiamo in diretta su Mentimeter e scopriamo insieme le risposte. Sbagliare tutti insieme è il modo migliore per capire quanto sia facile farsi ingannare dalle apparenze.</div></div></li>
@@ -1327,6 +1246,77 @@
                 <li>Il mazzo di immagini per la caccia al deepfake: metà generate da me apposta per la serata (mai pubblicate: nessuno può conoscere la soluzione), metà foto vere ma incredibili da archivi liberi, tutte già testate su Google Lens e TinEye prima dell'incontro</li>
                 <li>La checklist personale da costruire insieme, in formato stampabile per chi vuole portarsela a casa</li>
                 <li>Un sistema semplice per tenere il punteggio delle squadre</li>
+              </ul>
+            </div>
+          </div>
+
+        </div></div></div>
+      </article>
+
+      <!-- A3 -->
+      <article class="card card--aula reveal" data-sigla="A3" data-title="Scrivere meglio con l'AI">
+        <button class="card__head" type="button" aria-expanded="false">
+          <span class="card__sig">A3</span>
+          <span class="card__main">
+            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Autunno</span></span>
+            <h3 class="card__title">Scrivere meglio con l'AI</h3>
+            <span class="card__meta"><span>Ciclo: Autunno</span><span>3 ore</span><span>Capienza: 25</span><span>Target: Studenti, lavoratori, cittadini</span><span>Formato: Laboratorio di scrittura</span></span>
+            <span class="card__temi">Bozza propria + AI come editor: tono e destinatario, email e sintesi, da documento a scaletta di presentazione, revisione incrociata in coppie</span>
+          </span>
+          <span class="card__side">
+            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </span>
+        </button>
+        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
+          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
+            <span class="interest-label">Ci interessa</span>
+          </button>
+        </div>
+        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
+
+          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
+
+          <h4 class="subhead">Scaletta — A3, Scrivere meglio con l'AI</h4>
+          <ul class="sked">
+            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Setup</div><div class="sked-content">Connessione device. Ognuno apre un testo proprio su cui lavorare: una mail importante, un documento di lavoro, un pezzo di tesi, una bio. Chi non ha nulla usa uno dei 4 testi-tipo forniti (mail formale, post LinkedIn, paragrafo accademico, presentazione progetto)</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:10–0:20</span><div><div class="sked-label">Giro di tavolo</div><div class="sked-content">Ognuno dice in 30 secondi: che testo ha portato e cosa non lo convince. Serve a far emergere i problemi comuni: troppo lungo, tono sbagliato, non si capisce il punto</div></div></li>
+            <li class="sked-row"><span class="sked-time">0:20–0:45</span><div><div class="sked-label">Metodo</div><div class="sked-content">Il principio base: la bozza resta tua, l'AI fa l'editor. Come dare istruzioni utili: specificare tono, destinatario, scopo e lunghezza. Perché il testo tutto-AI si riconosce subito: aggettivi generici, strutture ripetitive, assenza di dettagli concreti. Demo dal vivo: lo stesso paragrafo riscritto con prompt vaghi vs prompt precisi</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">0:45–1:15</span><div><div class="sked-label">Esercizio 1</div><div class="sked-content">Ognuno prende un paragrafo del proprio testo e lo fa riscrivere in 2 toni diversi (es. formale/diretto, tecnico/divulgativo). Obiettivo: non accettare la prima versione, ma confrontare, scegliere pezzi da entrambe, chiedere una terza via. Chi finisce prima prova a far sintetizzare un testo lungo mantenendo i punti chiave</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">1:15–1:25</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row"><span class="sked-time">1:25–1:50</span><div><div class="sked-label">Showcase Revisione</div><div class="sked-content">Dimostrazione dal vivo di una revisione strutturata in 3 passaggi: (1) chiarezza - "riscrivi le frasi più lunghe di 25 parole", (2) ridondanze - "elimina ripetizioni e riempi-testo", (3) refusi e grammatica. Come chiedere spiegazioni sulle modifiche proposte. Quando fidarsi e quando no: l'AI corregge bene la forma, meno il contenuto tecnico</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">1:50–2:20</span><div><div class="sked-label">Esercizio 2</div><div class="sked-content">Revisione guidata del proprio testo completo con il metodo dei 3 passaggi. Ognuno annota: cosa ha tenuto, cosa ha scartato, cosa l'ha sorpreso. Chi ha un testo breve può provare a trasformarlo in scaletta per una presentazione orale</div></div></li>
+            <li class="sked-row sked-row--pausa"><span class="sked-time">2:20–2:30</span><div><div class="sked-label">Pausa</div></div></li>
+            <li class="sked-row sked-row--exercise"><span class="sked-time">2:30–2:50</span><div><div class="sked-label">Esercizio 3 - Revisione incrociata</div><div class="sked-content">In coppie: ognuno passa il proprio testo originale (non la versione rivista) al compagno. Il compagno usa l'AI per proporre 3 modifiche e deve motivarle a voce. Poi si confrontano le due revisioni: quella fatta da soli e quella fatta dall'altro. Cosa cambia con uno sguardo esterno?</div></div></li>
+            <li class="sked-row"><span class="sked-time">2:50–3:00</span><div><div class="sked-label">Chiusura</div><div class="sked-content">Giro finale: una cosa che avete scoperto sul vostro modo di scrivere. Consegna kit: template con i prompt di revisione testati, checklist dei 3 passaggi, esempi di testi prima/dopo. Debrief: scrivere con l'AI non è barare, è avere un editor sempre disponibile</div></div></li>
+          </ul>
+
+          <h4 class="subhead">Cosa serve</h4>
+          <div class="needs">
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
+              <ul>
+                <li>Wi-Fi stabile per 25 persone connesse insieme</li>
+                <li>Tavoli a isole, comodi anche per affiancare le coppie nella revisione incrociata finale</li>
+                <li>Prese multiple o ciabatte</li>
+                <li>Proiettore per la demo dal vivo della revisione in 3 passaggi</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
+              <ul>
+                <li>Portatile o tablet (lo smartphone va bene come ripiego)</li>
+                <li>Un account gratuito a un chatbot, creato da casa prima dell'incontro</li>
+                <li>Un proprio testo vero da portare: una mail, un paragrafo di tesi, un post, una bio. Chi non ha nulla userà uno dei 4 testi-tipo forniti</li>
+              </ul>
+            </div>
+            <div class="needs__col">
+              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
+              <ul>
+                <li>I 4 testi-tipo di riserva (mail formale, post LinkedIn, paragrafo accademico, presentazione progetto)</li>
+                <li>Template con i prompt di revisione già testati</li>
+                <li>Checklist dei 3 passaggi di revisione, stampata</li>
+                <li>Esempi di testi prima/dopo per la demo dal vivo</li>
               </ul>
             </div>
           </div>
@@ -1642,77 +1632,6 @@
         </div></div></div>
       </article>
 
-      <!-- P4 -->
-      <article class="card card--aula reveal" data-sigla="P4" data-title="Scrivere meglio con l'AI">
-        <button class="card__head" type="button" aria-expanded="false">
-          <span class="card__sig">P4</span>
-          <span class="card__main">
-            <span class="card__toptags"><span class="tag tag--aula">In aula</span><span class="tag">Primavera</span></span>
-            <h3 class="card__title">Scrivere meglio con l'AI</h3>
-            <span class="card__meta"><span>Ciclo: Primavera</span><span>3 ore</span><span>Capienza: 25</span><span>Target: Studenti, lavoratori, cittadini</span><span>Formato: Laboratorio di scrittura</span></span>
-            <span class="card__temi">Bozza propria + AI come editor: tono e destinatario, email e sintesi, da documento a scaletta di presentazione, revisione incrociata in coppie</span>
-          </span>
-          <span class="card__side">
-            <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
-          </span>
-        </button>
-        <div style="padding: 0 20px 16px; display:flex; justify-content:flex-end;">
-          <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
-            <span class="interest-label">Ci interessa</span>
-          </button>
-        </div>
-        <div class="card__collapse"><div class="card__collapse-inner"><div class="card__body">
-
-          <div class="fee-note"><strong>Compenso indicativo: 300 €</strong> (per l'intero incontro in aula)</div>
-
-          <h4 class="subhead">Scaletta — P4, Scrivere meglio con l'AI</h4>
-          <ul class="sked">
-            <li class="sked-row"><span class="sked-time">0:00–0:10</span><div><div class="sked-label">Setup</div><div class="sked-content">Connessione device. Ognuno apre un testo proprio su cui lavorare: una mail importante, un documento di lavoro, un pezzo di tesi, una bio. Chi non ha nulla usa uno dei 4 testi-tipo forniti (mail formale, post LinkedIn, paragrafo accademico, presentazione progetto)</div></div></li>
-            <li class="sked-row"><span class="sked-time">0:10–0:20</span><div><div class="sked-label">Giro di tavolo</div><div class="sked-content">Ognuno dice in 30 secondi: che testo ha portato e cosa non lo convince. Serve a far emergere i problemi comuni: troppo lungo, tono sbagliato, non si capisce il punto</div></div></li>
-            <li class="sked-row"><span class="sked-time">0:20–0:45</span><div><div class="sked-label">Metodo</div><div class="sked-content">Il principio base: la bozza resta tua, l'AI fa l'editor. Come dare istruzioni utili: specificare tono, destinatario, scopo e lunghezza. Perché il testo tutto-AI si riconosce subito: aggettivi generici, strutture ripetitive, assenza di dettagli concreti. Demo dal vivo: lo stesso paragrafo riscritto con prompt vaghi vs prompt precisi</div></div></li>
-            <li class="sked-row sked-row--exercise"><span class="sked-time">0:45–1:15</span><div><div class="sked-label">Esercizio 1</div><div class="sked-content">Ognuno prende un paragrafo del proprio testo e lo fa riscrivere in 2 toni diversi (es. formale/diretto, tecnico/divulgativo). Obiettivo: non accettare la prima versione, ma confrontare, scegliere pezzi da entrambe, chiedere una terza via. Chi finisce prima prova a far sintetizzare un testo lungo mantenendo i punti chiave</div></div></li>
-            <li class="sked-row sked-row--pausa"><span class="sked-time">1:15–1:25</span><div><div class="sked-label">Pausa</div></div></li>
-            <li class="sked-row"><span class="sked-time">1:25–1:50</span><div><div class="sked-label">Showcase Revisione</div><div class="sked-content">Dimostrazione dal vivo di una revisione strutturata in 3 passaggi: (1) chiarezza - "riscrivi le frasi più lunghe di 25 parole", (2) ridondanze - "elimina ripetizioni e riempi-testo", (3) refusi e grammatica. Come chiedere spiegazioni sulle modifiche proposte. Quando fidarsi e quando no: l'AI corregge bene la forma, meno il contenuto tecnico</div></div></li>
-            <li class="sked-row sked-row--exercise"><span class="sked-time">1:50–2:20</span><div><div class="sked-label">Esercizio 2</div><div class="sked-content">Revisione guidata del proprio testo completo con il metodo dei 3 passaggi. Ognuno annota: cosa ha tenuto, cosa ha scartato, cosa l'ha sorpreso. Chi ha un testo breve può provare a trasformarlo in scaletta per una presentazione orale</div></div></li>
-            <li class="sked-row sked-row--pausa"><span class="sked-time">2:20–2:30</span><div><div class="sked-label">Pausa</div></div></li>
-            <li class="sked-row sked-row--exercise"><span class="sked-time">2:30–2:50</span><div><div class="sked-label">Esercizio 3 - Revisione incrociata</div><div class="sked-content">In coppie: ognuno passa il proprio testo originale (non la versione rivista) al compagno. Il compagno usa l'AI per proporre 3 modifiche e deve motivarle a voce. Poi si confrontano le due revisioni: quella fatta da soli e quella fatta dall'altro. Cosa cambia con uno sguardo esterno?</div></div></li>
-            <li class="sked-row"><span class="sked-time">2:50–3:00</span><div><div class="sked-label">Chiusura</div><div class="sked-content">Giro finale: una cosa che avete scoperto sul vostro modo di scrivere. Consegna kit: template con i prompt di revisione testati, checklist dei 3 passaggi, esempi di testi prima/dopo. Debrief: scrivere con l'AI non è barare, è avere un editor sempre disponibile</div></div></li>
-          </ul>
-
-          <h4 class="subhead">Cosa serve</h4>
-          <div class="needs">
-            <div class="needs__col">
-              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"></path><path d="M5 21V9l7-5 7 5v12"></path><path d="M10 21v-6h4v6"></path></svg>Dalla sede</div>
-              <ul>
-                <li>Wi-Fi stabile per 25 persone connesse insieme</li>
-                <li>Tavoli a isole, comodi anche per affiancare le coppie nella revisione incrociata finale</li>
-                <li>Prese multiple o ciabatte</li>
-                <li>Proiettore per la demo dal vivo della revisione in 3 passaggi</li>
-              </ul>
-            </div>
-            <div class="needs__col">
-              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2"></path><circle cx="10" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>Dai partecipanti</div>
-              <ul>
-                <li>Portatile o tablet (lo smartphone va bene come ripiego)</li>
-                <li>Un account gratuito a un chatbot, creato da casa prima dell'incontro</li>
-                <li>Un proprio testo vero da portare: una mail, un paragrafo di tesi, un post, una bio. Chi non ha nulla userà uno dei 4 testi-tipo forniti</li>
-              </ul>
-            </div>
-            <div class="needs__col">
-              <div class="needs__head"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>Porto io</div>
-              <ul>
-                <li>I 4 testi-tipo di riserva (mail formale, post LinkedIn, paragrafo accademico, presentazione progetto)</li>
-                <li>Template con i prompt di revisione già testati</li>
-                <li>Checklist dei 3 passaggi di revisione, stampata</li>
-                <li>Esempi di testi prima/dopo per la demo dal vivo</li>
-              </ul>
-            </div>
-          </div>
-
-        </div></div></div>
-      </article>
-
     </div>
   </div>
 </section>
@@ -1721,8 +1640,8 @@
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">L'angolo cinema</span>
-      <h2>Quattro serate, quattro sguardi sull'AI</h2>
-      <p>Accanto ai workshop, un piccolo ciclo di serate cinema: quattro film che raccontano l'AI da angolazioni diverse, ognuno seguito da un'introduzione e da un dibattito guidato da Mirko. Sono pensate per allargare il pubblico oltre chi già frequenta i laboratori, con un formato più leggero e una serata sola, non un percorso da seguire per intero.</p>
+      <h2>Due serate, due sguardi sull'AI</h2>
+      <p>Accanto ai workshop, un piccolo ciclo di serate cinema: due film che raccontano l'AI da angolazioni diverse, ognuno seguito da un'introduzione e da un dibattito guidato da Mirko (e magari anche altri ospiti). Sono pensate per allargare il pubblico oltre chi già frequenta i laboratori, con un formato più leggero e una serata sola, non un percorso da seguire per intero.</p>
     </div>
 
     <div class="films reveal">
@@ -1801,84 +1720,9 @@
             <strong>Pubblico</strong>
             <p>Pubblico ampio e trasversale, anche chi non segue di solito il ciclo AI</p>
             <strong>Aggancio al corso</strong>
-            <p>Da introdurre con una cornice storica di 10 minuti sul test di Turing, per spostare il dibattito dalla sola vicenda di Enigma alla domanda sull'AI di oggi; si collega direttamente ad A0</p>
+            <p>Quando è il momento di delegare qualcosa alla macchina? Alan Turing ha provato a decifrare Enigma e ha capito che non sarebbe riuscito da solo, ma con l'aiuto di un computer. Oggi lo stesso discorso si ripete con degli strumenti molto più accessibili a tutti!</p>
             <strong>Formato serata</strong>
             <p>Introduzione storica di Mirko di circa 10 minuti, proiezione, dibattito guidato di 30-40 minuti</p>
-          </div>
-          <div class="film__foot">
-            <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
-              <span class="interest-label">Ci interessa</span>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- F3 Ex Machina -->
-      <article class="film" data-sigla="F3" data-title="Ex Machina">
-        <div class="film__art" style="background: var(--wine-soft);">
-          <svg viewBox="0 0 400 108" aria-hidden="true">
-            <g fill="var(--wine)" opacity="0.16">
-              <rect x="150" y="10" width="100" height="88" rx="4"></rect>
-            </g>
-            <g fill="none" stroke="var(--wine)" stroke-width="2.5" opacity="0.85">
-              <polygon points="200,16 224,34 224,74 200,96 176,74 176,34"></polygon>
-              <line x1="200" y1="16" x2="200" y2="96"></line>
-              <line x1="176" y1="34" x2="224" y2="74"></line>
-              <line x1="224" y1="34" x2="176" y2="74"></line>
-            </g>
-          </svg>
-        </div>
-        <div class="film__body">
-          <div class="film__toprow"><span class="film__sig">F3</span><span class="film__titleline"><h3>Ex Machina</h3></span></div>
-          <div class="film__yearregia">2015 — regia di Alex Garland — 108 min</div>
-          <p class="film__perche">Il test di Turing messo in scena per davvero, in una stanza chiusa, con tutta la tensione che ne consegue: chi sta valutando chi, e chi sta manipolando chi. Un film che lascia addosso più domande che risposte, il che per una serata di dibattito è un pregio.</p>
-          <div class="film__extra">
-            <strong>Pubblico</strong>
-            <p>Pubblico giovane-adulto</p>
-            <strong>Aggancio al corso</strong>
-            <p>Si collega a P3 (fiducia, manipolazione, i confini di un rapporto con una macchina che sembra capirci) e ad A0 (cosa sa fare davvero un'AI rispetto a cosa sembra fare)</p>
-            <strong>Formato serata</strong>
-            <p>Introduzione di Mirko di circa 10 minuti, proiezione, dibattito guidato di 30-40 minuti</p>
-          </div>
-          <div class="film__foot">
-            <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15 9 22 9 16.5 13.5 18.5 21 12 16.5 5.5 21 7.5 13.5 2 9 9 9"></polygon></svg>
-              <span class="interest-label">Ci interessa</span>
-            </button>
-          </div>
-        </div>
-      </article>
-
-      <!-- F4 Io e Caterina -->
-      <article class="film" data-sigla="F4" data-title="Io e Caterina">
-        <div class="film__art" style="background: var(--wine-soft);">
-          <svg viewBox="0 0 400 108" aria-hidden="true">
-            <g fill="none" stroke="var(--wine)" stroke-width="3" opacity="0.85">
-              <rect x="140" y="24" width="120" height="70" rx="10"></rect>
-              <line x1="170" y1="24" x2="155" y2="6"></line>
-              <line x1="230" y1="24" x2="245" y2="6"></line>
-            </g>
-            <g fill="none" stroke="var(--wine)" stroke-width="1.6" opacity="0.55">
-              <line x1="150" y1="42" x2="250" y2="42"></line>
-              <line x1="150" y1="54" x2="250" y2="54"></line>
-              <line x1="150" y1="66" x2="250" y2="66"></line>
-              <line x1="150" y1="78" x2="250" y2="78"></line>
-            </g>
-            <circle cx="200" cy="60" r="4" fill="var(--wine)" opacity="0.85"></circle>
-          </svg>
-        </div>
-        <div class="film__body">
-          <div class="film__toprow"><span class="film__sig">F4</span><span class="film__titleline"><h3>Io e Caterina</h3></span></div>
-          <div class="film__yearregia">1980 — regia di Alberto Sordi — 115 min</div>
-          <p class="film__perche">La chicca italiana della rassegna: Sordi e un robot domestico nel 1980, quando la parola AI non la usava nessuno. Una commedia su dipendenza e gelosia verso la macchina che oggi si guarda con un sorriso diverso, sapendo come è andata davvero a finire.</p>
-          <div class="film__extra">
-            <strong>Pubblico</strong>
-            <p>Pubblico over 60, e chiunque ami la commedia italiana</p>
-            <strong>Aggancio al corso</strong>
-            <p>Perfetta per un dibattito "cosa avevamo previsto quarant'anni fa e cosa no": si collega a P3 e alla parte più storica di A0</p>
-            <strong>Formato serata</strong>
-            <p>Introduzione di Mirko di circa 10 minuti, proiezione, dibattito guidato di 30-40 minuti</p>
           </div>
           <div class="film__foot">
             <button class="interest-btn" type="button" data-interest-toggle aria-pressed="false">
@@ -1964,6 +1808,15 @@
   }
 
   var selection = loadSelection();
+
+  // Guardia: rimuovere dalla selezione le sigle senza elemento nel DOM
+  for (var sigla in selection) {
+    if (selection.hasOwnProperty(sigla)) {
+      if (!document.querySelector('[data-sigla="' + sigla + '"]')) {
+        delete selection[sigla];
+      }
+    }
+  }
 
   var chipsEl = document.getElementById("chips");
   var stickyBar = document.getElementById("stickyBar");
