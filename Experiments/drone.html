@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d1b2a">
+  <title>Flight Path — Guida interattiva per nuovi piloti</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f7f8fa;
+      --white: #ffffff;
+      --navy: #0d1b2a;
+      --navy2: #1a2e42;
+      --accent-red: #e8412a;
+      --accent-orange: #f5a623;
+      --accent-blue: #2563eb;
+      --green: #059669;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+      --border2: #d1d5db;
+      --grid-color: rgba(13,27,42,.055);
+      --shadow: 0 16px 50px rgba(13,27,42,.08);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      background: var(--bg);
+      color: var(--navy);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      padding-bottom: 92px;
+    }
+    body::before {
+      content:'';
+      position:fixed; inset:0;
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size:48px 48px;
+      pointer-events:none;
+      z-index:0;
+    }
+    body > * { position:relative; z-index:1; }
+    button, input, select { font:inherit; }
+    button { -webkit-tap-highlight-color:transparent; }
+
+    nav {
+      background:rgba(255,255,255,.94);
+      backdrop-filter:blur(16px);
+      border-bottom:1px solid var(--border);
+      padding:0 36px;
+      min-height:66px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      position:sticky;
+      top:0;
+      z-index:100;
+      gap:20px;
+    }
+    .logo { display:flex; align-items:center; gap:11px; font-weight:900; font-size:17px; color:var(--navy); text-decoration:none; letter-spacing:-.02em; }
+    .logo-mark { width:30px; height:30px; display:grid; place-items:center; background:var(--accent-red); border-radius:9px; color:white; }
+    .logo-mark svg { width:18px; height:18px; }
+    .nav-status { display:flex; align-items:center; gap:14px; }
+    .xp-pill { display:flex; gap:8px; align-items:center; background:var(--bg); border:1px solid var(--border); border-radius:999px; padding:8px 12px; font-family:'DM Mono', monospace; font-size:11px; font-weight:500; }
+    .xp-dot { width:8px; height:8px; border-radius:50%; background:var(--green); box-shadow:0 0 0 4px rgba(5,150,105,.12); }
+    .reset-btn { border:1px solid var(--border); background:white; color:var(--muted); padding:9px 12px; border-radius:9px; cursor:pointer; font-size:12px; font-weight:700; }
+    .reset-btn:hover { color:var(--navy); border-color:var(--border2); }
+
+    .hero { max-width:1180px; margin:0 auto; padding:50px 36px 32px; display:grid; grid-template-columns:1.25fr .75fr; gap:26px; align-items:stretch; }
+    .hero-main { background:var(--navy); color:white; border-radius:22px; padding:42px; position:relative; overflow:hidden; min-height:330px; }
+    .hero-main::after { content:''; position:absolute; width:310px; height:310px; border:1px solid rgba(255,255,255,.12); border-radius:50%; right:-70px; top:-80px; box-shadow:0 0 0 46px rgba(255,255,255,.03),0 0 0 96px rgba(255,255,255,.02); }
+    .eyebrow { display:flex; align-items:center; gap:9px; font-family:'DM Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:.14em; color:#94a3b8; margin-bottom:24px; }
+    .eyebrow span { width:26px; height:2px; background:var(--accent-red); }
+    .hero h1 { font-size:clamp(38px,5.2vw,68px); line-height:.98; letter-spacing:-.055em; max-width:730px; position:relative; z-index:2; }
+    .hero h1 em { color:#f87171; font-style:normal; }
+    .hero-copy { color:#cbd5e1; line-height:1.7; max-width:620px; margin:22px 0 28px; font-size:15px; position:relative; z-index:2; }
+    .hero-actions { display:flex; gap:12px; flex-wrap:wrap; position:relative; z-index:2; }
+    .btn-primary, .btn-secondary, .btn-dark, .btn-ghost {
+      border:none; border-radius:11px; padding:13px 18px; font-weight:800; cursor:pointer; transition:.18s ease; display:inline-flex; align-items:center; justify-content:center; gap:9px;
+    }
+    .btn-primary { background:var(--accent-red); color:white; }
+    .btn-primary:hover { transform:translateY(-1px); background:#d93620; }
+    .btn-secondary { background:white; color:var(--navy); }
+    .btn-secondary:hover { transform:translateY(-1px); }
+    .btn-dark { background:var(--navy); color:white; }
+    .btn-dark:hover { background:var(--navy2); }
+    .btn-ghost { border:1px solid var(--border); background:white; color:var(--navy); }
+    .btn-ghost:hover { border-color:var(--border2); box-shadow:0 5px 18px rgba(13,27,42,.07); }
+
+    .hero-side { display:flex; flex-direction:column; gap:14px; }
+    .profile-card, .mission-card { background:white; border:1px solid var(--border); border-radius:18px; padding:24px; flex:1; }
+    .card-label { font-family:'DM Mono', monospace; text-transform:uppercase; letter-spacing:.11em; color:var(--muted); font-size:10px; font-weight:500; margin-bottom:16px; }
+    .pilot-row { display:flex; align-items:center; gap:13px; margin-bottom:18px; }
+    .pilot-icon { width:48px; height:48px; border-radius:14px; background:#eff6ff; color:var(--accent-blue); display:grid; place-items:center; }
+    .pilot-icon svg { width:25px; }
+    .pilot-title strong { display:block; font-size:17px; }
+    .pilot-title span { color:var(--muted); font-size:12px; }
+    .select-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .select-row label { font-size:10px; color:var(--muted); font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+    .select-row select { width:100%; margin-top:6px; border:1px solid var(--border); border-radius:9px; padding:10px; background:white; color:var(--navy); font-size:12px; }
+    .mission-card { background:#fff8f7; border-color:#fecaca; }
+    .mission-card h3 { font-size:17px; margin-bottom:8px; }
+    .mission-card p { font-size:12px; color:var(--muted); line-height:1.65; }
+    .mission-progress { margin-top:17px; display:flex; align-items:center; gap:10px; }
+    .mini-bar { height:7px; flex:1; background:#fee2e2; border-radius:999px; overflow:hidden; }
+    .mini-bar > span { display:block; height:100%; width:10%; background:var(--accent-red); border-radius:inherit; transition:width .35s ease; }
+    .mission-progress b { font-family:'DM Mono', monospace; font-size:11px; }
+
+    .level-strip-wrap { max-width:1180px; margin:0 auto; padding:0 36px 16px; }
+    .level-strip { background:white; border:1px solid var(--border); border-radius:16px; padding:11px; display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; box-shadow:0 8px 30px rgba(13,27,42,.035); }
+    .level-strip::-webkit-scrollbar { display:none; }
+    .level-chip { min-width:92px; border:1px solid transparent; background:transparent; padding:11px 12px; border-radius:11px; cursor:pointer; text-align:left; transition:.18s; color:var(--muted); }
+    .level-chip small { font-family:'DM Mono',monospace; display:block; font-size:9px; margin-bottom:4px; color:inherit; }
+    .level-chip span { display:block; font-size:12px; font-weight:800; white-space:nowrap; color:inherit; }
+    .level-chip:hover { background:var(--bg); color:var(--navy); }
+    .level-chip.active { background:var(--navy); color:white; }
+    .level-chip.done:not(.active) { background:#f0fdf4; color:var(--green); border-color:#bbf7d0; }
+    .level-chip.locked { opacity:.46; }
+
+    .app-shell { max-width:1180px; margin:0 auto; padding:18px 36px 40px; display:grid; grid-template-columns:270px minmax(0,1fr); gap:24px; align-items:start; }
+    .sidebar { position:sticky; top:92px; display:flex; flex-direction:column; gap:14px; }
+    .side-card { background:white; border:1px solid var(--border); border-radius:16px; padding:20px; }
+    .side-card h3 { font-size:14px; margin-bottom:13px; }
+    .objective { display:flex; gap:10px; margin-bottom:12px; align-items:flex-start; }
+    .objective:last-child { margin-bottom:0; }
+    .objective i { width:18px; height:18px; border-radius:50%; border:1px solid var(--border2); display:grid; place-items:center; font-style:normal; flex:none; font-size:9px; color:var(--muted); margin-top:1px; }
+    .objective p { color:var(--muted); font-size:12px; line-height:1.5; }
+    .weather-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .weather-item { background:var(--bg); border-radius:10px; padding:10px; }
+    .weather-item span { display:block; color:var(--muted); font-size:9px; text-transform:uppercase; letter-spacing:.08em; }
+    .weather-item b { display:block; margin-top:4px; font-size:12px; }
+    .safety-note { background:var(--navy); color:white; }
+    .safety-note h3 { color:white; }
+    .safety-note p { color:#cbd5e1; font-size:12px; line-height:1.65; }
+    .safety-note strong { color:#fca5a5; }
+
+    .content { min-width:0; }
+    .panel { display:none; }
+    .panel.active { display:block; animation:fadeUp .28s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:none;} }
+    .level-header { display:flex; justify-content:space-between; gap:20px; align-items:flex-start; margin-bottom:18px; }
+    .level-kicker { display:flex; align-items:center; gap:9px; font-family:'DM Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:.12em; color:var(--accent-red); font-weight:500; margin-bottom:9px; }
+    .level-header h2 { font-size:clamp(28px,4vw,43px); letter-spacing:-.04em; line-height:1.02; }
+    .level-header p { color:var(--muted); line-height:1.65; max-width:640px; margin-top:12px; font-size:14px; }
+    .level-number { width:66px; height:66px; border-radius:18px; background:white; border:1px solid var(--border); display:grid; place-items:center; font-family:'DM Mono', monospace; font-weight:500; font-size:23px; color:var(--accent-red); flex:none; box-shadow:0 8px 22px rgba(13,27,42,.05); }
+
+    .grid2 { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:14px; }
+    .card { background:white; border:1px solid var(--border); border-radius:16px; padding:23px; transition:.2s; }
+    .card:hover { box-shadow:0 9px 30px rgba(13,27,42,.06); }
+    .card.bl-r { border-left:3px solid var(--accent-red); }
+    .card.bl-b { border-left:3px solid var(--accent-blue); }
+    .card.bl-g { border-left:3px solid var(--green); }
+    .card.bl-o { border-left:3px solid var(--accent-orange); }
+    .card h3 { font-size:15px; margin-bottom:8px; }
+    .card p { color:var(--muted); font-size:12.5px; line-height:1.68; }
+    .tag { display:inline-block; border-radius:6px; padding:4px 8px; font-size:9px; text-transform:uppercase; letter-spacing:.08em; font-weight:800; margin-bottom:12px; }
+    .tag.r { color:#dc2626; background:#fee2e2; }
+    .tag.b { color:#2563eb; background:#dbeafe; }
+    .tag.g { color:#059669; background:#d1fae5; }
+    .tag.o { color:#d97706; background:#fef3c7; }
+    .tag.n { color:var(--muted); background:var(--bg); border:1px solid var(--border); }
+    .mono { font-family:'DM Mono',monospace; }
+
+    .lesson { background:white; border:1px solid var(--border); border-radius:18px; padding:26px; margin-bottom:14px; }
+    .lesson-head { display:flex; justify-content:space-between; gap:16px; align-items:center; padding-bottom:18px; border-bottom:1px solid var(--border); margin-bottom:20px; }
+    .lesson-head h3 { font-size:18px; }
+    .lesson-head span { color:var(--muted); font-family:'DM Mono',monospace; font-size:10px; }
+    .step-list { display:flex; flex-direction:column; gap:12px; }
+    .step-item { display:grid; grid-template-columns:34px 1fr auto; gap:13px; align-items:center; border:1px solid var(--border); border-radius:13px; padding:14px; background:white; }
+    .step-index { width:30px; height:30px; display:grid; place-items:center; background:var(--bg); border-radius:9px; font-family:'DM Mono',monospace; font-size:11px; color:var(--muted); }
+    .step-copy strong { display:block; font-size:13px; margin-bottom:3px; }
+    .step-copy span { display:block; color:var(--muted); font-size:11.5px; line-height:1.5; }
+    .task-check { width:24px; height:24px; border:1.5px solid var(--border2); background:white; border-radius:8px; cursor:pointer; display:grid; place-items:center; color:white; }
+    .task-check.checked { background:var(--green); border-color:var(--green); }
+    .task-check svg { width:14px; display:none; }
+    .task-check.checked svg { display:block; }
+    .step-item.completed { background:#f8fffb; border-color:#bbf7d0; }
+
+    .trainer { background:var(--navy); border-radius:18px; padding:22px; color:white; margin-bottom:14px; overflow:hidden; }
+    .trainer-head { display:flex; justify-content:space-between; align-items:center; gap:14px; margin-bottom:18px; }
+    .trainer-head h3 { font-size:17px; }
+    .trainer-head p { color:#94a3b8; font-size:11px; margin-top:4px; }
+    .trainer-badge { font-family:'DM Mono',monospace; font-size:9px; background:rgba(255,255,255,.08); color:#cbd5e1; padding:7px 9px; border-radius:7px; }
+    .sim-grid { display:grid; grid-template-columns:1.3fr .7fr; gap:16px; }
+    .sky { min-height:310px; border-radius:14px; position:relative; overflow:hidden; background:linear-gradient(#cfe8ff 0 62%, #e7dfcf 62% 100%); border:1px solid rgba(255,255,255,.08); }
+    .sky::before { content:''; position:absolute; left:0; right:0; top:62%; height:1px; background:rgba(13,27,42,.15); }
+    .sky-grid { position:absolute; inset:0; background-image:linear-gradient(rgba(13,27,42,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(13,27,42,.08) 1px,transparent 1px); background-size:44px 44px; }
+    .home-marker { position:absolute; bottom:14px; left:50%; transform:translateX(-50%); text-align:center; color:rgba(13,27,42,.55); font-family:'DM Mono',monospace; font-size:9px; }
+    .home-marker::before { content:''; display:block; width:30px; height:10px; border-radius:50%; border:2px solid rgba(232,65,42,.55); margin:0 auto 4px; }
+    .drone-sim { width:68px; height:38px; position:absolute; left:calc(50% - 34px); top:135px; transition:left .18s linear, top .18s linear, transform .18s linear; filter:drop-shadow(0 12px 7px rgba(13,27,42,.18)); transform-origin:center; }
+    .drone-sim svg { width:100%; height:100%; color:var(--navy); }
+    .telemetry { position:absolute; left:12px; top:12px; display:flex; gap:7px; flex-wrap:wrap; }
+    .telemetry span { background:rgba(255,255,255,.78); color:var(--navy); padding:6px 8px; border-radius:7px; font-family:'DM Mono',monospace; font-size:9px; backdrop-filter:blur(8px); }
+    .sim-panel { display:flex; flex-direction:column; justify-content:space-between; gap:14px; }
+    .controls { display:grid; grid-template-columns:repeat(3,52px); justify-content:center; gap:7px; }
+    .control-btn { height:46px; border-radius:10px; background:#1a2e42; color:white; border:1px solid rgba(255,255,255,.1); cursor:pointer; font-size:16px; font-weight:800; }
+    .control-btn:hover, .control-btn:active { background:#28445f; }
+    .control-btn.blank { opacity:0; pointer-events:none; }
+    .yaw-row { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+    .yaw-row button { border:none; background:#1a2e42; color:#cbd5e1; padding:11px; border-radius:9px; cursor:pointer; font-size:11px; font-weight:800; }
+    .sim-hint { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:11px; padding:13px; color:#94a3b8; font-size:11px; line-height:1.55; }
+    .sim-status { color:#6ee7b7; font-family:'DM Mono',monospace; font-size:10px; min-height:16px; }
+
+    .quiz { background:white; border:1px solid var(--border); border-radius:18px; padding:24px; margin-bottom:14px; }
+    .quiz h3 { font-size:16px; margin-bottom:8px; }
+    .quiz > p { color:var(--muted); font-size:12px; margin-bottom:16px; line-height:1.5; }
+    .answers { display:grid; gap:9px; }
+    .answer { text-align:left; border:1px solid var(--border); background:white; color:var(--navy); border-radius:11px; padding:13px 14px; cursor:pointer; font-size:12px; font-weight:700; transition:.15s; }
+    .answer:hover { border-color:var(--accent-blue); background:#eff6ff; }
+    .answer.correct { border-color:#86efac; background:#f0fdf4; color:#047857; }
+    .answer.wrong { border-color:#fca5a5; background:#fff8f7; color:#b91c1c; }
+    .quiz-feedback { font-size:11px; min-height:18px; margin-top:12px; color:var(--muted); }
+
+    .field-check { display:grid; grid-template-columns:repeat(2,1fr); gap:9px; }
+    .toggle-item { border:1px solid var(--border); border-radius:11px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer; font-size:12px; font-weight:700; background:white; }
+    .toggle-dot { width:17px; height:17px; border:1px solid var(--border2); border-radius:5px; flex:none; }
+    .toggle-item.on { background:#f0fdf4; border-color:#bbf7d0; color:#047857; }
+    .toggle-item.on .toggle-dot { background:var(--green); box-shadow:inset 0 0 0 4px #f0fdf4; border-color:var(--green); }
+    .go-status { margin-top:13px; padding:13px; border-radius:11px; background:#fff7ed; border:1px solid #fed7aa; color:#9a3412; font-size:12px; font-weight:800; }
+    .go-status.ready { background:#f0fdf4; border-color:#bbf7d0; color:#047857; }
+
+    .shot-builder { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+    .shot-options { display:flex; flex-direction:column; gap:8px; }
+    .shot-option { border:1px solid var(--border); background:white; border-radius:11px; padding:12px; cursor:pointer; text-align:left; }
+    .shot-option b { display:block; font-size:12px; margin-bottom:3px; }
+    .shot-option span { color:var(--muted); font-size:10px; }
+    .shot-option.selected { border-color:var(--accent-blue); background:#eff6ff; }
+    .shot-preview { border-radius:14px; min-height:260px; background:linear-gradient(145deg,#bfdbfe,#dbeafe 42%,#9ca3af 43%,#4b5563 100%); position:relative; overflow:hidden; display:grid; place-items:center; }
+    .shot-preview::before { content:''; position:absolute; inset:18px; border:1px solid rgba(255,255,255,.6); }
+    .shot-preview::after { content:''; position:absolute; left:50%; top:18px; bottom:18px; border-left:1px solid rgba(255,255,255,.45); }
+    .preview-copy { position:relative; z-index:2; background:rgba(13,27,42,.82); color:white; border-radius:10px; padding:13px 16px; max-width:75%; text-align:center; }
+    .preview-copy b { display:block; font-size:13px; }
+    .preview-copy span { display:block; color:#cbd5e1; font-size:10px; margin-top:4px; line-height:1.4; }
+
+    .final-mission { background:var(--navy); color:white; border-radius:18px; padding:28px; margin-bottom:14px; }
+    .final-mission h3 { font-size:22px; margin-bottom:8px; }
+    .final-mission > p { color:#94a3b8; font-size:13px; line-height:1.6; max-width:680px; }
+    .mission-sequence { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:20px; }
+    .mission-shot { background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:11px; padding:14px 10px; text-align:center; }
+    .mission-shot span { display:block; font-family:'DM Mono',monospace; color:#fca5a5; font-size:9px; margin-bottom:6px; }
+    .mission-shot b { font-size:11px; }
+
+    .completion-box { background:#f0fdf4; border:1px solid #bbf7d0; border-radius:16px; padding:20px; display:none; margin-bottom:14px; }
+    .completion-box.show { display:flex; align-items:center; gap:15px; animation:fadeUp .25s ease; }
+    .completion-icon { width:42px; height:42px; border-radius:13px; background:var(--green); color:white; display:grid; place-items:center; flex:none; }
+    .completion-icon svg { width:22px; }
+    .completion-box h3 { color:#047857; font-size:15px; margin-bottom:4px; }
+    .completion-box p { color:#4b7766; font-size:11.5px; line-height:1.5; }
+
+    .bottom-nav { position:fixed; z-index:120; left:0; right:0; bottom:0; background:rgba(255,255,255,.96); backdrop-filter:blur(18px); border-top:1px solid var(--border); padding:14px 36px; display:flex; align-items:center; justify-content:space-between; gap:16px; }
+    .progress-wrap { flex:1; max-width:430px; display:flex; align-items:center; gap:12px; }
+    .progress-track { height:7px; background:var(--border); border-radius:999px; overflow:hidden; flex:1; }
+    .progress-fill { display:block; height:100%; width:10%; background:linear-gradient(90deg,var(--accent-red),var(--accent-orange)); border-radius:inherit; transition:width .35s ease; }
+    .progress-text { font-family:'DM Mono',monospace; font-size:10px; color:var(--muted); white-space:nowrap; }
+    .nav-button { border:none; border-radius:10px; padding:12px 16px; cursor:pointer; font-weight:800; font-size:12px; }
+    .nav-button.prev { background:white; color:var(--navy); border:1px solid var(--border); }
+    .nav-button.next { background:var(--accent-blue); color:white; }
+    .nav-button:disabled { opacity:.38; cursor:not-allowed; }
+
+    .toast { position:fixed; right:22px; bottom:92px; background:var(--navy); color:white; padding:13px 16px; border-radius:11px; z-index:200; box-shadow:var(--shadow); font-size:12px; transform:translateY(20px); opacity:0; pointer-events:none; transition:.25s; }
+    .toast.show { transform:none; opacity:1; }
+
+    @media(max-width:980px) {
+      .hero { grid-template-columns:1fr; }
+      .hero-side { display:grid; grid-template-columns:1fr 1fr; }
+      .app-shell { grid-template-columns:1fr; }
+      .sidebar { position:static; display:grid; grid-template-columns:repeat(3,1fr); }
+    }
+    @media(max-width:760px) {
+      nav { padding:0 18px; }
+      .xp-pill { display:none; }
+      .hero, .level-strip-wrap, .app-shell { padding-left:18px; padding-right:18px; }
+      .hero { padding-top:28px; }
+      .hero-main { padding:29px 23px; min-height:auto; }
+      .hero-side { grid-template-columns:1fr; }
+      .sidebar { grid-template-columns:1fr; }
+      .grid2, .grid3, .sim-grid, .shot-builder { grid-template-columns:1fr; }
+      .level-header { align-items:flex-start; }
+      .level-number { width:50px; height:50px; border-radius:14px; font-size:18px; }
+      .field-check { grid-template-columns:1fr; }
+      .mission-sequence { grid-template-columns:1fr 1fr; }
+      .bottom-nav { padding:12px 14px; }
+      .progress-wrap { order:3; position:absolute; left:14px; right:14px; bottom:4px; max-width:none; }
+      .bottom-nav { padding-bottom:24px; }
+      .progress-text { display:none; }
+      .nav-button { flex:1; }
+      body { padding-bottom:100px; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#" class="logo" aria-label="Flight Path">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 8h4l2 3h4l2-3h4M7 8 5 5M17 8l2-3M7 16h10M9 13l-2 3m8-3 2 3"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/></svg>
+      </span>
+      Flight Path
+    </a>
+    <div class="nav-status">
+      <div class="xp-pill"><span class="xp-dot"></span><span id="xpLabel">0 XP · pilota in addestramento</span></div>
+      <button class="reset-btn" id="resetBtn">Azzera percorso</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <section class="hero-main">
+      <div class="eyebrow"><span></span>guida interattiva · livelli 0–9</div>
+      <h1>Dal primo decollo al tuo <em>primo racconto aereo.</em></h1>
+      <p class="hero-copy">Un percorso pratico per imparare senza fretta: una competenza alla volta, prove brevi sul campo e strumenti per capire subito cosa fare.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="resumeBtn">Riprendi il percorso</button>
+        <button class="btn-secondary" onclick="goToLevel(0)">Parti dalle basi</button>
+      </div>
+    </section>
+    <aside class="hero-side">
+      <div class="profile-card">
+        <div class="card-label">profilo di volo</div>
+        <div class="pilot-row">
+          <div class="pilot-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 8h4l2 3h4l2-3h4M7 8 5 5M17 8l2-3M7 16h10M9 13l-2 3m8-3 2 3"/><circle cx="5" cy="5" r="2"/><circle cx="19" cy="5" r="2"/></svg>
+          </div>
+          <div class="pilot-title"><strong>Nuovo pilota</strong><span>Percorso guidato e progressivo</span></div>
+        </div>
+        <div class="select-row">
+          <label>Drone
+            <select id="droneSelect"><option>DJI Mini 4K</option><option>DJI Mini 4 Pro</option><option>DJI Neo</option><option>Altro drone</option></select>
+          </label>
+          <label>Scenario
+            <select id="scenarioSelect"><option>Costa e mare</option><option>Campagna</option><option>Montagna</option><option>Area urbana consentita</option></select>
+          </label>
+        </div>
+      </div>
+      <div class="mission-card">
+        <div class="card-label">missione attuale</div>
+        <h3 id="missionTitle">Preparare un volo sicuro</h3>
+        <p id="missionCopy">Prima di pensare alle immagini, costruisci una procedura che ti tolga dubbi sul campo.</p>
+        <div class="mission-progress"><div class="mini-bar"><span id="heroProgress"></span></div><b id="heroProgressText">0%</b></div>
+      </div>
+    </aside>
+  </header>
+
+  <section class="level-strip-wrap" aria-label="Selezione livelli">
+    <div class="level-strip" id="levelStrip"></div>
+  </section>
+
+  <main class="app-shell">
+    <aside class="sidebar">
+      <div class="side-card">
+        <div class="card-label">obiettivi del livello</div>
+        <div id="objectiveList"></div>
+      </div>
+      <div class="side-card">
+        <div class="card-label">condizioni ideali</div>
+        <div class="weather-grid">
+          <div class="weather-item"><span>vento</span><b>debole</b></div>
+          <div class="weather-item"><span>spazio</span><b>molto aperto</b></div>
+          <div class="weather-item"><span>batteria</span><b>&gt; 80%</b></div>
+          <div class="weather-item"><span>ritorno</span><b>impostato</b></div>
+        </div>
+      </div>
+      <div class="side-card safety-note">
+        <h3>Regola madre</h3>
+        <p>Se perdi orientamento, <strong>lascia gli stick</strong>. Il drone si stabilizza; tu recuperi calma e riferimenti.</p>
+      </div>
+    </aside>
+
+    <section class="content" id="contentRoot">
+      <!-- LEVEL 0 -->
+      <article class="panel active" data-level="0">
+        <div class="level-header">
+          <div><div class="level-kicker">livello 0 · prima del decollo</div><h2>Costruisci il tuo rituale di sicurezza.</h2><p>La tranquillità in volo nasce da ciò che controlli a terra. Questa schermata trasforma la preparazione in una sequenza breve e ripetibile.</p></div>
+          <div class="level-number">00</div>
+        </div>
+        <div class="lesson">
+          <div class="lesson-head"><h3>Checklist di campo</h3><span>tocca ogni voce</span></div>
+          <div class="field-check" data-checkgroup="preflight">
+            <button class="toggle-item"><span class="toggle-dot"></span>Zona verificata su D-Flight</button>
+            <button class="toggle-item"><span class="toggle-dot"></span>Persone e ostacoli lontani</button>
+            <button class="toggle-item"><span class="toggle-dot"></span>Batterie e radiocomando carichi</button>
+            <button class="toggle-item"><span class="toggle-dot"></span>Eliche integre e ben fissate</button>
+            <button class="toggle-item"><span class="toggle-dot"></span>Home point registrato</button>
+            <button class="toggle-item"><span class="toggle-dot"></span>Altezza RTH sopra gli ostacoli</button>
+          </div>
+          <div class="go-status" id="preflightStatus">Completa i sei controlli prima di considerare il drone pronto.</div>
+        </div>
+        <div class="grid2">
+          <div class="card bl-r"><span class="tag r">stop</span><h3>Non decollare con un dubbio aperto</h3><p>Vento, normativa, persone o batteria: un solo elemento incerto è sufficiente per rimandare il volo.</p></div>
+          <div class="card bl-g"><span class="tag g">go</span><h3>Prepara un punto di atterraggio</h3><p>Superficie piana, visibile, libera da sabbia e vegetazione. Deve restare accessibile durante tutta la missione.</p></div>
+        </div>
+        <div class="quiz" data-quiz="0" data-answer="1">
+          <h3>Controllo rapido</h3><p>Il drone ha registrato l’home point, ma l’altezza RTH è inferiore agli alberi vicini. Cosa fai?</p>
+          <div class="answers"><button class="answer">Decollo e resto molto basso</button><button class="answer">Imposto una quota RTH superiore agli ostacoli</button><button class="answer">Disattivo il ritorno automatico</button></div><div class="quiz-feedback"></div>
+        </div>
+        <div class="completion-box" id="complete-0"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Hai una procedura di partenza. Ora puoi concentrarti sul comportamento del drone.</p></div></div>
+      </article>
+
+      <!-- LEVEL 1 -->
+      <article class="panel" data-level="1">
+        <div class="level-header"><div><div class="level-kicker">livello 1 · primo volo</div><h2>Decolla, fermati, osserva.</h2><p>Il primo esercizio serve a capire come reagisce il drone. Niente riprese complesse: soltanto stabilità, orientamento e un atterraggio sereno.</p></div><div class="level-number">01</div></div>
+        <div class="lesson">
+          <div class="lesson-head"><h3>La sequenza dei primi dieci minuti</h3><span>prova reale</span></div>
+          <div class="step-list task-list" data-level-tasks="1">
+            <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Modalità Cine</strong><span>Riduci la risposta degli stick e guadagna tempo per correggere.</span></div><button class="task-check" aria-label="Completa attività"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+            <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Hovering a 2–3 metri</strong><span>Lascia gli stick e guarda se il drone mantiene posizione e quota.</span></div><button class="task-check" aria-label="Completa attività"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+            <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Un comando alla volta</strong><span>Avanti, indietro, destra, sinistra e rotazione, senza combinarli.</span></div><button class="task-check" aria-label="Completa attività"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+            <div class="step-item"><div class="step-index">04</div><div class="step-copy"><strong>Piccolo quadrato</strong><span>Disegna una traiettoria lenta e torna davanti al punto di partenza.</span></div><button class="task-check" aria-label="Completa attività"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+            <div class="step-item"><div class="step-index">05</div><div class="step-copy"><strong>Atterraggio manuale</strong><span>Scendi con calma e chiudi la sessione con almeno il 30–35% di batteria.</span></div><button class="task-check" aria-label="Completa attività"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          </div>
+        </div>
+        <div class="trainer">
+          <div class="trainer-head"><div><h3>Simulatore di orientamento</h3><p>Muovi il drone e riportalo sopra il punto rosso.</p></div><span class="trainer-badge">tasti freccia · Q / E</span></div>
+          <div class="sim-grid">
+            <div class="sky" id="sky"><div class="sky-grid"></div><div class="telemetry"><span id="altitude">ALT 3 m</span><span id="heading">PRUA 0°</span><span id="distance">DIST 0 m</span></div><div class="drone-sim" id="droneSim"><svg viewBox="0 0 100 56" fill="none" stroke="currentColor" stroke-width="5"><path d="M19 17h16l8 10h14l8-10h16M31 17 20 7M69 17 80 7M31 39h38M40 30 31 39m29-9 9 9"/><circle cx="18" cy="7" r="8"/><circle cx="82" cy="7" r="8"/></svg></div><div class="home-marker">HOME</div></div>
+            <div class="sim-panel">
+              <div><div class="controls"><button class="control-btn blank"></button><button class="control-btn" data-move="up">↑</button><button class="control-btn blank"></button><button class="control-btn" data-move="left">←</button><button class="control-btn" data-move="home">●</button><button class="control-btn" data-move="right">→</button><button class="control-btn blank"></button><button class="control-btn" data-move="down">↓</button><button class="control-btn blank"></button></div><div class="yaw-row"><button data-move="yaw-left">↶ ruota</button><button data-move="yaw-right">ruota ↷</button></div></div>
+              <div class="sim-hint">Quando perdi l’orientamento, rilascia i comandi. Nel simulatore premi il punto centrale per tornare in hovering.</div><div class="sim-status" id="simStatus">Drone stabile sul punto di partenza.</div>
+            </div>
+          </div>
+        </div>
+        <div class="quiz" data-quiz="1" data-answer="0"><h3>Il riflesso giusto</h3><p>Ti confondi e il drone non va nella direzione che ti aspetti. Qual è la prima azione?</p><div class="answers"><button class="answer">Lascio gli stick e recupero i riferimenti</button><button class="answer">Correggo velocemente in direzione opposta</button><button class="answer">Spengo il radiocomando</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-1"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Hai consolidato decollo, hovering, movimenti elementari e atterraggio.</p></div></div>
+      </article>
+
+      <!-- LEVEL 2 -->
+      <article class="panel" data-level="2">
+        <div class="level-header"><div><div class="level-kicker">livello 2 · orientamento</div><h2>Fai pace con destra e sinistra.</h2><p>Quando il drone si gira verso di te, i riferimenti cambiano. Qui impari a leggere la prua prima di muovere gli stick.</p></div><div class="level-number">02</div></div>
+        <div class="grid3">
+          <div class="card bl-b"><span class="tag b">prua avanti</span><h3>Comandi intuitivi</h3><p>Il drone guarda nella tua stessa direzione: destra e sinistra coincidono con le tue.</p></div>
+          <div class="card bl-o"><span class="tag o">prua laterale</span><h3>Riferimenti ruotati</h3><p>Prima di traslare, osserva la direzione della camera e immagina il muso del drone.</p></div>
+          <div class="card bl-r"><span class="tag r">prua verso di te</span><h3>Comandi specchiati</h3><p>La destra del drone appare alla tua sinistra. Procedi con piccoli impulsi.</p></div>
+        </div>
+        <div class="lesson"><div class="lesson-head"><h3>Esercizio a croce</h3><span>quota 3–5 m</span></div><div class="step-list task-list" data-level-tasks="2">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Primo braccio</strong><span>Avanti di 5 metri, pausa, indietro al centro.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Secondo braccio</strong><span>Destra di 5 metri, pausa, ritorno al centro.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Rotazione controllata</strong><span>Gira di 90°, ripeti la croce e nota come cambiano i riferimenti.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="quiz" data-quiz="2" data-answer="2"><h3>Prima di correggere</h3><p>Il drone è rivolto verso di te. Per farlo andare verso la tua destra, quale comando laterale usi?</p><div class="answers"><button class="answer">La destra del drone</button><button class="answer">Nessuno: devo prima atterrare</button><button class="answer">La sinistra del drone</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-2"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Ora leggi l’orientamento prima di impartire un comando.</p></div></div>
+      </article>
+
+      <!-- LEVEL 3 -->
+      <article class="panel" data-level="3">
+        <div class="level-header"><div><div class="level-kicker">livello 3 · movimenti puliti</div><h2>Trasforma una traiettoria in una ripresa.</h2><p>Una clip elegante nasce da un movimento leggibile. Comincia con un solo asse e lascia spazio prima e dopo l’azione.</p></div><div class="level-number">03</div></div>
+        <div class="lesson"><div class="lesson-head"><h3>Prima clip utilizzabile</h3><span>4K · 30 fps · Cine</span></div><div class="step-list task-list" data-level-tasks="3">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Inquadra e blocca l’esposizione</strong><span>Evita variazioni di luminosità durante il movimento.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Due secondi fermo</strong><span>Avvia la registrazione prima di muovere il drone.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Otto secondi in avanti</strong><span>Stick costante, nessuna rotazione, gimbal a circa −15°.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">04</div><div class="step-copy"><strong>Due secondi finali</strong><span>Rilascia lo stick ma continua a registrare.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="grid2"><div class="card bl-g"><span class="tag g">buona clip</span><h3>Un’intenzione chiara</h3><p>Avanzare, salire, arretrare oppure ruotare. Lo spettatore comprende subito il movimento.</p></div><div class="card bl-r"><span class="tag r">da evitare</span><h3>Troppe correzioni</h3><p>Piccoli scatti di prua e quota tradiscono l’incertezza e rendono difficile il montaggio.</p></div></div>
+        <div class="quiz" data-quiz="3" data-answer="1"><h3>Margine di montaggio</h3><p>Perché conviene registrare due secondi prima e dopo la manovra?</p><div class="answers"><button class="answer">Per aumentare la qualità del file</button><button class="answer">Per avere ingressi e uscite puliti in montaggio</button><button class="answer">Per migliorare il segnale GPS</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-3"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Hai registrato la prima clip con un movimento leggibile e montabile.</p></div></div>
+      </article>
+
+      <!-- LEVEL 4 -->
+      <article class="panel" data-level="4">
+        <div class="level-header"><div><div class="level-kicker">livello 4 · rivelare il paesaggio</div><h2>Usa il gimbal per creare attesa.</h2><p>Il reveal accompagna lo sguardo da un dettaglio al panorama. È semplice, ma richiede un gesto lento e preciso.</p></div><div class="level-number">04</div></div>
+        <div class="shot-builder lesson">
+          <div class="shot-options" id="revealOptions">
+            <button class="shot-option selected" data-preview-title="Reveal verticale" data-preview-copy="Parti dal terreno e inclina lentamente il gimbal verso l’orizzonte."><b>Dal dettaglio all’orizzonte</b><span>Movimento del solo gimbal</span></button>
+            <button class="shot-option" data-preview-title="Reveal in salita" data-preview-copy="Parti dietro una roccia e sali lentamente finché compare il mare."><b>Dietro un ostacolo</b><span>Movimento verticale del drone</span></button>
+            <button class="shot-option" data-preview-title="Reveal in avanzamento" data-preview-copy="Supera lentamente una cresta o una linea di vegetazione mantenendo la quota."><b>Oltre la soglia</b><span>Movimento in avanti</span></button>
+          </div>
+          <div class="shot-preview"><div class="preview-copy"><b id="previewTitle">Reveal verticale</b><span id="previewCopy">Parti dal terreno e inclina lentamente il gimbal verso l’orizzonte.</span></div></div>
+        </div>
+        <div class="lesson"><div class="lesson-head"><h3>Tre prove, una sola riuscita</h3><span>scegli la più fluida</span></div><div class="step-list task-list" data-level-tasks="4">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Prova a velocità naturale</strong><span>Osserva dove compaiono gli scatti.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Dimezza la velocità</strong><span>Il paesaggio deve emergere, non saltare nell’inquadratura.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Ripeti lasciando margine</strong><span>Due secondi fermi all’inizio e alla fine.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="quiz" data-quiz="4" data-answer="0"><h3>Il principio del reveal</h3><p>Quale elemento rende efficace questa ripresa?</p><div class="answers"><button class="answer">La scoperta graduale di nuove informazioni</button><button class="answer">La massima velocità possibile</button><button class="answer">Una rotazione continua di 360°</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-4"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Sai usare movimento e gimbal per guidare lo sguardo.</p></div></div>
+      </article>
+
+      <!-- LEVEL 5 -->
+      <article class="panel" data-level="5">
+        <div class="level-header"><div><div class="level-kicker">livello 5 · composizione e luce</div><h2>Fai entrare profondità nell’inquadratura.</h2><p>Altezza, luce e disposizione degli elementi contano più dell’altitudine. Impara a costruire primo piano, soggetto e sfondo.</p></div><div class="level-number">05</div></div>
+        <div class="grid3">
+          <div class="card bl-o"><span class="tag o">luce</span><h3>Ora radente</h3><p>All’alba e prima del tramonto le ombre modellano rocce, onde e vegetazione.</p></div>
+          <div class="card bl-b"><span class="tag b">profondità</span><h3>Tre piani</h3><p>Inserisci un elemento vicino, un soggetto intermedio e un orizzonte leggibile.</p></div>
+          <div class="card bl-g"><span class="tag g">geometria</span><h3>Linee guida</h3><p>Coste, strade e sentieri possono accompagnare lo sguardo dentro la scena.</p></div>
+        </div>
+        <div class="lesson"><div class="lesson-head"><h3>Caccia a tre inquadrature</h3><span>senza superare 20 m</span></div><div class="step-list task-list" data-level-tasks="5">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Vista obliqua</strong><span>Orizzonte nel terzo superiore e costa come linea diagonale.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Top-down</strong><span>Gimbal a −90° per cercare texture, forme e contrasti.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Volo basso</strong><span>Usa un elemento vicino per amplificare la percezione della profondità.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="quiz" data-quiz="5" data-answer="2"><h3>Quando il paesaggio appare piatto</h3><p>Quale scelta aiuta maggiormente a restituire profondità?</p><div class="answers"><button class="answer">Salire subito alla quota massima</button><button class="answer">Centrare sempre l’orizzonte</button><button class="answer">Inserire un elemento vicino e muoversi lateralmente</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-5"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Ora scegli altezza e posizione per costruire una scena, non soltanto per sorvolarla.</p></div></div>
+      </article>
+
+      <!-- LEVEL 6 -->
+      <article class="panel" data-level="6">
+        <div class="level-header"><div><div class="level-kicker">livello 6 · parallasse e orbite</div><h2>Muoviti attorno al soggetto.</h2><p>Il movimento laterale separa i piani e rende la scena tridimensionale. Le orbite arrivano soltanto dopo aver imparato a mantenere distanza e quota.</p></div><div class="level-number">06</div></div>
+        <div class="grid2"><div class="card bl-b"><span class="tag b">parallasse</span><h3>Traslazione laterale</h3><p>Il soggetto vicino scorre velocemente, mentre lo sfondo si muove poco. È il modo più semplice per creare profondità dinamica.</p></div><div class="card bl-r"><span class="tag r">orbita</span><h3>Due stick, un ritmo</h3><p>Combina traslazione laterale e rotazione di prua con pressioni minime e costanti.</p></div></div>
+        <div class="lesson"><div class="lesson-head"><h3>Progressione sicura</h3><span>distanza ampia</span></div><div class="step-list task-list" data-level-tasks="6">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Passaggio laterale</strong><span>Soggetto fermo, distanza costante, nessuna rotazione.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Quarto di orbita</strong><span>Solo 90°, lentamente, mantenendo il soggetto al centro.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Mezza orbita</strong><span>Estendi a 180° solo se quota e distanza restano stabili.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="quiz" data-quiz="6" data-answer="1"><h3>Prima dell’orbita completa</h3><p>Qual è il segnale che devi interrompere l’esercizio?</p><div class="answers"><button class="answer">Il soggetto esce per un istante dal centro</button><button class="answer">La distanza dal soggetto continua a ridursi</button><button class="answer">La clip supera dieci secondi</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-6"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Sai generare parallasse e iniziare un’orbita senza stringere sul soggetto.</p></div></div>
+      </article>
+
+      <!-- LEVEL 7 -->
+      <article class="panel" data-level="7">
+        <div class="level-header"><div><div class="level-kicker">livello 7 · soggetti in movimento</div><h2>Anticipa, non inseguire.</h2><p>Seguire una persona o una barca richiede spazio, traiettoria prevedibile e accordo con chi partecipa alla ripresa.</p></div><div class="level-number">07</div></div>
+        <div class="grid2"><div class="card bl-g"><span class="tag g">lead room</span><h3>Lascia spazio davanti</h3><p>Il soggetto deve avere aria nella direzione in cui si muove. L’inquadratura comunica così il percorso futuro.</p></div><div class="card bl-o"><span class="tag o">sicurezza</span><h3>Traiettoria concordata</h3><p>Definisci prima dove passerà il soggetto e dove resterà il drone. Nessuna improvvisazione vicino alle persone.</p></div></div>
+        <div class="lesson"><div class="lesson-head"><h3>Tre modi di seguire</h3><span>soggetto coinvolto</span></div><div class="step-list task-list" data-level-tasks="7">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Laterale parallelo</strong><span>Velocità costante, quota stabile, soggetto nel terzo laterale.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Precedenza</strong><span>Il drone è già in posizione e il soggetto entra nell’inquadratura.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Allontanamento</strong><span>Arretra e sali leggermente mentre il soggetto continua il percorso.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="quiz" data-quiz="7" data-answer="0"><h3>Una ripresa più controllabile</h3><p>Quale approccio riduce maggiormente le correzioni?</p><div class="answers"><button class="answer">Posizionare il drone prima e far entrare il soggetto</button><button class="answer">Inseguire da lontano senza una traiettoria concordata</button><button class="answer">Cambiare quota continuamente</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-7"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Sai preparare una ripresa con soggetto in movimento senza trasformarla in un inseguimento.</p></div></div>
+      </article>
+
+      <!-- LEVEL 8 -->
+      <article class="panel" data-level="8">
+        <div class="level-header"><div><div class="level-kicker">livello 8 · racconto</div><h2>Progetta una sequenza, non dieci clip uguali.</h2><p>Il montaggio funziona quando ogni ripresa svolge un ruolo. Qui costruisci una piccola storia prima ancora di decollare.</p></div><div class="level-number">08</div></div>
+        <div class="final-mission"><h3>La grammatica delle cinque inquadrature</h3><p>Un luogo acquista ritmo quando alterni scala, direzione e funzione narrativa.</p><div class="mission-sequence"><div class="mission-shot"><span>01</span><b>Contesto</b></div><div class="mission-shot"><span>02</span><b>Ingresso</b></div><div class="mission-shot"><span>03</span><b>Dettaglio</b></div><div class="mission-shot"><span>04</span><b>Movimento</b></div><div class="mission-shot"><span>05</span><b>Uscita</b></div></div></div>
+        <div class="lesson"><div class="lesson-head"><h3>La tua shot list</h3><span>una clip per funzione</span></div><div class="step-list task-list" data-level-tasks="8">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Campo largo</strong><span>Mostra dove siamo e quale forma ha il luogo.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Reveal</strong><span>Fai apparire il soggetto o il panorama.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Texture top-down</strong><span>Una pausa grafica tra due movimenti.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">04</div><div class="step-copy"><strong>Parallasse</strong><span>Porta profondità e dinamismo nel cuore della sequenza.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">05</div><div class="step-copy"><strong>Pull-away finale</strong><span>Allontanati e restituisci il soggetto al paesaggio.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="quiz" data-quiz="8" data-answer="1"><h3>Varietà narrativa</h3><p>Quale sequenza offre più possibilità in montaggio?</p><div class="answers"><button class="answer">Cinque voli in avanti alla stessa quota</button><button class="answer">Contesto, reveal, dettaglio, parallasse e uscita</button><button class="answer">Un’unica orbita molto lunga</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-8"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Livello completato</h3><p>Hai progettato una sequenza con apertura, sviluppo e chiusura.</p></div></div>
+      </article>
+
+      <!-- LEVEL 9 -->
+      <article class="panel" data-level="9">
+        <div class="level-header"><div><div class="level-kicker">livello 9 · missione finale</div><h2>Vola con un piano e torna con una storia.</h2><p>La prova conclusiva combina preparazione, controllo, immagini e rientro. Non premia l’audacia: premia la pulizia.</p></div><div class="level-number">09</div></div>
+        <div class="final-mission"><h3>Missione: ritratto di un luogo in 30 secondi</h3><p>Registra cinque clip da 8–12 secondi. Rientra con margine, scegli le porzioni più stabili e monta una sequenza breve.</p><div class="mission-sequence"><div class="mission-shot"><span>01</span><b>Establishing</b></div><div class="mission-shot"><span>02</span><b>Reveal</b></div><div class="mission-shot"><span>03</span><b>Top-down</b></div><div class="mission-shot"><span>04</span><b>Parallasse</b></div><div class="mission-shot"><span>05</span><b>Pull-away</b></div></div></div>
+        <div class="lesson"><div class="lesson-head"><h3>Rapporto di missione</h3><span>chiudi il cerchio</span></div><div class="step-list task-list" data-level-tasks="9">
+          <div class="step-item"><div class="step-index">01</div><div class="step-copy"><strong>Brief scritto</strong><span>Luogo, soggetto, cinque clip e punto di rientro.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">02</div><div class="step-copy"><strong>Volo senza sorprese</strong><span>Nessuna traiettoria improvvisata e rientro iniziato con ampio margine.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">03</div><div class="step-copy"><strong>Selezione critica</strong><span>Conserva soltanto le porzioni stabili e leggibili.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+          <div class="step-item"><div class="step-index">04</div><div class="step-copy"><strong>Debrief</strong><span>Scrivi una cosa riuscita e una sola cosa da migliorare nel volo successivo.</span></div><button class="task-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></button></div>
+        </div></div>
+        <div class="quiz" data-quiz="9" data-answer="2"><h3>Il criterio conclusivo</h3><p>Quando puoi considerare riuscita la missione?</p><div class="answers"><button class="answer">Quando hai raggiunto la quota più alta</button><button class="answer">Quando hai esaurito quasi tutta la batteria</button><button class="answer">Quando torni in sicurezza con clip pulite e coerenti</button></div><div class="quiz-feedback"></div></div>
+        <div class="completion-box" id="complete-9"><div class="completion-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg></div><div><h3>Percorso completato</h3><p>Hai costruito un metodo: preparare, pilotare, raccontare e rientrare con margine.</p></div></div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="bottom-nav">
+    <button class="nav-button prev" id="prevBtn">← Livello precedente</button>
+    <div class="progress-wrap"><div class="progress-track"><span class="progress-fill" id="progressFill"></span></div><span class="progress-text" id="progressText">Livello 0 di 9</span></div>
+    <button class="nav-button next" id="nextBtn">Livello successivo →</button>
+  </footer>
+  <div class="toast" id="toast">Progresso salvato</div>
+
+  <script>
+    const levelMeta = [
+      {name:'Preparazione', mission:'Preparare un volo sicuro', copy:'Prima di pensare alle immagini, costruisci una procedura che ti tolga dubbi sul campo.', objectives:['Verificare area e condizioni','Preparare drone e ritorno','Sapere quando non decollare']},
+      {name:'Primo volo', mission:'Restare stabile e orientato', copy:'Decollo, hovering, piccoli movimenti e atterraggio senza fretta.', objectives:['Stabilizzare il drone','Provare un comando alla volta','Atterrare con margine']},
+      {name:'Orientamento', mission:'Leggere la prua', copy:'Impara come cambiano i riferimenti quando il drone ruota.', objectives:['Riconoscere la prua','Gestire comandi specchiati','Tornare al centro']},
+      {name:'Movimento', mission:'Registrare una clip pulita', copy:'Un asse, una velocità costante e margine per il montaggio.', objectives:['Bloccare esposizione','Muoversi senza correzioni','Creare margine di montaggio']},
+      {name:'Reveal', mission:'Rivelare il paesaggio', copy:'Usa gimbal, salita o avanzamento per costruire attesa.', objectives:['Coordinare il gimbal','Controllare la velocità','Creare una scoperta graduale']},
+      {name:'Composizione', mission:'Dare profondità alla scena', copy:'Luce radente, tre piani e linee guida trasformano la vista.', objectives:['Scegliere la luce','Costruire tre piani','Variare l’altezza']},
+      {name:'Parallasse', mission:'Muoversi attorno al soggetto', copy:'Impara traslazione laterale e prime orbite ampie.', objectives:['Mantenere distanza','Combinare due stick','Interrompere quando serve']},
+      {name:'Tracking', mission:'Anticipare un soggetto', copy:'Prepara traiettoria e inquadratura prima del movimento.', objectives:['Concordare il percorso','Lasciare spazio davanti','Evitare inseguimenti']},
+      {name:'Racconto', mission:'Creare una shot list', copy:'Ogni clip deve svolgere una funzione nel montaggio.', objectives:['Variare scala e gesto','Aprire e chiudere la storia','Evitare riprese duplicate']},
+      {name:'Missione', mission:'Raccontare un luogo', copy:'Cinque clip coerenti, un rientro prudente e un debrief finale.', objectives:['Seguire un piano','Selezionare le clip','Valutare il volo']}
+    ];
+
+    const storageKey = 'flightPathProgressV1';
+    let state = JSON.parse(localStorage.getItem(storageKey) || 'null') || {
+      current:0,
+      quizzes:{},
+      tasks:{},
+      preflight:[],
+      completed:[],
+      drone:'DJI Mini 4K',
+      scenario:'Costa e mare'
+    };
+    state.current = Math.max(0, Math.min(9, Number(state.current) || 0));
+
+    const levelStrip = document.getElementById('levelStrip');
+    const panels = [...document.querySelectorAll('.panel')];
+    const objectiveList = document.getElementById('objectiveList');
+    const toast = document.getElementById('toast');
+
+    function saveState(message='Progresso salvato') {
+      localStorage.setItem(storageKey, JSON.stringify(state));
+      updateInterface();
+      toast.textContent = message;
+      toast.classList.add('show');
+      clearTimeout(window.toastTimer);
+      window.toastTimer = setTimeout(()=>toast.classList.remove('show'),1500);
+    }
+
+    function buildLevelStrip() {
+      levelStrip.innerHTML = levelMeta.map((level,i)=>`<button class="level-chip" data-level-target="${i}"><small>LIVELLO ${i}</small><span>${level.name}</span></button>`).join('');
+      levelStrip.querySelectorAll('.level-chip').forEach(btn=>btn.addEventListener('click',()=>goToLevel(Number(btn.dataset.levelTarget))));
+    }
+
+    function isLevelComplete(level) {
+      if(level === 0) return state.preflight.length === 6 && state.quizzes[0] === true;
+      const required = document.querySelectorAll(`[data-level-tasks="${level}"] .task-check`).length;
+      const done = (state.tasks[level] || []).length;
+      return required > 0 && done === required && state.quizzes[level] === true;
+    }
+
+    function recomputeCompleted() {
+      state.completed = [];
+      for(let i=0;i<10;i++) if(isLevelComplete(i)) state.completed.push(i);
+      localStorage.setItem(storageKey, JSON.stringify(state));
+    }
+
+    function updateInterface() {
+      recomputeCompleted();
+      document.querySelectorAll('.level-chip').forEach((chip,i)=>{
+        chip.classList.toggle('active',i===state.current);
+        chip.classList.toggle('done',state.completed.includes(i));
+      });
+      panels.forEach((panel,i)=>panel.classList.toggle('active',i===state.current));
+      document.getElementById('prevBtn').disabled = state.current===0;
+      document.getElementById('nextBtn').disabled = state.current===9;
+      document.getElementById('progressFill').style.width = `${(state.current+1)*10}%`;
+      document.getElementById('progressText').textContent = `Livello ${state.current} di 9`;
+      document.getElementById('heroProgress').style.width = `${state.completed.length*10}%`;
+      document.getElementById('heroProgressText').textContent = `${state.completed.length*10}%`;
+      document.getElementById('missionTitle').textContent = levelMeta[state.current].mission;
+      document.getElementById('missionCopy').textContent = levelMeta[state.current].copy;
+      objectiveList.innerHTML = levelMeta[state.current].objectives.map((item,i)=>`<div class="objective"><i>${i+1}</i><p>${item}</p></div>`).join('');
+      document.getElementById(`complete-${state.current}`).classList.toggle('show',state.completed.includes(state.current));
+      const xp = state.completed.length * 100;
+      const rank = xp >= 1000 ? 'pilota narrativo' : xp >= 600 ? 'pilota consapevole' : xp >= 300 ? 'pilota stabile' : 'pilota in addestramento';
+      document.getElementById('xpLabel').textContent = `${xp} XP · ${rank}`;
+      restoreTaskUI();
+      restoreQuizUI();
+      restorePreflightUI();
+      document.getElementById('droneSelect').value = state.drone;
+      document.getElementById('scenarioSelect').value = state.scenario;
+    }
+
+    function goToLevel(level) {
+      state.current = Math.max(0,Math.min(9,level));
+      localStorage.setItem(storageKey,JSON.stringify(state));
+      updateInterface();
+      document.querySelector(`[data-level-target="${state.current}"]`).scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+      window.scrollTo({top:document.querySelector('.level-strip-wrap').offsetTop-70,behavior:'smooth'});
+    }
+
+    document.getElementById('prevBtn').addEventListener('click',()=>goToLevel(state.current-1));
+    document.getElementById('nextBtn').addEventListener('click',()=>goToLevel(state.current+1));
+    document.getElementById('resumeBtn').addEventListener('click',()=>goToLevel(state.current));
+
+    document.querySelectorAll('.task-list').forEach(list=>{
+      const level = Number(list.dataset.levelTasks);
+      list.querySelectorAll('.task-check').forEach((btn,index)=>{
+        btn.addEventListener('click',()=>{
+          state.tasks[level] = state.tasks[level] || [];
+          if(state.tasks[level].includes(index)) state.tasks[level] = state.tasks[level].filter(x=>x!==index);
+          else state.tasks[level].push(index);
+          saveState('Attività aggiornata');
+        });
+      });
+    });
+
+    function restoreTaskUI() {
+      document.querySelectorAll('.task-list').forEach(list=>{
+        const level=Number(list.dataset.levelTasks);
+        list.querySelectorAll('.task-check').forEach((btn,index)=>{
+          const checked=(state.tasks[level]||[]).includes(index);
+          btn.classList.toggle('checked',checked);
+          btn.closest('.step-item').classList.toggle('completed',checked);
+        });
+      });
+    }
+
+    document.querySelectorAll('.quiz').forEach(quiz=>{
+      const level=Number(quiz.dataset.quiz);
+      const correct=Number(quiz.dataset.answer);
+      quiz.querySelectorAll('.answer').forEach((answer,index)=>answer.addEventListener('click',()=>{
+        quiz.querySelectorAll('.answer').forEach(a=>a.classList.remove('correct','wrong'));
+        if(index===correct){answer.classList.add('correct');state.quizzes[level]=true;quiz.querySelector('.quiz-feedback').textContent='Corretto. Il ragionamento è quello giusto.';saveState('Quiz superato');}
+        else {answer.classList.add('wrong');quiz.querySelectorAll('.answer')[correct].classList.add('correct');state.quizzes[level]=false;quiz.querySelector('.quiz-feedback').textContent='Rivedi la risposta evidenziata: è la scelta più prudente e controllabile.';saveState('Risposta registrata');}
+      }));
+    });
+
+    function restoreQuizUI() {
+      document.querySelectorAll('.quiz').forEach(quiz=>{
+        const level=Number(quiz.dataset.quiz);
+        const correct=Number(quiz.dataset.answer);
+        quiz.querySelectorAll('.answer').forEach(a=>a.classList.remove('correct','wrong'));
+        if(state.quizzes[level]===true){quiz.querySelectorAll('.answer')[correct].classList.add('correct');quiz.querySelector('.quiz-feedback').textContent='Quiz già superato.';}
+        else quiz.querySelector('.quiz-feedback').textContent='';
+      });
+    }
+
+    const preflightButtons=[...document.querySelectorAll('[data-checkgroup="preflight"] .toggle-item')];
+    preflightButtons.forEach((btn,index)=>btn.addEventListener('click',()=>{
+      if(state.preflight.includes(index)) state.preflight=state.preflight.filter(x=>x!==index); else state.preflight.push(index);
+      saveState('Checklist aggiornata');
+    }));
+    function restorePreflightUI(){
+      preflightButtons.forEach((btn,index)=>btn.classList.toggle('on',state.preflight.includes(index)));
+      const status=document.getElementById('preflightStatus');
+      const ready=state.preflight.length===6;
+      status.classList.toggle('ready',ready);
+      status.textContent=ready?'Controlli completati: il drone è pronto per la valutazione finale sul posto.':`Mancano ${6-state.preflight.length} controlli prima del decollo.`;
+    }
+
+    document.getElementById('droneSelect').addEventListener('change',e=>{state.drone=e.target.value;saveState('Profilo drone aggiornato');});
+    document.getElementById('scenarioSelect').addEventListener('change',e=>{state.scenario=e.target.value;saveState('Scenario aggiornato');});
+    document.getElementById('resetBtn').addEventListener('click',()=>{
+      const ok=confirm('Vuoi davvero cancellare tutti i progressi del percorso?');
+      if(!ok) return;
+      localStorage.removeItem(storageKey);
+      state={current:0,quizzes:{},tasks:{},preflight:[],completed:[],drone:'DJI Mini 4K',scenario:'Costa e mare'};
+      updateInterface();
+      toast.textContent='Percorso azzerato';toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1500);
+    });
+
+    document.querySelectorAll('.shot-option').forEach(option=>option.addEventListener('click',()=>{
+      document.querySelectorAll('.shot-option').forEach(o=>o.classList.remove('selected'));
+      option.classList.add('selected');
+      document.getElementById('previewTitle').textContent=option.dataset.previewTitle;
+      document.getElementById('previewCopy').textContent=option.dataset.previewCopy;
+    }));
+
+    const droneSim=document.getElementById('droneSim');
+    const sky=document.getElementById('sky');
+    let sim={x:0,y:0,yaw:0};
+    function renderSim(){
+      const maxX=Math.max(0,(sky.clientWidth-100)/2);
+      const maxY=105;
+      sim.x=Math.max(-maxX,Math.min(maxX,sim.x));
+      sim.y=Math.max(-maxY,Math.min(maxY,sim.y));
+      droneSim.style.left=`calc(50% - 34px + ${sim.x}px)`;
+      droneSim.style.top=`calc(50% - 19px + ${sim.y}px)`;
+      droneSim.style.transform=`rotate(${sim.yaw}deg)`;
+      const dist=Math.round(Math.sqrt(sim.x*sim.x+sim.y*sim.y)/8);
+      document.getElementById('distance').textContent=`DIST ${dist} m`;
+      document.getElementById('heading').textContent=`PRUA ${((sim.yaw%360)+360)%360}°`;
+      const home=dist<2;
+      document.getElementById('simStatus').textContent=home?'Drone stabile sul punto di partenza.':'Rilascia i comandi, osserva la prua e rientra con piccoli impulsi.';
+    }
+    function moveSim(move){
+      const step=28;
+      if(move==='up')sim.y-=step;
+      if(move==='down')sim.y+=step;
+      if(move==='left')sim.x-=step;
+      if(move==='right')sim.x+=step;
+      if(move==='yaw-left')sim.yaw-=45;
+      if(move==='yaw-right')sim.yaw+=45;
+      if(move==='home'){sim.x=0;sim.y=0;}
+      renderSim();
+    }
+    document.querySelectorAll('[data-move]').forEach(btn=>btn.addEventListener('click',()=>moveSim(btn.dataset.move)));
+    window.addEventListener('keydown',e=>{
+      if(state.current!==1)return;
+      const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',q:'yaw-left',Q:'yaw-left',e:'yaw-right',E:'yaw-right',' ':'home'};
+      if(map[e.key]){e.preventDefault();moveSim(map[e.key]);}
+    });
+    window.addEventListener('resize',renderSim);
+
+    buildLevelStrip();
+    updateInterface();
+    renderSim();
+  </script>
+</body>
+</html>
