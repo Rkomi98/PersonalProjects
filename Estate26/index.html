@@ -1,0 +1,1100 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Guida interattiva per una settimana a Trequanda, dall'8 al 16 agosto 2026, con itinerario quotidiano, alternative, eventi e fonti.">
+  <meta name="theme-color" content="#9f4b32">
+  <title>Trequanda · 8–16 agosto 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#f3ecdf;
+      --paper:#fffdf8;
+      --paper-warm:#fbf4e7;
+      --ink:#2e2a25;
+      --muted:#766e64;
+      --border:#dfd2c0;
+      --border-dark:#c7b69e;
+      --terracotta:#a8492f;
+      --terracotta-dark:#7e3525;
+      --ochre:#d3a345;
+      --olive:#69744e;
+      --cypress:#244336;
+      --wine:#6c3241;
+      --sky:#668a95;
+      --sand:#ead7b8;
+      --cream:#f8edda;
+      --shadow:0 16px 45px rgba(59,44,28,.10);
+      --shadow-soft:0 8px 24px rgba(59,44,28,.07);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:'DM Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      overflow-x:hidden;
+    }
+    body::before{
+      content:'';
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:0;
+      background-image:
+        linear-gradient(rgba(104,81,54,.045) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(104,81,54,.045) 1px,transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(to bottom,black,transparent 72%);
+    }
+    body>*{position:relative;z-index:1}
+    button,a{font:inherit}
+    button{color:inherit}
+    a{color:inherit}
+    .topbar{
+      min-height:62px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:20px;
+      padding:10px 34px;
+      background:rgba(255,253,248,.94);
+      border-bottom:1px solid var(--border);
+      backdrop-filter:blur(14px);
+      position:sticky;
+      top:0;
+      z-index:130;
+    }
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;min-width:0}
+    .brand-mark{width:34px;height:34px;display:grid;place-items:center;flex:0 0 auto}
+    .brand-mark svg{width:34px;height:34px}
+    .brand-copy{display:flex;flex-direction:column;line-height:1.05}
+    .brand-copy strong{font-family:'Cormorant Garamond',serif;font-size:21px;letter-spacing:.01em}
+    .brand-copy span{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:var(--muted);margin-top:3px}
+    .top-actions{display:flex;gap:8px;align-items:center}
+    .icon-btn,.text-btn{
+      border:1px solid var(--border-dark);
+      background:var(--paper);
+      border-radius:10px;
+      min-height:38px;
+      padding:0 13px;
+      font-size:12px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+    .icon-btn:hover,.text-btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-soft);border-color:var(--terracotta)}
+    .icon-btn{width:38px;padding:0;display:grid;place-items:center}
+    .icon-btn svg{width:17px;height:17px}
+    .hero{
+      max-width:1240px;
+      margin:0 auto;
+      padding:42px 34px 28px;
+    }
+    .hero-card{
+      overflow:hidden;
+      border:1px solid rgba(109,78,47,.2);
+      border-radius:26px;
+      background:linear-gradient(135deg,#fff9ed 0%,#f2dfc2 54%,#d9b46e 100%);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:minmax(0,1.08fr) minmax(390px,.92fr);
+      min-height:430px;
+    }
+    .hero-copy{padding:54px 54px 46px;display:flex;flex-direction:column;justify-content:center}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      gap:9px;
+      padding:7px 12px;
+      border-radius:999px;
+      background:rgba(255,253,248,.72);
+      border:1px solid rgba(107,68,43,.22);
+      color:var(--terracotta-dark);
+      font-family:'DM Mono',monospace;
+      font-size:10px;
+      font-weight:500;
+      letter-spacing:.11em;
+      text-transform:uppercase;
+      margin-bottom:20px;
+    }
+    .eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--terracotta);box-shadow:0 0 0 4px rgba(168,73,47,.12)}
+    .hero h1{
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(48px,7vw,84px);
+      line-height:.88;
+      letter-spacing:-.045em;
+      font-weight:700;
+      max-width:760px;
+    }
+    .hero h1 em{font-style:italic;color:var(--terracotta)}
+    .hero-lead{font-size:16px;line-height:1.7;color:#62584d;max-width:610px;margin-top:24px}
+    .hero-meta{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}
+    .meta-chip{
+      background:rgba(255,253,248,.72);
+      border:1px solid rgba(104,75,48,.20);
+      border-radius:9px;
+      padding:9px 11px;
+      font-size:11px;
+      font-weight:700;
+      color:#564b40;
+    }
+    .meta-chip strong{color:var(--terracotta-dark)}
+    .hero-art{position:relative;min-height:430px;overflow:hidden;background:#d7b36d}
+    .hero-art svg{position:absolute;inset:0;width:100%;height:100%}
+    .route-stamp{
+      position:absolute;
+      right:28px;
+      top:26px;
+      width:112px;
+      height:112px;
+      border:1px solid rgba(255,252,242,.75);
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      color:#fffaf0;
+      transform:rotate(8deg);
+      background:rgba(78,65,41,.12);
+      backdrop-filter:blur(5px);
+    }
+    .route-stamp::before,.route-stamp::after{content:'';position:absolute;border-radius:50%;border:1px solid rgba(255,252,242,.45)}
+    .route-stamp::before{inset:7px}.route-stamp::after{inset:14px}
+    .route-stamp span{text-align:center;font-family:'DM Mono',monospace;font-size:9px;line-height:1.55;text-transform:uppercase;letter-spacing:.12em;z-index:1}
+    .route-stamp strong{display:block;font-family:'Cormorant Garamond',serif;font-size:28px;line-height:.8;letter-spacing:0;text-transform:none}
+    .step-nav{
+      max-width:1240px;
+      margin:0 auto;
+      padding:0 34px;
+    }
+    .step-scroll{
+      display:flex;
+      overflow-x:auto;
+      scrollbar-width:none;
+      background:rgba(255,253,248,.92);
+      border:1px solid var(--border);
+      border-radius:15px;
+      padding:5px;
+      box-shadow:var(--shadow-soft);
+      position:sticky;
+      top:72px;
+      z-index:100;
+      backdrop-filter:blur(14px);
+    }
+    .step-scroll::-webkit-scrollbar{display:none}
+    .step-tab{
+      flex:0 0 auto;
+      border:0;
+      background:transparent;
+      border-radius:11px;
+      padding:10px 12px;
+      min-width:72px;
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      gap:2px;
+      cursor:pointer;
+      transition:.18s ease;
+      color:var(--muted);
+    }
+    .step-tab:hover{background:var(--paper-warm);color:var(--ink)}
+    .step-tab.active{background:var(--cypress);color:#fffaf2;box-shadow:0 5px 14px rgba(36,67,54,.2)}
+    .step-tab.done:not(.active){color:var(--cypress)}
+    .step-tab small{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;opacity:.72}
+    .step-tab strong{font-size:12px;white-space:nowrap}
+    .main{max-width:1240px;margin:0 auto;padding:34px 34px 112px}
+    .panel{display:none}
+    .panel.active{display:block;animation:fadeUp .34s ease both}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+    .section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:25px}
+    .section-title-wrap{max-width:820px}
+    .kicker{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--terracotta);font-weight:500;margin-bottom:8px}
+    .section-head h2{font-family:'Cormorant Garamond',serif;font-size:clamp(38px,5vw,58px);line-height:.96;letter-spacing:-.025em}
+    .section-head p{margin-top:12px;color:var(--muted);font-size:14px;line-height:1.75;max-width:720px}
+    .date-seal{
+      flex:0 0 auto;
+      width:96px;height:96px;
+      border-radius:50%;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      background:var(--terracotta);
+      color:#fff8ef;
+      box-shadow:0 10px 28px rgba(168,73,47,.22);
+      transform:rotate(3deg);
+    }
+    .date-seal small{font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.15em}
+    .date-seal strong{font-family:'Cormorant Garamond',serif;font-size:39px;line-height:.85}
+    .date-seal span{font-size:9px;text-transform:uppercase;letter-spacing:.12em;margin-top:4px}
+    .grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin-bottom:17px}
+    .grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-bottom:17px}
+    .card{
+      background:rgba(255,253,248,.96);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:23px;
+      box-shadow:0 2px 0 rgba(255,255,255,.7) inset;
+      transition:.2s ease;
+    }
+    .card:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);border-color:var(--border-dark)}
+    .accent-terracotta{border-left:4px solid var(--terracotta)}
+    .accent-olive{border-left:4px solid var(--olive)}
+    .accent-ochre{border-left:4px solid var(--ochre)}
+    .accent-wine{border-left:4px solid var(--wine)}
+    .accent-sky{border-left:4px solid var(--sky)}
+    .card-tag{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);margin-bottom:9px}
+    .card h3{font-size:17px;line-height:1.35;margin-bottom:8px}
+    .card p{font-size:13px;line-height:1.72;color:var(--muted)}
+    .card p+p{margin-top:8px}
+    .card strong{color:var(--ink)}
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      border-radius:999px;
+      padding:6px 9px;
+      font-family:'DM Mono',monospace;
+      font-size:8px;
+      text-transform:uppercase;
+      letter-spacing:.09em;
+      font-weight:500;
+      white-space:nowrap;
+    }
+    .status::before{content:'';width:6px;height:6px;border-radius:50%;background:currentColor}
+    .confirmed{background:#e5efe6;color:#3d6a43}
+    .flexible{background:#f6e8ca;color:#8b641e}
+    .check-later{background:#f0e3e7;color:var(--wine)}
+    .day-ribbon{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+    .fact{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      background:var(--paper-warm);
+      border:1px solid var(--border);
+      border-radius:9px;
+      padding:7px 9px;
+      font-size:10px;
+      font-weight:700;
+      color:#655b50;
+    }
+    .fact svg{width:13px;height:13px;stroke:var(--terracotta)}
+    .calendar-strip{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));gap:9px;margin-bottom:18px}
+    .calendar-day{
+      border:1px solid var(--border);
+      background:var(--paper);
+      border-radius:13px;
+      padding:13px 10px;
+      min-height:118px;
+      cursor:pointer;
+      text-align:left;
+      transition:.18s ease;
+    }
+    .calendar-day:hover{transform:translateY(-2px);box-shadow:var(--shadow-soft);border-color:var(--terracotta)}
+    .calendar-day .dow{font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted)}
+    .calendar-day .num{font-family:'Cormorant Garamond',serif;font-size:31px;line-height:1;color:var(--terracotta);margin:6px 0}
+    .calendar-day .place{font-size:10px;line-height:1.35;font-weight:700;color:var(--ink)}
+    .calendar-day .tiny-status{display:block;margin-top:7px;font-family:'DM Mono',monospace;font-size:7px;text-transform:uppercase;letter-spacing:.08em;color:var(--olive)}
+    .map-card{
+      background:var(--cypress);
+      color:#fff9ed;
+      border-radius:22px;
+      overflow:hidden;
+      min-height:340px;
+      position:relative;
+      box-shadow:var(--shadow);
+    }
+    .map-card .map-copy{position:relative;z-index:2;padding:27px;max-width:360px}
+    .map-card h3{font-family:'Cormorant Garamond',serif;font-size:31px;line-height:1.02}
+    .map-card p{font-size:12px;line-height:1.7;color:rgba(255,249,237,.72);margin-top:10px}
+    .map-card svg{position:absolute;inset:0;width:100%;height:100%}
+    .darkcard{
+      background:#2d342c;
+      color:#f9f3e7;
+      border-radius:var(--radius);
+      padding:26px 28px;
+      margin-bottom:17px;
+      box-shadow:var(--shadow-soft);
+    }
+    .darkcard .dark-tag{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#b8b9a1;margin-bottom:13px}
+    .darkcard h3{font-family:'Cormorant Garamond',serif;font-size:28px;line-height:1.05}
+    .darkcard p{font-size:13px;line-height:1.75;color:#d8d4c9;margin-top:9px}
+    .checklist{display:grid;gap:9px;margin-top:15px}
+    .check-item{
+      display:flex;
+      align-items:flex-start;
+      gap:11px;
+      padding:11px 12px;
+      border-radius:10px;
+      background:rgba(255,255,255,.055);
+      border:1px solid rgba(255,255,255,.09);
+      cursor:pointer;
+    }
+    .check-item input{appearance:none;width:18px;height:18px;flex:0 0 auto;border:1px solid #aaa890;border-radius:5px;margin-top:1px;display:grid;place-items:center;cursor:pointer}
+    .check-item input:checked{background:var(--ochre);border-color:var(--ochre)}
+    .check-item input:checked::after{content:'✓';font-size:13px;font-weight:900;color:#2e2a25}
+    .check-item span{font-size:12px;line-height:1.5;color:#eee8dd}
+    .check-item small{display:block;color:#aaa99a;margin-top:2px;font-size:9px;font-family:'DM Mono',monospace}
+    .timeline-card{background:var(--paper);border:1px solid var(--border);border-radius:22px;padding:26px 27px;margin-bottom:17px}
+    .timeline{position:relative;padding-left:21px}
+    .timeline::before{content:'';position:absolute;left:4px;top:8px;bottom:8px;width:1px;background:linear-gradient(var(--terracotta),var(--ochre),var(--olive))}
+    .time-row{position:relative;display:grid;grid-template-columns:92px minmax(0,1fr);gap:17px;padding:0 0 22px}
+    .time-row:last-child{padding-bottom:0}
+    .time-row::before{content:'';position:absolute;left:-21px;top:5px;width:9px;height:9px;border-radius:50%;background:var(--paper);border:3px solid var(--terracotta)}
+    .time{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;color:var(--terracotta);padding-top:2px}
+    .time-content h3{font-size:15px;margin-bottom:5px}
+    .time-content p{font-size:12.5px;line-height:1.7;color:var(--muted)}
+    .time-content .mini-note{display:inline-block;margin-top:7px;background:var(--paper-warm);border:1px solid var(--border);padding:5px 8px;border-radius:7px;font-size:9px;font-family:'DM Mono',monospace;color:#695f53}
+    .alternative{
+      background:linear-gradient(135deg,#f0e5d2,#f8f0e3);
+      border:1px solid #d8c4a6;
+      border-radius:22px;
+      padding:26px 27px;
+      position:relative;
+      overflow:hidden;
+      margin-bottom:17px;
+    }
+    .alternative::after{content:'B';position:absolute;right:-4px;bottom:-36px;font-family:'Cormorant Garamond',serif;font-size:160px;font-weight:700;color:rgba(153,94,50,.08);line-height:1}
+    .alternative .alt-label{font-family:'DM Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.13em;color:var(--terracotta);margin-bottom:9px}
+    .alternative h3{font-family:'Cormorant Garamond',serif;font-size:29px;line-height:1.05;max-width:760px}
+    .alternative p{font-size:13px;line-height:1.72;color:#695f53;margin-top:9px;max-width:820px;position:relative;z-index:1}
+    .practical-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:17px 0}
+    .practical{
+      border:1px solid var(--border);
+      background:var(--paper);
+      border-radius:13px;
+      padding:14px;
+      min-height:94px;
+    }
+    .practical small{font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+    .practical strong{display:block;font-size:13px;line-height:1.4;margin-top:6px}
+    .practical span{display:block;font-size:10px;line-height:1.45;color:var(--muted);margin-top:4px}
+    .action-row{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:16px}
+    .route-link,.source-pill,.choice-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      min-height:36px;
+      border-radius:9px;
+      text-decoration:none;
+      font-size:10px;
+      font-weight:800;
+      cursor:pointer;
+      transition:.17s ease;
+    }
+    .route-link{background:var(--cypress);color:#fffaf1;padding:0 12px;border:1px solid var(--cypress)}
+    .route-link:hover{background:#17382b;transform:translateY(-1px)}
+    .route-link svg{width:14px;height:14px}
+    .source-pill{border:1px solid var(--border-dark);background:var(--paper);color:var(--muted);padding:0 10px}
+    .source-pill:hover{color:var(--terracotta);border-color:var(--terracotta)}
+    .choice-box{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      background:var(--paper);
+      border:1px dashed var(--border-dark);
+      border-radius:15px;
+      padding:15px 16px;
+      margin-top:17px;
+    }
+    .choice-copy strong{display:block;font-size:12px}
+    .choice-copy span{font-size:10px;color:var(--muted)}
+    .choice-buttons{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+    .choice-btn{border:1px solid var(--border-dark);background:#fff;padding:0 11px;color:var(--muted)}
+    .choice-btn.active{background:var(--terracotta);border-color:var(--terracotta);color:#fff}
+    .notice{
+      border-radius:14px;
+      border:1px solid #ddc7a1;
+      background:#fbf0d9;
+      padding:14px 16px;
+      display:flex;
+      align-items:flex-start;
+      gap:11px;
+      margin-bottom:17px;
+    }
+    .notice svg{width:18px;height:18px;flex:0 0 auto;stroke:#936b25;margin-top:1px}
+    .notice p{font-size:11.5px;line-height:1.6;color:#755b2b}
+    .notice strong{color:#5f471d}
+
+    .eclipse-verdict{
+      display:grid;
+      grid-template-columns:minmax(0,1.16fr) minmax(280px,.84fr);
+      gap:22px;
+      align-items:stretch;
+      margin:17px 0;
+      padding:27px;
+      border-radius:22px;
+      overflow:hidden;
+      position:relative;
+      color:#fff8e9;
+      background:
+        radial-gradient(circle at 77% 26%,rgba(240,190,94,.28),transparent 24%),
+        linear-gradient(135deg,#1c3437 0%,#33484a 48%,#9d573c 100%);
+      border:1px solid rgba(51,44,37,.25);
+      box-shadow:var(--shadow-soft);
+    }
+    .eclipse-verdict::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      opacity:.24;
+      background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);
+      background-size:34px 34px;
+      mask-image:linear-gradient(90deg,black,transparent 70%);
+    }
+    .eclipse-copy,.eclipse-stage{position:relative;z-index:1}
+    .eclipse-kicker{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:#f0c97d;margin-bottom:10px}
+    .eclipse-copy h3{font-family:'Cormorant Garamond',serif;font-size:34px;line-height:1.02;max-width:650px}
+    .eclipse-copy>p{font-size:12.5px;line-height:1.72;color:#e6ded0;margin-top:10px;max-width:680px}
+    .eclipse-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:18px}
+    .eclipse-stat{padding:10px;border-radius:10px;background:rgba(255,255,255,.075);border:1px solid rgba(255,255,255,.12)}
+    .eclipse-stat small{display:block;font-family:'DM Mono',monospace;font-size:7.5px;text-transform:uppercase;letter-spacing:.1em;color:#c9c4b9}
+    .eclipse-stat strong{display:block;margin-top:5px;font-size:12px;line-height:1.3;color:#fffaf0}
+    .eclipse-stage{min-height:245px;border-radius:17px;background:linear-gradient(180deg,rgba(239,181,93,.18),rgba(18,40,43,.28));border:1px solid rgba(255,255,255,.12);overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .eclipse-stage::after{content:'';position:absolute;left:8%;right:8%;bottom:43px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,239,205,.72),transparent)}
+    .eclipse-disc{width:152px;height:152px;border-radius:50%;position:relative;background:radial-gradient(circle at 36% 34%,#fff2a8 0%,#f5ba4f 56%,#d67d36 100%);box-shadow:0 0 35px rgba(247,184,72,.45),0 0 85px rgba(222,126,47,.22)}
+    .eclipse-disc::after{content:'';position:absolute;width:151px;height:151px;border-radius:50%;left:-9px;top:-4px;background:#203638;box-shadow:inset -10px -7px 18px rgba(0,0,0,.16)}
+    .eclipse-caption{position:absolute;left:16px;right:16px;bottom:14px;display:flex;align-items:end;justify-content:space-between;gap:12px;font-family:'DM Mono',monospace;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#dfd6c8}
+    .eclipse-caption strong{font-size:10px;color:#f2c777}
+    .safety-strip{border-radius:15px;border:1px solid #d9b58b;background:#fff4df;padding:16px 17px;margin-bottom:17px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:flex-start}
+    .safety-icon{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:#8d3e2c;color:white;font-family:'DM Mono',monospace;font-size:12px;font-weight:700}
+    .safety-strip h3{font-size:13px;color:#5b3829;margin-bottom:5px}
+    .safety-strip p{font-size:11.5px;line-height:1.62;color:#755b49}
+    .safety-strip strong{color:#5d3527}
+
+    .sources-table{background:var(--paper);border:1px solid var(--border);border-radius:18px;overflow:hidden}
+    .source-row{display:grid;grid-template-columns:58px minmax(160px,.85fr) minmax(230px,1.5fr) 100px;gap:13px;align-items:center;padding:15px 18px;border-bottom:1px solid var(--border);scroll-margin-top:150px}
+    .source-row:last-child{border-bottom:0}
+    .source-row:hover{background:var(--paper-warm)}
+    .source-id{font-family:'DM Mono',monospace;font-size:10px;color:var(--terracotta);font-weight:500}
+    .source-name{font-size:12px;font-weight:800}
+    .source-use{font-size:11px;line-height:1.55;color:var(--muted)}
+    .source-link{font-size:10px;font-weight:800;color:var(--cypress);text-decoration:none;text-align:right}
+    .source-link:hover{text-decoration:underline}
+    .source-row.flash{animation:flash 1.4s ease}
+    @keyframes flash{0%,100%{background:var(--paper)}35%{background:#f2dfb4}}
+    .legend{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:17px}
+    .footer-note{font-size:10px;color:var(--muted);line-height:1.65;margin-top:17px}
+    .bottom-nav{
+      position:fixed;
+      left:0;right:0;bottom:0;
+      z-index:120;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      pointer-events:none;
+      padding:12px 20px 16px;
+    }
+    .bottom-inner{
+      width:min(760px,calc(100vw - 28px));
+      background:rgba(255,253,248,.94);
+      border:1px solid var(--border-dark);
+      box-shadow:0 16px 40px rgba(54,41,26,.19);
+      border-radius:16px;
+      padding:9px;
+      display:grid;
+      grid-template-columns:110px 1fr 110px;
+      align-items:center;
+      gap:10px;
+      pointer-events:auto;
+      backdrop-filter:blur(16px);
+    }
+    .nav-btn{
+      border:0;
+      min-height:40px;
+      border-radius:10px;
+      font-size:11px;
+      font-weight:800;
+      cursor:pointer;
+      background:var(--cypress);
+      color:#fffaf1;
+      transition:.17s ease;
+    }
+    .nav-btn:hover{transform:translateY(-1px);background:#17382b}
+    .nav-btn:disabled{opacity:.28;cursor:not-allowed;transform:none}
+    .progress-wrap{text-align:center}
+    .progress-track{height:4px;background:#eadfce;border-radius:99px;overflow:hidden}
+    .progress-fill{height:100%;background:linear-gradient(90deg,var(--terracotta),var(--ochre));border-radius:99px;transition:width .3s ease}
+    .progress-text{display:block;margin-top:5px;font-family:'DM Mono',monospace;font-size:8px;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+    .mobile-only{display:none}
+    @media(max-width:1040px){
+      .hero-card{grid-template-columns:1fr;min-height:0}
+      .hero-art{min-height:300px}
+      .calendar-strip{grid-template-columns:repeat(5,minmax(0,1fr))}
+      .practical-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .grid3{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:760px){
+      .topbar{padding:9px 16px}.top-actions .text-btn{display:none}
+      .hero{padding:20px 15px 18px}.hero-copy{padding:35px 25px 31px}.hero-card{border-radius:20px}
+      .hero h1{font-size:55px}.hero-lead{font-size:14px}.hero-art{min-height:235px}
+      .route-stamp{width:90px;height:90px;right:18px;top:18px}.route-stamp strong{font-size:23px}
+      .step-nav{padding:0 15px}.step-scroll{top:67px;border-radius:13px}
+      .main{padding:25px 15px 105px}
+      .section-head{gap:15px}.section-head h2{font-size:42px}.date-seal{width:76px;height:76px}.date-seal strong{font-size:31px}
+      .grid2,.grid3{grid-template-columns:1fr}.calendar-strip{grid-template-columns:repeat(3,minmax(0,1fr))}
+      .eclipse-verdict{grid-template-columns:1fr}.eclipse-stage{min-height:220px}.eclipse-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .time-row{grid-template-columns:70px minmax(0,1fr);gap:10px}.timeline-card{padding:22px 18px}
+      .practical-grid{grid-template-columns:1fr 1fr}
+      .choice-box{align-items:flex-start;flex-direction:column}.choice-buttons{justify-content:flex-start}
+      .source-row{grid-template-columns:42px 1fr 68px}.source-use{grid-column:2/4}.source-link{grid-column:3;grid-row:1;text-align:right}
+      .bottom-inner{grid-template-columns:86px 1fr 86px}.nav-btn{font-size:10px}
+      .mobile-only{display:inline}
+    }
+    @media(max-width:430px){
+      .brand-copy span{display:none}.hero h1{font-size:49px}.hero-meta{gap:6px}.meta-chip{font-size:10px}
+      .calendar-strip{grid-template-columns:repeat(2,minmax(0,1fr))}.practical-grid{grid-template-columns:1fr}
+      .eclipse-verdict{padding:20px}.eclipse-copy h3{font-size:29px}.eclipse-stats{grid-template-columns:1fr 1fr}.eclipse-stage{min-height:190px}.eclipse-disc{width:126px;height:126px}.eclipse-disc::after{width:125px;height:125px;left:-8px}
+      .section-head p{font-size:13px}.date-seal{display:none}.step-tab{min-width:65px;padding:9px 10px}
+      .bottom-inner{grid-template-columns:72px 1fr 72px;padding:7px}.nav-btn{min-height:38px;font-size:9px}
+    }
+    @media print{
+      @page{size:A4;margin:14mm}
+      body{background:#fff}.topbar,.step-nav,.bottom-nav,.choice-box,.route-link,.source-pill,.top-actions{display:none!important}
+      body::before{display:none}.hero{padding:0 0 12mm}.hero-card{box-shadow:none;grid-template-columns:1fr;min-height:0}.hero-art{display:none}.hero-copy{padding:18mm 15mm}
+      .main{max-width:none;padding:0}.panel{display:block!important;break-before:page;animation:none}.panel:first-child{break-before:auto}
+      .card,.timeline-card,.alternative,.darkcard,.sources-table,.eclipse-verdict,.safety-strip{box-shadow:none;break-inside:avoid}
+      .calendar-strip{grid-template-columns:repeat(3,1fr)}.source-row{grid-template-columns:45px 1fr 1.4fr 70px}
+      a{text-decoration:none}.section-head{margin-top:0}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" onclick="goTo(0);return false" aria-label="Torna alla panoramica">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 42 42" fill="none">
+          <circle cx="21" cy="21" r="19" fill="#f3dfbd" stroke="#a8492f"/>
+          <path d="M7 27c6-7 11-8 16-5 4 2 7 2 12-2v10H7v-3Z" fill="#69744e"/>
+          <path d="M7 30c7-4 13-4 18-1 4 2 7 1 10-1v6H7v-4Z" fill="#a8492f"/>
+          <path d="M25 21c0-6 2-10 5-13 2 4 2 8 0 13h-5Z" fill="#244336"/>
+          <rect x="27" y="19" width="2" height="10" rx="1" fill="#244336"/>
+        </svg>
+      </span>
+      <span class="brand-copy"><strong>Trequanda</strong><span>taccuino di viaggio · 2026</span></span>
+    </a>
+    <div class="top-actions">
+      <button class="text-btn" onclick="goTo(10)">Fonti</button>
+      <button class="icon-btn" onclick="window.print()" aria-label="Stampa o salva in PDF" title="Stampa o salva in PDF">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 9V3h12v6M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><path d="M6 14h12v7H6z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-card">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="eyebrow-dot"></span> Base a Trequanda · Toscana</div>
+        <h1>Otto giorni<br>con il <em>tempo giusto</em>.</h1>
+        <p class="hero-lead">Una traccia quotidiana per attraversare Val d’Orcia, Crete Senesi e Valdichiana senza ridurre la vacanza a una corsa. Il mare coincide con l’eclissi del 12 agosto; ogni altra giornata conserva una via d’uscita.</p>
+        <div class="hero-meta">
+          <span class="meta-chip"><strong>7</strong> amici</span>
+          <span class="meta-chip"><strong>9</strong> posti</span>
+          <span class="meta-chip"><strong>8</strong> notti</span>
+          <span class="meta-chip"><strong>1</strong> giornata di mare</span>
+          <span class="meta-chip">8 → 16 agosto 2026</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 660 520" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7c084"/><stop offset=".56" stop-color="#efcc86"/><stop offset="1" stop-color="#efd4a2"/></linearGradient>
+            <linearGradient id="hill1" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9c8650"/><stop offset="1" stop-color="#75805b"/></linearGradient>
+            <linearGradient id="hill2" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c97a4f"/><stop offset="1" stop-color="#9f4b32"/></linearGradient>
+            <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="table" tableValues="0 .06"/></feComponentTransfer></filter>
+          </defs>
+          <rect width="660" height="520" fill="url(#skyG)"/>
+          <circle cx="153" cy="116" r="56" fill="#f8e6b7" opacity=".8"/>
+          <path d="M0 280C116 214 207 205 319 259c80 39 164 41 341-35v296H0V280Z" fill="#a99b65"/>
+          <path d="M0 335c119-76 225-80 340-12 99 59 186 36 320-25v222H0V335Z" fill="url(#hill1)"/>
+          <path d="M0 414c136-74 257-61 360-9 105 53 192 31 300-10v125H0V414Z" fill="url(#hill2)"/>
+          <path d="M365 470c-2-114 2-212 36-292 6 114 26 209 79 292h-115Z" fill="#e2ba72" opacity=".78"/>
+          <g fill="#294637">
+            <path d="M455 270c0-47 7-88 21-117 16 32 21 71 16 117h-37Z"/><rect x="471" y="255" width="5" height="115" rx="2"/>
+            <path d="M516 304c0-37 6-70 18-95 13 27 17 59 13 95h-31Z"/><rect x="530" y="292" width="4" height="88" rx="2"/>
+            <path d="M563 280c0-34 5-63 15-84 12 24 15 52 12 84h-27Z"/><rect x="575" y="270" width="4" height="96" rx="2"/>
+          </g>
+          <g fill="#efe1bf" stroke="#80664a" stroke-width="2">
+            <path d="M65 323h112v83H65z"/><path d="m56 323 66-50 65 50H56Z"/><rect x="103" y="356" width="27" height="50" fill="#7b4938"/><rect x="143" y="344" width="19" height="24" fill="#8fa0a0"/>
+            <path d="M177 341h48v65h-48z"/><path d="m171 341 30-31 31 31h-61Z"/>
+          </g>
+          <rect width="660" height="520" filter="url(#grain)" opacity=".75"/>
+        </svg>
+        <div class="route-stamp"><span><strong>SI</strong>43.19° N<br>11.67° E</span></div>
+      </div>
+    </div>
+  </section>
+
+  <nav class="step-nav" aria-label="Navigazione per giorno">
+    <div class="step-scroll">
+      <button class="step-tab active" onclick="goTo(0)"><small>prima</small><strong>Panoramica</strong></button>
+      <button class="step-tab" onclick="goTo(1)"><small>sabato</small><strong>8 ago</strong></button>
+      <button class="step-tab" onclick="goTo(2)"><small>domenica</small><strong>9 ago</strong></button>
+      <button class="step-tab" onclick="goTo(3)"><small>lunedì</small><strong>10 ago</strong></button>
+      <button class="step-tab" onclick="goTo(4)"><small>martedì</small><strong>11 ago</strong></button>
+      <button class="step-tab" onclick="goTo(5)"><small>mercoledì</small><strong>12 ago</strong></button>
+      <button class="step-tab" onclick="goTo(6)"><small>giovedì</small><strong>13 ago</strong></button>
+      <button class="step-tab" onclick="goTo(7)"><small>venerdì</small><strong>14 ago</strong></button>
+      <button class="step-tab" onclick="goTo(8)"><small>sabato</small><strong>15 ago</strong></button>
+      <button class="step-tab" onclick="goTo(9)"><small>domenica</small><strong>16 ago</strong></button>
+      <button class="step-tab" onclick="goTo(10)"><small>ultima</small><strong>Fonti</strong></button>
+    </div>
+  </nav>
+
+  <main class="main">
+    <section class="panel active" id="panel-0">
+      <div class="section-head">
+        <div class="section-title-wrap">
+          <div class="kicker">Il disegno della settimana</div>
+          <h2>Un ritmo credibile, con qualche picco memorabile.</h2>
+          <p>Il programma alterna borghi vicini, una sola trasferta lunga verso il mare e serate legate al territorio. Il 12 agosto resta fermo per l’eclissi; soltanto le giornate puramente panoramiche possono essere scambiate fra loro.</p>
+        </div>
+      </div>
+
+      <div class="calendar-strip" aria-label="Sintesi del viaggio">
+        <button class="calendar-day" onclick="goTo(1)"><span class="dow">sabato</span><span class="num">8</span><span class="place">Trequanda</span><span class="tiny-status">Estate Etrusca</span></button>
+        <button class="calendar-day" onclick="goTo(2)"><span class="dow">domenica</span><span class="num">9</span><span class="place">Pienza · Monticchiello</span><span class="tiny-status">Teatro Povero</span></button>
+        <button class="calendar-day" onclick="goTo(3)"><span class="dow">lunedì</span><span class="num">10</span><span class="place">Montepulciano</span><span class="tiny-status">Calici di Stelle</span></button>
+        <button class="calendar-day" onclick="goTo(4)"><span class="dow">martedì</span><span class="num">11</span><span class="place">Siena</span><span class="tiny-status">giornata d’arte</span></button>
+        <button class="calendar-day" onclick="goTo(5)"><span class="dow">mercoledì</span><span class="num">12</span><span class="place">Cecina</span><span class="tiny-status">eclissi al tramonto</span></button>
+        <button class="calendar-day" onclick="goTo(6)"><span class="dow">giovedì</span><span class="num">13</span><span class="place">Montalcino · terme</span><span class="tiny-status">paesaggio</span></button>
+        <button class="calendar-day" onclick="goTo(7)"><span class="dow">venerdì</span><span class="num">14</span><span class="place">Crete Senesi</span><span class="tiny-status">ultima replica</span></button>
+        <button class="calendar-day" onclick="goTo(8)"><span class="dow">sabato</span><span class="num">15</span><span class="place">Sarteano</span><span class="tiny-status">Giostra</span></button>
+        <button class="calendar-day" onclick="goTo(9)"><span class="dow">domenica</span><span class="num">16</span><span class="place">Partenza</span><span class="tiny-status">sosta facoltativa</span></button>
+      </div>
+
+      <div class="grid2">
+        <div class="map-card">
+          <div class="map-copy">
+            <div class="card-tag" style="color:#d8c9a9">Geografia utile</div>
+            <h3>La base si trova nel punto in cui tre Toscane quasi si toccano.</h3>
+            <p>A ovest si aprono Val d’Orcia e Crete Senesi; a est la Valdichiana. La costa richiede una vera giornata, mentre quasi tutti i borghi principali restano entro circa un’ora.</p>
+          </div>
+          <svg viewBox="0 0 620 370" aria-hidden="true">
+            <path d="M61 288C135 193 209 148 302 177c91 28 145 7 256-90" fill="none" stroke="rgba(248,238,211,.28)" stroke-width="2" stroke-dasharray="5 8"/>
+            <path d="M96 325C187 257 239 243 323 262c94 21 155-15 218-101" fill="none" stroke="rgba(248,238,211,.18)" stroke-width="2"/>
+            <g font-family="DM Mono" font-size="10" fill="#f8eedb">
+              <circle cx="301" cy="207" r="9" fill="#d3a345"/><circle cx="301" cy="207" r="17" fill="none" stroke="rgba(211,163,69,.45)"/>
+              <text x="318" y="211" font-weight="500">TREQUANDA</text>
+              <circle cx="220" cy="169" r="5" fill="#f8eedb"/><text x="151" y="160">SIENA</text>
+              <circle cx="262" cy="232" r="5" fill="#f8eedb"/><text x="207" y="252">PIENZA</text>
+              <circle cx="369" cy="254" r="5" fill="#f8eedb"/><text x="381" y="258">MONTEPULCIANO</text>
+              <circle cx="181" cy="279" r="5" fill="#f8eedb"/><text x="118" y="300">MONTALCINO</text>
+              <circle cx="427" cy="173" r="5" fill="#f8eedb"/><text x="439" y="177">AREZZO</text>
+              <circle cx="391" cy="309" r="5" fill="#f8eedb"/><text x="405" y="313">SARTEANO</text>
+              <circle cx="66" cy="324" r="5" fill="#f8eedb"/><text x="26" y="346">CECINA</text>
+            </g>
+          </svg>
+        </div>
+        <div class="darkcard">
+          <div class="dark-tag">Prima di partire</div>
+          <h3>Quattro decisioni evitano quasi tutte le complicazioni.</h3>
+          <p>Le spunte restano memorizzate su questo dispositivo.</p>
+          <div class="checklist">
+            <label class="check-item"><input type="checkbox" data-check="etrusca"><span>Prenotazione per Estate Etrusca, 8 agosto, 17:00–20:00<small>Sette posti · €8 a persona</small></span></label>
+            <label class="check-item"><input type="checkbox" data-check="teatro"><span>Prenotazione per il Teatro Povero<small>Replica scelta: 9 agosto; recuperabile fino al 14</small></span></label>
+            <label class="check-item"><input type="checkbox" data-check="driver"><span>Autista sobrio definito per Calici di Stelle<small>Oppure trasferimento separato</small></span></label>
+            <label class="check-item"><input type="checkbox" data-check="eclipse"><span>Sette visori solari certificati ISO 12312-2<small>Uno per persona; gli occhiali da sole ordinari non proteggono</small></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="card accent-terracotta"><div class="card-tag">Principio 01</div><h3>Gli eventi fanno da ossatura</h3><p>Estate Etrusca, Calici di Stelle, eclissi, Teatro Povero e Giostra del Saracino danno forma alla settimana. Sono i punti meno sensati da spostare.</p></div>
+        <div class="card accent-olive"><div class="card-tag">Principio 02</div><h3>Il 12 agosto non si sposta</h3><p>Si sceglie soltanto il punto d’osservazione fra Cecina e Piombino. La decisione si prende a metà giornata confrontando nuvolosità, foschia e visibilità dell’orizzonte.</p></div>
+        <div class="card accent-ochre"><div class="card-tag">Principio 03</div><h3>Ferragosto resta locale</h3><p>Il 15 agosto viene assorbito dalla Giostra di Sarteano. Si evita così una lunga trasferta proprio nel giorno più congestionato della settimana.</p></div>
+      </div>
+
+      <div class="notice">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3 2.7 20h18.6L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg>
+        <p><strong>Tempi di guida.</strong> Le durate riportate sono stime orientative dal territorio di Trequanda, non previsioni di traffico. La struttura comprende sistemazioni in punti diversi: al tempo indicato può essere opportuno aggiungere circa dieci minuti.</p>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-1">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Giorno d’arrivo · ritmo leggero</div><h2>Mettere a fuoco Trequanda.</h2><p>La prima giornata rimane intenzionalmente raccolta: il territorio viene conosciuto prima di essere attraversato.</p></div>
+        <div class="date-seal"><small>sabato</small><strong>8</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status confirmed">Confermato 2026</span><span class="fact">Guida minima</span><span class="fact">Nessuna ZTL complessa</span><span class="fact">Prenotazione consigliata</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Pullmino</small><strong>0–20 min</strong><span>Spostamenti solo locali</span></div>
+        <div class="practical"><small>Ritmo</small><strong>Leggero</strong><span>Adatto anche a un arrivo tardivo</span></div>
+        <div class="practical"><small>Evento</small><strong>17:00–20:00</strong><span>Visita archeologica e aperitivo</span></div>
+        <div class="practical"><small>Costo noto</small><strong>€8 a persona</strong><span>Totale gruppo: €56</span></div>
+      </div>
+      <div class="timeline-card">
+        <div class="timeline">
+          <div class="time-row"><div class="time">ARRIVO</div><div class="time-content"><h3>Sistemazione e spesa essenziale</h3><p>Il primo pomeriggio resta libero da prenotazioni. Si lascia il tempo necessario per distribuire camere, bagagli e viveri senza iniziare la vacanza con un inseguimento.</p></div></div>
+          <div class="time-row"><div class="time">16:15</div><div class="time-content"><h3>Passeggiata nel borgo</h3><p>Un giro breve fra il castello Cacciaconti, la chiesa dei Santi Pietro e Andrea e le porte del paese offre la scala reale di Trequanda.</p></div></div>
+          <div class="time-row"><div class="time">17:00</div><div class="time-content"><h3>Estate Etrusca alla Collezione Pallavicini</h3><p>La visita viene condotta da un archeologo e termina con un piccolo aperitivo nell’Oliviera. L’appuntamento è pubblicato per l’8 agosto dalle 17:00 alle 20:00.</p><span class="mini-note">Via Taverne · prenotazione: infoelicona@gmail.com · 349 2868318</span></div></div>
+          <div class="time-row"><div class="time">20:30</div><div class="time-content"><h3>Cena senza deviazioni</h3><p>La serata si chiude nel territorio comunale, lasciando i primi chilometri veri al mattino successivo.</p></div></div>
+        </div>
+      </div>
+      <div class="alternative"><div class="alt-label">Alternativa per arrivo tardivo</div><h3>Castelmuzio al tramonto, poi cena a Trequanda.</h3><p>Quando l’orario d’arrivo rende impossibile l’evento, il programma si comprime in una passeggiata fra Trequanda e Castelmuzio. La Collezione Pallavicini può essere visitata negli orari ordinari pubblicati, ma l’esperienza guidata dell’8 agosto non è recuperabile.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>La decisione viene conservata nel browser.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="8" data-choice="main">Programma principale</button><button class="choice-btn" data-day="8" data-choice="alt">Alternativa</button></div></div>
+      <div class="action-row">
+        <a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Trequanda%20SI"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>Apri Trequanda</a>
+        <button class="source-pill" onclick="openSource('S02')">S02</button><button class="source-pill" onclick="openSource('S03')">S03</button><button class="source-pill" onclick="openSource('S04')">S04</button><button class="source-pill" onclick="openSource('S05')">S05</button>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-2">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Val d’Orcia · borgo e teatro</div><h2>Pienza di giorno, Monticchiello quando cala la luce.</h2><p>Una giornata iconica senza eccessi: architettura rinascimentale, paesaggio, cena e un teatro scritto e recitato dalla comunità del borgo.</p></div>
+        <div class="date-seal"><small>domenica</small><strong>9</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status confirmed">Teatro confermato</span><span class="fact">Circa 30–40 min per tratta</span><span class="fact">Giornata media</span><span class="fact">Sette posti da prenotare</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Partenza</small><strong>09:30 circa</strong><span>Nessuna necessità di alba</span></div>
+        <div class="practical"><small>Pranzo</small><strong>Pienza</strong><span>Conviene prenotare la domenica</span></div>
+        <div class="practical"><small>Spettacolo</small><strong>21:30</strong><span>Piazza della Commenda</span></div>
+        <div class="practical"><small>Rientro</small><strong>Dopo le 23:30</strong><span>Strade collinari e buio</span></div>
+      </div>
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">10:15</div><div class="time-content"><h3>Pienza, senza collezionare ingressi</h3><p>Piazza Pio II, Duomo, corso principale e affacci sulla Val d’Orcia costituiscono già il cuore della visita. Palazzo Piccolomini può essere aggiunto quando il gruppo desidera un interno importante.</p></div></div>
+        <div class="time-row"><div class="time">13:00</div><div class="time-content"><h3>Pranzo e pecorino</h3><p>Il pranzo rimane parte della giornata, non una pausa tecnica. Le botteghe del centro permettono anche una piccola scorta per le cene in struttura.</p></div></div>
+        <div class="time-row"><div class="time">16:30</div><div class="time-content"><h3>Monticchiello e passeggiata breve</h3><p>Si arriva prima della folla serale, si percorrono le mura e si lascia margine per una cena anticipata. La Taverna di Bronzone è gestita dal Teatro Povero e richiede organizzazione preventiva.</p></div></div>
+        <div class="time-row"><div class="time">21:30</div><div class="time-content"><h3>“L’occhio oltre”, sessantesimo autodramma</h3><p>Lo spettacolo va in scena in Piazza della Commenda dal 25 luglio al 14 agosto, con le sole esclusioni indicate dal teatro. La replica del 9 agosto rientra nel calendario pubblicato.</p><span class="mini-note">Prenotazione online ufficiale · numero di posti selezionabile</span></div></div>
+      </div></div>
+      <div class="alternative"><div class="alt-label">Alternativa più quieta</div><h3>San Quirico d’Orcia e Bagno Vignoni, con teatro spostato a un’altra sera.</h3><p>Quando la combinazione Pienza–spettacolo appare troppo piena, la giornata può diventare una passeggiata lenta fra San Quirico e la vasca termale di Bagno Vignoni. Il Teatro Povero rimane recuperabile fino alla sera del 14 agosto.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>Il teatro può essere trasferito al 14 agosto.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="9" data-choice="main">Pienza + teatro</button><button class="choice-btn" data-day="9" data-choice="alt">San Quirico + terme</button></div></div>
+      <div class="action-row">
+        <a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Monticchiello%20SI&waypoints=Pienza%20SI">Apri il percorso</a>
+        <button class="source-pill" onclick="openSource('S06')">S06</button><button class="source-pill" onclick="openSource('S07')">S07</button><button class="source-pill" onclick="openSource('S08')">S08</button><button class="source-pill" onclick="openSource('S18')">S18</button>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-3">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Notte di San Lorenzo · vino e musica</div><h2>Montepulciano, dalle cantine alle stelle.</h2><p>La mattina resta lenta per conservare energia. La città viene raggiunta nel pomeriggio, quando il centro comincia a prepararsi alla sua serata più festosa.</p></div>
+        <div class="date-seal"><small>lunedì</small><strong>10</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status confirmed">Confermato 2026</span><span class="fact">Degustazioni 19:00–24:00</span><span class="fact">Navetta gratuita</span><span class="fact">Autista sobrio necessario</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Mattina</small><strong>Libera</strong><span>Piscina, spesa o riposo</span></div>
+        <div class="practical"><small>Casse</small><strong>Dalle 18:00</strong><span>Coupon acquistato la sera</span></div>
+        <div class="practical"><small>Formula base</small><strong>€15</strong><span>5 assaggi, calice e porta-calice</span></div>
+        <div class="practical"><small>Navetta</small><strong>18:00–01:00</strong><span>Dai parcheggi esterni</span></div>
+      </div>
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">MATTINA</div><div class="time-content"><h3>Tempo non programmato</h3><p>Dopo la sera a teatro, la mattina rimane libera. È il punto ideale per una colazione lunga, una spesa comune o qualche ora in struttura.</p></div></div>
+        <div class="time-row"><div class="time">15:30</div><div class="time-content"><h3>San Biagio e salita verso Piazza Grande</h3><p>Il tempio viene visitato prima del centro storico. La salita può poi procedere senza fretta, con una cantina monumentale oppure una sola degustazione tecnica.</p></div></div>
+        <div class="time-row"><div class="time">18:00</div><div class="time-content"><h3>Parcheggio esterno e navetta</h3><p>Il sito ufficiale indica Piazzale Pietro Nenni, Viale Loris Fortuna e Parcheggio delle Grazie fra i punti serviti. Per bus e camper è indicato il parcheggio n. 5 in Piazza Pietro Nenni, a pagamento.</p></div></div>
+        <div class="time-row"><div class="time">19:00</div><div class="time-content"><h3>Calici di Stelle</h3><p>Il percorso itinerante comprende cinque degustazioni e attraversa Piazza Grande, Sant’Agostino e le contrade. La serata prosegue con musica e proposte gastronomiche.</p><span class="mini-note">La sicurezza del rientro va decisa prima della prima degustazione</span></div></div>
+      </div></div>
+      <div class="alternative"><div class="alt-label">Alternativa senza folla né vino</div><h3>Cetona nel pomeriggio e festa della Contrada San Lorenzo a Sarteano.</h3><p>Il calendario ufficiale della Giostra segnala la festa di contrada dall’8 al 10 agosto. È una serata più locale e meno impegnativa, adatta quando il gruppo preferisce evitare degustazioni, navette e centro affollato.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>La scelta principale richiede una soluzione di guida già definita.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="10" data-choice="main">Calici di Stelle</button><button class="choice-btn" data-day="10" data-choice="alt">Cetona + Sarteano</button></div></div>
+      <div class="action-row"><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Piazza%20Pietro%20Nenni%20Montepulciano">Apri il parcheggio</a><button class="source-pill" onclick="openSource('S09')">S09</button><button class="source-pill" onclick="openSource('S10')">S10</button><button class="source-pill" onclick="openSource('S11')">S11</button><button class="source-pill" onclick="openSource('S19')">S19</button></div>
+    </section>
+
+    <section class="panel" id="panel-4">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Città d’arte · giornata intera</div><h2>Siena, mentre il Palio comincia a farsi sentire.</h2><p>Una sola città, visitata con calma. Il periodo precedente al Palio porta atmosfera e movimento, ma richiede parcheggio esterno e nessun tentativo di entrare nella ZTL.</p></div>
+        <div class="date-seal"><small>martedì</small><strong>11</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status flexible">Flessibile col meteo</span><span class="fact">Circa 55–70 min per tratta</span><span class="fact">Molto cammino</span><span class="fact">Centro storico in salita</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Partenza</small><strong>08:45 circa</strong><span>Prima del caldo più forte</span></div>
+        <div class="practical"><small>Priorità</small><strong>Duomo + Campo</strong><span>Il resto dipende dal ritmo</span></div>
+        <div class="practical"><small>Contesto</small><strong>Pre-Palio</strong><span>Prove regolamentate previste 11–12 agosto</span></div>
+        <div class="practical"><small>Parcheggio</small><strong>Fuori dalle mura</strong><span>Verificare altezza del pullmino</span></div>
+      </div>
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">10:00</div><div class="time-content"><h3>Complesso del Duomo</h3><p>La mattina viene dedicata alla Cattedrale e alla Libreria Piccolomini. Una sola prenotazione ben scelta vale più di una sequenza affrettata di musei.</p></div></div>
+        <div class="time-row"><div class="time">13:00</div><div class="time-content"><h3>Pranzo nelle vie laterali</h3><p>Allontanarsi di poche strade da Piazza del Campo aiuta a trovare un tavolo più quieto e a evitare la parte più turistica del flusso.</p></div></div>
+        <div class="time-row"><div class="time">15:00</div><div class="time-content"><h3>Piazza del Campo e Santa Maria della Scala</h3><p>Il pomeriggio può comprendere il Palazzo Pubblico oppure Santa Maria della Scala. La Torre del Mangia resta facoltativa, soprattutto nelle ore più calde.</p></div></div>
+        <div class="time-row"><div class="time">18:30</div><div class="time-content"><h3>Aperitivo e rientro</h3><p>Il rientro anticipato restituisce una sera semplice in struttura. Il giorno seguente richiede la partenza più mattiniera della settimana.</p></div></div>
+      </div></div>
+      <div class="alternative"><div class="alt-label">Alternativa più lineare</div><h3>Arezzo: Piero della Francesca, Piazza Grande e meno pressione da Ferragosto.</h3><p>Arezzo offre una giornata d’arte completa con una logistica generalmente più semplice. La sostituzione è particolarmente sensata quando Siena appare già congestionata dai preparativi del Palio.</p></div>
+      <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3 2.7 20h18.6L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg><p><strong>Palio.</strong> Il Comune ha autorizzato prove regolamentate dei cavalli l’11 e il 12 agosto dalle 6:00 alle 8:00; dal 13 al 16 si svolgono le prove e la corsa. Questo itinerario non presume accesso alle prove mattutine, ma considera il conseguente aumento di affluenza.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>La scelta fra Siena e Arezzo dipende soprattutto dall’affluenza prevista.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="11" data-choice="main">Siena</button><button class="choice-btn" data-day="11" data-choice="alt">Arezzo</button></div></div>
+      <div class="action-row"><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Siena%20SI">Apri il percorso</a><button class="source-pill" onclick="openSource('S12')">S12</button><button class="source-pill" onclick="openSource('S23')">S23</button></div>
+    </section>
+
+    <section class="panel" id="panel-5">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Costa degli Etruschi · mare ed eclissi</div><h2>Cecina, con il Sole ridotto a una falce sul Tirreno.</h2><p>L’indicazione ricevuta è corretta nella sostanza: Cecina è una scelta eccellente grazie all’orizzonte marino aperto. Non esiste però una classifica ufficiale che la definisca il punto migliore della Toscana.</p></div>
+        <div class="date-seal"><small>mercoledì</small><strong>12</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status confirmed">Evento astronomico fisso</span><span class="fact">Inizio 19:30</span><span class="fact">Massimo 20:22</span><span class="fact">Orizzonte O–NO</span></div>
+
+      <div class="eclipse-verdict">
+        <div class="eclipse-copy">
+          <div class="eclipse-kicker">Verdetto verificato</div>
+          <h3>Cecina è molto favorevole. In Toscana, però, l’eclissi sarà parziale.</h3>
+          <p>A Cecina il fenomeno comincia alle 19:30, raggiunge il massimo alle 20:22 e termina alle 20:25, praticamente insieme al tramonto. La magnitudine prevista è 0,946: il disco solare apparirà quasi interamente coperto, senza mai entrare nella totalità.</p>
+          <div class="eclipse-stats">
+            <div class="eclipse-stat"><small>tipo locale</small><strong>Parziale</strong></div>
+            <div class="eclipse-stat"><small>magnitudine</small><strong>0,946</strong></div>
+            <div class="eclipse-stat"><small>momento chiave</small><strong>20:22</strong></div>
+            <div class="eclipse-stat"><small>condizione</small><strong>Orizzonte libero</strong></div>
+          </div>
+        </div>
+        <div class="eclipse-stage" aria-label="Illustrazione di una sottile falce di Sole durante l'eclissi parziale">
+          <div class="eclipse-disc"></div>
+          <div class="eclipse-caption"><span>Sole molto basso</span><strong>Ovest–Nord-Ovest</strong></div>
+        </div>
+      </div>
+
+      <div class="practical-grid">
+        <div class="practical"><small>Partenza</small><strong>07:15 circa</strong><span>Trasferta lunga; traffico da ricontrollare</span></div>
+        <div class="practical"><small>Mare</small><strong>Marina di Cecina</strong><span>Spiaggia e pineta per la parte diurna</span></div>
+        <div class="practical"><small>Osservazione</small><strong>Dalle 18:30</strong><span>Postazione scelta con largo anticipo</span></div>
+        <div class="practical"><small>Dotazione</small><strong>7 visori ISO</strong><span>Uno per persona, integri e certificati</span></div>
+      </div>
+
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">07:15</div><div class="time-content"><h3>Partenza da Trequanda</h3><p>Colazione già risolta e attrezzatura caricata la sera precedente. Questa è la trasferta più lunga della settimana e non conviene comprimerla.</p></div></div>
+        <div class="time-row"><div class="time">09:30</div><div class="time-content"><h3>Marina di Cecina e Tombolo</h3><p>La giornata rimane davvero balneare: spiaggia, pranzo leggero e riposo nella pineta. Nel pomeriggio si evita di allontanarsi dalla costa.</p></div></div>
+        <div class="time-row"><div class="time">18:30</div><div class="time-content"><h3>Postazione sul lungomare</h3><p>Piazza Capitanerie di Porto offre un affaccio diretto sul mare e sui tramonti cecinesi. Prima di sistemarsi va controllato che, verso ovest–nord-ovest, non vi siano alberi, edifici, dune o strutture temporanee.</p><span class="mini-note">Arrivare presto conta più di pochi chilometri di differenza</span></div></div>
+        <div class="time-row"><div class="time">19:30</div><div class="time-content"><h3>Primo contatto</h3><p>La Luna comincia a intaccare il disco solare. L’osservazione diretta avviene soltanto attraverso visori certificati; la macchina fotografica richiede un filtro solare specifico montato davanti all’obiettivo.</p></div></div>
+        <div class="time-row"><div class="time">20:22</div><div class="time-content"><h3>Massimo locale, quasi sul tramonto</h3><p>Il Sole apparirà come una falce sottile appena sopra il mare. Foschia e nubi basse possono decidere l’esito della serata: la scelta definitiva fra Cecina e Piombino viene presa con il nowcasting del primo pomeriggio.</p></div></div>
+      </div></div>
+
+      <div class="alternative"><div class="alt-label">Alternativa organizzata</div><h3>Piombino, Piazza Bovio: osservazione guidata dalle 19:00.</h3><p>Il Comune e l’Associazione Astrofili di Piombino hanno annunciato telescopi con filtri certificati, spiegazione delle fasi e prosecuzione serale dedicata al cielo estivo e alle Perseidi. Qui l’inizio è previsto alle 19:31, il massimo alle 20:21 e il tramonto alle 20:24. È l’opzione più assistita, mentre Cecina lascia maggiore autonomia al gruppo.</p></div>
+
+      <div class="safety-strip">
+        <div class="safety-icon">ISO</div>
+        <div><h3>La sicurezza non cambia quando il Sole è basso.</h3><p>Poiché dalla Toscana non si osserva alcuna totalità, i visori conformi allo standard <strong>ISO 12312-2</strong> vanno usati per tutto il tempo in cui si guarda il Sole. Gli occhiali da sole ordinari non bastano. Binocoli, telescopi e fotocamere richiedono filtri solari dedicati fissati davanti alle ottiche; non si usano mai insieme ai semplici occhiali da eclissi.</p></div>
+      </div>
+
+      <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3 2.7 20h18.6L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg><p><strong>Regola meteo.</strong> Il 12 agosto non può essere scambiato con un altro giorno. Verso le 13:00 si confrontano copertura nuvolosa e foschia costiera fra Cecina e Piombino; si sceglie la località con il settore occidentale più pulito, mantenendo un margine generoso per traffico e parcheggio.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Punto d’osservazione</strong><span>La preferenza viene salvata; la decisione finale resta meteorologica.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="12" data-choice="main">Cecina in autonomia</button><button class="choice-btn" data-day="12" data-choice="alt">Piombino con astrofili</button></div></div>
+      <div class="action-row">
+        <a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Piazza%20Capitanerie%20di%20Porto%20Marina%20di%20Cecina">Percorso per Cecina</a>
+        <a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Piazza%20Bovio%20Piombino">Percorso per Piombino</a>
+        <button class="source-pill" onclick="openSource('S13')">S13</button><button class="source-pill" onclick="openSource('S14')">S14</button><button class="source-pill" onclick="openSource('S15')">S15</button><button class="source-pill" onclick="openSource('S26')">S26</button><button class="source-pill" onclick="openSource('S27')">S27</button><button class="source-pill" onclick="openSource('S28')">S28</button>
+      </div>
+    </section>
+
+    <section class="panel" id="panel-6">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Val d’Orcia · vino, abbazia e acqua termale</div><h2>Montalcino, Sant’Antimo, Bagno Vignoni.</h2><p>Tre luoghi molto diversi lungo una sola direttrice: il borgo del Brunello, una chiesa isolata nella campagna e una piazza costruita attorno all’acqua.</p></div>
+        <div class="date-seal"><small>giovedì</small><strong>13</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status flexible">Giornata flessibile</span><span class="fact">Circa 45–60 min per la prima tappa</span><span class="fact">Giornata panoramica</span><span class="fact">Degustazione facoltativa</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Partenza</small><strong>09:15 circa</strong><span>Dopo la lunga giornata al mare</span></div>
+        <div class="practical"><small>Vino</small><strong>Una sola cantina</strong><span>Con autista sobrio</span></div>
+        <div class="practical"><small>Abbazia</small><strong>Orari da verificare</strong><span>Il silenzio vale la deviazione</span></div>
+        <div class="practical"><small>Terme</small><strong>Passeggiata</strong><span>La vasca in piazza non è balneabile</span></div>
+      </div>
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">10:15</div><div class="time-content"><h3>Montalcino</h3><p>Fortezza, centro storico e vedute vengono prima del vino. Una degustazione prenotata può chiudere la mattina, evitando di trasformare la giornata in un tour commerciale.</p></div></div>
+        <div class="time-row"><div class="time">13:15</div><div class="time-content"><h3>Pranzo semplice</h3><p>Un pranzo leggero lascia spazio alla strada panoramica verso Sant’Antimo. La pausa lunga può essere recuperata a Bagno Vignoni.</p></div></div>
+        <div class="time-row"><div class="time">15:00</div><div class="time-content"><h3>Abbazia di Sant’Antimo</h3><p>La posizione isolata, gli ulivi e la pietra chiara rendono la tappa più forte del suo tempo di visita. Gli orari liturgici e di apertura vanno controllati sul sito dell’abbazia.</p></div></div>
+        <div class="time-row"><div class="time">17:30</div><div class="time-content"><h3>Bagno Vignoni al calare del sole</h3><p>La grande vasca termale occupa il centro del borgo ed è destinata alla contemplazione, non al bagno. Aperitivo e passeggiata lungo i canali chiudono la giornata.</p></div></div>
+      </div></div>
+      <div class="alternative"><div class="alt-label">Alternativa con bagno vero</div><h3>Bagni San Filippo e Radicofani.</h3><p>Quando l’acqua termale è la priorità, Montalcino può lasciare posto a Bagni San Filippo, seguito dalla rocca di Radicofani. L’accesso alle aree naturali e le eventuali limitazioni locali vanno ricontrollati poco prima della partenza.</p></div>
+      <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3 2.7 20h18.6L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg><p><strong>Sagra del Raviolo di Contignano.</strong> La Pro Loco conferma la natura storica e annuale della manifestazione, ma al 26 luglio non pubblica ancora un calendario 2026 dettagliato. Alcuni calendari esterni riportano date discordanti: la serata può essere aggiunta soltanto dopo conferma ufficiale.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>Dopo la costa, questa giornata può essere accorciata senza perderne il carattere.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="13" data-choice="main">Montalcino + Vignoni</button><button class="choice-btn" data-day="13" data-choice="alt">San Filippo + Radicofani</button></div></div>
+      <div class="action-row"><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Bagno%20Vignoni%20SI&waypoints=Montalcino%20SI%7CAbbazia%20di%20Sant%27Antimo">Apri il percorso</a><button class="source-pill" onclick="openSource('S16')">S16</button><button class="source-pill" onclick="openSource('S17')">S17</button><button class="source-pill" onclick="openSource('S18')">S18</button><button class="source-pill" onclick="openSource('S20')">S20</button></div>
+    </section>
+
+    <section class="panel" id="panel-7">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Crete Senesi · vigilia di Ferragosto</div><h2>Asciano, Monte Oliveto e l’ultima sera di teatro.</h2><p>Una giornata meno celebre e più materica: strade bianche, calanchi, un’abbazia immersa nei cipressi e, quando non è già stato visto, l’ultimo autodramma dell’estate.</p></div>
+        <div class="date-seal"><small>venerdì</small><strong>14</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status confirmed">Ultima replica 21:30</span><span class="fact">Circa 30–45 min per tappa</span><span class="fact">Ritmo medio</span><span class="fact">Teatro solo se non già visto</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Mattina</small><strong>Asciano</strong><span>Centro e paesaggio delle Crete</span></div>
+        <div class="practical"><small>Pomeriggio</small><strong>Monte Oliveto</strong><span>Orari da verificare</span></div>
+        <div class="practical"><small>Sera</small><strong>Monticchiello</strong><span>Ultima replica alle 21:30</span></div>
+        <div class="practical"><small>Margine</small><strong>Alto</strong><span>Il teatro si elimina se già visto</span></div>
+      </div>
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">10:30</div><div class="time-content"><h3>Asciano e Crete Senesi</h3><p>Il percorso verso Asciano è parte della visita. Il centro può essere esplorato senza fretta, lasciando spazio a una sosta fotografica soltanto dove la viabilità lo consente.</p></div></div>
+        <div class="time-row"><div class="time">13:00</div><div class="time-content"><h3>Pranzo ad Asciano</h3><p>La vigilia di Ferragosto rende prudente una prenotazione, soprattutto per un tavolo da sette.</p></div></div>
+        <div class="time-row"><div class="time">15:30</div><div class="time-content"><h3>Abbazia di Monte Oliveto Maggiore</h3><p>Il complesso monastico, il chiostro e il viale di cipressi danno profondità alla giornata. Il calendario delle visite può cambiare per esigenze religiose.</p></div></div>
+        <div class="time-row"><div class="time">21:30</div><div class="time-content"><h3>Ultima replica del Teatro Povero</h3><p>Questa tappa entra nel programma soltanto quando lo spettacolo non è stato visto il 9 agosto. In caso contrario, la sera resta libera e la giornata si conclude con cena nei dintorni.</p></div></div>
+      </div></div>
+      <div class="alternative"><div class="alt-label">Alternativa di vigilia</div><h3>Pienza, aperitivo e fuochi di Ferragosto alle 23:15.</h3><p>Il calendario 2026 annuncia aperitivo, Apepizza e degustazioni dalle 20:00 in Piazza Dante Alighieri, il coro della Cattedrale di Siena alle 21:15 e i fuochi in Piazza Pio II alle 23:15. È la serata più collettiva della settimana; il Teatro Povero resta preferibile soltanto quando non è già stato visto.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>Paesaggio e teatro oppure festa di paese e fuochi.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="14" data-choice="main">Crete + teatro</button><button class="choice-btn" data-day="14" data-choice="alt">Pienza + fuochi</button></div></div>
+      <div class="action-row"><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Abbazia%20di%20Monte%20Oliveto%20Maggiore&waypoints=Asciano%20SI">Percorso per le Crete</a><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Pienza%20SI">Percorso per Pienza</a><button class="source-pill" onclick="openSource('S07')">S07</button><button class="source-pill" onclick="openSource('S21')">S21</button><button class="source-pill" onclick="openSource('S22')">S22</button><button class="source-pill" onclick="openSource('S25')">S25</button></div>
+    </section>
+
+    <section class="panel" id="panel-8">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Ferragosto · evento principale</div><h2>La Giostra del Saracino di Sarteano.</h2><p>Il giorno più affollato viene trascorso vicino alla base, seguendo una festa che appartiene al territorio invece di inseguire una meta lontana.</p></div>
+        <div class="date-seal"><small>sabato</small><strong>15</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status confirmed">Confermato 2026</span><span class="fact">Corteo 14:30</span><span class="fact">Giostra 17:30</span><span class="fact">Arrivo molto anticipato</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Partenza</small><strong>11:00 circa</strong><span>Prima dei flussi maggiori</span></div>
+        <div class="practical"><small>Pranzo</small><strong>Sarteano</strong><span>Prenotazione indispensabile</span></div>
+        <div class="practical"><small>Corteo</small><strong>14:30</strong><span>Per le vie del paese</span></div>
+        <div class="practical"><small>Giostra</small><strong>17:30</strong><span>Piazza Bargagli</span></div>
+      </div>
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">11:45</div><div class="time-content"><h3>Arrivo e parcheggio</h3><p>Ferragosto premia chi arriva presto. Il mezzo viene lasciato in uno stallo autorizzato senza tentare di avvicinarsi al centro oltre il necessario.</p></div></div>
+        <div class="time-row"><div class="time">12:30</div><div class="time-content"><h3>Pranzo e primo giro</h3><p>Un tavolo prenotato evita di dipendere dagli ultimi posti disponibili. Museo civico e castello entrano soltanto quando orari e affluenza lo permettono.</p></div></div>
+        <div class="time-row"><div class="time">14:30</div><div class="time-content"><h3>Corteo storico</h3><p>Il calendario ufficiale annuncia il corteo della Giostra attraverso le vie del paese. La posizione migliore viene cercata prima dell’inizio, non durante il passaggio.</p></div></div>
+        <div class="time-row"><div class="time">17:30</div><div class="time-content"><h3>Giostra in Piazza Bargagli</h3><p>Le cinque contrade si confrontano nella corsa all’anello. Modalità di accesso alle tribune ed eventuali biglietti vanno verificati direttamente sul sito dell’associazione.</p></div></div>
+      </div></div>
+      <div class="alternative"><div class="alt-label">Alternativa musicale</div><h3>Ferragosto lento, poi Concerto dell’Assunta a Pienza alle 18:30.</h3><p>La giornata può rimanere quasi interamente libera, con pranzo comune e riposo, prima del concerto in Piazza Pio II con Orchestra del Brenta e cori di Pienza e Chiusi. Contignano entra come opzione soltanto se la Pro Loco pubblica date 2026 univoche per la Sagra del Raviolo.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>Il programma principale ha valore soprattutto per il carattere locale dell’evento.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="15" data-choice="main">Giostra di Sarteano</button><button class="choice-btn" data-day="15" data-choice="alt">Ferragosto lento</button></div></div>
+      <div class="action-row"><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Piazza%20Bargagli%20Sarteano">Percorso per Sarteano</a><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Pienza%20SI">Percorso per Pienza</a><button class="source-pill" onclick="openSource('S19')">S19</button><button class="source-pill" onclick="openSource('S20')">S20</button><button class="source-pill" onclick="openSource('S25')">S25</button></div>
+    </section>
+
+    <section class="panel" id="panel-9">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Check-out · rientro</div><h2>Partire senza sprecare l’ultima mattina.</h2><p>Il 16 agosto non viene trattato come una giornata piena. La priorità resta una partenza ordinata; una sola sosta breve può accompagnare il rientro verso Milano.</p></div>
+        <div class="date-seal"><small>domenica</small><strong>16</strong><span>agosto</span></div>
+      </div>
+      <div class="day-ribbon"><span class="status flexible">Dipende dal check-out</span><span class="fact">Rientro verso nord</span><span class="fact">Siena da evitare</span><span class="fact">Sosta facoltativa</span></div>
+      <div class="practical-grid">
+        <div class="practical"><small>Prima</small><strong>Bagagli e casa</strong><span>Nessuna visita prima del check-out</span></div>
+        <div class="practical"><small>Sosta utile</small><strong>Arezzo</strong><span>Solo con almeno 3 ore libere</span></div>
+        <div class="practical"><small>Sosta breve</small><strong>Lucignano</strong><span>Più compatta e vicina all’A1</span></div>
+        <div class="practical"><small>Da evitare</small><strong>Siena</strong><span>Il 16 agosto è giorno di Palio</span></div>
+      </div>
+      <div class="timeline-card"><div class="timeline">
+        <div class="time-row"><div class="time">MATTINA</div><div class="time-content"><h3>Colazione, bagagli e controllo finale</h3><p>Frigorifero, raccolta dei rifiuti, oggetti nelle camere e ripartizione dei bagagli vengono risolti prima di pensare a un’ultima visita.</p></div></div>
+        <div class="time-row"><div class="time">CHECK-OUT</div><div class="time-content"><h3>Partenza dalla struttura</h3><p>L’orario comunicato dall’ospitalità prevale su ogni proposta. Il programma non presume la disponibilità della casa oltre la mattina.</p></div></div>
+        <div class="time-row"><div class="time">FACOLTATIVO</div><div class="time-content"><h3>Arezzo lungo la direttrice nord</h3><p>Quando il rientro non ha urgenza, Arezzo permette pranzo e passeggiata in Piazza Grande. La sosta ha senso soltanto con tempo reale, non come obbligo di completamento.</p></div></div>
+        <div class="time-row"><div class="time">RIENTRO</div><div class="time-content"><h3>Verso Milano</h3><p>Si evita il passaggio turistico da Siena: il 16 agosto la città ospita il Palio e concentra viabilità, controlli e affluenza.</p></div></div>
+      </div></div>
+      <div class="alternative"><div class="alt-label">Alternativa più compatta</div><h3>Lucignano per un pranzo e una passeggiata breve.</h3><p>Il borgo ellittico offre un’ultima tappa raccolta, più facile da inserire rispetto ad Arezzo. Quando il check-out è tardo o la strada di rientro è lunga, la scelta migliore resta comunque la partenza diretta.</p></div>
+      <div class="choice-box"><div class="choice-copy"><strong>Scelta del giorno</strong><span>La partenza diretta non rappresenta un piano incompleto.</span></div><div class="choice-buttons"><button class="choice-btn" data-day="16" data-choice="main">Arezzo se c’è tempo</button><button class="choice-btn" data-day="16" data-choice="alt">Lucignano o diretto</button></div></div>
+      <div class="action-row"><a class="route-link" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=Trequanda%20SI&destination=Arezzo%20SI">Apri Arezzo</a><button class="source-pill" onclick="openSource('S12')">S12</button><button class="source-pill" onclick="openSource('S23')">S23</button><button class="source-pill" onclick="openSource('S24')">S24</button></div>
+    </section>
+
+    <section class="panel" id="panel-10">
+      <div class="section-head">
+        <div class="section-title-wrap"><div class="kicker">Tracciabilità</div><h2>Fonti, livelli di certezza e limiti.</h2><p>Gli eventi principali sono stati verificati su siti ufficiali o istituzionali. Le informazioni suscettibili di cambiamento sono segnalate nel testo e vanno ricontrollate nei giorni precedenti alla partenza.</p></div>
+      </div>
+      <div class="legend"><span class="status confirmed">Confermato 2026</span><span class="status flexible">Itinerario flessibile</span><span class="status check-later">Da ricontrollare</span></div>
+      <div class="notice"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 3 2.7 20h18.6L12 3Z"/><path d="M12 9v5m0 3h.01"/></svg><p><strong>Aggiornamento: 26 luglio 2026.</strong> Prezzi, orari, accessi, parcheggi e condizioni meteorologiche possono cambiare. Le fonti collegate rimangono il punto di controllo finale. La Sagra del Raviolo è stata deliberatamente esclusa dagli appuntamenti certi per l’assenza di un programma 2026 univoco sul sito della Pro Loco.</p></div>
+      <div class="sources-table">
+        <div class="source-row" id="source-S01"><span class="source-id">S01</span><span class="source-name">Terre del Fondo</span><span class="source-use">Base di soggiorno e collocazione nel territorio di Trequanda.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.terredelfondo.it/trequanda.php">Apri ↗</a></div>
+        <div class="source-row" id="source-S02"><span class="source-id">S02</span><span class="source-name">Comune di Trequanda</span><span class="source-use">Calendario comunale; presenza di “Estate Etrusca” l’8 agosto.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.comune.trequanda.si.it/vivere-il-comune/eventi/">Apri ↗</a></div>
+        <div class="source-row" id="source-S03"><span class="source-id">S03</span><span class="source-name">Valdichiana 2026 · Estate Etrusca</span><span class="source-use">Data, orario 17:00–20:00, visita con archeologo, aperitivo, costo e contatti.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.valdichiana2025.it/event/estate-etrusca-2/2026-08-08/">Apri ↗</a></div>
+        <div class="source-row" id="source-S04"><span class="source-id">S04</span><span class="source-name">Collezione Pallavicini</span><span class="source-use">Sede dell’evento e calendario della collezione archeologica.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.valdichiana2025.it/luogo/collezione-pallavicini/">Apri ↗</a></div>
+        <div class="source-row" id="source-S05"><span class="source-id">S05</span><span class="source-name">Visit Tuscany · Trequanda</span><span class="source-use">Borgo, castello, chiesa e frazioni del territorio comunale.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visittuscany.com/it/citta-e-borghi/trequanda/">Apri ↗</a></div>
+        <div class="source-row" id="source-S06"><span class="source-id">S06</span><span class="source-name">Visit Tuscany · Pienza</span><span class="source-use">Patrimonio e luoghi principali del centro rinascimentale.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visittuscany.com/it/citta-e-borghi/pienza/">Apri ↗</a></div>
+        <div class="source-row" id="source-S07"><span class="source-id">S07</span><span class="source-name">Teatro Povero · “L’occhio oltre”</span><span class="source-use">Titolo, periodo 25 luglio–14 agosto, orario 21:30, luogo e contatti 2026.</span><a class="source-link" target="_blank" rel="noopener" href="https://teatropovero.it/locchio-oltre-sessantesimo-autodramma/">Apri ↗</a></div>
+        <div class="source-row" id="source-S08"><span class="source-id">S08</span><span class="source-name">Teatro Povero · Prenotazioni</span><span class="source-use">Modulo ufficiale per data e numero di posti.</span><a class="source-link" target="_blank" rel="noopener" href="https://teatropovero.it/prenotazione/">Apri ↗</a></div>
+        <div class="source-row" id="source-S09"><span class="source-id">S09</span><span class="source-name">Calici di Stelle Montepulciano</span><span class="source-use">Evento del 10 agosto 2026 e programma generale.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.calicidistellemontepulciano.it/">Apri ↗</a></div>
+        <div class="source-row" id="source-S10"><span class="source-id">S10</span><span class="source-name">Degustazione itinerante</span><span class="source-use">Orari, costo di €15, cinque degustazioni e luoghi del percorso.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.calicidistellemontepulciano.it/eventi-in-programma/degustazione-itinerante/">Apri ↗</a></div>
+        <div class="source-row" id="source-S11"><span class="source-id">S11</span><span class="source-name">Calici di Stelle · Come arrivare</span><span class="source-use">Navetta gratuita 18:00–01:00, parcheggi esterni e area bus/camper.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.calicidistellemontepulciano.it/come-arrivare/">Apri ↗</a></div>
+        <div class="source-row" id="source-S12"><span class="source-id">S12</span><span class="source-name">Comune di Siena · Palio 16 agosto</span><span class="source-use">Prove regolamentate 11–12 agosto e programma tecnico 13–16 agosto 2026.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.comune.siena.it/index.php/node/14307">Apri ↗</a></div>
+        <div class="source-row" id="source-S13"><span class="source-id">S13</span><span class="source-name">Timeanddate · Eclissi a Cecina</span><span class="source-use">Tipo locale parziale; inizio 19:30, massimo 20:22, fine 20:25 e magnitudine 0,946.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.timeanddate.com/eclipse/in/%406539736?iso=20260812">Apri ↗</a></div>
+        <div class="source-row" id="source-S14"><span class="source-id">S14</span><span class="source-name">EduINAF · Eclissi 2026 in Italia</span><span class="source-use">Visibilità parziale, regioni favorite, necessità di un orizzonte occidentale molto basso e standard ISO 12312-2.</span><a class="source-link" target="_blank" rel="noopener" href="https://edu.inaf.it/astrodidattica/con-le-eclissi-attraverso-i-confini/">Apri ↗</a></div>
+        <div class="source-row" id="source-S15"><span class="source-id">S15</span><span class="source-name">NASA · Eclissi totale globale 2026</span><span class="source-use">La totalità attraversa altre aree europee; dall’Italia il fenomeno si osserva soltanto in forma parziale.</span><a class="source-link" target="_blank" rel="noopener" href="https://science.nasa.gov/eclipses/future-eclipses/total-solar-eclipse-on-august-12-2026/">Apri ↗</a></div>
+        <div class="source-row" id="source-S16"><span class="source-id">S16</span><span class="source-name">Visit Tuscany · Montalcino</span><span class="source-use">Borgo, fortezza e territorio del Brunello.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visittuscany.com/it/citta-e-borghi/montalcino/">Apri ↗</a></div>
+        <div class="source-row" id="source-S17"><span class="source-id">S17</span><span class="source-name">Abbazia di Sant’Antimo</span><span class="source-use">Sito ufficiale per orari, liturgia e visita.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.antimo.it/">Apri ↗</a></div>
+        <div class="source-row" id="source-S18"><span class="source-id">S18</span><span class="source-name">Visit Tuscany · Bagno Vignoni</span><span class="source-use">Borgo termale e vasca storica al centro della piazza.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visittuscany.com/it/citta-e-borghi/borgo-bagno-vignoni/">Apri ↗</a></div>
+        <div class="source-row" id="source-S19"><span class="source-id">S19</span><span class="source-name">Giostra del Saracino di Sarteano</span><span class="source-use">Calendario 2026: festa 8–10 agosto, Provaccia il 14 alle 16:00, corteo il 15 alle 14:30 e Giostra alle 17:30.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.giostradelsaracino.it/">Apri ↗</a></div>
+        <div class="source-row" id="source-S20"><span class="source-id">S20</span><span class="source-name">Pro Loco Contignano</span><span class="source-use">Natura storica della Sagra del Raviolo; assenza, al momento della verifica, di date 2026 univoche.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.prolococontignano.it/">Apri ↗</a></div>
+        <div class="source-row" id="source-S21"><span class="source-id">S21</span><span class="source-name">Visit Tuscany · Asciano</span><span class="source-use">Borgo e paesaggio delle Crete Senesi.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visittuscany.com/it/citta-e-borghi/asciano/">Apri ↗</a></div>
+        <div class="source-row" id="source-S22"><span class="source-id">S22</span><span class="source-name">Monte Oliveto Maggiore</span><span class="source-use">Sito del complesso monastico per orari e accessi.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.monteolivetomaggiore.it/">Apri ↗</a></div>
+        <div class="source-row" id="source-S23"><span class="source-id">S23</span><span class="source-name">Discover Arezzo</span><span class="source-use">Informazioni turistiche ufficiali per visita e musei.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.discoverarezzo.com/">Apri ↗</a></div>
+        <div class="source-row" id="source-S24"><span class="source-id">S24</span><span class="source-name">Visit Tuscany · Lucignano</span><span class="source-use">Borgo ellittico e possibile sosta breve sulla via del rientro.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visittuscany.com/it/citta-e-borghi/lucignano/">Apri ↗</a></div>
+        <div class="source-row" id="source-S25"><span class="source-id">S25</span><span class="source-name">Pro Loco Pienza · Calendario 2026</span><span class="source-use">Fuochi del 14 agosto alle 23:15, Concerto dell’Assunta del 15 alle 18:30 e festa fino al 18 agosto.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.prolocopienza.it/ultimi-eventi/calendario-2026/">Apri ↗</a></div>
+        <div class="source-row" id="source-S26"><span class="source-id">S26</span><span class="source-name">NASA · Sicurezza nell’osservazione</span><span class="source-use">Protezione continua durante un’eclissi parziale, visori ISO e filtri frontali specifici per strumenti ottici.</span><a class="source-link" target="_blank" rel="noopener" href="https://science.nasa.gov/eclipses/safety/">Apri ↗</a></div>
+        <div class="source-row" id="source-S27"><span class="source-id">S27</span><span class="source-name">AstroPiombino · Piazza Bovio</span><span class="source-use">Evento pubblico dalle 19:00, strumenti filtrati, inizio 19:31, massimo 20:21, tramonto 20:24 e osservazione delle Perseidi.</span><a class="source-link" target="_blank" rel="noopener" href="https://web.astropiombino.org/piombino-guarda-il-cielo-eclissi-12-agosto-2026/">Apri ↗</a></div>
+        <div class="source-row" id="source-S28"><span class="source-id">S28</span><span class="source-name">Visit Cecina · Piazza Capitanerie</span><span class="source-use">Belvedere sul lungomare, affaccio diretto sul mare e punto legato ai tramonti cecinesi.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visitcecina.com/una-nuova-cornice-sullorizzonte/">Apri ↗</a></div>
+        <div class="source-row" id="source-S29"><span class="source-id">S29</span><span class="source-name">Visit Cecina · Marina e Tombolo</span><span class="source-use">Spiagge, tratti liberi e pineta costiera per organizzare la parte balneare della giornata.</span><a class="source-link" target="_blank" rel="noopener" href="https://www.visitcecina.com/cecina/">Apri ↗</a></div>
+      </div>
+      <p class="footer-note">Le indicazioni sui tempi di guida sono stime di pianificazione e non sostituiscono la navigazione aggiornata. Per l’eclissi si considerano gli orari locali pubblicati per Cecina; meteo, accessi e parcheggi andranno ricontrollati nelle ore precedenti. Le citazioni rimandano alle pagine consultate; la grafica e l’ordine delle giornate costituiscono una proposta editoriale originale.</p>
+    </section>
+  </main>
+
+  <div class="bottom-nav">
+    <div class="bottom-inner">
+      <button class="nav-btn" id="prevBtn" onclick="nav(-1)">← Prima</button>
+      <div class="progress-wrap"><div class="progress-track"><div class="progress-fill" id="progressFill" style="width:9.09%"></div></div><span class="progress-text" id="progressText">1 di 11 · panoramica</span></div>
+      <button class="nav-btn" id="nextBtn" onclick="nav(1)">Dopo →</button>
+    </div>
+  </div>
+
+  <script>
+    let currentPanel = 0;
+    const totalPanels = 11;
+    const labels = ['panoramica','8 agosto','9 agosto','10 agosto','11 agosto','12 agosto','13 agosto','14 agosto','15 agosto','16 agosto','fonti'];
+
+    function goTo(index, scroll = true) {
+      index = Math.max(0, Math.min(totalPanels - 1, index));
+      document.querySelectorAll('.panel').forEach((panel, i) => panel.classList.toggle('active', i === index));
+      document.querySelectorAll('.step-tab').forEach((tab, i) => {
+        tab.classList.toggle('active', i === index);
+        tab.classList.toggle('done', i < index);
+      });
+      currentPanel = index;
+      document.getElementById('prevBtn').disabled = index === 0;
+      document.getElementById('nextBtn').disabled = index === totalPanels - 1;
+      document.getElementById('progressFill').style.width = ((index + 1) / totalPanels * 100) + '%';
+      document.getElementById('progressText').textContent = (index + 1) + ' di ' + totalPanels + ' · ' + labels[index];
+      const activeTab = document.querySelectorAll('.step-tab')[index];
+      if (activeTab) activeTab.scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+      if (scroll) window.scrollTo({top: document.querySelector('.step-nav').offsetTop - 62, behavior:'smooth'});
+      history.replaceState(null, '', '#p' + index);
+    }
+
+    function nav(direction) { goTo(currentPanel + direction); }
+
+    function openSource(id) {
+      goTo(10, false);
+      window.setTimeout(() => {
+        const row = document.getElementById('source-' + id);
+        if (!row) return;
+        row.scrollIntoView({behavior:'smooth', block:'center'});
+        row.classList.remove('flash');
+        void row.offsetWidth;
+        row.classList.add('flash');
+      }, 90);
+    }
+
+    function safeGet(key) {
+      try { return window.localStorage.getItem(key); } catch (_) { return null; }
+    }
+
+    function safeSet(key, value) {
+      try { window.localStorage.setItem(key, value); } catch (_) { /* Persistence unavailable: interaction still works. */ }
+    }
+
+    function restoreChecks() {
+      document.querySelectorAll('[data-check]').forEach(box => {
+        const key = 'trequanda-check-' + box.dataset.check;
+        box.checked = safeGet(key) === '1';
+        box.addEventListener('change', () => safeSet(key, box.checked ? '1' : '0'));
+      });
+    }
+
+    function restoreChoices() {
+      document.querySelectorAll('.choice-btn').forEach(button => {
+        const key = 'trequanda-choice-' + button.dataset.day;
+        const saved = safeGet(key);
+        button.classList.toggle('active', saved === button.dataset.choice);
+        button.addEventListener('click', () => {
+          safeSet(key, button.dataset.choice);
+          document.querySelectorAll('.choice-btn[data-day="' + button.dataset.day + '"]').forEach(peer => peer.classList.toggle('active', peer === button));
+        });
+      });
+    }
+
+    window.addEventListener('keydown', event => {
+      if (event.target.matches('input, textarea, select')) return;
+      if (event.key === 'ArrowRight') nav(1);
+      if (event.key === 'ArrowLeft') nav(-1);
+    });
+
+    window.addEventListener('load', () => {
+      restoreChecks();
+      restoreChoices();
+      const hashMatch = location.hash.match(/^#p(\d+)$/);
+      goTo(hashMatch ? Number(hashMatch[1]) : 0, false);
+    });
+  </script>
+</body>
+</html>
