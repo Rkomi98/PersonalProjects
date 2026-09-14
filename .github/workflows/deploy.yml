@@ -66,6 +66,7 @@ jobs:
           cp -r IrrigatoreSmart deploy/
           cp -r MedStudent deploy/
           cp -r Estate26 deploy/
+          cp -r EO deploy/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
