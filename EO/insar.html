@@ -1,0 +1,1874 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Glossario InSAR interattivo — Datapizza</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+    svg: { fontCache: 'global' }, startup: { typeset: false }
+  };
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
+<style>
+:root {
+  --bg: #f7f8fa;
+  --white: #ffffff;
+  --navy: #0d1b2a;
+  --navy2: #1a2e42;
+  --accent-red: #e8412a;
+  --accent-orange: #f5a623;
+  --accent-blue: #2563eb;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --border2: #d1d5db;
+  --grid-color: #e5e7eb;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  background: var(--bg);
+  color: var(--navy);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+}
+body::before {
+  content:'';
+  position:fixed; inset:0;
+  background-image:
+    linear-gradient(var(--grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events:none;
+  z-index:0;
+}
+body > * { position:relative; z-index:1; }
+
+nav {
+  background:var(--white); border-bottom:1px solid var(--border);
+  padding:0 48px; height:64px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:sticky; top:0; z-index:100;
+}
+.logo { display:flex; align-items:center; gap:10px; font-weight:800; font-size:18px; color:var(--navy); text-decoration:none; }
+.logo-icon { width:26px; height:26px; background:var(--accent-red); clip-path:polygon(20% 0%,80% 0%,100% 50%,80% 100%,20% 100%,0% 50%); }
+.navnote { font-size:12px; color:var(--muted); font-family:'DM Mono',monospace; }
+
+.hero { padding:56px 48px 36px; text-align:center; max-width:860px; margin:0 auto; }
+.hero-badge { display:inline-flex; align-items:center; gap:6px; background:var(--white); border:1px solid var(--border2); border-radius:20px; padding:6px 16px; font-size:12px; font-weight:600; color:var(--muted); margin-bottom:24px; letter-spacing:.05em; text-transform:uppercase; }
+.hero-badge em { color:var(--accent-red); font-style:normal; }
+.hero h1 { font-size:clamp(32px,5vw,56px); font-weight:900; letter-spacing:-1.5px; line-height:1.05; margin-bottom:18px; }
+.hero h1 span { color:var(--accent-red); }
+.hero p { font-size:16px; color:var(--muted); max-width:620px; margin:0 auto 26px; line-height:1.7; }
+
+.btn-blue { background:var(--accent-blue); color:#fff; border:none; padding:14px 28px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .15s; }
+.btn-blue:hover { background:#1d4ed8; transform:translateY(-1px); }
+.btn-blue:disabled { opacity:.3; cursor:not-allowed; transform:none; }
+.btn-dark { background:var(--navy); color:#fff; border:none; padding:14px 28px; border-radius:10px; font-family:'DM Sans',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:all .15s; }
+.btn-dark:hover { background:var(--navy2); transform:translateY(-1px); }
+.btn-dark:disabled { opacity:.3; cursor:not-allowed; transform:none; }
+
+.step-nav { background:var(--white); border-top:1px solid var(--border); border-bottom:1px solid var(--border); display:flex; overflow-x:auto; scrollbar-width:none; padding:0 48px; position:sticky; top:64px; z-index:98; }
+.step-nav::-webkit-scrollbar { display:none; }
+.step-tab { padding:16px 18px; white-space:nowrap; font-size:13px; font-weight:600; color:var(--muted); cursor:pointer; border-bottom:2px solid transparent; transition:all .15s; display:flex; align-items:center; gap:8px; border:none; background:none; font-family:'DM Sans',sans-serif; flex-shrink:0; }
+.step-tab:hover { color:var(--navy); }
+.step-tab.active { color:var(--accent-red); border-bottom:2px solid var(--accent-red); }
+.step-tab.done { color:var(--navy); }
+.snum { background:var(--bg); border:1px solid var(--border2); border-radius:5px; width:20px; height:20px; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; color:var(--muted); flex-shrink:0; }
+.step-tab.active .snum { background:var(--accent-red); color:#fff; border-color:var(--accent-red); }
+.step-tab.done .snum { background:var(--navy); color:#fff; border-color:var(--navy); }
+
+.main { max-width:1100px; margin:0 auto; padding:44px 48px 80px; }
+.sh { margin-bottom:28px; display:flex; align-items:flex-start; gap:16px; }
+.badge { display:inline-flex; align-items:center; padding:4px 12px; border-radius:6px; font-size:11px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; margin-top:6px; flex-shrink:0; }
+.b-r  { background:#fee2e2; color:#dc2626; }
+.b-g  { background:#d1fae5; color:#059669; }
+.b-o  { background:#fef3c7; color:#d97706; }
+.b-bl { background:#dbeafe; color:#2563eb; }
+.b-p  { background:#f3e8ff; color:#7c3aed; }
+.b-n  { background:var(--bg); color:var(--muted); border:1px solid var(--border2); }
+.sh h2 { font-size:clamp(22px,3vw,34px); font-weight:900; letter-spacing:-.5px; line-height:1.12; }
+.sh h2 .cr { color:var(--accent-red); }
+.sh h2 .cg { color:#059669; }
+.sh h2 .co { color:#d97706; }
+.sh h2 .cb { color:var(--accent-blue); }
+
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:18px; }
+.grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:18px; }
+.grid1 { margin-bottom:18px; }
+
+.card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:24px 26px; transition:box-shadow .2s; }
+.card:hover { box-shadow:0 4px 24px rgba(13,27,42,.07); }
+.card.bl-r { border-left:3px solid var(--accent-red); }
+.card.bl-g { border-left:3px solid #059669; }
+.card.bl-o { border-left:3px solid #d97706; }
+.card.bl-b { border-left:3px solid var(--accent-blue); }
+.card.hl-r { background:#fff8f7; border-color:#fecaca; }
+.card.hl-g { background:#f0fdf4; border-color:#bbf7d0; }
+.card.hl-o { background:#fffbeb; border-color:#fde68a; }
+.card.hl-b { background:#eff6ff; border-color:#bfdbfe; }
+.ctag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; margin-bottom:9px; color:var(--muted); }
+.ctag.r { color:var(--accent-red); }
+.ctag.g { color:#059669; }
+.ctag.o { color:#d97706; }
+.ctag.b { color:var(--accent-blue); }
+.card h3 { font-size:15px; font-weight:800; margin-bottom:9px; color:var(--navy); line-height:1.3; }
+.card p { font-size:13px; color:var(--muted); line-height:1.75; }
+.card p + p { margin-top:10px; }
+.card p strong { color:var(--navy); font-weight:700; }
+.card .say { margin-top:12px; font-size:12.5px; color:var(--navy); background:var(--bg); border:1px solid var(--border); border-left:3px solid var(--accent-orange); border-radius:8px; padding:11px 14px; line-height:1.65; font-style:italic; }
+.card .say b { font-style:normal; font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#d97706; display:block; margin-bottom:5px; }
+
+.codebox { background:var(--navy); border-radius:10px; padding:16px 20px; margin-top:14px; color:#e2e8f0; font-family:'DM Mono',monospace; font-size:12.5px; line-height:2; overflow-x:auto; }
+.codebox .cr { color:#f87171; font-weight:700; }
+.codebox .cg { color:#6ee7b7; font-weight:700; }
+.codebox .co { color:#fcd34d; font-weight:700; }
+.codebox .cb { color:#93c5fd; font-weight:700; }
+.codebox .cm { color:#475569; font-style:italic; font-size:11px; }
+.codebox .op { color:#94a3b8; }
+
+.lcard { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:26px 30px; margin-bottom:18px; }
+.lcard .ltag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); margin-bottom:14px; }
+.lcard .ltitle { font-size:15px; font-weight:800; color:var(--navy); margin-bottom:16px; }
+.eqrow { display:flex; align-items:center; gap:14px; padding:13px 0; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+.eqrow:last-child { border-bottom:none; }
+.eqlbl { font-size:11px; color:var(--muted); font-family:'DM Mono',monospace; width:110px; flex-shrink:0; }
+.eqf { flex:1; font-size:15px; min-width:200px; }
+.eqnote { font-size:11px; color:var(--muted); font-style:italic; width:180px; flex-shrink:0; text-align:right; line-height:1.4; }
+
+.darkcard { background:var(--navy); border-radius:14px; padding:30px 36px; margin-bottom:18px; color:#e2e8f0; }
+.darkcard .dtag { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#475569; margin-bottom:20px; }
+.drow { display:flex; align-items:center; gap:18px; padding:13px 0; border-bottom:1px solid rgba(255,255,255,.06); flex-wrap:wrap; }
+.drow:last-child { border-bottom:none; }
+.dchip { font-size:10px; font-weight:700; padding:3px 10px; border-radius:4px; text-transform:uppercase; letter-spacing:.07em; width:86px; text-align:center; flex-shrink:0; }
+.dc-r { background:rgba(248,113,113,.15); color:#f87171; }
+.dc-g { background:rgba(110,231,183,.15); color:#6ee7b7; }
+.dc-o { background:rgba(252,211,77,.15); color:#fcd34d; }
+.dc-b { background:rgba(147,197,253,.15); color:#93c5fd; }
+.deq { flex:1; font-size:14.5px; color:#f1f5f9; min-width:220px; line-height:1.6; }
+.dnote { font-size:11px; color:#64748b; font-style:italic; width:190px; flex-shrink:0; text-align:right; line-height:1.5; }
+
+.flow { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:22px 26px; margin-bottom:18px; overflow-x:auto; }
+.ftag { font-size:10px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--muted); margin-bottom:18px; }
+.frow { display:flex; align-items:center; gap:6px; min-width:max-content; }
+.fnode { background:var(--bg); border:1px solid var(--border2); border-radius:8px; padding:8px 13px; font-size:12px; font-family:'DM Mono',monospace; text-align:center; line-height:1.4; cursor:pointer; transition:all .15s; }
+.fnode:hover { transform:translateY(-2px); box-shadow:0 4px 14px rgba(13,27,42,.1); }
+.fnode .fnl { color:var(--muted); font-size:9px; display:block; margin-bottom:2px; font-family:'DM Sans',sans-serif; font-weight:600; letter-spacing:.04em; text-transform:uppercase; }
+.fnode .fnv { color:var(--navy); font-weight:700; font-size:13px; }
+.fn-r { background:#fff8f7; border-color:#fca5a5; }
+.fn-g { background:#f0fdf4; border-color:#86efac; }
+.fn-o { background:#fffbeb; border-color:#fcd34d; }
+.fn-b { background:#eff6ff; border-color:#93c5fd; }
+.farr { color:var(--border2); font-size:18px; flex-shrink:0; }
+
+.tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:11px; font-weight:700; margin-right:3px; }
+.tg-r { background:#fee2e2; color:#dc2626; }
+.tg-g { background:#d1fae5; color:#059669; }
+.tg-o { background:#fef3c7; color:#d97706; }
+.tg-b { background:#dbeafe; color:#2563eb; }
+
+.tcard { background:var(--white); border:1px solid var(--border); border-radius:14px; overflow:hidden; margin-bottom:18px; }
+table { width:100%; border-collapse:collapse; font-size:13.5px; }
+thead th { background:var(--bg); padding:12px 20px; text-align:left; font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); border-bottom:1px solid var(--border); }
+tbody td { padding:13px 20px; border-bottom:1px solid var(--border); color:var(--muted); vertical-align:top; line-height:1.6; }
+tbody td:first-child { color:var(--navy); font-weight:700; font-size:13px; }
+tbody tr:last-child td { border-bottom:none; }
+tbody tr:hover td { background:var(--bg); }
+
+.bnav { background:var(--white); border-top:1px solid var(--border); padding:18px 48px; display:flex; align-items:center; justify-content:space-between; position:sticky; bottom:0; z-index:99; }
+.pinfo { font-size:13px; color:var(--muted); font-weight:500; display:flex; align-items:center; gap:12px; }
+.pbar { width:120px; height:4px; background:var(--border); border-radius:99px; overflow:hidden; }
+.pfill { height:100%; background:var(--accent-red); border-radius:99px; transition:width .3s; }
+
+.panel { display:none; }
+.panel.active { display:block; animation:fadeUp .3s ease forwards; }
+@keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+/* ===== LABORATORIO INTERATTIVO ===== */
+.lab { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:22px 26px 26px; margin-bottom:18px; }
+.lab-head { display:flex; align-items:baseline; justify-content:space-between; gap:14px; margin-bottom:18px; flex-wrap:wrap; }
+.lab-head .lt { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-blue); }
+.lab-head .lsub { font-size:12px; color:var(--muted); }
+.lab-body { display:grid; grid-template-columns:1fr 290px; gap:24px; align-items:start; }
+.lab-body.wide { grid-template-columns:1fr; }
+canvas { width:100%; display:block; border-radius:10px; background:var(--bg); border:1px solid var(--border); }
+.ctrls { display:flex; flex-direction:column; gap:15px; }
+.ctrl label { display:flex; justify-content:space-between; align-items:baseline; font-size:11.5px; font-weight:700; color:var(--navy); margin-bottom:7px; letter-spacing:.01em; }
+.ctrl label span { font-family:'DM Mono',monospace; font-weight:500; color:var(--accent-blue); font-size:12px; }
+input[type=range] { width:100%; -webkit-appearance:none; appearance:none; height:4px; border-radius:99px; background:var(--border); outline:none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:16px; height:16px; border-radius:50%; background:var(--accent-red); cursor:pointer; border:2px solid #fff; box-shadow:0 1px 5px rgba(13,27,42,.25); }
+input[type=range]::-moz-range-thumb { width:14px; height:14px; border-radius:50%; background:var(--accent-red); cursor:pointer; border:2px solid #fff; }
+select { width:100%; padding:9px 11px; border-radius:8px; border:1px solid var(--border2); background:var(--white); font-family:'DM Sans',sans-serif; font-size:13px; font-weight:600; color:var(--navy); cursor:pointer; }
+.seg { display:flex; gap:6px; }
+.seg button { flex:1; padding:9px 6px; border-radius:8px; border:1px solid var(--border2); background:var(--white); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; color:var(--muted); cursor:pointer; transition:all .15s; }
+.seg button.on { background:var(--navy); color:#fff; border-color:var(--navy); }
+.mini-btn { padding:9px 14px; border-radius:8px; border:1px solid var(--border2); background:var(--white); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:700; color:var(--navy); cursor:pointer; }
+.mini-btn:hover { background:var(--bg); }
+.readout { background:var(--navy); border-radius:10px; padding:15px 17px; color:#e2e8f0; font-family:'DM Mono',monospace; font-size:12px; line-height:1.95; }
+.readout .k { color:#64748b; }
+.readout .v { color:#fcd34d; font-weight:500; }
+.readout .vg { color:#6ee7b7; font-weight:500; }
+.readout .vr { color:#f87171; font-weight:500; }
+.readout .vb { color:#93c5fd; font-weight:500; }
+.verdict { margin-top:14px; font-size:12.5px; line-height:1.7; padding:12px 15px; border-radius:9px; border:1px solid var(--border); background:var(--bg); color:var(--navy); }
+.verdict.good { background:#f0fdf4; border-color:#bbf7d0; }
+.verdict.warn { background:#fffbeb; border-color:#fde68a; }
+.verdict.bad  { background:#fff8f7; border-color:#fecaca; }
+.legend { display:flex; gap:16px; flex-wrap:wrap; margin-top:12px; font-size:11.5px; color:var(--muted); }
+.legend i { display:inline-block; width:11px; height:11px; border-radius:3px; margin-right:6px; vertical-align:-1px; }
+
+/* QUIZ */
+.quiz { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:26px 30px; margin-bottom:18px; }
+.qn { font-size:10px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--accent-red); margin-bottom:8px; }
+.qq { font-size:15px; font-weight:800; margin-bottom:14px; line-height:1.5; }
+.qopt { display:block; width:100%; text-align:left; padding:12px 16px; margin-bottom:8px; border-radius:9px; border:1px solid var(--border2); background:var(--white); font-family:'DM Sans',sans-serif; font-size:13.5px; color:var(--navy); cursor:pointer; transition:all .15s; line-height:1.5; }
+.qopt:hover { border-color:var(--navy); }
+.qopt.ok { background:#f0fdf4; border-color:#34d399; }
+.qopt.no { background:#fff8f7; border-color:#fca5a5; }
+.qfb { margin-top:12px; font-size:13px; line-height:1.75; color:var(--muted); padding:14px 16px; border-radius:9px; background:var(--bg); border:1px solid var(--border); display:none; }
+.qfb.show { display:block; }
+.qfb strong { color:var(--navy); }
+
+@media(max-width:900px){
+  .lab-body { grid-template-columns:1fr; }
+  nav { padding:0 20px; }
+  .step-nav, .main, .bnav { padding-left:20px; padding-right:20px; }
+  .grid2, .grid3 { grid-template-columns:1fr; }
+  .eqnote, .dnote { display:none; }
+  .darkcard { padding:22px 18px; }
+  .hero { padding:40px 20px 28px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="#"><div class="logo-icon"></div>Glossario InSAR</a>
+  <span class="navnote">preparazione colloquio · Earth Observation</span>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Simulazioni <em>interattive</em> · Sentinel-1 come riferimento</div>
+  <h1>Dalla <span>fase</span> allo spostamento del terreno</h1>
+  <p>Undici sezioni con laboratori manipolabili: muovi i parametri, osserva che cosa succede al segnale e ricava da solo la definizione da pronunciare a voce. La frase guida che tiene insieme tutto: la fase contiene l'informazione, la coerenza dice quanto puoi fidartene, la LOS dice lungo quale direzione stai misurando.</p>
+</div>
+
+<div class="step-nav" id="stepnav">
+  <button class="step-tab active" onclick="goTo(0)"><span class="snum">0</span> Segnale e fase</button>
+  <button class="step-tab" onclick="goTo(1)"><span class="snum">1</span> Geometria LOS</button>
+  <button class="step-tab" onclick="goTo(2)"><span class="snum">2</span> Interferogramma</button>
+  <button class="step-tab" onclick="goTo(3)"><span class="snum">3</span> Frange e wrapping</button>
+  <button class="step-tab" onclick="goTo(4)"><span class="snum">4</span> Topografia e DEM</button>
+  <button class="step-tab" onclick="goTo(5)"><span class="snum">5</span> Coerenza</button>
+  <button class="step-tab" onclick="goTo(6)"><span class="snum">6</span> Decorrelazione</button>
+  <button class="step-tab" onclick="goTo(7)"><span class="snum">7</span> Unwrapping</button>
+  <button class="step-tab" onclick="goTo(8)"><span class="snum">8</span> Displacement</button>
+  <button class="step-tab" onclick="goTo(9)"><span class="snum">9</span> PSI e SBAS</button>
+  <button class="step-tab" onclick="goTo(10)"><span class="snum">10</span> Trappole e quiz</button>
+</div>
+
+<div class="main">
+
+<!-- ================= PANEL 0 ================= -->
+<div class="panel active" id="panel-0">
+  <div class="sh"><span class="badge b-r">Fondamenta</span><h2>Il dato di partenza: un numero <span class="cr">complesso</span> per ogni pixel</h2></div>
+
+  <div class="grid2">
+    <div class="card bl-r">
+      <div class="ctag r">SLC</div>
+      <h3>Single Look Complex</h3>
+      <p>Prodotto SAR che conserva, cella di risoluzione per cella di risoluzione, tanto l'ampiezza quanto la fase del ritorno radar. È il formato indispensabile per l'interferometria: un prodotto in sola ampiezza, per quanto nitido, non consente di costruire alcun interferogramma perché ha buttato via metà dell'informazione.</p>
+      <div class="say"><b>Come dirlo a voce</b>L'InSAR lavora su prodotti complessi, tipicamente SLC, perché serve mantenere l'informazione di fase.</div>
+    </div>
+    <div class="card bl-b">
+      <div class="ctag b">Backscatter</div>
+      <h3>Che cosa determina il modulo</h3>
+      <p>Il backscatter è la quota di energia retrodiffusa verso il sensore. Dipende dalla rugosità della superficie rispetto alla lunghezza d'onda, dalle proprietà dielettriche del mezzo, quindi in larga misura dal contenuto d'acqua, dall'orientamento delle facce rispetto al radar e dall'angolo di osservazione.</p>
+      <p>Uno specchio d'acqua calmo rinvia l'energia lontano dal sensore e appare scuro; un edificio con doppia riflessione appare brillantissimo.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 01</div><div class="lsub">Il fasore: modulo e argomento sono due canali distinti dello stesso numero</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-phasor" height="300"></canvas>
+        <div class="legend">
+          <span><i style="background:#e8412a"></i>fasore del pixel</span>
+          <span><i style="background:#0d1b2a"></i>proiezioni reale e immaginaria</span>
+          <span><i style="background:#2563eb"></i>ampiezza vista come immagine</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Ampiezza del ritorno <span id="l-amp">0.75</span></label>
+          <input type="range" id="s-amp" min="0.05" max="1" step="0.01" value="0.75">
+        </div>
+        <div class="ctrl">
+          <label>Fase del pixel <span id="l-pha">+1.20 rad</span></label>
+          <input type="range" id="s-pha" min="-3.14159" max="3.14159" step="0.01" value="1.2">
+        </div>
+        <div class="readout" id="r-phasor"></div>
+        <div class="verdict">Cambia solo l'ampiezza: il colore della fase resta identico. Cambia solo la fase: la brillantezza non si muove di un capello. L'occhio umano legge quasi sempre la prima, l'interferometria vive interamente sulla seconda.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bl-o" style="margin-bottom:18px">
+    <div class="ctag o">Attenzione concettuale</div>
+    <h3>La fase non è già lo spostamento</h3>
+    <p>La fase assoluta di una singola acquisizione è praticamente inutilizzabile: dipende dalla distanza sensore-bersaglio con precisione submillimetrica e dal comportamento interno della cella di risoluzione, quantità che nessuno conosce. Quello che ha senso è la <strong>differenza di fase fra due acquisizioni</strong>, dove il contributo del bersaglio si semplifica se lo scattering è rimasto stabile. Anche quella differenza, però, contiene topografia, deformazione, atmosfera, errori orbitali e rumore tutti sommati insieme.</p>
+  </div>
+
+  <div class="flow">
+    <div class="ftag">La pipeline in otto passi · clicca un nodo per saltare alla sezione</div>
+    <div class="frow">
+      <div class="fnode fn-b" onclick="goTo(2)"><span class="fnl">01–02</span><span class="fnv">coregistrazione</span></div>
+      <span class="farr">→</span>
+      <div class="fnode fn-b" onclick="goTo(2)"><span class="fnl">03</span><span class="fnv">interferogramma</span></div>
+      <span class="farr">→</span>
+      <div class="fnode fn-o" onclick="goTo(4)"><span class="fnl">04</span><span class="fnv">rimozione topografia</span></div>
+      <span class="farr">→</span>
+      <div class="fnode fn-g" onclick="goTo(5)"><span class="fnl">05</span><span class="fnv">coerenza e filtro</span></div>
+      <span class="farr">→</span>
+      <div class="fnode fn-r" onclick="goTo(7)"><span class="fnl">06</span><span class="fnv">unwrapping</span></div>
+      <span class="farr">→</span>
+      <div class="fnode fn-r" onclick="goTo(8)"><span class="fnl">07</span><span class="fnv">displacement LOS</span></div>
+      <span class="farr">→</span>
+      <div class="fnode fn-g" onclick="goTo(8)"><span class="fnl">08</span><span class="fnv">geocoding</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 1 ================= -->
+<div class="panel" id="panel-1">
+  <div class="sh"><span class="badge b-bl">Geometria</span><h2>La <span class="cb">LOS</span>: la direzione lungo cui stai misurando</h2></div>
+
+  <div class="grid2">
+    <div class="card bl-b">
+      <div class="ctag b">Definizione</div>
+      <h3>Line of Sight</h3>
+      <p>È la direzione che congiunge il sensore al bersaglio a terra. L'InSAR non misura lo spostamento tridimensionale del suolo, ma soltanto la sua <strong>proiezione scalare lungo questa direzione</strong>. Tutto quello che si muove perpendicolarmente alla LOS resta invisibile.</p>
+      <div class="say"><b>Come dirlo a voce</b>Un valore di meno otto millimetri all'anno è uno spostamento lungo la LOS. Per interpretarlo come subsidenza verticale servono ipotesi aggiuntive oppure geometrie diverse, tipicamente ascending e descending combinate.</div>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Errore da evitare</div>
+      <h3>Non è lo spostamento orizzontale, e non è nemmeno quello verticale</h3>
+      <p>Dire che l'InSAR misura lo spostamento orizzontale è sbagliato tanto quanto dire che misura la subsidenza. La misura è una combinazione lineare delle tre componenti, pesata dai coseni direttori della LOS. Con un angolo di incidenza attorno ai trentacinque gradi, il peso della componente verticale vale circa 0,82, quello della componente orizzontale lungo il range circa 0,57, mentre la componente lungo l'azimut, cioè nord-sud, pesa quasi zero.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 02</div><div class="lsub">Proietta un movimento reale sulla linea di vista e osserva quanto ne resta</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-los" height="360"></canvas>
+        <div class="legend">
+          <span><i style="background:#059669"></i>movimento reale del suolo</span>
+          <span><i style="background:#2563eb"></i>direzione LOS</span>
+          <span><i style="background:#e8412a"></i>componente misurata</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Geometria orbitale <span id="l-orb">ascending</span></label>
+          <div class="seg" id="seg-orb">
+            <button class="on" onclick="setOrb('asc')">Ascending</button>
+            <button onclick="setOrb('desc')">Descending</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>Angolo di incidenza <span id="l-inc">35°</span></label>
+          <input type="range" id="s-inc" min="18" max="47" step="1" value="35">
+        </div>
+        <div class="ctrl">
+          <label>Componente verticale <span id="l-dv">-10.0 mm/a</span></label>
+          <input type="range" id="s-dv" min="-25" max="25" step="0.5" value="-10">
+        </div>
+        <div class="ctrl">
+          <label>Componente est-ovest <span id="l-de">0.0 mm/a</span></label>
+          <input type="range" id="s-de" min="-25" max="25" step="0.5" value="0">
+        </div>
+        <div class="readout" id="r-los"></div>
+        <div class="verdict" id="v-los"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bl-o">
+    <div class="ctag o">Prova questa configurazione</div>
+    <h3>L'esperimento che smonta l'interpretazione ingenua</h3>
+    <p>Porta la componente verticale a zero e quella est-ovest a venti millimetri all'anno. Il suolo non sta affatto sprofondando, eppure la mappa LOS mostra un valore negativo di parecchi millimetri all'anno. Chi legge il prodotto senza sapere che cos'è la LOS annuncerà una subsidenza inesistente. Poi cambia geometria da ascending a descending: il segno si ribalta. È esattamente questo il motivo per cui la combinazione delle due orbite permette di separare la componente verticale da quella est-ovest.</p>
+  </div>
+</div>
+
+<!-- ================= PANEL 2 ================= -->
+<div class="panel" id="panel-2">
+  <div class="sh"><span class="badge b-p">Costruzione</span><h2>Coregistrazione e <span class="cr">interferogramma</span></h2></div>
+
+  <div class="grid2">
+    <div class="card bl-b">
+      <div class="ctag b">Passo 2</div>
+      <h3>Coregistrazione</h3>
+      <p>Allineamento geometrico estremamente accurato delle due SLC, in modo che pixel omologhi descrivano davvero la stessa porzione di terreno. Per l'interferometria si richiede un'accuratezza di una frazione di pixel, tipicamente attorno al centesimo per evitare perdite di coerenza sensibili. Se confronti celle che guardano oggetti diversi, la differenza di fase diventa una quantità priva di significato fisico.</p>
+      <div class="say"><b>Come dirlo a voce</b>Prima dell'interferogramma devo assicurarmi che la stessa cella di risoluzione sia confrontata nelle due date.</div>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Chiarimento</div>
+      <h3>La coregistrazione non corregge il movimento del terreno</h3>
+      <p>Serve ad allineare le immagini, non a compensare la deformazione: sarebbe paradossale, visto che la deformazione è proprio il segnale che si vuole conservare. Nelle catene moderne si usa un allineamento geometrico basato su orbite precise e DEM, raffinato con la tecnica spettrale della diversità in azimut quando la modalità di acquisizione lo richiede.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 03</div><div class="lsub">Prodotto complesso coniugato: due fasi entrano, una differenza esce</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-ifg" height="290"></canvas>
+        <div class="legend">
+          <span><i style="background:#2563eb"></i>acquisizione 1</span>
+          <span><i style="background:#f5a623"></i>acquisizione 2</span>
+          <span><i style="background:#e8412a"></i>interferogramma</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Fase acquisizione 1 <span id="l-p1">0.60 rad</span></label>
+          <input type="range" id="s-p1" min="-3.14159" max="3.14159" step="0.01" value="0.6">
+        </div>
+        <div class="ctrl">
+          <label>Fase acquisizione 2 <span id="l-p2">-2.30 rad</span></label>
+          <input type="range" id="s-p2" min="-3.14159" max="3.14159" step="0.01" value="-2.3">
+        </div>
+        <div class="readout" id="r-ifg"></div>
+        <div class="verdict">Il risultato cade sempre nell'intervallo fra meno pi greco e pi greco: è la prima volta che incontri il wrapping, e non lo abbandonerai più fino all'unwrapping.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lcard">
+    <div class="ltag">Formalismo minimo</div>
+    <div class="ltitle">Che cosa contiene davvero la fase interferometrica</div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-b">prodotto</span></span>
+      <span class="eqf">$$I = s_1 \cdot s_2^{*} \qquad \arg(I) = \varphi_1 - \varphi_2$$</span>
+      <span class="eqnote">il modulo porta l'ampiezza, l'argomento la differenza</span>
+    </div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-r">scomposizione</span></span>
+      <span class="eqf">$$\Delta\varphi = \varphi_{\text{topo}} + \varphi_{\text{defo}} + \varphi_{\text{atm}} + \varphi_{\text{orb}} + \varphi_{\text{noise}}$$</span>
+      <span class="eqnote">solo il secondo termine interessa</span>
+    </div>
+  </div>
+
+  <div class="card bl-r">
+    <div class="ctag r">Errore da evitare</div>
+    <h3>L'interferogramma non è ancora una mappa di spostamento</h3>
+    <p>È la mappa della differenza di fase, avvolta modulo due pi greco e contaminata da cinque contributi diversi. Chiamarlo mappa di deformazione salta almeno quattro passaggi della pipeline e segnala all'interlocutore che il processo non è chiaro.</p>
+    <div class="say"><b>Come dirlo a voce</b>L'interferogramma è la mappa della differenza di fase; da solo contiene ancora più contributi, non soltanto la deformazione.</div>
+  </div>
+</div>
+
+<!-- ================= PANEL 3 ================= -->
+<div class="panel" id="panel-3">
+  <div class="sh"><span class="badge b-o">Lettura</span><h2>Frange interferometriche e fase <span class="co">wrapped</span></h2></div>
+
+  <div class="card bl-o" style="margin-bottom:18px">
+    <div class="ctag o">Definizione</div>
+    <h3>Perché nascono i pattern ciclici</h3>
+    <p>La fase è osservabile solo modulo due pi greco: quando la differenza accumulata supera un ciclo intero, la scala colore riparte da capo e compare una frangia. Una frangia completa corrisponde a una variazione di cammino in slant range pari a metà lunghezza d'onda, perché il segnale percorre due volte la distanza sensore-bersaglio. Per Sentinel-1, che opera in banda C a 5,55 centimetri, una frangia vale circa 2,8 centimetri di spostamento lungo la LOS.</p>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 04</div><div class="lsub">Una conca di subsidenza vista come fase avvolta e come fase continua</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-fringe" height="300"></canvas>
+        <div class="legend">
+          <span>ciclo colore: da <i style="background:hsl(0,80%,55%)"></i> a <i style="background:hsl(120,80%,55%)"></i> a <i style="background:hsl(240,80%,55%)"></i> e ritorno, ogni giro vale $2\pi$</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Spostamento LOS al centro <span id="l-fd">6.0 cm</span></label>
+          <input type="range" id="s-fd" min="0" max="20" step="0.2" value="6">
+        </div>
+        <div class="ctrl">
+          <label>Estensione della conca <span id="l-fw">media</span></label>
+          <input type="range" id="s-fw" min="10" max="60" step="1" value="30">
+        </div>
+        <div class="ctrl">
+          <label>Banda e lunghezza d'onda</label>
+          <select id="s-band">
+            <option value="3.11">Banda X · 3,11 cm · COSMO-SkyMed</option>
+            <option value="5.55" selected>Banda C · 5,55 cm · Sentinel-1</option>
+            <option value="23.6">Banda L · 23,6 cm · ALOS-2</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label>Visualizzazione</label>
+          <div class="seg" id="seg-fr">
+            <button class="on" onclick="setFr('w')">Wrapped</button>
+            <button onclick="setFr('u')">Unwrapped</button>
+          </div>
+        </div>
+        <div class="readout" id="r-fringe"></div>
+        <div class="verdict" id="v-fringe"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-g">
+      <div class="ctag g">Conteggio delle frange</div>
+      <h3>Il calcolo che si fa a mente davanti a una mappa</h3>
+      <p>Contare le frange fra il bordo esterno e il centro della conca e moltiplicare per mezza lunghezza d'onda restituisce lo spostamento relativo, senza bisogno di alcun software. È il controllo di sanità mentale che distingue chi ha capito la fisica da chi si limita a leggere l'output di una catena automatica.</p>
+    </div>
+    <div class="card bl-b">
+      <div class="ctag b">Compromesso di banda</div>
+      <h3>Sensibilità contro robustezza</h3>
+      <p>Passando alla banda X le frange si infittiscono e la sensibilità cresce, ma diventa più facile che il gradiente superi il limite di campionamento e che l'unwrapping fallisca; la banda L, con frange larghe, penetra la vegetazione e mantiene coerenza dove la banda C la perde da tempo, al prezzo di una risoluzione di misura più grossolana.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 4 ================= -->
+<div class="panel" id="panel-4">
+  <div class="sh"><span class="badge b-o">Passo 4</span><h2>Rimozione della fase <span class="co">topografica</span> con il DEM</h2></div>
+
+  <div class="grid2">
+    <div class="card bl-o">
+      <div class="ctag o">DEM</div>
+      <h3>Digital Elevation Model</h3>
+      <p>Modello digitale delle quote del terreno. In interferometria serve a simulare la componente di fase generata dal rilievo, che dipende dalla quota e dalla baseline perpendicolare, e a sottrarla dall'interferogramma per isolare il contributo deformativo.</p>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Distinzione che viene chiesta spesso</div>
+      <h3>Rimozione della fase topografica contro terrain correction</h3>
+      <p>La prima è un'operazione sulla fase: sottrae dall'interferogramma il contributo del rilievo usando un DEM e una geometria nota. La seconda è un'operazione geometrica sulla griglia: porta il prodotto dalle coordinate radar, cioè range e azimut, a un sistema geografico, correggendo le distorsioni tipiche della vista laterale. Usano entrambe un DEM, e questo genera la confusione, ma agiscono su piani completamente diversi.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 05</div><div class="lsub">Un profilo di terreno accidentato con una piccola deformazione nascosta dentro</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-topo" height="380"></canvas>
+        <div class="legend">
+          <span><i style="background:#f5a623"></i>fase topografica</span>
+          <span><i style="background:#059669"></i>fase deformativa (il segnale cercato)</span>
+          <span><i style="background:#0d1b2a"></i>fase misurata o residua</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Baseline perpendicolare <span id="l-bp">150 m</span></label>
+          <input type="range" id="s-bp" min="10" max="600" step="5" value="150">
+        </div>
+        <div class="ctrl">
+          <label>Errore di quota del DEM <span id="l-de2">0 m</span></label>
+          <input type="range" id="s-de2" min="0" max="60" step="1" value="0">
+        </div>
+        <div class="ctrl">
+          <label>Correzione</label>
+          <div class="seg" id="seg-topo">
+            <button class="on" onclick="setTopo(0)">Nessuna</button>
+            <button onclick="setTopo(1)">Sottrai DEM</button>
+          </div>
+        </div>
+        <div class="readout" id="r-topo"></div>
+        <div class="verdict" id="v-topo"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lcard">
+    <div class="ltag">La grandezza che governa tutto</div>
+    <div class="ltitle">Altezza di ambiguità: quanti metri di quota valgono una frangia topografica</div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-o">definizione</span></span>
+      <span class="eqf">$$h_{amb} = \frac{\lambda R \sin\theta}{2 B_{\perp}}$$</span>
+      <span class="eqnote">tanto più piccola quanto più grande è la baseline</span>
+    </div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-r">fase residua</span></span>
+      <span class="eqf">$$\varphi_{res} = \frac{2\pi\,\delta h}{h_{amb}}$$</span>
+      <span class="eqnote">un errore di quota diventa fase spuria</span>
+    </div>
+  </div>
+
+  <div class="card bl-b">
+    <div class="ctag b">Il paradosso della baseline</div>
+    <h3>Una coppia con baseline lunga è ottima per la topografia e pessima per la deformazione</h3>
+    <p>Aumentando la baseline perpendicolare, l'altezza di ambiguità si riduce e la sensibilità alla quota cresce: è quello che serve per generare un DEM. Se invece l'obiettivo è misurare un movimento del suolo, quella stessa sensibilità diventa un fastidio, perché ogni imprecisione del modello di quota si traduce in frange residue che imitano una deformazione. Ecco perché SBAS seleziona deliberatamente coppie a baseline corta.</p>
+  </div>
+</div>
+
+<!-- ================= PANEL 5 ================= -->
+<div class="panel" id="panel-5">
+  <div class="sh"><span class="badge b-g">Qualità</span><h2>La <span class="cg">coerenza</span>: quanto posso fidarmi di questa fase</h2></div>
+
+  <div class="grid2">
+    <div class="card bl-g">
+      <div class="ctag g">Definizione rigorosa</div>
+      <h3>Coerenza interferometrica</h3>
+      <p>Modulo della correlazione incrociata normalizzata fra i segnali complessi delle due acquisizioni, stimato su una piccola finestra locale di pixel. Varia idealmente fra zero e uno: valori alti indicano che il meccanismo di scattering all'interno della cella è rimasto simile fra le due date e che la fase interferometrica è affidabile; valori bassi indicano che l'informazione di fase si è persa nel rumore.</p>
+      <div class="say"><b>Come dirlo a voce</b>La fase mi dà l'informazione interferometrica, la coerenza mi dice quanto posso fidarmi di quella fase.</div>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Errore da evitare</div>
+      <h3>Non è una caratteristica del terreno e non è la differenza di fase</h3>
+      <p>La coerenza non appartiene al suolo, appartiene alla <strong>coppia</strong> di acquisizioni: lo stesso bosco può essere coerente in una coppia di sei giorni in inverno e completamente decorrelato in una coppia di sei mesi a cavallo della stagione vegetativa. Ed è una misura di dispersione, non un valore angolare: dice quanto sono concordi le fasi dentro la finestra, non quanto valgono.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 06</div><div class="lsub">Costruisci la coerenza a partire dai singoli contributi della finestra di stima</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-coh" height="330"></canvas>
+        <div class="legend">
+          <span><i style="background:#94a3b8"></i>contributi dei singoli pixel della finestra</span>
+          <span><i style="background:#e8412a"></i>somma vettoriale normalizzata</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Stabilità dello scattering <span id="l-st">alta</span></label>
+          <input type="range" id="s-st" min="0" max="100" step="1" value="88">
+        </div>
+        <div class="ctrl">
+          <label>Dimensione finestra di stima <span id="l-win">7 × 7</span></label>
+          <input type="range" id="s-win" min="3" max="15" step="2" value="7">
+        </div>
+        <div class="ctrl">
+          <button class="mini-btn" onclick="drawCoh(true)">Nuova realizzazione del rumore</button>
+        </div>
+        <div class="readout" id="r-coh"></div>
+        <div class="verdict" id="v-coh"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid3">
+    <div class="card bl-g hl-g">
+      <div class="ctag g">Coerenza alta</div>
+      <h3>Chi la produce</h3>
+      <p>Edifici, infrastrutture, rocce esposte, superfici dure e geometricamente stabili. Bersagli dominati da un unico riflettore forte all'interno della cella.</p>
+    </div>
+    <div class="card bl-r hl-r">
+      <div class="ctag r">Coerenza bassa</div>
+      <h3>Chi la distrugge</h3>
+      <p>Acqua, chiome vegetali, coltivazioni soggette a raccolto, coperture nevose, versanti franosi rapidi e ogni superficie che si riorganizza fra le due date.</p>
+    </div>
+    <div class="card bl-o hl-o">
+      <div class="ctag o">Non basta</div>
+      <h3>Coerenza alta non significa misura corretta</h3>
+      <p>Significa che la fase è stabile e interpretabile. Restano possibili errori di unwrapping, artefatti atmosferici correlati spazialmente, bias del riferimento e residui orbitali.</p>
+    </div>
+  </div>
+
+  <div class="darkcard">
+    <div class="dtag">// l'esempio da tenere in tasca</div>
+    <div class="drow">
+      <span class="dchip dc-g">γ = 0,95</span>
+      <span class="deq">Meno otto millimetri all'anno su un edificio: il segnale è stabile, la stima è credibile e ha senso discuterne il significato geofisico.</span>
+      <span class="dnote">si può portare al cliente</span>
+    </div>
+    <div class="drow">
+      <span class="dchip dc-r">γ = 0,12</span>
+      <span class="deq">Meno otto millimetri all'anno su un campo coltivato: numericamente identico, sostanzialmente privo di valore informativo. Il primo controllo è mascherare i punti sotto soglia.</span>
+      <span class="dnote">va mascherato</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 6 ================= -->
+<div class="panel" id="panel-6">
+  <div class="sh"><span class="badge b-r">Cause</span><h2>Le due <span class="cr">decorrelazioni</span> e le baseline che le governano</h2></div>
+
+  <div class="grid2">
+    <div class="card bl-r">
+      <div class="ctag r">Temporale</div>
+      <h3>Decorrelazione temporale</h3>
+      <p>Perdita di coerenza dovuta al fatto che la superficie cambia fra le due acquisizioni: crescita della vegetazione, raccolto, variazioni del contenuto d'acqua nel suolo, neve, movimento delle onde, lavori e trasformazioni fisiche. Governata dalla <strong>baseline temporale</strong>, cioè dall'intervallo fra le due date, ma con un tasso di decadimento che dipende interamente dalla copertura del suolo.</p>
+    </div>
+    <div class="card bl-b">
+      <div class="ctag b">Geometrica</div>
+      <h3>Decorrelazione geometrica o di baseline</h3>
+      <p>Perdita di coerenza dovuta a una differenza eccessiva nell'angolo di osservazione fra le due acquisizioni: i due radar illuminano la cella da posizioni troppo diverse e la somma vettoriale dei riflettori interni cambia. Governata dalla <strong>baseline perpendicolare</strong>, e si annulla del tutto quando questa raggiunge la baseline critica, che per Sentinel-1 vale circa cinque chilometri.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 07</div><div class="lsub">Modello didattico del decadimento: scegli la copertura e sposta le due baseline</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-dec" height="330"></canvas>
+        <div class="legend">
+          <span><i style="background:#e8412a"></i>coerenza totale attesa</span>
+          <span><i style="background:#94a3b8"></i>solo componente temporale</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Copertura del suolo</label>
+          <select id="s-cover">
+            <option value="urban">Tessuto urbano denso</option>
+            <option value="rock">Roccia affiorante e deserto</option>
+            <option value="grass" selected>Prateria e seminativo</option>
+            <option value="forest">Foresta decidua</option>
+            <option value="water">Specchio d'acqua</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label>Baseline temporale <span id="l-bt">36 giorni</span></label>
+          <input type="range" id="s-bt" min="6" max="360" step="6" value="36">
+        </div>
+        <div class="ctrl">
+          <label>Baseline perpendicolare <span id="l-bp2">120 m</span></label>
+          <input type="range" id="s-bp2" min="0" max="2500" step="10" value="120">
+        </div>
+        <div class="readout" id="r-dec"></div>
+        <div class="verdict" id="v-dec"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card bl-g">
+    <div class="ctag g">Filtraggio interferometrico</div>
+    <h3>Che cosa si può recuperare, e a quale prezzo</h3>
+    <p>Il filtraggio, tipicamente adattativo nel dominio delle frequenze secondo l'approccio di Goldstein, riduce il rumore di fase e rende leggibili le strutture interferometriche, facilitando in modo decisivo l'unwrapping successivo. Non crea però informazione dove non ce n'è: su una zona a coerenza molto bassa produce frange dall'aspetto rassicurante e dal contenuto arbitrario. Va inoltre dosato, perché un filtro troppo aggressivo appiattisce i gradienti reali, che sono esattamente ciò che si vuole misurare.</p>
+  </div>
+</div>
+
+<!-- ================= PANEL 7 ================= -->
+<div class="panel" id="panel-7">
+  <div class="sh"><span class="badge b-r">Passo critico</span><h2>Phase <span class="cr">unwrapping</span>: ricostruire i cicli mancanti</h2></div>
+
+  <div class="card bl-r" style="margin-bottom:18px">
+    <div class="ctag r">Definizione</div>
+    <h3>Da fase avvolta a fase continua</h3>
+    <p>Il sensore osserva la fase soltanto modulo due pi greco: ogni valore misurato è quello vero a meno di un numero intero di cicli, sconosciuto e diverso da punto a punto. L'unwrapping è il problema di stabilire quel numero intero su tutta l'immagine, tipicamente assumendo che la fase vera sia sufficientemente regolare, cioè che fra pixel adiacenti non vari mai di più di mezzo ciclo. Quando questa assunzione cade, l'algoritmo sbaglia, e sbaglia di quantità discrete: salti di un ciclo intero, che in banda C valgono due centimetri e ottocento micron di errore secco sulla misura finale.</p>
+    <div class="say"><b>Come dirlo a voce</b>L'unwrapping trasforma la fase ciclica in una fase continua, ed è uno dei passaggi più delicati quando la coerenza è bassa o i gradienti sono forti.</div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 08</div><div class="lsub">Profilo unidimensionale: alza il gradiente o il rumore e guarda l'algoritmo perdere il conto</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-unw" height="380"></canvas>
+        <div class="legend">
+          <span><i style="background:#0d1b2a"></i>fase vera</span>
+          <span><i style="background:#f5a623"></i>fase osservata, avvolta</span>
+          <span><i style="background:#2563eb"></i>ricostruzione dell'algoritmo</span>
+          <span><i style="background:#e8412a"></i>punto in cui salta il conteggio</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Ampiezza della deformazione <span id="l-ua">3.0 cicli</span></label>
+          <input type="range" id="s-ua" min="0.5" max="12" step="0.1" value="3">
+        </div>
+        <div class="ctrl">
+          <label>Ripidità del gradiente <span id="l-ug">dolce</span></label>
+          <input type="range" id="s-ug" min="1" max="20" step="1" value="4">
+        </div>
+        <div class="ctrl">
+          <label>Rumore di fase <span id="l-un">basso</span></label>
+          <input type="range" id="s-un" min="0" max="100" step="1" value="8">
+        </div>
+        <div class="ctrl">
+          <button class="mini-btn" onclick="drawUnw(true)">Rigenera il rumore</button>
+        </div>
+        <div class="readout" id="r-unw"></div>
+        <div class="verdict" id="v-unw"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-o">
+      <div class="ctag o">Il limite di campionamento</div>
+      <h3>Perché i sismi grandi sono difficili</h3>
+      <p>Se lo spostamento varia di più di mezza lunghezza d'onda fra due pixel contigui, l'informazione necessaria a contare i cicli semplicemente non è stata campionata e nessun algoritmo può recuperarla. Vicino alla faglia di un terremoto forte le frange diventano così fitte da fondersi, e la soluzione passa da geometrie a banda più lunga oppure da tecniche di offset tracking sull'ampiezza.</p>
+    </div>
+    <div class="card bl-b">
+      <div class="ctag b">Strategie degli algoritmi</div>
+      <h3>Percorsi, reti e costi</h3>
+      <p>Le famiglie classiche vanno dal branch cut di Goldstein, che vieta l'attraversamento delle linee che collegano residui di segno opposto, agli approcci di flusso a costo minimo come SNAPHU, che formulano il problema come ottimizzazione su rete pesando ogni arco con la coerenza locale. In entrambi i casi la coerenza non serve solo a giudicare il risultato: entra dentro l'algoritmo.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 8 ================= -->
+<div class="panel" id="panel-8">
+  <div class="sh"><span class="badge b-bl">Conversione</span><h2>Da fase a <span class="cb">millimetri</span>, e da millimetri a velocità</h2></div>
+
+  <div class="lcard">
+    <div class="ltag">La conversione</div>
+    <div class="ltitle">Il fattore due nasce dal percorso di andata e ritorno del segnale</div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-b">fase</span></span>
+      <span class="eqf">$$\varphi_{defo} = -\frac{4\pi}{\lambda}\, \Delta R$$</span>
+      <span class="eqnote">$\Delta R$ è la variazione di distanza in slant range</span>
+    </div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-r">spostamento</span></span>
+      <span class="eqf">$$d_{LOS} = -\Delta R = \frac{\lambda}{4\pi}\, \varphi_{defo}$$</span>
+      <span class="eqnote">positivo quando il bersaglio si avvicina</span>
+    </div>
+    <div class="eqrow">
+      <span class="eqlbl"><span class="tag tg-o">frangia</span></span>
+      <span class="eqf">$$2\pi \;\longleftrightarrow\; \frac{\lambda}{2} = 2{,}77\ \text{cm in banda C}$$</span>
+      <span class="eqnote">la costante da ricordare a memoria</span>
+    </div>
+  </div>
+
+  <div class="card bl-o" style="margin-bottom:18px">
+    <div class="ctag o">La domanda sul segno</div>
+    <h3>La convenzione non è universale, quindi va sempre dichiarata</h3>
+    <p>Alcune catene di elaborazione considerano positivo l'avvicinamento al sensore, altre l'allontanamento; alcuni prodotti riportano la variazione di distanza, altri lo spostamento del bersaglio, che ha segno opposto. Davanti a un valore negativo, la risposta professionale non è interpretarlo subito, ma chiedere quale convenzione adotta il prodotto. Un meno otto millimetri all'anno che nella convenzione corrente significa allontanamento dal sensore, in geometria discendente e su terreno pianeggiante, è compatibile con una subsidenza; nella convenzione opposta racconterebbe il contrario.</p>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 09</div><div class="lsub">Velocità media contro spostamento cumulato: due numeri che non vanno confusi</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-ts" height="340"></canvas>
+        <div class="legend">
+          <span><i style="background:#0d1b2a"></i>stime alle singole date</span>
+          <span><i style="background:#e8412a"></i>tendenza lineare stimata</span>
+          <span><i style="background:#2563eb"></i>comportamento reale</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Forma del fenomeno</label>
+          <select id="s-shape">
+            <option value="lin" selected>Lineare costante</option>
+            <option value="acc">Accelerazione progressiva</option>
+            <option value="step">Evento improvviso a metà periodo</option>
+            <option value="seas">Oscillazione stagionale</option>
+          </select>
+        </div>
+        <div class="ctrl">
+          <label>Velocità di riferimento <span id="l-vel">-8.0 mm/a</span></label>
+          <input type="range" id="s-vel" min="-30" max="30" step="0.5" value="-8">
+        </div>
+        <div class="ctrl">
+          <label>Durata dell'analisi <span id="l-dur">3.0 anni</span></label>
+          <input type="range" id="s-dur" min="1" max="6" step="0.5" value="3">
+        </div>
+        <div class="ctrl">
+          <label>Disturbo atmosferico <span id="l-atm">moderato</span></label>
+          <input type="range" id="s-atm" min="0" max="100" step="1" value="35">
+        </div>
+        <div class="readout" id="r-ts"></div>
+        <div class="verdict" id="v-ts"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-b">
+      <div class="ctag b">Geocoding e validazione</div>
+      <h3>L'ultimo passo, quello che rende il prodotto utilizzabile</h3>
+      <p>La trasformazione dalle coordinate radar a un sistema geografico, con correzione delle distorsioni dovute al rilievo, è ciò che permette di sovrapporre il risultato a mappe catastali, reti infrastrutturali e livellazioni. La validazione con dati indipendenti, tipicamente stazioni GNSS permanenti o misure di livellazione, è il passaggio che trasforma una mappa suggestiva in un'affermazione difendibile.</p>
+    </div>
+    <div class="card bl-g">
+      <div class="ctag g">Serie temporale InSAR</div>
+      <h3>Perché guardare la storia e non solo il tasso</h3>
+      <p>Una velocità media è una pendenza: comprime anni di comportamento in un solo numero e nasconde qualunque non linearità. La serie temporale mostra se il movimento è costante, se accelera, se risponde alle stagioni o se si concentra in un evento singolo. Nel laboratorio qui sopra scegli l'evento improvviso: la velocità media resta invariata mentre la storia fisica è radicalmente diversa.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 9 ================= -->
+<div class="panel" id="panel-9">
+  <div class="sh"><span class="badge b-p">Serie temporali</span><h2>Bersagli persistenti, <span class="cr">PSI</span> e <span class="cb">SBAS</span></h2></div>
+
+  <div class="grid2">
+    <div class="card bl-r">
+      <div class="ctag r">PS</div>
+      <h3>Persistent Scatterer</h3>
+      <p>Bersaglio la cui risposta radar rimane stabile e coerente lungo tutta la serie di acquisizioni, tipicamente perché all'interno della cella domina un singolo riflettore forte e geometricamente fermo. Tetti, spigoli metallici, pali, rocce esposte. Un campo coltivato, al contrario, riorganizza continuamente i propri riflettori e perde coerenza.</p>
+      <div class="say"><b>Come dirlo a voce</b>Il punto chiave non è che il bersaglio sia uniforme, ma che il suo comportamento radar rimanga stabile nel tempo.</div>
+    </div>
+    <div class="card bl-b">
+      <div class="ctag b">DS</div>
+      <h3>Distributed Scatterer, per completezza</h3>
+      <p>Accanto ai riflettori dominanti esistono aree omogenee, prati stabili, superfici desertiche, dove nessun singolo riflettore domina ma l'insieme resta statisticamente coerente. Gli approcci moderni li sfruttano stimando la fase da matrici di covarianza su pixel statisticamente simili, aumentando enormemente la densità di punti misurabili fuori dalle città.</p>
+    </div>
+  </div>
+
+  <div class="lab">
+    <div class="lab-head">
+      <div><div class="lt">Laboratorio 10</div><div class="lsub">La rete di interferogrammi: stessa pila di acquisizioni, due strategie opposte</div></div>
+    </div>
+    <div class="lab-body">
+      <div>
+        <canvas id="cv-net" height="360"></canvas>
+        <div class="legend">
+          <span><i style="background:#0d1b2a"></i>acquisizione</span>
+          <span><i style="background:#e8412a"></i>immagine master</span>
+          <span><i style="background:#93c5fd"></i>coppia interferometrica formata</span>
+        </div>
+      </div>
+      <div class="ctrls">
+        <div class="ctrl">
+          <label>Strategia</label>
+          <div class="seg" id="seg-net">
+            <button class="on" onclick="setNet('psi')">PSI</button>
+            <button onclick="setNet('sbas')">SBAS</button>
+          </div>
+        </div>
+        <div class="ctrl">
+          <label>Numero di acquisizioni <span id="l-nacq">30</span></label>
+          <input type="range" id="s-nacq" min="8" max="60" step="1" value="30">
+        </div>
+        <div class="ctrl">
+          <label>Soglia baseline temporale <span id="l-tht">180 giorni</span></label>
+          <input type="range" id="s-tht" min="30" max="720" step="30" value="180">
+        </div>
+        <div class="ctrl">
+          <label>Soglia baseline perpendicolare <span id="l-thp">200 m</span></label>
+          <input type="range" id="s-thp" min="50" max="1200" step="25" value="200">
+        </div>
+        <div class="readout" id="r-net"></div>
+        <div class="verdict" id="v-net"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid2">
+    <div class="card bl-r hl-r">
+      <div class="ctag r">PSI</div>
+      <h3>Persistent Scatterer Interferometry</h3>
+      <p>Famiglia di tecniche che forma gli interferogrammi rispetto a un'unica immagine master, accettando anche baseline lunghe perché i bersagli puntuali selezionati non soffrono la decorrelazione geometrica. Seleziona i pixel in base alla stabilità dell'ampiezza nel tempo, poi stima congiuntamente velocità, errore residuo di quota e contributo atmosferico. Precisione altissima sui punti, densità che crolla fuori dalle aree costruite.</p>
+    </div>
+    <div class="card bl-b hl-b">
+      <div class="ctag b">SBAS</div>
+      <h3>Small Baseline Subset</h3>
+      <p>Famiglia di tecniche che costruisce una rete ridondante di interferogrammi scegliendo soltanto coppie con baseline temporali e spaziali contenute, così da limitare la decorrelazione in partenza. Lavora bene su aree naturali e distribuite, con multilooking che riduce il rumore a spese della risoluzione, e ricostruisce la serie temporale invertendo il sistema costruito sulla rete.</p>
+    </div>
+  </div>
+
+  <div class="darkcard">
+    <div class="dtag">// perché non basta un singolo interferogramma</div>
+    <div class="drow">
+      <span class="dchip dc-o">atmosfera</span>
+      <span class="deq">Il ritardo troposferico può valere diversi centimetri e imita perfettamente una deformazione. Su una singola coppia è indistinguibile dal segnale; su molte date si comporta come rumore scorrelato nel tempo e si media via.</span>
+      <span class="dnote">il nemico numero uno</span>
+    </div>
+    <div class="drow">
+      <span class="dchip dc-r">ridondanza</span>
+      <span class="deq">Una rete con molte coppie permette di controllare la chiusura di fase sui triangoli e di individuare errori di unwrapping, invece di doverli accettare in silenzio.</span>
+      <span class="dnote">controllo di qualità interno</span>
+    </div>
+    <div class="drow">
+      <span class="dchip dc-g">quota</span>
+      <span class="deq">L'errore residuo di quota produce una fase proporzionale alla baseline perpendicolare. Con molte coppie a baseline diverse quel termine si stima e si sottrae, cosa impossibile su una coppia sola.</span>
+      <span class="dnote">separazione dei termini</span>
+    </div>
+  </div>
+</div>
+
+<!-- ================= PANEL 10 ================= -->
+<div class="panel" id="panel-10">
+  <div class="sh"><span class="badge b-n">Chiusura</span><h2>Le sei trappole ricorrenti e un <span class="cr">test</span> finale</h2></div>
+
+  <div class="tcard">
+    <table>
+      <thead><tr><th>Termine</th><th>Che cosa non è</th><th>Che cosa è</th></tr></thead>
+      <tbody>
+        <tr><td>LOS</td><td>Non è la distanza fra due pixel e non è una baseline</td><td>La direzione sensore-bersaglio lungo cui viene proiettato lo spostamento</td></tr>
+        <tr><td>Coerenza</td><td>Non è una caratteristica del terreno e non è la differenza di fase</td><td>Una misura di correlazione fra segnali complessi, quindi di affidabilità della fase, propria della coppia</td></tr>
+        <tr><td>Coregistrazione</td><td>Non corregge il movimento del terreno</td><td>Allinea geometricamente le acquisizioni perché si confrontino le stesse celle di risoluzione</td></tr>
+        <tr><td>Topografia</td><td>La sua rimozione non coincide con la terrain correction</td><td>Sottrazione della fase dovuta al rilievo tramite DEM, distinta dalla geocodifica del prodotto</td></tr>
+        <tr><td>Interferogramma</td><td>Non è ancora una mappa di spostamento</td><td>Mappa della differenza di fase, somma di topografia, deformazione, atmosfera, orbite e rumore</td></tr>
+        <tr><td>Coerenza alta</td><td>Non significa misura corretta al cento per cento</td><td>Significa fase stabile e interpretabile, con bias ed errori sistematici ancora possibili</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="quiz" id="quizbox"></div>
+
+  <div class="darkcard">
+    <div class="dtag">// ripasso da trenta secondi</div>
+    <div class="drow">
+      <span class="dchip dc-b">catena</span>
+      <span class="deq">Scelgo acquisizioni compatibili, coregistro, costruisco l'interferogramma, rimuovo la fase topografica con il DEM, valuto la coerenza e filtro, faccio unwrapping, converto in displacement lungo la LOS, geocodifico e valido con dati indipendenti.</span>
+      <span class="dnote">otto passi, sempre nello stesso ordine</span>
+    </div>
+    <div class="drow">
+      <span class="dchip dc-g">salto</span>
+      <span class="deq">Se serve un risultato operativo robusto, passo dalla singola coppia a una serie temporale con approcci PSI oppure SBAS, in funzione della copertura del suolo e della densità di punti richiesta.</span>
+      <span class="dnote">la frase che chiude bene un colloquio</span>
+    </div>
+    <div class="drow">
+      <span class="dchip dc-r">domanda</span>
+      <span class="deq">Davanti a una mappa che mostra meno otto millimetri all'anno, la prima cosa da chiedere è: lungo quale LOS, con quale convenzione di segno e con quale coerenza.</span>
+      <span class="dnote">poi si discute la fisica</span>
+    </div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<div class="bnav">
+  <button class="btn-dark" id="btn-prev" onclick="nav(-1)">← Precedente</button>
+  <div class="pinfo">
+    <div class="pbar"><div class="pfill" id="pfill" style="width:9%"></div></div>
+    <span id="ptxt">Passo 1 di 11</span>
+  </div>
+  <button class="btn-blue" id="btn-next" onclick="nav(1)">Successivo →</button>
+</div>
+<script>
+/* ===================== UTILITY ===================== */
+const NAVY='#0d1b2a', RED='#e8412a', BLUE='#2563eb', ORANGE='#f5a623',
+      GREEN='#059669', MUTED='#6b7280', LINE='#d1d5db', SOFT='#94a3b8';
+const TWO_PI = Math.PI*2;
+
+function setup(id, hh){
+  const cv = document.getElementById(id);
+  const w = Math.max(280, cv.clientWidth || cv.parentElement.clientWidth || 600);
+  const h = hh || parseInt(cv.getAttribute('height'),10) || 300;
+  const dpr = window.devicePixelRatio || 1;
+  cv.style.height = h + 'px';
+  cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+  ctx.textBaseline = 'middle';
+  return {ctx, w, h, dpr};
+}
+function wrap(p){ return Math.atan2(Math.sin(p), Math.cos(p)); }
+function phaseColor(p, l){ const hue = ((wrap(p)+Math.PI)/TWO_PI)*360; return 'hsl('+hue.toFixed(1)+',78%,'+(l||55)+'%)'; }
+function deg(r){ return r*180/Math.PI; }
+function fmt(v,n){ return (v>=0?'+':'') + v.toFixed(n===undefined?2:n); }
+function mulberry(seed){ return function(){ seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+  let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+  t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+  return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function gauss(rnd){ let u=0,v=0; while(u===0)u=rnd(); while(v===0)v=rnd();
+  return Math.sqrt(-2*Math.log(u))*Math.cos(TWO_PI*v); }
+function arrow(ctx,x1,y1,x2,y2,color,wd,head){
+  const a = Math.atan2(y2-y1, x2-x1), hl = head||9;
+  ctx.strokeStyle=color; ctx.fillStyle=color; ctx.lineWidth=wd||2.2; ctx.lineCap='round';
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(x2,y2);
+  ctx.lineTo(x2-hl*Math.cos(a-0.42), y2-hl*Math.sin(a-0.42));
+  ctx.lineTo(x2-hl*Math.cos(a+0.42), y2-hl*Math.sin(a+0.42));
+  ctx.closePath(); ctx.fill();
+}
+function label(ctx,txt,x,y,color,size,align,weight){
+  ctx.fillStyle=color||NAVY; ctx.textAlign=align||'left';
+  ctx.font=(weight||600)+' '+(size||11)+"px 'DM Sans',sans-serif";
+  ctx.fillText(txt,x,y);
+}
+function mono(ctx,txt,x,y,color,size,align){
+  ctx.fillStyle=color||NAVY; ctx.textAlign=align||'left';
+  ctx.font=(size||11)+"px 'DM Mono',monospace"; ctx.fillText(txt,x,y);
+}
+function dashLine(ctx,x1,y1,x2,y2,color,dash){
+  ctx.save(); ctx.setLineDash(dash||[4,4]); ctx.strokeStyle=color; ctx.lineWidth=1.3;
+  ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke(); ctx.restore();
+}
+function verdict(id, cls, html){
+  const el = document.getElementById(id);
+  el.className = 'verdict ' + cls; el.innerHTML = html;
+}
+function bind(id, fn){ const e=document.getElementById(id); if(e) e.addEventListener('input', fn); }
+
+/* ===================== 0 · FASORE ===================== */
+function drawPhasor(){
+  const {ctx,w,h} = setup('cv-phasor');
+  const A = +document.getElementById('s-amp').value;
+  const P = +document.getElementById('s-pha').value;
+  document.getElementById('l-amp').textContent = A.toFixed(2);
+  document.getElementById('l-pha').textContent = fmt(P) + ' rad';
+
+  const cx = w*0.30, cy = h*0.52, R = Math.min(h*0.36, w*0.24);
+  ctx.strokeStyle='#eceff3'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.arc(cx,cy,R,0,TWO_PI); ctx.stroke();
+  ctx.beginPath(); ctx.arc(cx,cy,R*0.5,0,TWO_PI); ctx.stroke();
+  ctx.strokeStyle=LINE; ctx.lineWidth=1.2;
+  ctx.beginPath(); ctx.moveTo(cx-R-16,cy); ctx.lineTo(cx+R+16,cy);
+  ctx.moveTo(cx,cy-R-16); ctx.lineTo(cx,cy+R+16); ctx.stroke();
+  label(ctx,'Re',cx+R+20,cy,MUTED,10,'left');
+  label(ctx,'Im',cx,cy-R-24,MUTED,10,'center');
+
+  const px = cx + A*R*Math.cos(P), py = cy - A*R*Math.sin(P);
+  dashLine(ctx,px,py,px,cy,SOFT); dashLine(ctx,px,py,cx,py,SOFT);
+  ctx.strokeStyle=NAVY; ctx.lineWidth=2.5;
+  ctx.beginPath(); ctx.arc(cx,cy,R*0.24,0,-P,P>0);ctx.stroke();
+  arrow(ctx,cx,cy,px,py,RED,3);
+  ctx.fillStyle=RED; ctx.beginPath(); ctx.arc(px,py,4,0,TWO_PI); ctx.fill();
+  label(ctx,'φ',cx+R*0.30*Math.cos(P/2), cy-R*0.30*Math.sin(P/2)-2, NAVY,12,'left',700);
+  label(ctx,'A',(cx+px)/2 - 14,(cy+py)/2 - 10, RED,12,'left',700);
+  label(ctx,'piano complesso del pixel', cx, h-12, MUTED,10.5,'center');
+
+  const bx = w*0.62, bw = Math.min(w*0.16, 92), by = h*0.20;
+  const g = Math.round(30 + A*205);
+  ctx.fillStyle='rgb('+g+','+g+','+(g+6)+')';
+  roundRect(ctx,bx,by,bw,bw,10); ctx.fill();
+  ctx.strokeStyle=LINE; ctx.lineWidth=1; roundRect(ctx,bx,by,bw,bw,10); ctx.stroke();
+  label(ctx,'immagine di ampiezza',bx,by-14,BLUE,10.5,'left',700);
+  label(ctx,'quello che vede l\u2019occhio',bx,by+bw+14,MUTED,10,'left');
+
+  const by2 = h*0.62;
+  ctx.fillStyle = phaseColor(P);
+  roundRect(ctx,bx,by2,bw,bw,10); ctx.fill();
+  ctx.strokeStyle=LINE; roundRect(ctx,bx,by2,bw,bw,10); ctx.stroke();
+  label(ctx,'immagine di fase',bx,by2-14,RED,10.5,'left',700);
+  label(ctx,'quello che usa l\u2019InSAR',bx,by2+bw+14,MUTED,10,'left');
+
+  document.getElementById('r-phasor').innerHTML =
+    '<span class="k">ampiezza  </span><span class="v">'+A.toFixed(3)+'</span><br>'+
+    '<span class="k">fase      </span><span class="vb">'+fmt(P,3)+' rad  ('+fmt(deg(P),1)+'°)</span><br>'+
+    '<span class="k">parte Re  </span><span class="vg">'+fmt(A*Math.cos(P),3)+'</span><br>'+
+    '<span class="k">parte Im  </span><span class="vg">'+fmt(A*Math.sin(P),3)+'</span>';
+}
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r);
+  ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath();
+}
+
+/* ===================== 1 · LOS ===================== */
+let ORB = 'asc';
+function setOrb(o){
+  ORB = o;
+  const b = document.querySelectorAll('#seg-orb button');
+  b[0].classList.toggle('on', o==='asc'); b[1].classList.toggle('on', o==='desc');
+  drawLos();
+}
+function drawLos(){
+  const {ctx,w,h} = setup('cv-los');
+  const th = +document.getElementById('s-inc').value * Math.PI/180;
+  const dv = +document.getElementById('s-dv').value;
+  const de = +document.getElementById('s-de').value;
+  document.getElementById('l-inc').textContent = Math.round(deg(th))+'°';
+  document.getElementById('l-dv').textContent  = dv.toFixed(1)+' mm/a';
+  document.getElementById('l-de').textContent  = de.toFixed(1)+' mm/a';
+  document.getElementById('l-orb').textContent = ORB==='asc'?'ascending':'descending';
+
+  const uE = (ORB==='asc' ? -Math.sin(th) : Math.sin(th)), uU = Math.cos(th);
+  const gy = h*0.70, tx = w*0.46, L = Math.min(w*0.33, h*0.60);
+
+  ctx.fillStyle='#eef1f5'; ctx.fillRect(0,gy,w,h-gy);
+  ctx.strokeStyle=LINE; ctx.lineWidth=1.5;
+  ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(w,gy); ctx.stroke();
+  for(let x=8;x<w;x+=26){ dashLine(ctx,x,gy,x-9,gy+11,'#dfe3e9',[3,3]); }
+  label(ctx,'ovest',12,gy+26,MUTED,10,'left'); label(ctx,'est',w-12,gy+26,MUTED,10,'right');
+
+  const sx = tx + uE*L, sy = gy - uU*L;
+  dashLine(ctx,tx,gy,sx,sy,BLUE,[6,5]);
+  dashLine(ctx,tx,gy,tx,gy-L*0.86,SOFT,[3,4]);
+  ctx.strokeStyle=BLUE; ctx.lineWidth=1.6;
+  const a0 = -Math.PI/2, a1 = Math.atan2(sy-gy, sx-tx);
+  ctx.beginPath(); ctx.arc(tx,gy,44,Math.min(a0,a1),Math.max(a0,a1)); ctx.stroke();
+  label(ctx,'θ = '+Math.round(deg(th))+'°', tx + (uE>0?30:-72), gy-56, BLUE,11.5,'left',700);
+  label(ctx,'verticale', tx+6, gy-L*0.86-8, SOFT,10,'left');
+
+  ctx.save(); ctx.translate(sx,sy); ctx.rotate(uE>0?0.25:-0.25);
+  ctx.fillStyle=NAVY; roundRect(ctx,-13,-9,26,18,4); ctx.fill();
+  ctx.fillStyle=BLUE; ctx.fillRect(-30,-5,15,10); ctx.fillRect(15,-5,15,10);
+  ctx.restore();
+  label(ctx,'sensore · '+(ORB==='asc'?'orbita ascendente':'orbita discendente'), sx, sy-26, NAVY,11,'center',700);
+
+  const sc = Math.min(w*0.010, 4.4);
+  const dxp = tx + de*sc, dyp = gy - dv*sc;
+  if (Math.abs(de)+Math.abs(dv) > 0.2){
+    arrow(ctx,tx,gy,dxp,dyp,GREEN,3);
+    label(ctx,'movimento reale', dxp + (de>=0?8:-8), dyp-12, GREEN,11,de>=0?'left':'right',700);
+  }
+  const dlos = de*uE + dv*uU;
+  const lx = tx + uE*dlos*sc, ly = gy - uU*dlos*sc;
+  if (Math.abs(dlos) > 0.15){
+    arrow(ctx,tx,gy,lx,ly,RED,3.4);
+    label(ctx,fmt(dlos,1)+' mm/a lungo la LOS', lx + (uE>0?10:-10), ly+16, RED,11.5,uE>0?'left':'right',700);
+  }
+  dashLine(ctx,dxp,dyp,lx,ly,'#cbd5e1',[3,3]);
+  ctx.fillStyle=NAVY; ctx.beginPath(); ctx.arc(tx,gy,5,0,TWO_PI); ctx.fill();
+  label(ctx,'bersaglio a terra', tx, gy+22, NAVY,10.5,'center',700);
+
+  const mag = Math.hypot(de,dv);
+  const lost = mag>0.01 ? (1 - Math.abs(dlos)/mag) : 0;
+  document.getElementById('r-los').innerHTML =
+    '<span class="k">u_up      </span><span class="v">'+uU.toFixed(3)+'</span><br>'+
+    '<span class="k">u_est     </span><span class="v">'+uE.toFixed(3)+'</span><br>'+
+    '<span class="k">|d| reale </span><span class="vb">'+mag.toFixed(1)+' mm/a</span><br>'+
+    '<span class="k">d_LOS     </span><span class="vr">'+fmt(dlos,2)+' mm/a</span><br>'+
+    '<span class="k">non visto </span><span class="v">'+(lost*100).toFixed(0)+' %</span>';
+
+  let cls='good', txt='';
+  if (Math.abs(dv)<0.6 && Math.abs(de)>3){
+    cls='bad';
+    txt='Il suolo si muove solo in orizzontale, eppure la LOS registra <b>'+fmt(dlos,1)+' mm/a</b>. Letta come subsidenza sarebbe un falso conclamato. Cambia geometria orbitale: il segno si ribalta, e questa è proprio la firma che permette di riconoscere una componente est-ovest.';
+  } else if (Math.abs(de)>2 && Math.abs(dv)>2){
+    cls='warn';
+    txt='Il valore LOS mescola verticale e orizzontale. Con una sola geometria le due componenti sono indistinguibili: servono ascending e descending, oppure l\u2019ipotesi che il movimento sia puramente verticale.';
+  } else if (Math.abs(dv)>0.6){
+    cls='good';
+    txt='Movimento quasi puramente verticale: la LOS ne cattura il '+((uU)*100).toFixed(0)+' per cento. Anche nel caso migliore la misura resta una proiezione, mai lo spostamento verticale in sé.';
+  } else {
+    cls='warn'; txt='Nessun movimento apprezzabile impostato: alza una delle due componenti.';
+  }
+  verdict('v-los',cls,txt);
+}
+
+/* ===================== 2 · INTERFEROGRAMMA ===================== */
+function drawIfg(){
+  const {ctx,w,h} = setup('cv-ifg');
+  const p1 = +document.getElementById('s-p1').value;
+  const p2 = +document.getElementById('s-p2').value;
+  document.getElementById('l-p1').textContent = fmt(p1)+' rad';
+  document.getElementById('l-p2').textContent = fmt(p2)+' rad';
+  const dphi = wrap(p1-p2);
+
+  const R = Math.min(h*0.28, w*0.115), cy = h*0.46;
+  const xs = [w*0.17, w*0.50, w*0.83];
+  const ps = [p1, p2, dphi];
+  const cols = [BLUE, ORANGE, RED];
+  const names = ['acquisizione 1','acquisizione 2','interferogramma'];
+  for (let i=0;i<3;i++){
+    const cx = xs[i];
+    ctx.strokeStyle='#eceff3'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(cx,cy,R,0,TWO_PI); ctx.stroke();
+    ctx.strokeStyle=LINE;
+    ctx.beginPath(); ctx.moveTo(cx-R-8,cy); ctx.lineTo(cx+R+8,cy);
+    ctx.moveTo(cx,cy-R-8); ctx.lineTo(cx,cy+R+8); ctx.stroke();
+    ctx.strokeStyle=cols[i]; ctx.lineWidth=2;
+    ctx.beginPath(); ctx.arc(cx,cy,R*0.3,0,-ps[i],ps[i]>0); ctx.stroke();
+    arrow(ctx,cx,cy,cx+R*0.92*Math.cos(ps[i]),cy-R*0.92*Math.sin(ps[i]),cols[i],3);
+    label(ctx,names[i],cx,cy+R+26,cols[i],11,'center',700);
+    mono(ctx,fmt(ps[i],2)+' rad',cx,cy+R+44,MUTED,11,'center');
+    ctx.fillStyle = phaseColor(ps[i]);
+    roundRect(ctx,cx-16,cy-R-38,32,22,6); ctx.fill();
+  }
+  label(ctx,'\u00D7 coniugato',(xs[0]+xs[1])/2, cy, NAVY,12,'center',700);
+  label(ctx,'=',(xs[1]+xs[2])/2, cy, NAVY,17,'center',700);
+  label(ctx,'colore = fase mostrata sulla mappa', w/2, 16, MUTED,10.5,'center');
+
+  const raw = p1-p2;
+  document.getElementById('r-ifg').innerHTML =
+    '<span class="k">φ1 − φ2 grezza </span><span class="v">'+fmt(raw,3)+' rad</span><br>'+
+    '<span class="k">avvolta        </span><span class="vr">'+fmt(dphi,3)+' rad</span><br>'+
+    '<span class="k">cicli persi    </span><span class="vb">'+Math.round((raw-dphi)/TWO_PI)+'</span><br>'+
+    '<span class="k">se fosse defo  </span><span class="vg">'+fmt(dphi*0.5551/(4*Math.PI)*1000,1)+' mm LOS</span>';
+}
+
+/* ===================== 3 · FRANGE ===================== */
+let FRMODE='w';
+function setFr(m){
+  FRMODE=m;
+  const b=document.querySelectorAll('#seg-fr button');
+  b[0].classList.toggle('on',m==='w'); b[1].classList.toggle('on',m==='u');
+  drawFringe();
+}
+function drawFringe(){
+  const {ctx,w,h,dpr} = setup('cv-fringe');
+  const dmax = +document.getElementById('s-fd').value;
+  const wid  = +document.getElementById('s-fw').value;
+  const lam  = +document.getElementById('s-band').value;
+  document.getElementById('l-fd').textContent = dmax.toFixed(1)+' cm';
+  document.getElementById('l-fw').textContent = wid<22?'stretta':(wid<44?'media':'ampia');
+
+  const iw = Math.round(w*dpr), ih = Math.round(h*dpr);
+  const img = ctx.createImageData(iw, ih);
+  const cx = w*0.5, cy = h*0.5, sg = wid/100*Math.min(w,h)*0.62;
+  const maxPh = 4*Math.PI*dmax/lam;
+  for (let py=0;py<ih;py++){
+    for (let px=0;px<iw;px++){
+      const x = px/dpr, y = py/dpr;
+      const r2 = ((x-cx)*(x-cx)+(y-cy)*(y-cy)*1.9)/(2*sg*sg);
+      const d = dmax*Math.exp(-r2);
+      const ph = 4*Math.PI*d/lam;
+      let r,g,b;
+      if (FRMODE==='w'){
+        const hue = ((wrap(ph)+Math.PI)/TWO_PI)*360;
+        const c = hsl2rgb(hue,0.72,0.55); r=c[0]; g=c[1]; b=c[2];
+      } else {
+        const t = maxPh>0 ? ph/maxPh : 0;
+        r = Math.round(247-190*t); g = Math.round(248-140*t); b = Math.round(250-60*t);
+      }
+      const i=(py*iw+px)*4;
+      img.data[i]=r; img.data[i+1]=g; img.data[i+2]=b; img.data[i+3]=255;
+    }
+  }
+  ctx.putImageData(img,0,0);
+  ctx.strokeStyle='rgba(255,255,255,.85)'; ctx.lineWidth=1.4;
+  ctx.beginPath(); ctx.moveTo(cx,cy-9); ctx.lineTo(cx,cy+9);
+  ctx.moveTo(cx-9,cy); ctx.lineTo(cx+9,cy); ctx.stroke();
+  ctx.fillStyle='rgba(13,27,42,.82)'; roundRect(ctx,10,10,190,26,7); ctx.fill();
+  label(ctx, FRMODE==='w'?'fase avvolta · modulo 2π':'fase continua dopo unwrapping', 20, 23, '#f1f5f9',11,'left',700);
+
+  const nf = dmax/(lam/2);
+  document.getElementById('r-fringe').innerHTML =
+    '<span class="k">λ         </span><span class="v">'+lam.toFixed(2)+' cm</span><br>'+
+    '<span class="k">λ/2       </span><span class="v">'+(lam/2).toFixed(2)+' cm per frangia</span><br>'+
+    '<span class="k">fase max  </span><span class="vb">'+maxPh.toFixed(1)+' rad</span><br>'+
+    '<span class="k">frange    </span><span class="vr">'+nf.toFixed(2)+'</span>';
+  let cls='good', t='';
+  if (nf<0.5) t='Meno di mezza frangia: il segnale è sottile e rischia di confondersi con l\u2019atmosfera. Qui serve una serie temporale, non una singola coppia.';
+  else if (nf<6){ t='Il pattern è leggibile e si contano <b>'+nf.toFixed(1)+' frange</b> dal bordo al centro. Moltiplicandole per λ/2 ritrovi lo spostamento senza aprire alcun software.'; }
+  else { cls='warn'; t='Frange molto fitte: verso il centro il gradiente si avvicina al limite di campionamento e l\u2019unwrapping inizia a diventare fragile. Prova a passare in banda L e osserva come si diradano.'; }
+  verdict('v-fringe',cls,t);
+}
+function hsl2rgb(hd,s,l){
+  const hh=hd/360, a=s*Math.min(l,1-l);
+  const f=n=>{ const k=(n+hh*12)%12; return Math.round(255*(l-a*Math.max(-1,Math.min(k-3,Math.min(9-k,1))))); };
+  return [f(0),f(8),f(4)];
+}
+
+/* ===================== 4 · TOPOGRAFIA ===================== */
+let TOPOCORR=0;
+function setTopo(v){
+  TOPOCORR=v;
+  const b=document.querySelectorAll('#seg-topo button');
+  b[0].classList.toggle('on',v===0); b[1].classList.toggle('on',v===1);
+  drawTopo();
+}
+function drawTopo(){
+  const {ctx,w,h} = setup('cv-topo');
+  const Bp = +document.getElementById('s-bp').value;
+  const dh = +document.getElementById('s-de2').value;
+  document.getElementById('l-bp').textContent = Bp+' m';
+  document.getElementById('l-de2').textContent = dh+' m';
+
+  const lam=0.0555, R=800000, th=35*Math.PI/180;
+  const hamb = lam*R*Math.sin(th)/(2*Bp);
+  const N=Math.round(w), quota=[], defo=[], demErr=[];
+  for(let i=0;i<N;i++){
+    const x=i/(N-1);
+    quota.push(340 + 210*Math.sin(6.0*x) + 95*Math.sin(14.5*x+0.8) + 40*Math.sin(31*x));
+    defo.push(-0.030*Math.exp(-0.5*Math.pow((x-0.63)/0.085,2)));
+    demErr.push(dh*Math.sin(11*x+1.4));
+  }
+  const pTopo=[],pDefo=[],pMeas=[];
+  for(let i=0;i<N;i++){
+    pTopo.push(TWO_PI*quota[i]/hamb);
+    pDefo.push(4*Math.PI*defo[i]/lam);
+    pMeas.push(TOPOCORR ? TWO_PI*demErr[i]/hamb + pDefo[i] : TWO_PI*quota[i]/hamb + pDefo[i]);
+  }
+  const H1=h*0.30, H2=h*0.44, pad=26;
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
+
+  const qmin=Math.min.apply(null,quota), qmax=Math.max.apply(null,quota);
+  ctx.beginPath();
+  for(let i=0;i<N;i++){ const y=pad+H1-(quota[i]-qmin)/(qmax-qmin)*(H1-14); i?ctx.lineTo(i,y):ctx.moveTo(i,y); }
+  ctx.lineTo(N,pad+H1); ctx.lineTo(0,pad+H1); ctx.closePath();
+  ctx.fillStyle='#f3f4f6'; ctx.fill(); ctx.strokeStyle=SOFT; ctx.lineWidth=1.2;
+  ctx.beginPath();
+  for(let i=0;i<N;i++){ const y=pad+H1-(quota[i]-qmin)/(qmax-qmin)*(H1-14); i?ctx.lineTo(i,y):ctx.moveTo(i,y); }
+  ctx.stroke();
+  const gx=0.63*(N-1);
+  ctx.fillStyle='rgba(5,150,105,.12)'; ctx.fillRect(gx-38,pad,76,H1);
+  label(ctx,'profilo di quota del terreno',10,pad+12,MUTED,10.5,'left',700);
+  label(ctx,'zona in deformazione',gx,pad+H1-8,GREEN,10.5,'center',700);
+
+  const top2=pad+H1+34, mid=top2+H2/2;
+  let amp=1; for(let i=0;i<N;i++) amp=Math.max(amp,Math.abs(pMeas[i]),Math.abs(pTopo[i])*(TOPOCORR?0:1),Math.abs(pDefo[i]));
+  const sc=(H2/2-10)/amp;
+  ctx.strokeStyle='#eceff3'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,mid); ctx.lineTo(w,mid); ctx.stroke();
+  function poly(arr,color,wd,dash){
+    ctx.save(); if(dash) ctx.setLineDash(dash);
+    ctx.strokeStyle=color; ctx.lineWidth=wd; ctx.beginPath();
+    for(let i=0;i<N;i++){ const y=mid-arr[i]*sc; i?ctx.lineTo(i,y):ctx.moveTo(i,y); }
+    ctx.stroke(); ctx.restore();
+  }
+  if(!TOPOCORR) poly(pTopo,ORANGE,1.6,[5,4]);
+  poly(pDefo,GREEN,1.8);
+  poly(pMeas,NAVY,2.2);
+  label(ctx, TOPOCORR?'fase residua dopo la sottrazione del DEM':'fase interferometrica misurata', 10, top2+10, NAVY,10.5,'left',700);
+  label(ctx,'radianti',10,mid-8,MUTED,10,'left');
+
+  const sy=h-30;
+  for(let i=0;i<N;i++){ ctx.fillStyle=phaseColor(pMeas[i]); ctx.fillRect(i,sy,1,22); }
+  ctx.strokeStyle=LINE; ctx.strokeRect(0,sy,w,22);
+  label(ctx,'la stessa cosa vista come frange sulla mappa',8,sy-9,MUTED,10,'left');
+
+  let resAmp=0; for(let i=0;i<N;i++) resAmp=Math.max(resAmp,Math.abs(TWO_PI*demErr[i]/hamb));
+  const defoAmp=Math.max.apply(null,pDefo.map(Math.abs));
+  document.getElementById('r-topo').innerHTML =
+    '<span class="k">h ambiguità </span><span class="v">'+hamb.toFixed(1)+' m</span><br>'+
+    '<span class="k">frange topo </span><span class="vb">'+((qmax-qmin)/hamb).toFixed(1)+'</span><br>'+
+    '<span class="k">fase defo   </span><span class="vg">'+defoAmp.toFixed(2)+' rad (30 mm)</span><br>'+
+    '<span class="k">residuo DEM </span><span class="vr">'+resAmp.toFixed(2)+' rad</span>';
+
+  let cls, t;
+  if(!TOPOCORR){
+    cls='bad';
+    t='Senza sottrazione, la fase è dominata dal rilievo: <b>'+((qmax-qmin)/hamb).toFixed(1)+' frange</b> di pura topografia contro una deformazione che ne vale appena '+(defoAmp/TWO_PI).toFixed(2)+'. Il segnale utile è sepolto.';
+  } else if (resAmp > defoAmp*0.6){
+    cls='warn';
+    t='Il DEM è stato sottratto, ma il suo errore di quota lascia un residuo confrontabile con la deformazione stessa. Con una baseline così ampia ogni metro di imprecisione del modello si traduce in fase spuria: qui conviene una coppia a baseline più corta.';
+  } else {
+    cls='good';
+    t='La componente topografica è stata rimossa e resta in evidenza la sola conca deformativa. Nota che ridurre la baseline perpendicolare aumenta l\u2019altezza di ambiguità e rende la stima molto più tollerante agli errori del DEM.';
+  }
+  verdict('v-topo',cls,t);
+}
+
+/* ===================== 5 · COERENZA ===================== */
+let COHSEED=7;
+function drawCoh(reseed){
+  if(reseed===true) COHSEED = Math.floor(Math.random()*100000);
+  const {ctx,w,h} = setup('cv-coh');
+  const st = +document.getElementById('s-st').value/100;
+  const win = +document.getElementById('s-win').value;
+  document.getElementById('l-st').textContent = st>0.8?'alta':(st>0.5?'media':(st>0.25?'bassa':'quasi nulla'));
+  document.getElementById('l-win').textContent = win+' × '+win;
+
+  const N=win*win, sig=(1-st)*3.1+0.03, rnd=mulberry(COHSEED);
+  let sx=0, sy=0; const pts=[];
+  for(let i=0;i<N;i++){
+    const ph = 0.7 + gauss(rnd)*sig, a = 0.55+rnd()*0.75;
+    pts.push([ph,a]); sx += a*Math.cos(ph); sy += a*Math.sin(ph);
+  }
+  let sa=0, sa2=0; for(const p of pts){ sa+=p[1]; sa2+=p[1]*p[1]; }
+  const gam = Math.min(1, Math.hypot(sx,sy)/(N*Math.sqrt(sa2/N)));
+  const cx=w*0.30, cy=h*0.50, R=Math.min(h*0.36,w*0.24);
+
+  ctx.strokeStyle='#eceff3'; ctx.beginPath(); ctx.arc(cx,cy,R,0,TWO_PI); ctx.stroke();
+  ctx.strokeStyle=LINE; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(cx-R-10,cy); ctx.lineTo(cx+R+10,cy);
+  ctx.moveTo(cx,cy-R-10); ctx.lineTo(cx,cy+R+10); ctx.stroke();
+  ctx.strokeStyle='rgba(148,163,184,.75)'; ctx.lineWidth=1.4;
+  for(const p of pts){
+    ctx.beginPath(); ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+R*0.9*p[1]/1.3*Math.cos(p[0]), cy-R*0.9*p[1]/1.3*Math.sin(p[0]));
+    ctx.stroke();
+  }
+  const mph=Math.atan2(sy,sx);
+  arrow(ctx,cx,cy,cx+R*gam*Math.cos(mph),cy-R*gam*Math.sin(mph),RED,3.6);
+  label(ctx,'contributi della finestra '+win+'×'+win, cx, h-12, MUTED,10.5,'center');
+
+  const bx=w*0.60, bw=Math.min(w*0.33,240), by=h*0.40;
+  ctx.fillStyle='#eef1f5'; roundRect(ctx,bx,by,bw,20,10); ctx.fill();
+  const grd=ctx.createLinearGradient(bx,0,bx+bw,0);
+  grd.addColorStop(0,'#e8412a'); grd.addColorStop(0.35,'#f5a623'); grd.addColorStop(1,'#059669');
+  ctx.fillStyle=grd; roundRect(ctx,bx,by,Math.max(6,bw*gam),20,10); ctx.fill();
+  ctx.strokeStyle=NAVY; ctx.lineWidth=1.6; ctx.setLineDash([3,3]);
+  ctx.beginPath(); ctx.moveTo(bx+bw*0.3,by-8); ctx.lineTo(bx+bw*0.3,by+28); ctx.stroke(); ctx.setLineDash([]);
+  label(ctx,'soglia tipica di mascheratura 0,3', bx+bw*0.3, by+42, MUTED,10,'center');
+  label(ctx,'coerenza stimata', bx, by-18, NAVY,11,'left',700);
+  label(ctx,'γ = '+gam.toFixed(3), bx+bw, by-18, RED,13,'right',800);
+  label(ctx,'0', bx, by+42, MUTED,10,'left'); label(ctx,'1', bx+bw, by+42, MUTED,10,'right');
+
+  const sPh = gam>0.02 ? Math.sqrt((1-gam*gam)/(2*N*gam*gam)) : 3;
+  const sMm = 0.0555/(4*Math.PI)*sPh*1000;
+  document.getElementById('r-coh').innerHTML =
+    '<span class="k">campioni     </span><span class="v">'+N+'</span><br>'+
+    '<span class="k">disp. di fase</span><span class="v">'+deg(sig).toFixed(0)+'°</span><br>'+
+    '<span class="k">γ stimata    </span><span class="'+(gam>0.6?'vg':(gam>0.3?'v':'vr'))+'">'+gam.toFixed(3)+'</span><br>'+
+    '<span class="k">σ della fase </span><span class="vb">'+deg(sPh).toFixed(1)+'°  ≈ '+sMm.toFixed(2)+' mm</span>';
+
+  let cls,t;
+  if(gam>0.7){ cls='good'; t='I vettori puntano quasi tutti nella stessa direzione: lo scattering si è conservato fra le due date e la fase è affidabile a frazioni di millimetro. Questo è il regime dei bersagli persistenti.'; }
+  else if(gam>0.3){ cls='warn'; t='Coerenza intermedia. La misura esiste ma va trattata con prudenza: qui il filtraggio aiuta e l\u2019unwrapping comincia a essere il punto debole della catena.'; }
+  else { cls='bad'; t='I contributi si cancellano fra loro e la somma vettoriale collassa. Un valore di spostamento estratto da questo pixel è indistinguibile dal rumore, per quanto la mappa lo mostri con un colore convincente.'; }
+  t += ' Allarga la finestra di stima: la stima diventa meno rumorosa, al prezzo di una risoluzione spaziale più grossolana e di un bias positivo su γ quando i campioni sono pochi.';
+  verdict('v-coh',cls,t);
+}
+
+/* ===================== 6 · DECORRELAZIONE ===================== */
+const COVERS = {
+  urban:{tau:9000,lab:'tessuto urbano denso'}, rock:{tau:1400,lab:'roccia affiorante'},
+  grass:{tau:95,lab:'prateria e seminativo'}, forest:{tau:26,lab:'foresta decidua'},
+  water:{tau:0.4,lab:'specchio d\u2019acqua'}
+};
+function drawDec(){
+  const {ctx,w,h} = setup('cv-dec');
+  const cov = document.getElementById('s-cover').value;
+  const bt = +document.getElementById('s-bt').value;
+  const bp = +document.getElementById('s-bp2').value;
+  document.getElementById('l-bt').textContent = bt+' giorni';
+  document.getElementById('l-bp2').textContent = bp+' m';
+
+  const tau = COVERS[cov].tau, Bc = 5000, snr = 0.96;
+  const gGeo = Math.max(0, 1 - bp/Bc);
+  const gT = t => Math.exp(-t/tau);
+  const gTot = t => gT(t)*gGeo*snr;
+
+  const L=44, Rp=18, T=26, B=44, pw=w-L-Rp, ph=h-T-B;
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='#eef1f5'; ctx.lineWidth=1;
+  for(let i=0;i<=5;i++){ const y=T+ph*i/5; ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+    label(ctx,(1-i/5).toFixed(1),L-9,y,MUTED,10,'right'); }
+  for(let i=0;i<=6;i++){ const x=L+pw*i/6; label(ctx,Math.round(360*i/6)+'',x,T+ph+16,MUTED,10,'center'); }
+  label(ctx,'baseline temporale, giorni',L+pw/2,T+ph+34,MUTED,10.5,'center',700);
+  label(ctx,'coerenza attesa',L-30,T-12,MUTED,10.5,'left',700);
+  ctx.strokeStyle=LINE; ctx.beginPath(); ctx.moveTo(L,T); ctx.lineTo(L,T+ph); ctx.lineTo(L+pw,T+ph); ctx.stroke();
+
+  ctx.save(); ctx.setLineDash([4,4]); ctx.strokeStyle=SOFT; ctx.lineWidth=1.6; ctx.beginPath();
+  for(let i=0;i<=200;i++){ const t=360*i/200, x=L+pw*i/200, y=T+ph*(1-gT(t)); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+  ctx.stroke(); ctx.restore();
+  ctx.strokeStyle=RED; ctx.lineWidth=2.6; ctx.beginPath();
+  for(let i=0;i<=200;i++){ const t=360*i/200, x=L+pw*i/200, y=T+ph*(1-gTot(t)); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+  ctx.stroke();
+  ctx.strokeStyle='#0d1b2a33'; ctx.lineWidth=1.2;
+  const y3=T+ph*0.7; dashLine(ctx,L,y3,L+pw,y3,'#cbd5e1',[2,4]);
+  label(ctx,'0,3 soglia operativa',L+pw-4,y3-10,MUTED,10,'right');
+
+  const g=gTot(bt), px=L+pw*bt/360, py=T+ph*(1-g);
+  dashLine(ctx,px,T,px,T+ph,'#cbd5e1',[3,3]);
+  ctx.fillStyle=NAVY; ctx.beginPath(); ctx.arc(px,py,6,0,TWO_PI); ctx.fill();
+  ctx.fillStyle='#fff'; ctx.beginPath(); ctx.arc(px,py,2.4,0,TWO_PI); ctx.fill();
+  ctx.fillStyle='rgba(13,27,42,.9)'; roundRect(ctx,Math.min(px+10,w-120),py-30,110,24,7); ctx.fill();
+  label(ctx,'γ = '+g.toFixed(3), Math.min(px+10,w-120)+55, py-18, '#f1f5f9',11.5,'center',700);
+  label(ctx, COVERS[cov].lab, L+6, T+12, RED, 11.5,'left',700);
+
+  document.getElementById('r-dec').innerHTML =
+    '<span class="k">γ temporale </span><span class="v">'+gT(bt).toFixed(3)+'</span><br>'+
+    '<span class="k">γ geometrica</span><span class="vb">'+gGeo.toFixed(3)+'</span><br>'+
+    '<span class="k">γ termica   </span><span class="v">'+snr.toFixed(2)+'</span><br>'+
+    '<span class="k">γ totale    </span><span class="'+(g>0.6?'vg':(g>0.3?'v':'vr'))+'">'+g.toFixed(3)+'</span>';
+
+  let cls,t;
+  if(bp>Bc*0.8){ cls='bad'; t='La baseline perpendicolare si avvicina a quella critica, attorno ai cinque chilometri: le geometrie di osservazione sono troppo diverse e la coerenza crolla indipendentemente da quanto tempo separa le due acquisizioni.'; }
+  else if(g>0.6){ cls='good'; t='Coppia solida. Su questa copertura del suolo la decorrelazione temporale è lenta e la geometria è favorevole: un singolo interferogramma può già dire qualcosa di sensato.'; }
+  else if(g>0.3){ cls='warn'; t='Siamo nella zona grigia. Accorcia la baseline temporale, oppure rinuncia alla coppia singola e passa a una rete SBAS che privilegia coppie brevi e ridondanti.'; }
+  else { cls='bad'; t='La coppia è decorrelata. Su questa copertura serve un intervallo molto più breve, oppure una banda più lunga che penetri la vegetazione, oppure la scelta di lavorare solo sui bersagli puntuali stabili immersi nell\u2019area.'; }
+  verdict('v-dec',cls,t);
+}
+
+/* ===================== 7 · UNWRAPPING ===================== */
+let UNWSEED=21;
+function drawUnw(reseed){
+  if(reseed===true) UNWSEED=Math.floor(Math.random()*100000);
+  const {ctx,w,h} = setup('cv-unw');
+  const A = +document.getElementById('s-ua').value;
+  const G = +document.getElementById('s-ug').value;
+  const NZ = +document.getElementById('s-un').value/100;
+  document.getElementById('l-ua').textContent = A.toFixed(1)+' cicli';
+  document.getElementById('l-ug').textContent = G<5?'dolce':(G<12?'marcato':'ripidissimo');
+  document.getElementById('l-un').textContent = NZ<0.15?'basso':(NZ<0.45?'medio':'alto');
+
+  const N=200, sigma=0.34/(0.35+G*0.16), rnd=mulberry(UNWSEED);
+  const tru=[], obs=[], unw=[];
+  for(let i=0;i<N;i++){
+    const x=i/(N-1);
+    tru.push(-A*TWO_PI*Math.exp(-0.5*Math.pow((x-0.5)/sigma,2)));
+    obs.push(wrap(tru[i] + gauss(rnd)*NZ*1.7));
+  }
+  unw[0]=obs[0];
+  for(let i=1;i<N;i++) unw[i]=unw[i-1]+wrap(obs[i]-obs[i-1]);
+  const off = tru[0]-unw[0]; for(let i=0;i<N;i++) unw[i]+=off;
+
+  let maxGrad=0, aliasIdx=-1;
+  for(let i=1;i<N;i++){ const gd=Math.abs(tru[i]-tru[i-1]); if(gd>maxGrad) maxGrad=gd;
+    if(gd>Math.PI && aliasIdx<0) aliasIdx=i; }
+  let maxErr=0; for(let i=0;i<N;i++) maxErr=Math.max(maxErr,Math.abs(unw[i]-tru[i]));
+
+  const L=46, Rp=16, T=24, pw=w-L-Rp, H1=h*0.50, H2=h*0.26, gap=44;
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
+  const lo=Math.min(0,Math.min.apply(null,tru),Math.min.apply(null,unw))-2;
+  const hi=Math.max(0,Math.max.apply(null,tru),Math.max.apply(null,unw))+2;
+  const yv=v=>T+H1-(v-lo)/(hi-lo)*H1;
+  ctx.strokeStyle='#eef1f5';
+  for(let k=Math.ceil(lo/TWO_PI);k<=Math.floor(hi/TWO_PI);k++){
+    const y=yv(k*TWO_PI); ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+    label(ctx,(k)+'·2π',L-8,y,MUTED,9.5,'right');
+  }
+  ctx.strokeStyle=LINE; ctx.beginPath(); ctx.moveTo(L,T); ctx.lineTo(L,T+H1); ctx.stroke();
+  function line(arr,color,wd,dash){
+    ctx.save(); if(dash)ctx.setLineDash(dash); ctx.strokeStyle=color; ctx.lineWidth=wd; ctx.beginPath();
+    for(let i=0;i<N;i++){ const x=L+pw*i/(N-1), y=yv(arr[i]); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+    ctx.stroke(); ctx.restore();
+  }
+  line(tru,NAVY,2.4); line(unw,BLUE,2,[6,4]);
+  label(ctx,'fase continua · vera contro ricostruita',L+4,T+8,NAVY,10.5,'left',700);
+
+  const T2=T+H1+gap;
+  ctx.strokeStyle='#eef1f5';
+  [-Math.PI,0,Math.PI].forEach(v=>{ const y=T2+H2/2-(v/(2*Math.PI))*H2;
+    ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+    label(ctx, v===0?'0':(v>0?'+π':'−π'), L-8,y,MUTED,9.5,'right'); });
+  for(let i=0;i<N;i++){
+    const x=L+pw*i/(N-1), y=T2+H2/2-(obs[i]/(2*Math.PI))*H2;
+    ctx.fillStyle=phaseColor(obs[i]); ctx.fillRect(x-1,y-1.6,2.4,3.2);
+  }
+  ctx.strokeStyle=ORANGE; ctx.lineWidth=1.1; ctx.globalAlpha=0.55; ctx.beginPath();
+  for(let i=0;i<N;i++){ const x=L+pw*i/(N-1), y=T2+H2/2-(obs[i]/(2*Math.PI))*H2;
+    if(i && Math.abs(obs[i]-obs[i-1])>Math.PI) ctx.moveTo(x,y); else i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+  ctx.stroke(); ctx.globalAlpha=1;
+  label(ctx,'fase osservata, avvolta fra −π e +π',L+4,T2-10,'#d97706',10.5,'left',700);
+
+  if(aliasIdx>0){
+    const x=L+pw*aliasIdx/(N-1);
+    dashLine(ctx,x,T,x,T2+H2,RED,[4,3]);
+    ctx.fillStyle=RED; ctx.beginPath(); ctx.arc(x,yv(tru[aliasIdx]),5,0,TWO_PI); ctx.fill();
+    label(ctx,'gradiente > π',x+6,T+16,RED,10.5,'left',700);
+  }
+
+  const errMm = maxErr*0.0555/(4*Math.PI)*1000;
+  document.getElementById('r-unw').innerHTML =
+    '<span class="k">gradiente max </span><span class="'+(maxGrad>Math.PI?'vr':'vg')+'">'+maxGrad.toFixed(2)+' rad/px</span><br>'+
+    '<span class="k">limite teorico</span><span class="v">3.14 rad/px</span><br>'+
+    '<span class="k">errore max    </span><span class="'+(maxErr>Math.PI?'vr':'vg')+'">'+(maxErr/TWO_PI).toFixed(2)+' cicli</span><br>'+
+    '<span class="k">in millimetri </span><span class="vb">'+errMm.toFixed(1)+' mm</span>';
+
+  let cls,t;
+  if(maxGrad>Math.PI){ cls='bad'; t='Il gradiente supera mezza lunghezza d\u2019onda per pixel: l\u2019informazione necessaria a contare i cicli non è mai stata campionata. L\u2019algoritmo scivola di un ciclo intero e da lì in poi tutto il profilo resta traslato, con un errore secco di circa '+errMm.toFixed(0)+' millimetri.'; }
+  else if(maxErr>Math.PI){ cls='warn'; t='Il gradiente è ancora campionabile, ma il rumore di fase ha fatto sbagliare il conteggio in qualche punto. È esattamente la situazione in cui un filtraggio preliminare e una pesatura sulla coerenza fanno la differenza fra un prodotto valido e uno da rifare.'; }
+  else { cls='good'; t='Ricostruzione corretta: la curva blu si sovrappone a quella vera. Ora alza la ripidità del gradiente finché il conteggio non si rompe, e osserva che l\u2019errore non è graduale ma discreto, un ciclo intero tutto in una volta.'; }
+  verdict('v-unw',cls,t);
+}
+
+/* ===================== 8 · SERIE TEMPORALE ===================== */
+let TSSEED=99;
+function drawTs(){
+  const {ctx,w,h} = setup('cv-ts');
+  const shape=document.getElementById('s-shape').value;
+  const vel=+document.getElementById('s-vel').value;
+  const dur=+document.getElementById('s-dur').value;
+  const atm=+document.getElementById('s-atm').value/100;
+  document.getElementById('l-vel').textContent=vel.toFixed(1)+' mm/a';
+  document.getElementById('l-dur').textContent=dur.toFixed(1)+' anni';
+  document.getElementById('l-atm').textContent=atm<0.2?'lieve':(atm<0.55?'moderato':'severo');
+
+  const n=Math.max(6,Math.round(dur*365/12)), rnd=mulberry(TSSEED);
+  const ts=[], tru=[], obs=[];
+  for(let i=0;i<n;i++){
+    const t=i*12/365; ts.push(t);
+    let d;
+    if(shape==='lin') d=vel*t;
+    else if(shape==='acc') d=vel*t*(0.4+0.6*t/dur)*1.35;
+    else if(shape==='step') d=(t<dur/2?0:vel*dur*1.0);
+    else d=vel*t + Math.abs(vel)*0.55*Math.sin(TWO_PI*t);
+    tru.push(d); obs.push(d + gauss(rnd)*atm*9);
+  }
+  let st=0,sy=0,stt=0,sty=0;
+  for(let i=0;i<n;i++){ st+=ts[i]; sy+=obs[i]; stt+=ts[i]*ts[i]; sty+=ts[i]*obs[i]; }
+  const slope=(n*sty-st*sy)/(n*stt-st*st), icept=(sy-slope*st)/n;
+
+  const L=52,Rp=18,T=26,B=44,pw=w-L-Rp,ph=h-T-B;
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
+  let lo=Math.min.apply(null,obs.concat(tru)), hi=Math.max.apply(null,obs.concat(tru));
+  const pad=(hi-lo)*0.18+2; lo-=pad; hi+=pad;
+  const X=t=>L+pw*t/dur, Y=v=>T+ph-(v-lo)/(hi-lo)*ph;
+  ctx.strokeStyle='#eef1f5';
+  for(let i=0;i<=4;i++){ const v=lo+(hi-lo)*i/4, y=Y(v);
+    ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+    label(ctx,v.toFixed(0),L-8,y,MUTED,10,'right'); }
+  ctx.strokeStyle=LINE; ctx.beginPath(); ctx.moveTo(L,T); ctx.lineTo(L,T+ph); ctx.lineTo(L+pw,T+ph); ctx.stroke();
+  for(let k=0;k<=Math.floor(dur);k++){ label(ctx,k+' a',X(k),T+ph+16,MUTED,10,'center'); }
+  label(ctx,'spostamento LOS cumulato, mm',L-40,T-12,MUTED,10.5,'left',700);
+
+  ctx.strokeStyle=BLUE; ctx.lineWidth=2.2; ctx.beginPath();
+  for(let i=0;i<n;i++){ const x=X(ts[i]), y=Y(tru[i]); i?ctx.lineTo(x,y):ctx.moveTo(x,y); } ctx.stroke();
+  ctx.strokeStyle=RED; ctx.lineWidth=2.4; ctx.setLineDash([7,5]);
+  ctx.beginPath(); ctx.moveTo(X(0),Y(icept)); ctx.lineTo(X(dur),Y(icept+slope*dur)); ctx.stroke(); ctx.setLineDash([]);
+  for(let i=0;i<n;i++){ ctx.fillStyle='rgba(13,27,42,.72)'; ctx.beginPath(); ctx.arc(X(ts[i]),Y(obs[i]),3,0,TWO_PI); ctx.fill(); }
+  label(ctx,'tendenza stimata '+fmt(slope,1)+' mm/a', L+pw-4, T+12, RED,11.5,'right',700);
+
+  document.getElementById('r-ts').innerHTML =
+    '<span class="k">acquisizioni </span><span class="v">'+n+' ogni 12 giorni</span><br>'+
+    '<span class="k">velocità media</span><span class="vr">'+fmt(slope,2)+' mm/a</span><br>'+
+    '<span class="k">cumulato fine </span><span class="vb">'+fmt(tru[n-1],1)+' mm</span><br>'+
+    '<span class="k">dispersione   </span><span class="v">'+(atm*9).toFixed(1)+' mm per data</span>';
+
+  let cls,t;
+  if(shape==='step'){ cls='bad'; t='La velocità media stimata è '+fmt(slope,1)+' mm/a, ma il terreno non si è mosso di quel tasso per un solo giorno: è rimasto fermo e poi ha ceduto tutto in una volta. Comprimere questa storia in una pendenza cancella l\u2019unico fatto rilevante.'; }
+  else if(shape==='seas'){ cls='warn'; t='La componente stagionale, tipica dei serbatoi idrici e dei suoli argillosi, si sovrappone alla tendenza. Su periodi brevi può falsare completamente la stima del tasso: qui la lunghezza della serie conta più della precisione della singola data.'; }
+  else if(shape==='acc'){ cls='warn'; t='Il fenomeno accelera, quindi la retta sottostima il presente e sovrastima il passato. Su un versante instabile è proprio la curvatura, non la pendenza media, il parametro da sorvegliare.'; }
+  else if(atm>0.6){ cls='warn'; t='Il disturbo atmosferico domina la singola data, eppure la tendenza resta ben stimata: è la ridondanza temporale a salvare il risultato, perché il ritardo troposferico è scorrelato fra acquisizioni mentre la deformazione si accumula.'; }
+  else { cls='good'; t='Movimento lineare e ben campionato: velocità media e comportamento reale coincidono. Ricorda comunque che <b>'+fmt(slope,1)+' mm/a</b> è una pendenza, mentre <b>'+fmt(tru[n-1],0)+' mm</b> è il cumulato: due grandezze diverse, spesso scambiate.'; }
+  verdict('v-ts',cls,t);
+}
+
+/* ===================== 9 · RETE PSI / SBAS ===================== */
+let NETMODE='psi';
+function setNet(m){
+  NETMODE=m;
+  const b=document.querySelectorAll('#seg-net button');
+  b[0].classList.toggle('on',m==='psi'); b[1].classList.toggle('on',m==='sbas');
+  drawNet();
+}
+function drawNet(){
+  const {ctx,w,h} = setup('cv-net');
+  const n=+document.getElementById('s-nacq').value;
+  const tht=+document.getElementById('s-tht').value;
+  const thp=+document.getElementById('s-thp').value;
+  document.getElementById('l-nacq').textContent=n;
+  document.getElementById('l-tht').textContent=tht+' giorni';
+  document.getElementById('l-thp').textContent=thp+' m';
+
+  const rnd=mulberry(4242), acq=[];
+  for(let i=0;i<n;i++) acq.push({t:i*12, b:(rnd()-0.5)*1300});
+  const Tmax=(n-1)*12;
+  const L=54,Rp=18,T=26,B=46,pw=w-L-Rp,ph=h-T-B;
+  const X=t=>L+pw*t/Math.max(1,Tmax), Y=b=>T+ph/2-b/1500*ph;
+  ctx.fillStyle='#fff'; ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='#eef1f5';
+  for(let v=-600;v<=600;v+=300){ const y=Y(v); ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(L+pw,y); ctx.stroke();
+    label(ctx,v+'',L-8,y,MUTED,10,'right'); }
+  ctx.strokeStyle=LINE; ctx.beginPath(); ctx.moveTo(L,T); ctx.lineTo(L,T+ph); ctx.lineTo(L+pw,T+ph); ctx.stroke();
+  label(ctx,'baseline perpendicolare, m',L-44,T-12,MUTED,10.5,'left',700);
+  label(ctx,'tempo, giorni dalla prima acquisizione',L+pw/2,T+ph+30,MUTED,10.5,'center',700);
+  for(let k=0;k<=4;k++) label(ctx,Math.round(Tmax*k/4)+'',X(Tmax*k/4),T+ph+14,MUTED,10,'center');
+
+  let master=0, best=1e18;
+  const mt=Tmax/2, mb=acq.reduce((s,a)=>s+a.b,0)/n;
+  acq.forEach((a,i)=>{ const d=Math.abs(a.t-mt)/Tmax + Math.abs(a.b-mb)/1300; if(d<best){best=d;master=i;} });
+
+  const edges=[];
+  if(NETMODE==='psi'){ for(let i=0;i<n;i++) if(i!==master) edges.push([master,i]); }
+  else { for(let i=0;i<n;i++) for(let j=i+1;j<n;j++)
+    if(Math.abs(acq[j].t-acq[i].t)<=tht && Math.abs(acq[j].b-acq[i].b)<=thp) edges.push([i,j]); }
+
+  ctx.lineWidth=1; ctx.strokeStyle='rgba(147,197,253,.85)';
+  edges.forEach(e=>{ ctx.beginPath(); ctx.moveTo(X(acq[e[0]].t),Y(acq[e[0]].b));
+    ctx.lineTo(X(acq[e[1]].t),Y(acq[e[1]].b)); ctx.stroke(); });
+  acq.forEach((a,i)=>{
+    ctx.fillStyle = (NETMODE==='psi'&&i===master)?RED:NAVY;
+    ctx.beginPath(); ctx.arc(X(a.t),Y(a.b),(NETMODE==='psi'&&i===master)?6:3.6,0,TWO_PI); ctx.fill();
+  });
+  if(NETMODE==='psi') label(ctx,'master unico',X(acq[master].t),Y(acq[master].b)-16,RED,11,'center',700);
+
+  const par=[]; for(let i=0;i<n;i++) par.push(i);
+  const find=x=>{ while(par[x]!==x){ par[x]=par[par[x]]; x=par[x]; } return x; };
+  edges.forEach(e=>{ const a=find(e[0]),b=find(e[1]); if(a!==b) par[a]=b; });
+  const subs=new Set(); for(let i=0;i<n;i++) subs.add(find(i));
+  let maxb=0; edges.forEach(e=>{ maxb=Math.max(maxb,Math.abs(acq[e[0]].b-acq[e[1]].b)); });
+
+  label(ctx, NETMODE==='psi'?'PSI · una sola master, tutte le coppie possibili':'SBAS · solo coppie entro le soglie', L+4, T+10, NAVY,11,'left',700);
+  document.getElementById('r-net').innerHTML =
+    '<span class="k">acquisizioni  </span><span class="v">'+n+'</span><br>'+
+    '<span class="k">interferogrammi</span><span class="vb">'+edges.length+'</span><br>'+
+    '<span class="k">sottoinsiemi  </span><span class="'+(subs.size>1?'vr':'vg')+'">'+subs.size+'</span><br>'+
+    '<span class="k">baseline ⊥ max</span><span class="v">'+Math.round(maxb)+' m</span>';
+
+  let cls,t;
+  if(NETMODE==='psi'){
+    cls='warn';
+    t='Con una master unica ogni coppia è formata a qualunque baseline, anche di oltre mille metri: sui bersagli distribuiti sarebbe decorrelazione certa, ma sui riflettori puntuali dominanti la fase resta stabile. È il compromesso che rende PSI precisissimo in città e cieco in campagna.';
+  } else if(subs.size>1){
+    cls='bad';
+    t='Le soglie sono troppo restrittive e la rete si è spezzata in <b>'+subs.size+' sottoinsiemi</b> non collegati: fra un blocco e l\u2019altro la serie temporale non è ricostruibile, perché manca qualunque cammino di fase che li unisca. Allarga una delle due soglie.';
+  } else {
+    cls='good';
+    t='Rete connessa e ridondante con '+edges.length+' coppie: ogni acquisizione è raggiungibile dalle altre, la decorrelazione resta contenuta e la ridondanza permette di controllare la chiusura di fase sui circuiti chiusi.';
+  }
+  verdict('v-net',cls,t);
+}
+
+/* ===================== 10 · QUIZ ===================== */
+const QUIZ = [
+  { q:'Una mappa PSI mostra un punto con velocità di −8 mm/anno. Qual è la prima domanda da porre?',
+    o:['Di quanto è sprofondato l\u2019edificio in totale','Lungo quale LOS, con quale convenzione di segno e con quale coerenza','Quale DEM è stato usato per la geocodifica','Quante frange ci sono nell\u2019interferogramma'],
+    a:1, e:'Il valore è la proiezione su una direzione precisa, con una convenzione di segno che varia da catena a catena, e ha senso solo se accompagnato da un indicatore di qualità. Tutto il resto viene dopo.' },
+  { q:'Perché la coerenza non è una proprietà del terreno?',
+    o:['Perché dipende dal software di elaborazione','Perché è sempre uguale a uno sui bersagli naturali','Perché è definita su una coppia di acquisizioni e cambia con baseline temporale, geometria e stagione','Perché si calcola dopo l\u2019unwrapping'],
+    a:2, e:'Lo stesso bosco può essere coerente in una coppia invernale di sei giorni e completamente decorrelato in una coppia semestrale. La coerenza appartiene alla coppia, non al suolo.' },
+  { q:'Un interferogramma di una zona montuosa mostra decine di frange regolari sui versanti. Che cosa concludi?',
+    o:['Il versante si sta muovendo di decine di centimetri','È molto probabile una componente topografica residua legata alla baseline perpendicolare','L\u2019unwrapping è certamente fallito','La coerenza è nulla'],
+    a:1, e:'Frange che seguono fedelmente il rilievo sono la firma tipica della fase topografica non rimossa, o di un errore del DEM amplificato da una baseline ampia. Il primo controllo è confrontarle con la morfologia.' },
+  { q:'Quando l\u2019unwrapping fallisce in modo irrecuperabile?',
+    o:['Quando la fase vera varia di più di π fra pixel adiacenti','Quando la coerenza supera 0,9','Quando la baseline temporale è troppo corta','Quando si usa la banda L invece della banda C'],
+    a:0, e:'Oltre quel limite l\u2019informazione necessaria a ricostruire i cicli non è stata campionata: nessun algoritmo può recuperarla, e l\u2019errore si presenta come un salto discreto di un ciclo intero.' },
+  { q:'Perché SBAS sceglie deliberatamente coppie a baseline corta?',
+    o:['Per aumentare la sensibilità alla quota','Per ridurre il tempo di calcolo','Per limitare la decorrelazione geometrica e l\u2019impatto degli errori di DEM','Perché le baseline lunghe non sono disponibili su Sentinel-1'],
+    a:2, e:'Baseline corte significano geometrie di osservazione simili, quindi meno decorrelazione geometrica, e altezze di ambiguità grandi, quindi minore sensibilità agli errori del modello di quota.' },
+  { q:'Che cosa distingue la rimozione della fase topografica dalla terrain correction?',
+    o:['Nulla, sono due nomi per la stessa operazione','La prima agisce sulla fase sottraendo il contributo del rilievo, la seconda porta il prodotto in coordinate geografiche','La prima si applica solo alle immagini in ampiezza','La seconda si applica prima della coregistrazione'],
+    a:1, e:'Entrambe usano un DEM, e questo genera la confusione, ma operano su piani diversi: una sul contenuto di fase, l\u2019altra sulla griglia geometrica del prodotto.' },
+  { q:'Su un campo coltivato la coerenza vale 0,12 e la mappa mostra comunque un valore di spostamento. Che cosa fai?',
+    o:['Lo riporto, perché il software lo ha calcolato','Lo maschero, perché sotto soglia la fase non è distinguibile dal rumore','Lo moltiplico per la coerenza per correggerlo','Aumento la baseline temporale per migliorare la stima'],
+    a:1, e:'Un numero esiste sempre in output. La coerenza serve proprio a decidere quali numeri hanno contenuto informativo, e sotto le soglie operative tipiche il valore va mascherato, non interpretato.' }
+];
+function buildQuiz(){
+  const box=document.getElementById('quizbox'); if(!box || box.dataset.built) return;
+  box.dataset.built='1';
+  let html='<div class="qn">Test di autovalutazione · sette domande</div>';
+  QUIZ.forEach((it,i)=>{
+    html += '<div style="margin-bottom:26px' + (i?';border-top:1px solid #e5e7eb;padding-top:22px':'') + '">';
+    html += '<div class="qq">'+(i+1)+'. '+it.q+'</div>';
+    it.o.forEach((op,j)=>{ html += '<button class="qopt" data-q="'+i+'" data-o="'+j+'">'+op+'</button>'; });
+    html += '<div class="qfb" id="qfb-'+i+'"></div></div>';
+  });
+  box.innerHTML=html;
+  box.querySelectorAll('.qopt').forEach(b=>{
+    b.addEventListener('click',()=>{
+      const qi=+b.dataset.q, oi=+b.dataset.o, it=QUIZ[qi];
+      box.querySelectorAll('.qopt[data-q="'+qi+'"]').forEach((x,k)=>{
+        x.classList.remove('ok','no');
+        if(k===it.a) x.classList.add('ok');
+      });
+      if(oi!==it.a) b.classList.add('no');
+      const fb=document.getElementById('qfb-'+qi);
+      fb.className='qfb show';
+      fb.innerHTML='<strong>'+(oi===it.a?'Esatto. ':'Risposta corretta evidenziata in verde. ')+'</strong>'+it.e;
+    });
+  });
+}
+
+/* ===================== NAVIGAZIONE ===================== */
+const RENDER = {0:drawPhasor,1:drawLos,2:drawIfg,3:drawFringe,4:drawTopo,
+                5:drawCoh,6:drawDec,7:drawUnw,8:drawTs,9:drawNet,10:buildQuiz};
+let cur=0; const TOT=11;
+function goTo(idx){
+  document.getElementById('panel-'+cur).classList.remove('active');
+  const tabs=document.querySelectorAll('.step-tab');
+  cur=idx;
+  document.getElementById('panel-'+cur).classList.add('active');
+  tabs.forEach((t,i)=>{ t.classList.remove('active','done');
+    if(i<cur) t.classList.add('done'); if(i===cur) t.classList.add('active'); });
+  document.getElementById('btn-prev').disabled = cur===0;
+  document.getElementById('btn-next').disabled = cur===TOT-1;
+  document.getElementById('ptxt').textContent='Passo '+(cur+1)+' di '+TOT;
+  document.getElementById('pfill').style.width=((cur+1)/TOT*100)+'%';
+  if(tabs[cur] && tabs[cur].scrollIntoView) tabs[cur].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(RENDER[cur]) setTimeout(RENDER[cur],30);
+  if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([document.getElementById('panel-'+cur)]);
+}
+function nav(d){ goTo(Math.max(0,Math.min(TOT-1,cur+d))); }
+
+['s-amp','s-pha'].forEach(id=>bind(id,drawPhasor));
+['s-inc','s-dv','s-de'].forEach(id=>bind(id,drawLos));
+['s-p1','s-p2'].forEach(id=>bind(id,drawIfg));
+['s-fd','s-fw','s-band'].forEach(id=>bind(id,drawFringe));
+['s-bp','s-de2'].forEach(id=>bind(id,drawTopo));
+['s-st','s-win'].forEach(id=>bind(id,()=>drawCoh()));
+['s-cover','s-bt','s-bp2'].forEach(id=>bind(id,drawDec));
+['s-ua','s-ug','s-un'].forEach(id=>bind(id,()=>drawUnw()));
+['s-shape','s-vel','s-dur','s-atm'].forEach(id=>bind(id,drawTs));
+['s-nacq','s-tht','s-thp'].forEach(id=>bind(id,drawNet));
+
+let rz;
+window.addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(()=>{ if(RENDER[cur]) RENDER[cur](); },160); });
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight') nav(1);
+  if(e.key==='ArrowLeft') nav(-1);
+});
+window.addEventListener('load',()=>{
+  document.getElementById('btn-prev').disabled=true;
+  drawPhasor();
+  if(window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise();
+});
+</script>
+</body>
+</html>
