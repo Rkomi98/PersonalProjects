@@ -1,0 +1,565 @@
+{
+ "type": "FeatureCollection",
+ "features": [
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.242696,
+     45.534712
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "GEAS VOLLEY NERA",
+    "impianto": "Istituto Erasmo da Rotterdam",
+    "indirizzo": "Via Cantore (ang. V.le Italia 409)",
+    "comune": "Sesto San Giovanni",
+    "precisione": "impianto",
+    "fonte": "Liceo Statale Erasmo da Rotterdam, Viale Italia 409 (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.234409,
+     45.672128
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "PALLAVOLO GSA",
+    "impianto": "ITIS Leonardo da Vinci",
+    "indirizzo": "Via De Gasperi",
+    "comune": "Carate Brianza",
+    "precisione": "via",
+    "fonte": "Via De Gasperi, Carate Brianza (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.414781,
+     45.698518
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "TAI SOLUTION MERATE VOLLEY",
+    "impianto": "Sc. Medie Alessandro Manzoni",
+    "indirizzo": "Via Quintaberta",
+    "comune": "Merate",
+    "precisione": "impianto",
+    "fonte": "Scuola secondaria Alessandro Manzoni (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.409575,
+     45.646023
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "TIGERS VOLLEY BERNAREGGIO ASD",
+    "impianto": "Palestra comunale",
+    "indirizzo": "Via Europa",
+    "comune": "Bernareggio",
+    "precisione": "impianto",
+    "fonte": "Palestra Comunale, Via Europa (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.375933,
+     45.623383
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "A.S.D. VICUS VOLLEY TEAM",
+    "impianto": "Palestra scolastica Don Milani",
+    "indirizzo": "Via Passirano",
+    "comune": "Vimercate",
+    "precisione": "via",
+    "fonte": "Via Passirano, Vimercate (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.197597,
+     45.537796
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "NUOVA UMPLA BRESSO",
+    "impianto": "Scuola media Manzoni",
+    "indirizzo": "Via Patellani",
+    "comune": "Bresso",
+    "precisione": "impianto",
+    "fonte": "Scuola secondaria Alessandro Manzoni (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.253099,
+     45.533625
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "AD ASTRA - CENTAURUS",
+    "impianto": "Scuola elementare Marzabotto",
+    "indirizzo": "Via Marzabotto (ang. Via Savona)",
+    "comune": "Sesto San Giovanni",
+    "precisione": "via",
+    "fonte": "Via Marzabotto (ang. Via Savona), Sesto San Giovanni (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.232535,
+     45.605091
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "EXPERIENCE FITNESS CLUB",
+    "impianto": "Palazzetto Piermarini",
+    "indirizzo": "Via Bernini",
+    "comune": "Lissone",
+    "precisione": "via",
+    "fonte": "Via Bernini, Lissone (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.029857,
+     45.51651
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "VOLLEY LUCERNATE BLU",
+    "impianto": "S.E. di Lucernate",
+    "indirizzo": "Via Giulio Cesare (ingresso Via Verbano)",
+    "comune": "Rho",
+    "precisione": "via",
+    "fonte": "Via Giulio Cesare (ingresso Via Verbano), Rho (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.121079,
+     45.5381
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "BOLLATE VOLLEY ACADEMY",
+    "impianto": "Palazzetto dello Sport 'Carlo Galimberti'",
+    "indirizzo": "Via Varalli",
+    "comune": "Bollate",
+    "precisione": "impianto",
+    "fonte": "Palazzetto dello Sport Carlo Galimberti (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.305911,
+     45.667097
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "VOLLEY CORREZZANA",
+    "impianto": "Palestra scuola elementare",
+    "indirizzo": "Via A. De Gasperi",
+    "comune": "Correzzana",
+    "precisione": "impianto",
+    "fonte": "Scuola Primaria Dante Alighieri (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.2926,
+     45.701371
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "POLISPORTIVA BESANESE",
+    "impianto": "Palestra comunale Giovanni Monti",
+    "indirizzo": "Via Leonardo da Vinci",
+    "comune": "Besana in Brianza",
+    "precisione": "via",
+    "fonte": "Via Leonardo da Vinci, Besana in Brianza (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.108822,
+     45.614362
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "ZEROQUATTRO VOLLEY",
+    "impianto": "Scuola media A. Gramsci",
+    "indirizzo": "Via Puccini (Villaggio Sole)",
+    "comune": "Limbiate",
+    "precisione": "via",
+    "fonte": "Via Puccini (Villaggio Sole), Limbiate (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.424389,
+     45.899242
+    ]
+   },
+   "properties": {
+    "girone": "A",
+    "colore": "nera",
+    "squadra": "A.S.C. BALLABIO 89",
+    "impianto": "Palestra comunale",
+    "indirizzo": "Via Roccolo",
+    "comune": "Ballabio",
+    "precisione": "via",
+    "fonte": "Via Roccolo, Ballabio (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.242696,
+     45.534712
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "GEAS VOLLEY ROSSA",
+    "impianto": "Istituto Erasmo da Rotterdam",
+    "indirizzo": "Via Cantore (ang. V.le Italia 409)",
+    "comune": "Sesto San Giovanni",
+    "precisione": "impianto",
+    "fonte": "Liceo Statale Erasmo da Rotterdam, Viale Italia 409 (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.327506,
+     45.517068
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "ASO CERNUSCO",
+    "impianto": "Pala-ASO c/o Oratorio Paolo VI",
+    "indirizzo": "Via San Francesco",
+    "comune": "Cernusco sul Naviglio",
+    "precisione": "impianto",
+    "fonte": "Oratorio Paolo VI (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.231811,
+     45.54122
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "AD ASTRA - DRACO",
+    "impianto": "Palestra Scuola Media (Breda Piccola)",
+    "indirizzo": "Via Leonardo da Vinci",
+    "comune": "Sesto San Giovanni",
+    "precisione": "via",
+    "fonte": "Via Leonardo da Vinci, Sesto San Giovanni (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.0689,
+     45.53203
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "VOLLEY LUCERNATE BIANCA",
+    "impianto": "Scuola di Via T. Grossi",
+    "indirizzo": "Via Tommaso Grossi",
+    "comune": "Rho",
+    "precisione": "via",
+    "fonte": "Via Tommaso Grossi, Rho (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.109469,
+     45.466491
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "PEGASUS - AG MILANO",
+    "impianto": "Omnicomprensivo Zoia (campo lat. destro)",
+    "indirizzo": "Via F.lli Zoia",
+    "comune": "Milano",
+    "precisione": "via",
+    "fonte": "Via F.lli Zoia, Milano (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.18904,
+     45.438863
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "ASIPRE FORZA E CORAGGIO MILANO",
+    "impianto": "Scuola media Bognetti",
+    "indirizzo": "Via dei Bognetti",
+    "comune": "Milano",
+    "precisione": "via",
+    "fonte": "Via dei Bognetti, Milano (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.199434,
+     45.437523
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "NAVIGLI VOLLEY SSD",
+    "impianto": "Centro Sportivo Forza e Coraggio (Tenso 2)",
+    "indirizzo": "Via Gallura",
+    "comune": "Milano",
+    "precisione": "via",
+    "fonte": "Via Gallura, Milano (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.232481,
+     45.460782
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "POL. KOLBE VOLLEY MILANO",
+    "impianto": "Palestra Kolbe",
+    "indirizzo": "Via Padre Massimiliano Kolbe",
+    "comune": "Milano",
+    "precisione": "via",
+    "fonte": "Via Padre Massimiliano Kolbe, Milano (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.15825,
+     45.361733
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "KIVIAL MI3 VOLLEY",
+    "impianto": "Centro Polifunzionale - Sc. Media",
+    "indirizzo": "Piazza Leonardo da Vinci (Milano 3)",
+    "comune": "Basiglio",
+    "precisione": "via",
+    "fonte": "Piazza Leonardo da Vinci (Milano 3), Basiglio (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.165647,
+     45.392457
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "CRAZY VOLLEY ROZZANO YOUNG",
+    "impianto": "Scuola media Curiel",
+    "indirizzo": "Via Lambro (Quinto de' Stampi)",
+    "comune": "Rozzano",
+    "precisione": "impianto",
+    "fonte": "Palestra Scuola Media Curiel (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.290351,
+     45.490314
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "ALLIANZ POWERVOLLEY",
+    "impianto": "Palazzetto Sport Segrate",
+    "indirizzo": "Via XXV Aprile",
+    "comune": "Segrate",
+    "precisione": "via",
+    "fonte": "Via XXV Aprile, Segrate (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.13942,
+     45.494063
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "ASD GATE VOLLEY MILANO",
+    "impianto": "Centro Sportivo Pavesi - Pal. Galimberti",
+    "indirizzo": "Via De Lemene",
+    "comune": "Milano",
+    "precisione": "via",
+    "fonte": "Via De Lemene, Milano (punto sulla via, OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.327425,
+     45.505563
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "A.S.D. VOLLEY TEAM PIOLTELLO",
+    "impianto": "Scuola elementare Salvo D'Acquisto",
+    "indirizzo": "Via Aldo Moro",
+    "comune": "Pioltello",
+    "precisione": "impianto",
+    "fonte": "Scuola Elementare Salvo D'Acquisto (OSM)"
+   }
+  },
+  {
+   "type": "Feature",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     9.42597,
+     45.494048
+    ]
+   },
+   "properties": {
+    "girone": "B",
+    "colore": "rossa",
+    "squadra": "A.S.D. AQUILA AZZURRA MELZO",
+    "impianto": "Palestra scuole medie P. Mascagni",
+    "indirizzo": "Via P. Mascagni",
+    "comune": "Melzo",
+    "precisione": "via",
+    "fonte": "Via P. Mascagni, Melzo (punto sulla via, OSM)"
+   }
+  }
+ ]
+}

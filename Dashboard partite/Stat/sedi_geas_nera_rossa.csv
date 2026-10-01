@@ -1,0 +1,29 @@
+girone,colore,squadra,impianto,indirizzo,comune,lat,lon,precisione,fonte
+A,nera,GEAS VOLLEY NERA,Istituto Erasmo da Rotterdam,Via Cantore (ang. V.le Italia 409),Sesto San Giovanni,45.534712,9.242696,impianto,"Liceo Statale Erasmo da Rotterdam, Viale Italia 409 (OSM)"
+A,nera,PALLAVOLO GSA,ITIS Leonardo da Vinci,Via De Gasperi,Carate Brianza,45.672128,9.234409,via,"Via De Gasperi, Carate Brianza (punto sulla via, OSM)"
+A,nera,TAI SOLUTION MERATE VOLLEY,Sc. Medie Alessandro Manzoni,Via Quintaberta,Merate,45.698518,9.414781,impianto,Scuola secondaria Alessandro Manzoni (OSM)
+A,nera,TIGERS VOLLEY BERNAREGGIO ASD,Palestra comunale,Via Europa,Bernareggio,45.646023,9.409575,impianto,"Palestra Comunale, Via Europa (OSM)"
+A,nera,A.S.D. VICUS VOLLEY TEAM,Palestra scolastica Don Milani,Via Passirano,Vimercate,45.623383,9.375933,via,"Via Passirano, Vimercate (punto sulla via, OSM)"
+A,nera,NUOVA UMPLA BRESSO,Scuola media Manzoni,Via Patellani,Bresso,45.537796,9.197597,impianto,Scuola secondaria Alessandro Manzoni (OSM)
+A,nera,AD ASTRA - CENTAURUS,Scuola elementare Marzabotto,Via Marzabotto (ang. Via Savona),Sesto San Giovanni,45.533625,9.253099,via,"Via Marzabotto (ang. Via Savona), Sesto San Giovanni (punto sulla via, OSM)"
+A,nera,EXPERIENCE FITNESS CLUB,Palazzetto Piermarini,Via Bernini,Lissone,45.605091,9.232535,via,"Via Bernini, Lissone (punto sulla via, OSM)"
+A,nera,VOLLEY LUCERNATE BLU,S.E. di Lucernate,Via Giulio Cesare (ingresso Via Verbano),Rho,45.51651,9.029857,via,"Via Giulio Cesare (ingresso Via Verbano), Rho (punto sulla via, OSM)"
+A,nera,BOLLATE VOLLEY ACADEMY,Palazzetto dello Sport 'Carlo Galimberti',Via Varalli,Bollate,45.5381,9.121079,impianto,Palazzetto dello Sport Carlo Galimberti (OSM)
+A,nera,VOLLEY CORREZZANA,Palestra scuola elementare,Via A. De Gasperi,Correzzana,45.667097,9.305911,impianto,Scuola Primaria Dante Alighieri (OSM)
+A,nera,POLISPORTIVA BESANESE,Palestra comunale Giovanni Monti,Via Leonardo da Vinci,Besana in Brianza,45.701371,9.2926,via,"Via Leonardo da Vinci, Besana in Brianza (punto sulla via, OSM)"
+A,nera,ZEROQUATTRO VOLLEY,Scuola media A. Gramsci,Via Puccini (Villaggio Sole),Limbiate,45.614362,9.108822,via,"Via Puccini (Villaggio Sole), Limbiate (punto sulla via, OSM)"
+A,nera,A.S.C. BALLABIO 89,Palestra comunale,Via Roccolo,Ballabio,45.899242,9.424389,via,"Via Roccolo, Ballabio (punto sulla via, OSM)"
+B,rossa,GEAS VOLLEY ROSSA,Istituto Erasmo da Rotterdam,Via Cantore (ang. V.le Italia 409),Sesto San Giovanni,45.534712,9.242696,impianto,"Liceo Statale Erasmo da Rotterdam, Viale Italia 409 (OSM)"
+B,rossa,ASO CERNUSCO,Pala-ASO c/o Oratorio Paolo VI,Via San Francesco,Cernusco sul Naviglio,45.517068,9.327506,impianto,Oratorio Paolo VI (OSM)
+B,rossa,AD ASTRA - DRACO,Palestra Scuola Media (Breda Piccola),Via Leonardo da Vinci,Sesto San Giovanni,45.54122,9.231811,via,"Via Leonardo da Vinci, Sesto San Giovanni (punto sulla via, OSM)"
+B,rossa,VOLLEY LUCERNATE BIANCA,Scuola di Via T. Grossi,Via Tommaso Grossi,Rho,45.53203,9.0689,via,"Via Tommaso Grossi, Rho (punto sulla via, OSM)"
+B,rossa,PEGASUS - AG MILANO,Omnicomprensivo Zoia (campo lat. destro),Via F.lli Zoia,Milano,45.466491,9.109469,via,"Via F.lli Zoia, Milano (punto sulla via, OSM)"
+B,rossa,ASIPRE FORZA E CORAGGIO MILANO,Scuola media Bognetti,Via dei Bognetti,Milano,45.438863,9.18904,via,"Via dei Bognetti, Milano (punto sulla via, OSM)"
+B,rossa,NAVIGLI VOLLEY SSD,Centro Sportivo Forza e Coraggio (Tenso 2),Via Gallura,Milano,45.437523,9.199434,via,"Via Gallura, Milano (punto sulla via, OSM)"
+B,rossa,POL. KOLBE VOLLEY MILANO,Palestra Kolbe,Via Padre Massimiliano Kolbe,Milano,45.460782,9.232481,via,"Via Padre Massimiliano Kolbe, Milano (punto sulla via, OSM)"
+B,rossa,KIVIAL MI3 VOLLEY,Centro Polifunzionale - Sc. Media,Piazza Leonardo da Vinci (Milano 3),Basiglio,45.361733,9.15825,via,"Piazza Leonardo da Vinci (Milano 3), Basiglio (punto sulla via, OSM)"
+B,rossa,CRAZY VOLLEY ROZZANO YOUNG,Scuola media Curiel,Via Lambro (Quinto de' Stampi),Rozzano,45.392457,9.165647,impianto,Palestra Scuola Media Curiel (OSM)
+B,rossa,ALLIANZ POWERVOLLEY,Palazzetto Sport Segrate,Via XXV Aprile,Segrate,45.490314,9.290351,via,"Via XXV Aprile, Segrate (punto sulla via, OSM)"
+B,rossa,ASD GATE VOLLEY MILANO,Centro Sportivo Pavesi - Pal. Galimberti,Via De Lemene,Milano,45.494063,9.13942,via,"Via De Lemene, Milano (punto sulla via, OSM)"
+B,rossa,A.S.D. VOLLEY TEAM PIOLTELLO,Scuola elementare Salvo D'Acquisto,Via Aldo Moro,Pioltello,45.505563,9.327425,impianto,Scuola Elementare Salvo D'Acquisto (OSM)
+B,rossa,A.S.D. AQUILA AZZURRA MELZO,Palestra scuole medie P. Mascagni,Via P. Mascagni,Melzo,45.494048,9.42597,via,"Via P. Mascagni, Melzo (punto sulla via, OSM)"
